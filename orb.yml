@@ -7,7 +7,16 @@ executors:
         default: "10"
     docker:
       - image: cypress/base:<< parameters.node >>
+
 commands:
+  install:
+    description: "Install NPM dependencies",
+    steps:
+      # it would be nice to vary this command based on presence of "package-lock.json"
+      # and also allow using yarn or pnpm
+      - run:
+          name: "Npm CI"
+          command: "npm ci"
   e2e:
     description: "Runs Cypress end-to-end tests"
     parameters:
