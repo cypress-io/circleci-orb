@@ -10,7 +10,7 @@ executors:
 
 commands:
   install:
-    description: "Install NPM dependencies",
+    description: "Install NPM dependencies"
     steps:
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
