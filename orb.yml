@@ -1,0 +1,23 @@
+executors:
+  default:
+    parameters:
+      # in the future we can add Cypress version?
+      node:
+        type: string
+        default: "10"
+    docker:
+      - image: cypress/base:<< parameters.node >>
+commands:
+  e2e:
+    description: "Runs Cypress end-to-end tests"
+    parameters:
+      record:
+        type: boolean
+        default: false
+        description: Record results on Cypress Dashboard
+    steps:
+      - run:
+          name: Run Cypress tests
+          # ? how to use parameters.record to insert --record
+          # command: "aws s3 sync << parameters.from >> << parameters.to >><<# parameters.overwrite >> --delete<</ parameters.overwrite >>"
+          command: "npx cypress run"
