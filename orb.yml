@@ -1,3 +1,6 @@
+version: 2.1
+
+# environments for running jobs and commands
 executors:
   default:
     parameters:
@@ -8,25 +11,96 @@ executors:
     docker:
       - image: cypress/base:<< parameters.node >>
 
+# reusable commands
 commands:
+  hello:
+    parameters:
+      greeting:
+        type: string
+    steps:
+      - run: echo "Hello <<parameters.greeting>>"
+
   install:
     description: "Install NPM dependencies"
     steps:
+      - restore_cache:
+          keys:
+            - cache-{{ .Branch }}-{{ checksum "package.json" }}
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
       - run:
           name: "Npm CI"
           command: "npm ci"
+      - run: npx cypress verify
+      # save new cache folder if needed
+      - save_cache:
+          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+            - .cache/Cypress
+
   e2e:
     description: "Runs Cypress end-to-end tests"
     parameters:
       record:
         type: boolean
         default: false
-        description: Record results on Cypress Dashboard
+        description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+      parallel:
+        type: boolean
+        default: false
+        description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
+      group:
+        type: string
+        description: Give tests a group name for clarity
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run Cypress tests
-          # ? how to use parameters.record to insert --record
-          # command: "aws s3 sync << parameters.from >> << parameters.to >><<# parameters.overwrite >> --delete<</ parameters.overwrite >>"
-          command: "npx cypress run"
+          # GOOD EXAMPLE conditional text based on boolean parameter
+          command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
+
+# jobs defined by the orb
+jobs:
+  hello:
+    executor: default
+    steps:
+      - hello:
+          greeting: "from Cypress Orb"
+
+  e2e:
+    # note: this job includes code checkout
+    parameters:
+      record:
+        type: boolean
+        default: false
+        description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+      parallel:
+        type: boolean
+        default: false
+        description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
+      # parallelism:
+      #   type: string
+      #   default: "1"
+      #   description: Number of Circle machines to use for load balancing (requires "parallel" parameter set to true)
+      group:
+        type: string
+        default: "default group"
+        description: Test group name when recording on the dashboard
+    executor: default
+    # cannot pass parallelism via a parameter yet
+    # see https://github.com/CircleCI-Public/config-preview-sdk/issues/121
+    # parallelism: <<parameters.parallelism>>
+    steps:
+      - checkout
+      - install
+      - e2e:
+          record: <<parameters.record>>
+          parallel: <<parameters.parallel>>
+          group: <<parameters.group>>
