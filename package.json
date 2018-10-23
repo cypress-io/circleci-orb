@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "circleci orb validate orb.yml",
+    "create:orb": "circleci orb create cypress/runner",
     "publish:dev": "circleci orb publish orb.yml cypress/runner@dev:0.0.1"
   },
   "repository": {
