@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "validate": "circleci orb validate orb.yml",
-    "create:orb": "circleci orb create cypress/runner",
-    "publish:dev": "circleci orb publish orb.yml cypress/runner@dev:0.0.1"
+    "orb:namespace": "circleci namespace create cypress-io github cypress-io",
+    "orb:validate": "circleci orb validate orb.yml",
+    "orb:create": "circleci orb create cypress/cypress",
+    "preorb:publish": "npm run orb:validate",
+    "orb:publish": "circleci orb publish orb.yml cypress/cypress@dev:0.0.1"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run validate"
+      "pre-commit": "npm run orb:validate"
     }
   }
 }

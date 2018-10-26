@@ -1,6 +1,17 @@
 version: 2.1
 
-# environments for running jobs and commands
+#
+# End-to-end testing with Cypress on CircleCI
+# See https://www.cypress.io/
+#
+# User workflows can use "Jobs" defined in this Orb
+# Jobs can use "Commands" also defined in this Orb
+# Commands run on "Executors" defined below to guarantee consistent environment
+# with all dependencies installed correctly.
+
+#
+# environments (containers) for running jobs and commands
+#
 executors:
   default:
     parameters:
@@ -11,14 +22,17 @@ executors:
     docker:
       - image: cypress/base:<< parameters.node >>
 
+#
 # reusable commands
+#
 commands:
+  # just a tiny command for checking if things work
   hello:
     parameters:
       greeting:
         type: string
     steps:
-      - run: echo "Hello <<parameters.greeting>>"
+      - run: echo "Cypress says, Hello <<parameters.greeting>>"
 
   install:
     description: "Install NPM dependencies"
@@ -66,7 +80,9 @@ commands:
           # GOOD EXAMPLE conditional text based on boolean parameter
           command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
 
+#
 # jobs defined by the orb
+#
 jobs:
   hello:
     executor: default
