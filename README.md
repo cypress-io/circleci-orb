@@ -45,13 +45,13 @@ workflows:
   build:
     jobs:
       - cypress/install
-      - cypress/parallel-4x:
+      - cypress/run-4x:
           requires:
             - cypress/install
-          group: "4 machines"
+          group: "4 machines" # optional group name
 ```
 
-There are jobs from `parallel-1x` to `parallel-10x`.
+There are jobs from `run-1x` to `run-10x`.
 
 ## Source code
 

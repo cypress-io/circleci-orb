@@ -167,34 +167,34 @@ jobs:
 
   # since we cannot pass parallelism as a parameter
   # we can just have multiple commands for now.
-  parallel-1x:
+  run-1x:
     parallelism: 1
     <<: *parallel
-  parallel-2x:
+  run-2x:
     parallelism: 2
     <<: *parallel
-  parallel-3x:
+  run-3x:
     parallelism: 3
     <<: *parallel
-  parallel-4x:
+  run-4x:
     parallelism: 4
     <<: *parallel
-  parallel-5x:
+  run-5x:
     parallelism: 5
     <<: *parallel
-  parallel-6x:
+  run-6x:
     parallelism: 6
     <<: *parallel
-  parallel-7x:
+  run-7x:
     parallelism: 7
     <<: *parallel
-  parallel-8x:
+  run-8x:
     parallelism: 8
     <<: *parallel
-  parallel-9x:
+  run-9x:
     parallelism: 9
     <<: *parallel
-  parallel-10x:
+  run-10x:
     parallelism: 10
     <<: *parallel
 
@@ -234,7 +234,7 @@ examples:
       workflows:
         build:
           jobs:
-            - cypress/install
+            - cypress/run
             - cypress/parallel-2x:
                 requires:
                   - cypress/install
