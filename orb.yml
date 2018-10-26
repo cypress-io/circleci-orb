@@ -169,6 +169,12 @@ jobs:
   parallel-2x:
     parallelism: 2
     <<: *parallel
+  parallel-3x:
+    parallelism: 3
+    <<: *parallel
+  parallel-4x:
+    parallelism: 4
+    <<: *parallel
 
 #
 # user examples showing how to use the above Cypress Orb
