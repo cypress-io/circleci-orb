@@ -17,11 +17,12 @@ description: |
 #
 executors:
   default:
+    description: Single Docker container with Cypress dependencies
     parameters:
-      # in the future we can add Cypress version?
       node:
         type: string
         default: "10"
+        description: Version of Node 6/8/10 to use
     docker:
       - image: cypress/base:<< parameters.node >>
 
@@ -139,6 +140,32 @@ jobs:
           parallel: <<parameters.parallel>>
           group: <<parameters.group>>
 
+  install:
+    description: Checks out code, installs dependencies, attaches code to the workspace
+    executor: default
+    steps:
+      - checkout
+      - install
+
+  # since we cannot pass parallelism as a parameter
+  # we can just have multiple commands for now
+  parallel-2x:
+    description: |
+      Load balances tests on two machines. Needs to record to Cypress Dashboard.
+      See usage examples below.
+    parameters:
+      group:
+        type: string
+        default: "default group"
+        description: Test group name when recording on the dashboard
+    executor: default
+    parallelism: 2
+    steps:
+      - e2e:
+          record: true
+          parallel: true
+          group: <<parameters.group>>
+
 #
 # user examples showing how to use the above Cypress Orb
 #
@@ -149,7 +176,6 @@ examples:
       version: 2.1
       orbs:
         cypress: cypress/cypress@dev:0.0.1
-
       workflows:
         build:
           jobs:
@@ -161,9 +187,21 @@ examples:
       version: 2.1
       orbs:
         cypress: cypress/cypress@dev:0.0.1
-
       workflows:
         build:
           jobs:
             - cypress/run:
                 record: true
+
+  parallel-on-2-machines:
+    description: Runs all Cypress tests by load balancing them on two machines
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@dev:0.0.1
+      workflows:
+        build:
+          jobs:
+            - cypress/install
+            - cypress/parallel-2x:
+                group: "2 machines"

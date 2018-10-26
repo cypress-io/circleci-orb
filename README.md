@@ -21,6 +21,6 @@ Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-te
 ## Additional information
 
 - https://github.com/CircleCI-Public/circleci-orbs
-- https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs
+- [Orb configuration](https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs)
 - [Authoring orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md)
 - [Testing orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-testing.md)
