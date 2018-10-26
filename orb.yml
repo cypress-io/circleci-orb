@@ -88,7 +88,8 @@ commands:
 .parallel_template: &parallel
   description: |
     Load balances tests on two machines. Needs to record to Cypress Dashboard.
-    See usage examples below.
+    See usage examples below, but in general user needs
+    to run install command and THEN parallel-x command
   parameters:
     group:
       type: string
@@ -165,7 +166,10 @@ jobs:
       - install
 
   # since we cannot pass parallelism as a parameter
-  # we can just have multiple commands for now
+  # we can just have multiple commands for now.
+  parallel-1x:
+    parallelism: 1
+    <<: *parallel
   parallel-2x:
     parallelism: 2
     <<: *parallel
@@ -174,6 +178,24 @@ jobs:
     <<: *parallel
   parallel-4x:
     parallelism: 4
+    <<: *parallel
+  parallel-5x:
+    parallelism: 5
+    <<: *parallel
+  parallel-6x:
+    parallelism: 6
+    <<: *parallel
+  parallel-7x:
+    parallelism: 7
+    <<: *parallel
+  parallel-8x:
+    parallelism: 8
+    <<: *parallel
+  parallel-9x:
+    parallelism: 9
+    <<: *parallel
+  parallel-10x:
+    parallelism: 10
     <<: *parallel
 
 #
@@ -214,4 +236,6 @@ examples:
           jobs:
             - cypress/install
             - cypress/parallel-2x:
+                requires:
+                  - cypress/install
                 group: "2 machines"
