@@ -1,5 +1,9 @@
 # Cypress CircleCI Orb
 
+> Run your Cypress.io end-to-end browser tests without spending time configuring CircleCI. This orb can also record results on the Cypress Dashboard and load balance tests in parallel mode.
+
+## Source code
+
 See [orb.yml](orb.yml)
 
 ## Namespace
