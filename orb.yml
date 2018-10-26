@@ -84,6 +84,23 @@ commands:
           # GOOD EXAMPLE conditional text based on boolean parameter
           command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
 
+# utility template for making many parallel jobs (see below like "parallel-2x")
+.parallel_template: &parallel
+  description: |
+    Load balances tests on two machines. Needs to record to Cypress Dashboard.
+    See usage examples below.
+  parameters:
+    group:
+      type: string
+      default: "default group"
+      description: Test group name when recording on the dashboard
+  executor: default
+  steps:
+    - e2e:
+        record: true
+        parallel: true
+        group: <<parameters.group>>
+
 #
 # jobs defined by the orb
 #
@@ -150,21 +167,8 @@ jobs:
   # since we cannot pass parallelism as a parameter
   # we can just have multiple commands for now
   parallel-2x:
-    description: |
-      Load balances tests on two machines. Needs to record to Cypress Dashboard.
-      See usage examples below.
-    parameters:
-      group:
-        type: string
-        default: "default group"
-        description: Test group name when recording on the dashboard
-    executor: default
     parallelism: 2
-    steps:
-      - e2e:
-          record: true
-          parallel: true
-          group: <<parameters.group>>
+    <<: *parallel
 
 #
 # user examples showing how to use the above Cypress Orb
