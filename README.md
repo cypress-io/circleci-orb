@@ -2,6 +2,57 @@
 
 > Run your Cypress.io end-to-end browser tests without spending time configuring CircleCI. This orb can also record results on the Cypress Dashboard and load balance tests in parallel mode.
 
+## Example
+
+### Single machine
+
+Checks out code, install dependencies (using `npm ci`) and runs all Cypress tests
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress/cypress@dev:0.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/run
+```
+
+### Recording on Dashboard
+
+Runs on single machine and records test artifacts on Cypress Dashboard. Please set `CYPRESS_RECORD_KEY` environment variable on CI.
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress/cypress@dev:0.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/run
+          record: true
+```
+
+### Parallel
+
+Load balances tests across 4 machines and records test artifacts on Cypress Dashboard. Please set `CYPRESS_RECORD_KEY` environment variable on CI.
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress/cypress@dev:0.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/install
+      - cypress/parallel-4x:
+          requires:
+            - cypress/install
+          group: "4 machines"
+```
+
+There are jobs from `parallel-1x` to `parallel-10x`.
+
 ## Source code
 
 See [orb.yml](orb.yml)
