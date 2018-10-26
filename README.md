@@ -12,10 +12,11 @@ There are scripts for creating namespace, orbs, etc in `package.json`. They all 
 
 ## Demo project
 
-Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-test) to see this orb in action.
+Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-test) to see this orb in action. Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.
 
 ## Additional information
 
 - https://github.com/CircleCI-Public/circleci-orbs
 - https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs
+- [Authoring orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md)
 - [Testing orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-testing.md)

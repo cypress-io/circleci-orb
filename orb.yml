@@ -1,7 +1,7 @@
 version: 2.1
+description: End-to-end testing with Cypress.io on CircleCI
 
 #
-# End-to-end testing with Cypress on CircleCI
 # See https://www.cypress.io/
 #
 # User workflows can use "Jobs" defined in this Orb
@@ -26,8 +26,8 @@ executors:
 # reusable commands
 #
 commands:
-  # just a tiny command for checking if things work
   hello:
+    description: just a tiny command for checking if things work
     parameters:
       greeting:
         type: string
@@ -35,7 +35,7 @@ commands:
       - run: echo "Cypress says, Hello <<parameters.greeting>>"
 
   install:
-    description: "Install NPM dependencies"
+    description: Install NPM dependencies using "npm ci"
     steps:
       - restore_cache:
           keys:
@@ -59,7 +59,7 @@ commands:
             - .cache/Cypress
 
   e2e:
-    description: "Runs Cypress end-to-end tests"
+    description: Runs Cypress end-to-end tests
     parameters:
       record:
         type: boolean
@@ -85,22 +85,34 @@ commands:
 #
 jobs:
   hello:
+    description: Dummy job for testing commands
     executor: default
     steps:
       - hello:
-          greeting: "from Cypress Orb"
+          greeting: "friend"
 
-  e2e:
-    # note: this job includes code checkout
+  # a single e2e test run that
+  #   - checks out code
+  #   - installs NPM dependencies
+  #   - executes Cypress end-to-end tests
+  #     * (optional) with Dashboard recording
+  #     * (optional) in parallel mode (requires recording)
+  #     * (optional) with named group on Dashboard (requires recording)
+  run:
+    description: A single complete job to run Cypress end-to-end tests in your project
+
     parameters:
       record:
         type: boolean
         default: false
         description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+
+      # "parallel" parameter should be used with "parallelism" parameter
       parallel:
         type: boolean
         default: false
         description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
+
       # parallelism:
       #   type: string
       #   default: "1"
@@ -109,6 +121,7 @@ jobs:
         type: string
         default: "default group"
         description: Test group name when recording on the dashboard
+
     executor: default
     # cannot pass parallelism via a parameter yet
     # see https://github.com/CircleCI-Public/config-preview-sdk/issues/121
@@ -120,3 +133,32 @@ jobs:
           record: <<parameters.record>>
           parallel: <<parameters.parallel>>
           group: <<parameters.group>>
+
+#
+# user examples showing how to use the above Cypress Orb
+#
+examples:
+  simple:
+    description: Runs all Cypress tests without recording results on the Dashboard
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@dev:0.0.1
+
+      workflows:
+        build:
+          jobs:
+            - cypress/run
+
+  recording:
+    description: Runs all Cypress tests and records them on the Cypress Dashboard
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@dev:0.0.1
+
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                record: true
