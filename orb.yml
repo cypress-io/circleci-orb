@@ -123,6 +123,36 @@ commands:
           # GOOD EXAMPLE conditional text based on boolean parameter
           command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
 
+  e2e_with_start:
+    description: Runs Cypress end-to-end tests after running start command in the background
+    parameters:
+      record:
+        type: boolean
+        default: false
+        description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+      parallel:
+        type: boolean
+        default: false
+        description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
+      group:
+        type: string
+        description: Give tests a group name for clarity
+      start:
+        type: string
+        description: Server start command (runs in the background)
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Start
+          command: "<< parameters.start >>"
+          background: true
+      - run:
+          name: Run Cypress tests
+          # GOOD EXAMPLE conditional text based on boolean parameter
+          command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
+
+
 # utility template for making many parallel jobs (see below like "parallel-2x")
 .parallel_template: &parallel
   description: |
@@ -134,12 +164,28 @@ commands:
       type: string
       default: "default group"
       description: Test group name when recording on the dashboard
+    start:
+      type: string
+      default: ""
+      description: |
+        Optional server start command to run in the background before running Cypress tests
   executor: default
   steps:
-    - e2e:
-        record: true
-        parallel: true
-        group: <<parameters.group>>
+    - when:
+        condition: << parameters.start >>
+        steps:
+          - e2e_with_start:
+              start: << parameters.start >>
+              record: true
+              parallel: true
+              group: <<parameters.group>>
+    - unless:
+        condition: << parameters.start >>
+        steps:
+          - e2e:
+              record: true
+              parallel: true
+              group: <<parameters.group>>
 
 #
 # jobs defined by the orb
@@ -157,6 +203,7 @@ jobs:
   #   - installs NPM dependencies
   #     * (optional) run custom build command
   #   - executes Cypress end-to-end tests
+  #     * (optional) starts server in the background
   #     * (optional) with Dashboard recording
   #     * (optional) in parallel mode (requires recording)
   #     * (optional) with named group on Dashboard (requires recording)
@@ -191,6 +238,12 @@ jobs:
         default: ""
         description: Custom build command to run after install
 
+      start:
+        type: string
+        default: ""
+        description: |
+          Optional server start command to run in the background before running Cypress tests
+
     executor: default
     # cannot pass parallelism via a parameter yet
     # see https://github.com/CircleCI-Public/config-preview-sdk/issues/121
@@ -206,10 +259,21 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install
-      - e2e:
-          record: <<parameters.record>>
-          parallel: <<parameters.parallel>>
-          group: <<parameters.group>>
+      - when:
+          condition: << parameters.start >>
+          steps:
+            - e2e_with_start:
+                start: << parameters.start >>
+                record: <<parameters.record>>
+                parallel: <<parameters.parallel>>
+                group: <<parameters.group>>
+      - unless:
+          condition: << parameters.start >>
+          steps:
+            - e2e:
+                record: <<parameters.record>>
+                parallel: <<parameters.parallel>>
+                group: <<parameters.group>>
 
   install:
     parameters:
@@ -291,6 +355,18 @@ examples:
             - cypress/run:
                 record: true
 
+  start-server:
+    description: Starts server and then runs all Cypress tests
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@dev:0.0.1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                start: "npm start"
+
   parallel-on-2-machines:
     description: Runs all Cypress tests by load balancing them on two machines
     usage:
@@ -301,7 +377,7 @@ examples:
         build:
           jobs:
             - cypress/run
-            - cypress/parallel-2x:
+            - cypress/run-2x:
                 requires:
                   - cypress/install
                 group: "2 machines"
