@@ -38,8 +38,10 @@ commands:
     steps:
       - run: echo "Cypress says, Hello <<parameters.greeting>>"
 
-  install:
-    description: Install NPM dependencies using "npm ci"
+  #
+  # individual "building blocks" commands
+  #
+  setup:
     steps:
       - restore_cache:
           keys:
@@ -56,11 +58,31 @@ commands:
           paths:
             - ~/.npm
             - ~/.cache
+
+  write_workspace:
+    steps:
       - persist_to_workspace:
           root: ~/
           paths:
             - project
             - .cache/Cypress
+
+  #
+  # public user commands
+  #
+  install:
+    description: Install NPM dependencies using "npm ci"
+    parameters:
+      build:
+        type: string
+        default: ""
+        description: Custom build command to run after install
+    steps:
+      - setup
+      - write_workspace
+      # - when:
+      #     condition: << parameters.build >>
+      #       "<< parameters.build >>"
 
   e2e:
     description: Runs Cypress end-to-end tests
