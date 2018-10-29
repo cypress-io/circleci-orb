@@ -185,13 +185,26 @@ jobs:
         default: "default group"
         description: Test group name when recording on the dashboard
 
+      build:
+        type: string
+        default: ""
+        description: Custom build command to run after install
+
     executor: default
     # cannot pass parallelism via a parameter yet
     # see https://github.com/CircleCI-Public/config-preview-sdk/issues/121
     # parallelism: <<parameters.parallelism>>
     steps:
       - checkout
-      - install
+      - when:
+          condition: << parameters.build >>
+          steps:
+            - install_and_build:
+                build: << parameters.build >>
+      - unless:
+          condition: << parameters.build >>
+          steps:
+            - install
       - e2e:
           record: <<parameters.record>>
           parallel: <<parameters.parallel>>
@@ -215,7 +228,7 @@ jobs:
       - unless:
           condition: << parameters.build >>
           steps:
-            - install:
+            - install
 
   # since we cannot pass parallelism as a parameter
   # we can just have multiple commands for now.
