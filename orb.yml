@@ -59,6 +59,14 @@ commands:
             - ~/.npm
             - ~/.cache
 
+  build:
+    parameters:
+      build:
+        type: string
+        description: Custom build command to run after install
+    steps:
+      - run: << parameters.build >>
+
   write_workspace:
     steps:
       - persist_to_workspace:
@@ -72,13 +80,22 @@ commands:
   #
   install:
     description: Install NPM dependencies using "npm ci"
+    steps:
+      - setup
+      - write_workspace
+
+  install_and_build:
+    description: Install NPM dependencies using "npm ci" then runs your build command
     parameters:
       build:
         type: string
-        default: ""
         description: Custom build command to run after install
     steps:
       - setup
+      # I could not find a way to run conditional step inside a command,
+      # so had to do separate command
+      - build:
+          build: << parameters.build >>
       - write_workspace
       # - when:
       #     condition: << parameters.build >>
@@ -181,11 +198,24 @@ jobs:
           group: <<parameters.group>>
 
   install:
+    parameters:
+      build:
+        type: string
+        default: ""
+        description: Custom build command to run after install
     description: Checks out code, installs dependencies, attaches code to the workspace
     executor: default
     steps:
       - checkout
-      - install
+      - when:
+          condition: << parameters.build >>
+          steps:
+            - install_and_build:
+                build: << parameters.build >>
+      - unless:
+          condition: << parameters.build >>
+          steps:
+            - install:
 
   # since we cannot pass parallelism as a parameter
   # we can just have multiple commands for now.
