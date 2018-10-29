@@ -291,3 +291,22 @@ examples:
                 requires:
                   - cypress/install
                 group: "2 machines"
+
+  build-app:
+    description: |
+      Install dependencies and run custom build command on one machine.
+      Then run on 3 machines tests in load balancing mode.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@dev:0.0.1
+      workflows:
+        build:
+          jobs:
+            - cypress/install:
+                # custom build command
+                build: "npm run build"
+            - cypress/run-3x:
+                requires:
+                  - cypress/install
+                group: "3x"
