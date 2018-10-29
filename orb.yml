@@ -155,6 +155,7 @@ jobs:
   # a single e2e test run that
   #   - checks out code
   #   - installs NPM dependencies
+  #     * (optional) run custom build command
   #   - executes Cypress end-to-end tests
   #     * (optional) with Dashboard recording
   #     * (optional) in parallel mode (requires recording)
