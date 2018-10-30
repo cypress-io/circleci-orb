@@ -29,7 +29,7 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/run
+      - cypress/run:
           record: true
 ```
 
