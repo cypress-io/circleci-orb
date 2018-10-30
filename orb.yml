@@ -65,14 +65,6 @@ commands:
             - ~/.cache
       - steps: << parameters.build >>
 
-  build:
-    parameters:
-      build:
-        type: string
-        description: Custom build command to run after install
-    steps:
-      - run: << parameters.build >>
-
   write_workspace:
     steps:
       - persist_to_workspace:
