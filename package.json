@@ -11,7 +11,8 @@
     "preorb:publish": "npm run orb:validate",
     "orb:publish": "node ./publish",
     "next-ver": "next-ver",
-    "set-next-version": "next-ver --go"
+    "set-next-version": "next-ver --go",
+    "orb:list": "circleci orb list cypress"
   },
   "repository": {
     "type": "git",
