@@ -68,6 +68,32 @@ Each GitHub organization can have a single CircleCI namespace. In our case it is
 
 There are scripts for creating namespace, orbs, etc in `package.json`. They all start with `orb:` prefix, use `npm run` to view them. Usually you need to only run `npm run orb:publish` to publish new version of the orb.
 
+## Publishing
+
+You can see existing orbs
+
+```shell
+$ circleci orb list cypress
+```
+
+You can publish new orb version manually, by incrementing version for example
+
+```shell
+$ circleci orb publish increment orb.yml cypress/cypress patch
+Orb `cypress/cypress` has been incremented to `cypress/cypress@0.0.2`.
+Please note that this is an open orb and is world-readable.
+```
+
+or by specifying new version
+
+```shell
+circleci orb publish orb.yml cypress/cypress@dev:0.0.1
+```
+
+but the better way is to use same version as [package.json](package.json).
+
+First, see if new version is needed.
+
 ## Demo project
 
 Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-test) to see this orb in action. Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.

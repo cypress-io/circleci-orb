@@ -9,7 +9,7 @@
     "orb:validate": "circleci orb validate orb.yml",
     "orb:create": "circleci orb create cypress/cypress",
     "preorb:publish": "npm run orb:validate",
-    "orb:publish": "circleci orb publish orb.yml cypress/cypress@dev:0.0.1",
+    "orb:publish": "node ./publish",
     "next-ver": "next-ver"
   },
   "repository": {
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/cypress-io/circleci-orb#readme",
   "devDependencies": {
+    "execa": "1.0.0",
     "husky": "1.1.2",
     "next-ver": "1.8.0"
   },
