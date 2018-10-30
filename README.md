@@ -96,6 +96,14 @@ but the better way is to let the [publish.js](publish.js) increment the version,
 npm run orb:publish
 ```
 
+Uses [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits
+
+```text
+major: breaking change
+minor: new feature added
+fix: a patch release
+```
+
 ## Demo project
 
 Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-test) to see this orb in action. Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.

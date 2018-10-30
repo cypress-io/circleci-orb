@@ -7,12 +7,12 @@ const setNewVersion = () => {
 const loadNameAndVersion = () => {
   const version = require('./package').version
   const name = `cypress/cypress@${version}`
-  console.log('publishing %s of the orb', name)
+  console.log('publishing orb %s', name)
   return name
 }
 
 const publishOrb = (nameVersion) => {
-  const cmd = `echo circleci orb publish orb.yml ${nameVersion}`
+  const cmd = `circleci orb publish orb.yml ${nameVersion}`
   return execa.shell(cmd, {stdio: 'inherit'})
 }
 
