@@ -94,6 +94,10 @@ but the better way is to use same version as [package.json](package.json).
 
 First, see if new version is needed.
 
+```shell
+npx next-ver --go
+```
+
 ## Demo project
 
 Use [cypress-io/circleci-orb-test](https://github.com/cypress-io/circleci-orb-test) to see this orb in action. Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.
