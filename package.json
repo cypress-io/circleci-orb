@@ -10,7 +10,8 @@
     "orb:create": "circleci orb create cypress/cypress",
     "preorb:publish": "npm run orb:validate",
     "orb:publish": "node ./publish",
-    "next-ver": "next-ver"
+    "next-ver": "next-ver",
+    "set-next-version": "next-ver --go"
   },
   "repository": {
     "type": "git",

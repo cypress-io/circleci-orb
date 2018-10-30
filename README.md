@@ -90,12 +90,10 @@ or by specifying new version
 circleci orb publish orb.yml cypress/cypress@dev:0.0.1
 ```
 
-but the better way is to use same version as [package.json](package.json).
-
-First, see if new version is needed.
+but the better way is to let the [publish.js](publish.js) increment the version, tag the commit and publish the orb.
 
 ```shell
-npx next-ver --go
+npm run orb:publish
 ```
 
 ## Demo project
