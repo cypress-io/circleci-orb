@@ -1,15 +1,14 @@
 const execa = require('execa')
-const version = require('./package').version
-const name = `cypress/cypress@${version}`
-console.log('publishing %s of the orb', name)
-
-const tag = (tag) => {
-  const cmd = `git tag ${tag}`
-  return execa.shell(cmd, {stdio: 'inherit'})
-}
 
 const setNewVersion = () => {
   return execa('npm', ['run', 'set-next-version'], {stdio: 'inherit'})
+}
+
+const loadNameAndVersion = () => {
+  const version = require('./package').version
+  const name = `cypress/cypress@${version}`
+  console.log('publishing %s of the orb', name)
+  return name
 }
 
 const publishOrb = (nameVersion) => {
@@ -18,10 +17,8 @@ const publishOrb = (nameVersion) => {
 }
 
 setNewVersion()
-  .then(() => publishOrb(name))
-  // .then(() =>
-  //   tag(version)
-  // )
+  .then(loadNameAndVersion)
+  .then(publishOrb)
   .catch(e => {
     console.error(e.message)
     process.exit(1)
