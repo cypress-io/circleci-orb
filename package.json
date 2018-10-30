@@ -1,6 +1,6 @@
 {
   "name": "circleci-orb",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "See [orb.yml](orb.yml)",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "orb:validate": "circleci orb validate orb.yml",
     "orb:create": "circleci orb create cypress/cypress",
     "preorb:publish": "npm run orb:validate",
-    "orb:publish": "circleci orb publish orb.yml cypress/cypress@dev:0.0.1"
+    "orb:publish": "circleci orb publish orb.yml cypress/cypress@dev:0.0.1",
+    "next-ver": "next-ver"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,15 @@
   },
   "homepage": "https://github.com/cypress-io/circleci-orb#readme",
   "devDependencies": {
-    "husky": "1.1.2"
+    "husky": "1.1.2",
+    "next-ver": "1.8.0"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run orb:validate"
     }
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
   }
 }
