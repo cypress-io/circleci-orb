@@ -45,9 +45,12 @@ workflows:
   build:
     jobs:
       - cypress/install
-      - cypress/run-4x:
+      - cypress/run:
           requires:
             - cypress/install
+          record: true        # parallel run requires recording
+          parallel: true      # load balanced mode
+          parallelism: 4      # use 4 machines
           group: "4 machines" # optional group name
 ```
 

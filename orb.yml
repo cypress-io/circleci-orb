@@ -152,41 +152,6 @@ commands:
           # GOOD EXAMPLE conditional text based on boolean parameter
           command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
 
-
-# utility template for making many parallel jobs (see below like "parallel-2x")
-.parallel_template: &parallel
-  description: |
-    Load balances tests on two machines. Needs to record to Cypress Dashboard.
-    See usage examples below, but in general user needs
-    to run install command and THEN parallel-x command
-  parameters:
-    group:
-      type: string
-      default: "default group"
-      description: Test group name when recording on the dashboard
-    start:
-      type: string
-      default: ""
-      description: |
-        Optional server start command to run in the background before running Cypress tests
-  executor: default
-  steps:
-    - when:
-        condition: << parameters.start >>
-        steps:
-          - e2e_with_start:
-              start: << parameters.start >>
-              record: true
-              parallel: true
-              group: <<parameters.group>>
-    - unless:
-        condition: << parameters.start >>
-        steps:
-          - e2e:
-              record: true
-              parallel: true
-              group: <<parameters.group>>
-
 #
 # jobs defined by the orb
 #
@@ -205,7 +170,7 @@ jobs:
   #   - executes Cypress end-to-end tests
   #     * (optional) starts server in the background
   #     * (optional) with Dashboard recording
-  #     * (optional) in parallel mode (requires recording)
+  #     * (optional) in parallel mode on N machines (requires recording)
   #     * (optional) with named group on Dashboard (requires recording)
   run:
     description:
@@ -222,12 +187,17 @@ jobs:
       parallel:
         type: boolean
         default: false
-        description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
+        description: |
+          Use test balancing using Cypress Dashboard
+          see https://on.cypress.io/parallelization
 
-      # parallelism:
-      #   type: string
-      #   default: "1"
-      #   description: Number of Circle machines to use for load balancing (requires "parallel" parameter set to true)
+      parallelism:
+        type: integer
+        default: 1
+        description: |
+          Number of Circle machines to use for load balancing, min 1
+          (requires "parallel" parameter set to true)
+
       group:
         type: string
         default: "default group"
@@ -245,9 +215,8 @@ jobs:
           Optional server start command to run in the background before running Cypress tests
 
     executor: default
-    # cannot pass parallelism via a parameter yet
-    # see https://github.com/CircleCI-Public/config-preview-sdk/issues/121
-    # parallelism: <<parameters.parallelism>>
+    parallelism: <<parameters.parallelism>>
+
     steps:
       - checkout
       - when:
@@ -294,39 +263,6 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install
-
-  # since we cannot pass parallelism as a parameter
-  # we can just have multiple commands for now.
-  run-1x:
-    parallelism: 1
-    <<: *parallel
-  run-2x:
-    parallelism: 2
-    <<: *parallel
-  run-3x:
-    parallelism: 3
-    <<: *parallel
-  run-4x:
-    parallelism: 4
-    <<: *parallel
-  run-5x:
-    parallelism: 5
-    <<: *parallel
-  run-6x:
-    parallelism: 6
-    <<: *parallel
-  run-7x:
-    parallelism: 7
-    <<: *parallel
-  run-8x:
-    parallelism: 8
-    <<: *parallel
-  run-9x:
-    parallelism: 9
-    <<: *parallel
-  run-10x:
-    parallelism: 10
-    <<: *parallel
 
 #
 # user examples showing how to use the above Cypress Orb
@@ -377,9 +313,12 @@ examples:
         build:
           jobs:
             - cypress/run
-            - cypress/run-2x:
+            - cypress/run:
                 requires:
                   - cypress/install
+                record: true
+                parallel: true
+                parallelism: 2
                 group: "2 machines"
 
   build-app:
@@ -396,7 +335,10 @@ examples:
             - cypress/install:
                 # custom build command
                 build: "npm run build"
-            - cypress/run-3x:
+            - cypress/run:
                 requires:
                   - cypress/install
+                record: true
+                parallel: true
+                parallelism: 3
                 group: "3x"
