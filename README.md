@@ -4,6 +4,8 @@
 
 ## Example
 
+You can find examples inside the [orb.yml](orb.yml) itself
+
 ### Single machine
 
 Checks out code, install dependencies (using `npm ci`) and runs all Cypress tests
@@ -11,7 +13,7 @@ Checks out code, install dependencies (using `npm ci`) and runs all Cypress test
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress/cypress@dev:0.0.1
+  cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
@@ -25,7 +27,7 @@ Runs on single machine and records test artifacts on Cypress Dashboard. Please s
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress/cypress@dev:0.0.1
+  cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
@@ -40,7 +42,7 @@ Load balances tests across 4 machines and records test artifacts on Cypress Dash
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress/cypress@dev:0.0.1
+  cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
@@ -54,15 +56,13 @@ workflows:
           group: "4 machines" # optional group name
 ```
 
-There are jobs from `run-1x` to `run-10x`.
-
 ## Source code
 
 See [orb.yml](orb.yml)
 
 ## Namespace
 
-Each GitHub organization can have a single CircleCI namespace. In our case it is `cypress` but I am trying to rename it to `cypress-io` [see this issue](https://github.com/cypress-io/circleci-orb-test/issues/4)
+This orb is part of `cypress-io` namespace, same as Cypress.io GitHub organization name.
 
 ## Development
 
@@ -73,21 +73,21 @@ There are scripts for creating namespace, orbs, etc in `package.json`. They all 
 You can see existing orbs
 
 ```shell
-$ circleci orb list cypress
+$ circleci orb list cypress-io
 ```
 
 You can publish new orb version manually, by incrementing version for example
 
 ```shell
-$ circleci orb publish increment orb.yml cypress/cypress patch
-Orb `cypress/cypress` has been incremented to `cypress/cypress@0.0.2`.
+$ circleci orb publish increment orb.yml cypress-io/cypress patch
+Orb `cypress-io/cypress` has been incremented to `cypress-op/cypress@1.0.2`.
 Please note that this is an open orb and is world-readable.
 ```
 
 or by specifying new version
 
 ```shell
-circleci orb publish orb.yml cypress/cypress@dev:0.0.1
+circleci orb publish orb.yml cypress-io/cypress@0.0.1
 ```
 
 but the better way is to let the [publish.js](publish.js) increment the version, tag the commit and publish the orb.
@@ -102,6 +102,12 @@ Uses [simple semantic commit convention](https://github.com/bahmutov/simple-comm
 major: breaking change
 minor: new feature added
 fix: a patch release
+```
+
+Note: you can publish temporary version of the orb using `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
+
+```
+circleci orb publish orb.yml cypress-io/cypress@dev:1.1.0
 ```
 
 ## Demo project

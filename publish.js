@@ -6,7 +6,9 @@ const setNewVersion = () => {
 
 const loadNameAndVersion = () => {
   const version = require('./package').version
-  const name = `cypress/cypress@${version}`
+  const namespace = 'cypress-io'
+  const orbName = 'cypress'
+  const name = `${namespace}/${orbName}@${version}`
   console.log('publishing orb %s', name)
   return name
 }

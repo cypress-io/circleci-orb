@@ -7,12 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "orb:namespace": "circleci namespace create cypress-io github cypress-io",
     "orb:validate": "circleci orb validate orb.yml",
-    "orb:create": "circleci orb create cypress/cypress",
+    "orb:create": "circleci orb create cypress-io/cypress",
+    "orb:list": "circleci orb list cypress-io",
     "preorb:publish": "npm run orb:validate",
     "orb:publish": "node ./publish",
     "next-ver": "next-ver",
-    "set-next-version": "next-ver --go",
-    "orb:list": "circleci orb list cypress"
+    "set-next-version": "next-ver --go"
   },
   "repository": {
     "type": "git",
