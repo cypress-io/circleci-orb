@@ -26,6 +26,28 @@ executors:
     docker:
       - image: cypress/base:<< parameters.node >>
 
+  # executors based on available Cypress docker images
+  # see https://github.com/cypress-io/cypress-docker-images
+  base-6:
+    description: Single Docker container with Node 6 and Cypress dependencies
+    docker:
+      - image: cypress/base:6
+
+  base-8:
+    description: Single Docker container with Node 8 and Cypress dependencies
+    docker:
+      - image: cypress/base:8
+
+  base-10:
+    description: Single Docker container with Node 10 and Cypress dependencies
+    docker:
+      - image: cypress/base:10
+
+  browsers-chrome69:
+    description: Docker container with Node 10, Cypress dependencies and Chrome 69
+    docker:
+      - image: cypress/browsers:chrome69
+
 #
 # reusable commands
 #
