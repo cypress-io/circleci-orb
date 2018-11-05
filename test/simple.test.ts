@@ -37,3 +37,21 @@ test('simple', t => {
   const filename = tempWrite.sync(inlined, 'config.yml')
   return validate(filename)
 })
+
+test('simple with record', t => {
+  const config = stripIndent`
+    # record test results on dashboard
+    version: 2.1
+    orbs:
+      cypress: cypress-io/cypress@1.0.0
+    workflows:
+      build:
+        jobs:
+          - cypress/run:
+              record: 42
+  `
+  t.is(typeof config, 'string')
+  const inlined = inlineOrb(config)
+  const filename = tempWrite.sync(inlined, 'config.yml')
+  return validate(filename)
+})

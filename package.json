@@ -4,7 +4,7 @@
   "description": "See [orb.yml](orb.yml)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run unit",
     "orb:namespace": "circleci namespace create cypress-io github cypress-io",
     "orb:validate": "circleci orb validate orb.yml",
     "orb:create": "circleci orb create cypress-io/cypress",
@@ -41,7 +41,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run orb:validate"
+      "pre-commit": "npm run orb:validate && npm run unit"
     }
   },
   "release": {
