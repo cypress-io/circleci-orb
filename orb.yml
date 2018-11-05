@@ -139,6 +139,11 @@ commands:
         description: |
           Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
           See https://on.cypress.io/launching-browsers
+      spec:
+        type: string
+        default: ""
+        description: |
+          Spec pattern to use to run only some test files
     steps:
       - attach_workspace:
           at: ~/
@@ -149,6 +154,7 @@ commands:
           # --record is needed to pass many other arguments, like "--group" and "--parallel"
           command: |
             npx cypress run \
+              <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
               <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
               <<# parameters.record >> --record \
                 --group '<<parameters.group>>' \
@@ -229,6 +235,12 @@ jobs:
           Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
           See https://on.cypress.io/launching-browsers
 
+      spec:
+        type: string
+        default: ""
+        description: |
+          Spec pattern to use to run only some test files
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -268,6 +280,7 @@ jobs:
                 parallel: <<parameters.parallel>>
                 group: <<parameters.group>>
                 browser: <<parameters.browser>>
+                spec: <<parameters.spec>>
       - unless:
           condition: << parameters.start >>
           steps:
@@ -276,6 +289,7 @@ jobs:
                 parallel: <<parameters.parallel>>
                 group: <<parameters.group>>
                 browser: <<parameters.browser>>
+                spec: <<parameters.spec>>
 
   # Install Job
   install:
