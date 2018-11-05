@@ -65,6 +65,10 @@ commands:
   #
   setup:
     parameters:
+      executor:
+        description: Executor to use
+        type: executor
+        default: base-10
       build:
         description: Optional build command(s)
         type: steps
@@ -286,6 +290,18 @@ examples:
         build:
           jobs:
             - cypress/run
+
+  using-node6:
+    description: Runs all Cypress tests on Node 6 image
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.0.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                executor: base-6
 
   recording:
     description: Runs all Cypress tests and records them on the Cypress Dashboard
