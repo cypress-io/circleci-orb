@@ -133,6 +133,12 @@ commands:
         default: []
         description: |
           Single server start command (should run in the background)
+      browser:
+        type: string
+        default: ""
+        description: |
+          Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
+          See https://on.cypress.io/launching-browsers
     steps:
       - attach_workspace:
           at: ~/
@@ -140,7 +146,14 @@ commands:
       - run:
           name: Run Cypress tests
           # GOOD EXAMPLE conditional text based on boolean parameter
-          command: "npx cypress run <<# parameters.record >> --record --group '<<parameters.group>>' <</ parameters.record >> <<# parameters.parallel >> --parallel <</ parameters.parallel >>"
+          # --record is needed to pass many other arguments, like "--group" and "--parallel"
+          command: |
+            npx cypress run \
+              <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+              <<# parameters.record >> --record \
+                --group '<<parameters.group>>' \
+                <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+              <</ parameters.record>>
 
 #
 # jobs defined by the orb
@@ -168,6 +181,11 @@ jobs:
       If recording on the Dashboard, set CYPRESS_RECORD_KEY environment variable
 
     parameters:
+      executor:
+        type: executor
+        default: base-10
+        description: Cypress executor to use
+
       record:
         type: boolean
         default: false
@@ -204,7 +222,14 @@ jobs:
         description: |
           Optional server start command to run in the background before running Cypress tests
 
-    executor: default
+      browser:
+        type: string
+        default: ""
+        description: |
+          Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
+          See https://on.cypress.io/launching-browsers
+
+    executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
     steps:
@@ -242,6 +267,7 @@ jobs:
                 record: <<parameters.record>>
                 parallel: <<parameters.parallel>>
                 group: <<parameters.group>>
+                browser: <<parameters.browser>>
       - unless:
           condition: << parameters.start >>
           steps:
@@ -249,16 +275,21 @@ jobs:
                 record: <<parameters.record>>
                 parallel: <<parameters.parallel>>
                 group: <<parameters.group>>
+                browser: <<parameters.browser>>
 
   # Install Job
   install:
     parameters:
+      executor:
+        type: executor
+        default: base-10
+        description: Cypress executor to use
       build:
         type: string
         default: ""
         description: Custom build command to run after install
     description: Checks out code, installs dependencies, attaches code to the workspace
-    executor: default
+    executor: <<parameters.executor>>
     steps:
       - checkout
       - when:
@@ -298,6 +329,19 @@ examples:
           jobs:
             - cypress/run:
                 record: true
+
+  chrome:
+    description: Runs tests using Chrome browser in custom executor (Cypress docker image)
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress/cypress@1.0.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                executor: cypress/browsers-chrome69
+                browser: chrome
 
   start-server:
     description: Starts server and then runs all Cypress tests
