@@ -1,7 +1,8 @@
 const minimist = require('minimist')
 const execa = require('execa')
+const argv = minimist(process.argv.slice(2))
 
-const argv = require('minimist')(process.argv.slice(2))
+console.dir(argv)
 
 const setNewVersion = () => {
   return execa('npm', ['run', 'set-next-version'], {stdio: 'inherit'})
@@ -18,11 +19,11 @@ const loadNameAndVersion = () => {
 
   let name
   if (argv.dev) {
-    const version = getPackageVersion()
-    name = `${namespace}/${orbName}@${version}`
-  } else {
     const version = argv.dev
     name = `${namespace}/${orbName}@dev:${version}`
+  } else {
+    const version = getPackageVersion()
+    name = `${namespace}/${orbName}@${version}`
   }
   console.log('publishing orb %s', name)
   return name

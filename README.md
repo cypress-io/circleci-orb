@@ -91,16 +91,3 @@ If you want to develop this orb and publish new versions, see [contributors.md](
 Use [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) to see this orb in action, also see [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files)
 
 Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.
-
-## Additional information
-
-- https://github.com/CircleCI-Public/circleci-orbs
-- [Orb configuration](https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs)
-- [Authoring orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md)
-- [Testing orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-testing.md)
-
-## Examples of orbs
-
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/rollbar/orb.yml
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/codecov/orb.yml
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/heroku/orb.yml
