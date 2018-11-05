@@ -10,6 +10,22 @@ You can see existing orbs
 $ circleci orb list cypress-io
 ```
 
+### Development
+
+You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing first, before publishing a production immutable version. For example, to publish version `1.0.0-my-fork` execute
+
+```shell
+node ./publish --dev 1.0.0-my-fork
+```
+
+You can first do a dry dev publish to see the command with
+
+```shell
+node ./publish --dev 1.0.0-my-fork --dry
+```
+
+### Production
+
 You can publish new orb version manually, by incrementing version for example
 
 ```shell
@@ -43,3 +59,16 @@ Note: you can publish temporary version of the orb using `dev` label. This is su
 ```
 circleci orb publish orb.yml cypress-io/cypress@dev:1.1.0
 ```
+
+## Additional information
+
+- https://github.com/CircleCI-Public/circleci-orbs
+- [Orb configuration](https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs)
+- [Authoring orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md)
+- [Testing orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-testing.md)
+
+## Examples of orbs
+
+- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/rollbar/orb.yml
+- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/codecov/orb.yml
+- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/heroku/orb.yml

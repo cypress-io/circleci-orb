@@ -28,6 +28,7 @@
   "devDependencies": {
     "execa": "1.0.0",
     "husky": "1.1.2",
+    "minimist": "1.2.0",
     "next-ver": "1.8.0"
   },
   "husky": {
