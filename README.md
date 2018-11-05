@@ -56,6 +56,24 @@ workflows:
           group: "4 machines" # optional group name
 ```
 
+## Effective config
+
+From the user project, you can see fully resolved `circle.yml` code by running Circle CLI command
+
+```
+$ circleci config process .circleci/config.yml
+# Orb 'cypress/cypress@1.0.0' resolved to 'cypress/cypress@1.0.0'
+version: 2
+jobs:
+  cypress/run:
+    docker:
+    - image: cypress/base:10
+    parallelism: 1
+...
+```
+
+If the jobs provided by this orb are not enough, save the full config as the new `circle.yml` file and tweak it to better suit your needs.
+
 ## Source code
 
 See [orb.yml](orb.yml)
