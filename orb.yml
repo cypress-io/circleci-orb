@@ -141,7 +141,7 @@ jobs:
   run:
     description:
       A single complete job to run Cypress end-to-end tests in your project.
-      If recording on the Dashboard, set CYPRESS_RECORD_KEY environment variable
+      If recording on the Dashboard, set `CYPRESS_RECORD_KEY` environment variable
 
     parameters:
       executor:

@@ -20,6 +20,10 @@ workflows:
 
 See [examples.md](examples.md) that are auto-generated from [orb.yml](orb.yml) itself. Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files)
 
+## Jobs
+
+See [jobs.md](jobs.md) for all parameters that jobs in this orb provide.
+
 ## Effective config
 
 From the user project, you can see fully resolved `circle.yml` code by running Circle CLI command
@@ -41,10 +45,6 @@ If the jobs provided by this orb are not enough, save the full config as the new
 ## Source code
 
 See [orb.yml](orb.yml)
-
-## Namespace
-
-This orb is part of `cypress-io` namespace, same as Cypress.io GitHub organization name.
 
 ## Development
 

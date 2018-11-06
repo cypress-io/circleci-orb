@@ -1,6 +1,9 @@
+// documents orb usage examples
+// grabs examples from orb.yml itself and generates markdown
+
 import { safeDump } from 'js-yaml'
 import * as json2md from 'json2md'
-import { example, getOrb } from '../scripts/utils'
+import { example, getOrb, normalizeString } from '../scripts/utils'
 
 const orb = getOrb()
 const examples = orb.examples
@@ -16,7 +19,7 @@ const docExample = (name: string, example: example) => {
   // console.log(codeExample)
   return [
     { h2: name },
-    { p: example.description.replace(/\n/g, ' ') },
+    { p: normalizeString(example.description) },
     codeExample,
   ]
 }
