@@ -10,7 +10,6 @@ A single complete job to run Cypress end-to-end tests in your project. If record
 
 > Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
 > See https://on.cypress.io/launching-browsers
-> 
 
 
 type: string
@@ -58,7 +57,6 @@ default: `default group`
 
 > Use test balancing using Cypress Dashboard
 > see https://on.cypress.io/parallelization
-> 
 
 
 type: boolean
@@ -71,7 +69,6 @@ default: `false`
 
 > Number of Circle machines to use for load balancing, min 1
 > (requires "parallel" parameter set to true)
-> 
 
 
 type: integer
@@ -94,7 +91,6 @@ default: `false`
 **`spec`**
 
 > Spec pattern to use to run only some test files
-> 
 
 
 type: string
@@ -103,7 +99,6 @@ type: string
 **`start`**
 
 > Optional server start command to run in the background before running Cypress tests
-> 
 
 
 type: string
