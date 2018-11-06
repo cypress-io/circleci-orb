@@ -147,32 +147,35 @@ jobs:
       executor:
         type: executor
         default: cypress/base-10
-        description: Cypress executor to use
+        description: Cypress executor to use, see [executors.md](executors.md).
 
       record:
         type: boolean
         default: false
-        description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+        description: |
+          Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service.
+          This option is necessary to enable other related flags, like `parallel` and `group`.
 
       # "parallel" parameter should be used with "parallelism" parameter
       parallel:
         type: boolean
         default: false
         description: |
-          Use test balancing using Cypress Dashboard
-          see https://on.cypress.io/parallelization
+          Use test balancing using Cypress Dashboard,
+          see https://on.cypress.io/parallelization. Requires `record: true`
 
       parallelism:
         type: integer
         default: 1
         description: |
           Number of Circle machines to use for load balancing, min 1
-          (requires "parallel" parameter set to true)
+          (requires "parallel" parameter set to true, and requires `record: true`)
 
       group:
         type: string
         default: 'default group'
-        description: Test group name when recording on the dashboard
+        description: |
+          Test group name when recording on the dashboard. Requires `record: true`
 
       build:
         type: string
@@ -190,18 +193,19 @@ jobs:
         default: ''
         description: |
           Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
-          See https://on.cypress.io/launching-browsers
+          See https://on.cypress.io/launching-browsers, requires using executor with the browser installed,
+          electron browser is already included with Cypress.
 
       spec:
         type: string
         default: ''
         description: |
-          Spec pattern to use to run only some test files
+          Spec pattern to use to run only some test files.
 
       command:
         type: string
         default: ''
-        description: Custom test command to run Cypress tests
+        description: Custom test command to run Cypress tests, which overrides all individual options.
 
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>

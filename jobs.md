@@ -12,7 +12,8 @@ A single complete job to run Cypress end-to-end tests in your project. If record
 **`browser`**
 
 > Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
-> See https://on.cypress.io/launching-browsers
+> See https://on.cypress.io/launching-browsers, requires using executor with the browser installed,
+> electron browser is already included with Cypress.
 
 
 type: string
@@ -28,7 +29,7 @@ type: string
 
 **`command`**
 
-> Custom test command to run Cypress tests
+> Custom test command to run Cypress tests, which overrides all individual options.
 
 
 type: string
@@ -36,7 +37,7 @@ type: string
 
 **`executor`**
 
-> Cypress executor to use
+> Cypress executor to use, see [executors.md](executors.md).
 
 
 type: executor
@@ -47,7 +48,7 @@ default: `cypress/base-10`
 
 **`group`**
 
-> Test group name when recording on the dashboard
+> Test group name when recording on the dashboard. Requires `record: true`
 
 
 type: string
@@ -58,8 +59,8 @@ default: `default group`
 
 **`parallel`**
 
-> Use test balancing using Cypress Dashboard
-> see https://on.cypress.io/parallelization
+> Use test balancing using Cypress Dashboard,
+> see https://on.cypress.io/parallelization. Requires `record: true`
 
 
 type: boolean
@@ -71,7 +72,7 @@ default: `false`
 **`parallelism`**
 
 > Number of Circle machines to use for load balancing, min 1
-> (requires "parallel" parameter set to true)
+> (requires "parallel" parameter set to true, and requires `record: true`)
 
 
 type: integer
@@ -82,7 +83,8 @@ default: `1`
 
 **`record`**
 
-> Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
+> Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service.
+> This option is necessary to enable other related flags, like `parallel` and `group`.
 
 
 type: boolean
@@ -93,7 +95,7 @@ default: `false`
 
 **`spec`**
 
-> Spec pattern to use to run only some test files
+> Spec pattern to use to run only some test files.
 
 
 type: string
