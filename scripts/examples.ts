@@ -29,7 +29,7 @@ const header = {
   h1: 'Examples',
 }
 const contents = [].concat(header).concat(...fragments)
-console.log(contents)
+// console.log(contents)
 
 const md = json2md(contents)
 console.log(md)
