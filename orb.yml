@@ -21,7 +21,7 @@ executors:
     parameters:
       node:
         type: string
-        default: "10"
+        default: '10'
         description: Version of Node 6/8/10 to use
     docker:
       - image: cypress/base:<< parameters.node >>
@@ -80,8 +80,8 @@ commands:
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
       - run:
-          name: "Npm CI"
-          command: "npm ci"
+          name: 'Npm CI'
+          command: 'npm ci'
       - run: npx cypress verify
       # save new cache folder if needed
       - save_cache:
@@ -126,7 +126,7 @@ jobs:
     executor: default
     steps:
       - hello:
-          greeting: "friend"
+          greeting: 'friend'
 
   # a single e2e test run that
   #   - checks out code
@@ -171,36 +171,36 @@ jobs:
 
       group:
         type: string
-        default: "default group"
+        default: 'default group'
         description: Test group name when recording on the dashboard
 
       build:
         type: string
-        default: ""
+        default: ''
         description: Custom build command to run after install
 
       start:
         type: string
-        default: ""
+        default: ''
         description: |
           Optional server start command to run in the background before running Cypress tests
 
       browser:
         type: string
-        default: ""
+        default: ''
         description: |
           Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
           See https://on.cypress.io/launching-browsers
 
       spec:
         type: string
-        default: ""
+        default: ''
         description: |
           Spec pattern to use to run only some test files
 
       command:
         type: string
-        default: ""
+        default: ''
         description: Custom test command to run Cypress tests
 
     executor: <<parameters.executor>>
@@ -213,24 +213,24 @@ jobs:
           # thus we assume the dependencies were installed as separate job
           # hmm, can we detect if this job requires cypress/install automatically?
           steps:
-          - run: echo "Assuming dependencies were installed using cypress/install job"
-          - attach_workspace:
-              at: ~/
+            - run: echo "Assuming dependencies were installed using cypress/install job"
+            - attach_workspace:
+                at: ~/
 
       - unless:
           condition: << parameters.parallel >>
           steps:
-          - checkout
-          - when:
-              condition: << parameters.build >>
-              steps:
-                - install:
-                    build:
-                      - run: << parameters.build >>
-          - unless:
-              condition: <<parameters.build>>
-              steps:
-                - install
+            - checkout
+            - when:
+                condition: << parameters.build >>
+                steps:
+                  - install:
+                      build:
+                        - run: << parameters.build >>
+            - unless:
+                condition: <<parameters.build>>
+                steps:
+                  - install
 
       - when:
           condition: <<parameters.start>>
@@ -271,7 +271,7 @@ jobs:
         description: Cypress executor to use
       build:
         type: string
-        default: ""
+        default: ''
         description: Custom build command to run after install
     description: Checks out code, installs dependencies, attaches code to the workspace
     executor: <<parameters.executor>>
@@ -313,7 +313,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                executor: base-6
+                executor: cypress/base-6
 
   recording:
     description: Runs all Cypress tests and records them on the Cypress Dashboard
@@ -350,7 +350,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                start: "npm start"
+                start: 'npm start'
 
   parallel-on-2-machines:
     description: Runs all Cypress tests by load balancing them on two machines
@@ -368,7 +368,7 @@ examples:
                 record: true
                 parallel: true
                 parallelism: 2
-                group: "2 machines"
+                group: '2 machines'
 
   build-app:
     description: |
@@ -382,11 +382,11 @@ examples:
         build:
           jobs:
             - cypress/install:
-                build: "npm run build" # custom build command
+                build: 'npm run build' # custom build command
             - cypress/run:
                 requires:
                   - cypress/install
                 record: true
                 parallel: true
                 parallelism: 3
-                group: "3x"
+                group: '3x'
