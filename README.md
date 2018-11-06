@@ -18,7 +18,7 @@ workflows:
 
 ## Examples
 
-See [examples.md](examples.md) that are auto-generated from [orb.yml](orb.yml) itself.
+See [examples.md](examples.md) that are auto-generated from [orb.yml](orb.yml) itself. Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files)
 
 ## Effective config
 
@@ -50,8 +50,6 @@ This orb is part of `cypress-io` namespace, same as Cypress.io GitHub organizati
 
 If you want to develop this orb and publish new versions, see [contributors.md](contributors.md)
 
-## Demo project
+## License
 
-Use [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) to see this orb in action, also see [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files)
-
-Note that you can define examples right [inside the orb](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/usage-examples.md). See `examples:` section in [orb.yml](orb.yml) file.
+This project is licensed under the terms of the [MIT license](/LICENSE.md).
