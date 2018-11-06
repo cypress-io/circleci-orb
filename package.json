@@ -46,7 +46,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run orb:validate && npm run unit"
+      "pre-commit": "npm run orb:validate && npm run unit && npm run doc:examples"
     }
   },
   "release": {
