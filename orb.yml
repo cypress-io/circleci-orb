@@ -113,54 +113,6 @@ commands:
           build: << parameters.build >>
       - write_workspace
 
-  # run Cypress E2E tests command
-  e2e:
-    description: Runs Cypress end-to-end tests
-    parameters:
-      record:
-        type: boolean
-        default: false
-        description: Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service
-      parallel:
-        type: boolean
-        default: false
-        description: Test balancing using Cypress Dashboard, see https://on.cypress.io/parallelization
-      group:
-        type: string
-        description: Give tests a group name for clarity
-      start:
-        type: steps
-        default: []
-        description: |
-          Single server start command (should run in the background)
-      browser:
-        type: string
-        default: ""
-        description: |
-          Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
-          See https://on.cypress.io/launching-browsers
-      spec:
-        type: string
-        default: ""
-        description: |
-          Spec pattern to use to run only some test files
-    steps:
-      - attach_workspace:
-          at: ~/
-      - steps: << parameters.start >>
-      - run:
-          name: Run Cypress tests
-          # GOOD EXAMPLE conditional text based on boolean parameter
-          # --record is needed to pass many other arguments, like "--group" and "--parallel"
-          command: |
-            npx cypress run \
-              <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
-              <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
-              <<# parameters.record >> --record \
-                --group '<<parameters.group>>' \
-                <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
-              <</ parameters.record>>
-
 #
 # jobs defined by the orb
 #
@@ -181,6 +133,7 @@ jobs:
   #     * (optional) records tests results on Cypress Dashboard:
   #       - (optional) splits tests across N machines
   #       - (optional) names tests with a group name
+  #       - (optional) use custom run tests command
   run:
     description:
       A single complete job to run Cypress end-to-end tests in your project.
@@ -241,6 +194,11 @@ jobs:
         description: |
           Spec pattern to use to run only some test files
 
+      command:
+        type: string
+        default: ""
+        description: Custom test command to run Cypress tests
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -249,8 +207,11 @@ jobs:
           condition: << parameters.parallel >>
           # user wants to run in parallel mode
           # thus we assume the dependencies were installed as separate job
+          # hmm, can we detect if this job requires cypress/install automatically?
           steps:
           - run: echo "Assuming dependencies were installed using cypress/install job"
+          - attach_workspace:
+              at: ~/
 
       - unless:
           condition: << parameters.parallel >>
@@ -263,33 +224,39 @@ jobs:
                     build:
                       - run: << parameters.build >>
           - unless:
-              condition: << parameters.build >>
+              condition: <<parameters.build>>
               steps:
                 - install
 
       - when:
-          condition: << parameters.start >>
+          condition: <<parameters.start>>
           steps:
-            - e2e:
-                start:
-                  - run:
-                      name: Start
-                      command: << parameters.start >>
-                      background: true
-                record: <<parameters.record>>
-                parallel: <<parameters.parallel>>
-                group: <<parameters.group>>
-                browser: <<parameters.browser>>
-                spec: <<parameters.spec>>
+            - run:
+                name: Start
+                command: <<parameters.start>>
+                background: true
+
+      - when:
+          condition: <<parameters.command>>
+          steps:
+            - run:
+                command: <<parameters.command>>
+
       - unless:
-          condition: << parameters.start >>
+          condition: <<parameters.command>>
           steps:
-            - e2e:
-                record: <<parameters.record>>
-                parallel: <<parameters.parallel>>
-                group: <<parameters.group>>
-                browser: <<parameters.browser>>
-                spec: <<parameters.spec>>
+            - run:
+                name: Run Cypress tests
+                # GOOD EXAMPLE conditional text based on boolean parameter
+                # --record is needed to pass many other arguments, like "--group" and "--parallel"
+                command: |
+                  npx cypress run \
+                    <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
+                    <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                    <<# parameters.record >> --record \
+                      --group '<<parameters.group>>' \
+                      <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                    <</ parameters.record>>
 
   # Install Job
   install:
