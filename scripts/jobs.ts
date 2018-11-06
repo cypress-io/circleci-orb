@@ -48,7 +48,7 @@ const header = {
   h1: 'Jobs',
 }
 const contents = [].concat(header).concat(...fragments)
-console.error(contents)
+// console.error(contents)
 
 const md = json2md(contents)
 console.log(md)
