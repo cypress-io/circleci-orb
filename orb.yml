@@ -128,11 +128,6 @@ commands:
       group:
         type: string
         description: Give tests a group name for clarity
-      start:
-        type: steps
-        default: []
-        description: |
-          Single server start command (should run in the background)
       browser:
         type: string
         default: ""
@@ -145,9 +140,6 @@ commands:
         description: |
           Spec pattern to use to run only some test files
     steps:
-      - attach_workspace:
-          at: ~/
-      - steps: << parameters.start >>
       - run:
           name: Run Cypress tests
           # GOOD EXAMPLE conditional text based on boolean parameter
@@ -241,6 +233,11 @@ jobs:
         description: |
           Spec pattern to use to run only some test files
 
+      command:
+        type: string
+        default: ""
+        description: Custom test command to run Cypress tests
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -251,6 +248,8 @@ jobs:
           # thus we assume the dependencies were installed as separate job
           steps:
           - run: echo "Assuming dependencies were installed using cypress/install job"
+          - attach_workspace:
+              at: ~/
 
       - unless:
           condition: << parameters.parallel >>
@@ -263,33 +262,24 @@ jobs:
                     build:
                       - run: << parameters.build >>
           - unless:
-              condition: << parameters.build >>
+              condition: <<parameters.build>>
               steps:
                 - install
 
       - when:
-          condition: << parameters.start >>
+          condition: <<parameters.start>>
           steps:
-            - e2e:
-                start:
-                  - run:
-                      name: Start
-                      command: << parameters.start >>
-                      background: true
-                record: <<parameters.record>>
-                parallel: <<parameters.parallel>>
-                group: <<parameters.group>>
-                browser: <<parameters.browser>>
-                spec: <<parameters.spec>>
-      - unless:
-          condition: << parameters.start >>
-          steps:
-            - e2e:
-                record: <<parameters.record>>
-                parallel: <<parameters.parallel>>
-                group: <<parameters.group>>
-                browser: <<parameters.browser>>
-                spec: <<parameters.spec>>
+            - run:
+                name: Start
+                command: <<parameters.start>>
+                background: true
+
+      - e2e:
+          record: <<parameters.record>>
+          parallel: <<parameters.parallel>>
+          group: <<parameters.group>>
+          browser: <<parameters.browser>>
+          spec: <<parameters.spec>>
 
   # Install Job
   install:
