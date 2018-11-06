@@ -20,9 +20,9 @@ workflows:
 
 See [examples.md](examples.md) that are auto-generated from [orb.yml](orb.yml) itself. Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files)
 
-## Jobs
+## Jobs and executors
 
-See [jobs.md](jobs.md) for all parameters that jobs in this orb provide.
+See [jobs.md](jobs.md) and [executors.md](executors.md) for all public jobs and executors that this orb provides.
 
 ## Effective config
 

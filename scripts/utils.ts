@@ -19,14 +19,22 @@ export type parameter = {
   default?: string | number | boolean
 }
 
-export type executor = string
 export type parallelism = string
 
 export type job = {
   description: string
   parameters: parameter
-  executor: executor
+  executor: string
   parallelism: parallelism
+}
+
+export type executor = {
+  description: string
+  docker: [
+    {
+      image: string
+    }
+  ]
 }
 
 type orb = {
@@ -35,6 +43,9 @@ type orb = {
   }
   jobs: {
     [key: string]: job
+  }
+  executors: {
+    [key: string]: executor
   }
 }
 

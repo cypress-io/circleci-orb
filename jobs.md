@@ -1,5 +1,8 @@
 # Jobs
 
+
+Public jobs defined in this orb that your config workflow can use. See [examples.md](./examples.md)
+
 ## run
 
 

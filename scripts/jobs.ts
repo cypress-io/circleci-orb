@@ -1,6 +1,7 @@
-// documents orb commands
-// grabs commands from orb.yml itself and generates markdown
+// documents orb jobs
+// grabs jobs from orb.yml itself and generates markdown
 
+import { stripIndent } from 'common-tags'
 import * as json2md from 'json2md'
 import { getOrb, job, normalizeString, parameter } from '../scripts/utils'
 
@@ -47,7 +48,17 @@ const fragments = jobNames.map(name => {
 const header = {
   h1: 'Jobs',
 }
-const contents = [].concat(header).concat(...fragments)
+const description = {
+  p: normalizeString(stripIndent`
+    Public jobs defined in this orb that your config workflow can use.
+    See [examples.md](./examples.md)
+  `),
+}
+
+const contents = []
+  .concat(header)
+  .concat(description)
+  .concat(...fragments)
 // console.error(contents)
 
 const md = json2md(contents)

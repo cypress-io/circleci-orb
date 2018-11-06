@@ -15,8 +15,10 @@
     "next-ver": "next-ver",
     "set-next-version": "next-ver --go",
     "unit": "ava-ts 'test/*.test.ts'",
+    "doc": "npm run doc:examples && npm run doc:jobs && npm run doc:executors",
     "doc:examples": "ts-node ./scripts/examples > examples.md",
-    "doc:jobs": "ts-node ./scripts/jobs > jobs.md"
+    "doc:jobs": "ts-node ./scripts/jobs > jobs.md",
+    "doc:executors": "ts-node ./scripts/executors > executors.md"
   },
   "repository": {
     "type": "git",
@@ -47,7 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run orb:validate && npm run unit && npm run doc:examples && npm run doc:jobs"
+      "pre-commit": "npm run orb:validate && npm run unit && npm run doc"
     }
   },
   "release": {
