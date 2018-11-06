@@ -41,7 +41,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress/cypress@1.0.0
+  cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
@@ -58,7 +58,7 @@ Runs tests using Chrome browser in custom executor (Cypress docker image)
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress/cypress@1.0.0
+  cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
