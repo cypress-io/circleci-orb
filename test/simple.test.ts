@@ -10,7 +10,7 @@ const orbFilename = join(__dirname, '..', 'orb.yml')
 const orb = safeLoad(readFileSync(orbFilename, 'utf-8'))
 
 const validate = (filename: string):Promise<void> => {
-  const cmd = `circleci orb validate ${filename}`
+  const cmd = `circleci config validate ${filename}`
   return execa.shell(cmd, {stdio: 'inherit'})
 }
 
@@ -48,7 +48,7 @@ test('simple with record', t => {
       build:
         jobs:
           - cypress/run:
-              record: 42
+              record: true
   `
   t.is(typeof config, 'string')
   const inlined = inlineOrb(config)
