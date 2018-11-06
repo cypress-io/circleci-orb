@@ -6,7 +6,20 @@ import { safeDump, safeLoad } from 'js-yaml'
 import { join } from 'path'
 import * as tempWrite from 'temp-write'
 
-export const getOrb = () => {
+export type example = {
+  description: string
+  usage: {
+    workflows: string
+  }
+}
+
+type orb = {
+  examples: {
+    [key: string]: example
+  }
+}
+
+export const getOrb = (): orb => {
   const orbFilename = join(__dirname, '..', 'orb.yml')
   const orb = safeLoad(readFileSync(orbFilename, 'utf-8'))
   return orb

@@ -1,7 +1,7 @@
 // @ts-check
 import test from 'ava-ts'
 import { safeDump } from 'js-yaml'
-import { getOrb, processWorkflows } from './utils'
+import { getOrb, processWorkflows } from '../scripts/utils'
 
 const orb = getOrb()
 const exampleNames = Object.keys(orb.examples)

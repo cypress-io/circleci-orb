@@ -1,6 +1,6 @@
 import test from 'ava'
 import { stripIndent } from 'common-tags'
-import { processWorkflows } from './utils'
+import { processWorkflows } from '../scripts/utils'
 
 test('simple', t => {
   const workflows = stripIndent`
