@@ -13,11 +13,33 @@ export type example = {
   }
 }
 
+export type parameter = {
+  type: string
+  description: string
+  default?: string | number | boolean
+}
+
+export type executor = string
+export type parallelism = string
+
+export type job = {
+  description: string
+  parameters: parameter
+  executor: executor
+  parallelism: parallelism
+}
+
 type orb = {
   examples: {
     [key: string]: example
   }
+  jobs: {
+    [key: string]: job
+  }
 }
+
+export const normalizeString = (fromYaml: string): string =>
+  fromYaml.replace(/\n/g, ' ')
 
 export const getOrb = (): orb => {
   const orbFilename = join(__dirname, '..', 'orb.yml')
