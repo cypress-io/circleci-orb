@@ -10,7 +10,8 @@
     "orb:create": "circleci orb create cypress-io/cypress",
     "orb:list": "circleci orb list cypress-io",
     "preorb:publish": "npm run orb:validate",
-    "orb:publish": "node ./publish",
+    "orb:publish": "node ./scripts/publish",
+    "orb:publish:dev": "node ./scripts/publish --dev",
     "next-ver": "next-ver",
     "set-next-version": "next-ver --go",
     "unit": "ava-ts 'test/*.test.ts'"

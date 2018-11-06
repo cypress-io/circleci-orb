@@ -9,7 +9,7 @@ const setNewVersion = () => {
 }
 
 const getPackageVersion = () => {
-  const version = require('./package').version
+  const version = require('../package').version
   return version
 }
 
