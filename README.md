@@ -41,11 +41,11 @@ workflows:
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
 
-For more examples, see the [examples.md](examples.md) generated from the [src/orb.yml](src/orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
+For more examples, see the [docs/examples.md](docs/examples.md) generated from the [src/orb.yml](src/orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
 
 ## Jobs and executors
 
-See [jobs.md](jobs.md) and [executors.md](executors.md) for a full list of public jobs and executors that this orb provides.
+See [docs/jobs.md](docs/jobs.md) and [docs/executors.md](docs/executors.md) for a full list of public jobs and executors that this orb provides.
 
 The CircleCI Orb exports the following job definitions to be used by the user projects:
 
@@ -68,7 +68,7 @@ workflows:
           record: true
 ```
 
-See all its parameters at the [cypress/run job example](jobs.md#run)
+See all its parameters at the [cypress/run job example](docs/jobs.md#run)
 
 ### `install`
 
@@ -97,7 +97,7 @@ workflows:
           group: 2 machines # name this group "2 machines"
 ```
 
-See available parameters at the [cypress/install job example](jobs.md#install)
+See available parameters at the [cypress/install job example](docs/jobs.md#install)
 
 ## Versions
 
