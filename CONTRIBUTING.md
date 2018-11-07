@@ -12,7 +12,7 @@ $ circleci orb list cypress-io
 
 ### Development
 
-You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing  before publishing a production immutable version. For example, to publish version `1.0.0-my-fork`, run:
+You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing before publishing a production immutable version. For example, to publish version `1.0.0-my-fork`, run:
 
 ```shell
 node ./publish --dev 1.0.0-my-fork
@@ -29,7 +29,7 @@ node ./publish --dev 1.0.0-my-fork --dry
 You can publish a new orb version manually, by incrementing the version. For example:
 
 ```shell
-$ circleci orb publish increment orb.yml cypress-io/cypress patch
+$ circleci orb publish increment src/orb.yml cypress-io/cypress patch
 Orb `cypress-io/cypress` has been incremented to `cypress-op/cypress@1.0.2`.
 Please note that this is an open orb and is world-readable.
 ```
@@ -37,7 +37,7 @@ Please note that this is an open orb and is world-readable.
 Or by specifying new version:
 
 ```shell
-circleci orb publish orb.yml cypress-io/cypress@0.0.1
+circleci orb publish src/orb.yml cypress-io/cypress@0.0.1
 ```
 
 The better way is to let the [publish.js](publish.js) increment the version, tag the commit and publish the orb.
@@ -57,7 +57,7 @@ fix: a patch release
 Note: you can publish a temporary version of the orb using the `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
 
 ```
-circleci orb publish orb.yml cypress-io/cypress@dev:1.1.0
+circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
 ```
 
 ## Additional information

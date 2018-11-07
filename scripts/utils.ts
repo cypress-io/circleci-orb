@@ -53,7 +53,7 @@ export const normalizeString = (fromYaml: string): string =>
   fromYaml.replace(/\n/g, ' ')
 
 export const getOrb = (): orb => {
-  const orbFilename = join(__dirname, '..', 'orb.yml')
+  const orbFilename = join(__dirname, '..', 'src', 'orb.yml')
   const orb = safeLoad(readFileSync(orbFilename, 'utf-8'))
   return orb
 }

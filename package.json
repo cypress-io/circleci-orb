@@ -1,12 +1,12 @@
 {
   "name": "circleci-orb",
   "version": "0.6.0",
-  "description": "See [orb.yml](orb.yml)",
+  "description": "Install, cache and run Cypress.io tests on CircleCI with minimal configuration.",
   "main": "index.js",
   "scripts": {
     "test": "npm run unit",
     "orb:namespace": "circleci namespace create cypress-io github cypress-io",
-    "orb:validate": "circleci orb validate orb.yml",
+    "orb:validate": "circleci orb validate src/orb.yml",
     "orb:create": "circleci orb create cypress-io/cypress",
     "orb:list": "circleci orb list cypress-io",
     "preorb:publish": "npm run orb:validate",

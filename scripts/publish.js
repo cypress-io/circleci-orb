@@ -30,7 +30,7 @@ const loadNameAndVersion = () => {
 }
 
 const publishOrb = (nameVersion) => {
-  const cmd = `circleci orb publish orb.yml ${nameVersion}`
+  const cmd = `circleci orb publish src/orb.yml ${nameVersion}`
   if (argv.dry) {
     console.log('dry run: %s', cmd)
     return Promise.resolve()

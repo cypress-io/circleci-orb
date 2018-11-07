@@ -28,20 +28,20 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          build: 'npm run build'  # run a custom app build step
+          build: 'npm run build' # run a custom app build step
       - cypress/run:
           requires:
             - cypress/install
-          record: true        # record results on Cypress Dashboard
-          parallel: true      # split all specs across machines
-          parallelism: 10     # use 10 CircleCI machines to finish quickly
-          group: 'all tests'  # name this group "all tests" on the dashboard
-          start: 'npm start'  # start server before running tests
+          record: true # record results on Cypress Dashboard
+          parallel: true # split all specs across machines
+          parallelism: 10 # use 10 CircleCI machines to finish quickly
+          group: 'all tests' # name this group "all tests" on the dashboard
+          start: 'npm start' # start server before running tests
 ```
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
 
-For more examples, see the [examples.md](examples.md) generated from the [orb.yml](orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
+For more examples, see the [examples.md](examples.md) generated from the [src/orb.yml](src/orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
 
 ## Jobs and executors
 
@@ -91,9 +91,9 @@ workflows:
       - cypress/run:
           requires:
             - cypress/install
-          record: true      # record results to Cypress Dashboard
-          parallel: true    # run tests in parallel
-          parallelism: 2    # use 2 CircleCI machines
+          record: true # record results to Cypress Dashboard
+          parallel: true # run tests in parallel
+          parallelism: 2 # use 2 CircleCI machines
           group: 2 machines # name this group "2 machines"
 ```
 
@@ -101,7 +101,7 @@ See available parameters at the [cypress/install job example](jobs.md#install)
 
 ## Versions
 
-Cypress orb is _versioned_ so you can be sure that the configuration will *not* suddenly change as we change orb commands. We follow semantic versioning to make sure you can upgrade project configuration to minor and patch versions without breaking changes.
+Cypress orb is _versioned_ so you can be sure that the configuration will _not_ suddenly change as we change orb commands. We follow semantic versioning to make sure you can upgrade project configuration to minor and patch versions without breaking changes.
 
 You can find all changes and published orb versions at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
 
@@ -171,10 +171,6 @@ If you want to customize the orb configuration, you can save and tweak the outpu
 {% note warning %}
 There is no automated way to go from the "ejected" configuration back to using the orb.
 {% endnote %}
-
-## Source code
-
-See [orb.yml](orb.yml)
 
 ## Development
 
