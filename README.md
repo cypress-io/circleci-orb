@@ -9,12 +9,16 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
 Install dependencies (using `npm ci`) and run all Cypress tests:
 
 ```yaml
+# to use orbs, must use version >= 2.1
 version: 2.1
 orbs:
+  # import Cypress orb by specifying a version
   cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
+      # "cypress" is the name of the imported orb
+      # "run" is the name of the job defined in Cypress orb
       - cypress/run
 ```
 
@@ -27,9 +31,14 @@ orbs:
 workflows:
   build:
     jobs:
+      # first get the source code and install npm dependencies
       - cypress/install:
-          build: 'npm run build' # run a custom app build step
+          # run a custom app build step
+          build: 'npm run build'
       - cypress/run:
+          # make sure app has been installed and built
+          # before running tests across multiple machines
+          # this avoids installing same dependencies 10 times
           requires:
             - cypress/install
           record: true # record results on Cypress Dashboard
@@ -56,14 +65,17 @@ This job allows you to run Cypress tests on a one or more machines, record scree
 A typical example:
 
 ```yaml
+# to use orbs, must use version >= 2.1
 version: 2.1
 orbs:
+  # import Cypress orb by specifying a version
   cypress: cypress-io/cypress@1.0.0
 workflows:
   build:
     jobs:
       # checks out code, installs npm dependencies
       # and runs all Cypress tests and records results on Cypress Dashboard
+      # cypress/run job comes from "cypress" orb imported above
       - cypress/run:
           record: true
 ```
@@ -85,11 +97,13 @@ orbs:
 workflows:
   build:
     jobs:
-      # install dependencies first
+      # install dependencies first (on 1 machine)
       - cypress/install
       # now run tests
       - cypress/run:
           requires:
+            # use previously installed dependencies
+            # to avoid installing them on each machine running tests
             - cypress/install
           record: true # record results to Cypress Dashboard
           parallel: true # run tests in parallel
