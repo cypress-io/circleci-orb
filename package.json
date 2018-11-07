@@ -17,9 +17,9 @@
     "unit": "ava-ts 'test/*.test.ts'",
     "doc": "npm run doc:examples && npm run doc:jobs && npm run doc:executors",
     "docs": "npm run doc",
-    "doc:examples": "ts-node ./scripts/examples > examples.md",
-    "doc:jobs": "ts-node ./scripts/jobs > jobs.md",
-    "doc:executors": "ts-node ./scripts/executors > executors.md"
+    "doc:examples": "ts-node ./scripts/examples > docs/examples.md",
+    "doc:jobs": "ts-node ./scripts/jobs > docs/jobs.md",
+    "doc:executors": "ts-node ./scripts/executors > docs/executors.md"
   },
   "repository": {
     "type": "git",
