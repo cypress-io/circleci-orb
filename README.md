@@ -84,9 +84,7 @@ See all its parameters at the [cypress/run job example](docs/jobs.md#run)
 
 ### `install`
 
-{% note warning %}
-This job is only necessary if you plan to execute the `run` job later. If you only want to run all tests on a single machine, then you do not need a separate `install` job.
-{% endnote %}
+⚠️ Warning: this job is only necessary if you plan to execute the `run` job later. If you only want to run all tests on a single machine, then you do not need a separate `install` job.
 
 Sometimes you need to install the project's npm dependencies and build the application _once_ before running tests, especially if you run the tests on multiple machines in parallel. For example:
 
@@ -190,9 +188,7 @@ workflows:
 
 If you want to customize the orb configuration, you can save and tweak the output of the `circleci config process ...` to suit your needs.
 
-{% note warning %}
-There is no automated way to go from the "ejected" configuration back to using the orb.
-{% endnote %}
+⚠️ Warning: there is no automated way to go from the "ejected" configuration back to using the orb.
 
 ## Development
 
