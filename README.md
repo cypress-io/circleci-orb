@@ -107,11 +107,19 @@ workflows:
             - cypress/install
           record: true # record results to Cypress Dashboard
           parallel: true # run tests in parallel
-          parallelism: 2 # use 2 CircleCI machines
-          group: 2 machines # name this group "2 machines"
+          parallelism: 3 # use 3 CircleCI machines
+          group: 3 machines # name this group "3 machines"
 ```
 
-See available parameters at the [cypress/install job example](docs/jobs.md#install)
+See available parameters at the [cypress/install job example](docs/jobs.md#install).
+
+To better understand why we use a separate `install` job, take a look at the workflow diagram below.
+
+![Workflow](img/install-and-run-3x.png)
+
+The first job `install` runs on a single machine, and usually is very fast because it uses previously cached npm modules and Cypress binary to avoid reinstalling them. The second job `run` can run on multiple machines (in this case it runs on 3 machines), and uses workspace created by the `install` job to get 3 identical file systems before running tests. You can see the 3 parallel runs by clicking on the `run` job.
+
+![3 parallel jobs](img/run-3x.png)
 
 ## Versions
 
