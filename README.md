@@ -99,6 +99,8 @@ workflows:
       - cypress/install
       # now run tests
       - cypress/run:
+          # give this job a custom name for clarity
+          name: 'end-to-end tests'
           requires:
             # use previously installed dependencies
             # to avoid installing them on each machine running tests

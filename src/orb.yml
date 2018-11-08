@@ -394,3 +394,37 @@ examples:
                 parallel: true
                 parallelism: 3
                 group: '3x'
+
+  groups:
+    description: |
+      Runs all tests on 4 machines using Electron browser (default).
+      Also runs some tests using "spec" parameter on Chrome browser.
+      Records both groups on Cypress dashboard. Notice "name" under each "cypress/run" job
+      which will be shown in the Circle workflow UI to tell jobs apart.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.0.0
+      workflows:
+        build:
+          jobs:
+            - cypress/install
+            - cypress/run:
+                name: '4 machines'
+                requires:
+                  - cypress/install
+                record: true
+                parallel: true
+                parallelism: 4
+                group: '4 machines'
+            - cypress/run:
+                name: 'Chrome'
+                requires:
+                  - cypress/install
+                executor: cypress/browsers-chrome69
+                record: true
+                parallel: true
+                parallelism: 2
+                group: 'smoke tests'
+                browser: 'chrome'
+                spec: 'cypress/integration/smoke/*'
