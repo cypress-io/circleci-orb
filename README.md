@@ -1,4 +1,4 @@
-# Cypress CircleCI Orb
+# Cypress CircleCI Orb [renovate-badge]][renovate-app]
 
 The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on [CircleCI](https://circleci.com) with very little effort.
 
@@ -199,3 +199,6 @@ If you want to develop this orb and publish new versions, see our [Contributing 
 ## License
 
 This project is licensed under the terms of the [MIT license](/LICENSE.md).
+
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
