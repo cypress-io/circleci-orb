@@ -2,7 +2,12 @@
 
 The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on [CircleCI](https://circleci.com) with very little effort.
 
-**Note:** To use CircleCI Orbs in your projects, you might have to enable beta features per-project within CircleCI. See the official CircleCI documentation.
+**Note ⚠️:** To use CircleCI Orbs in your projects, you need to enable two settings:
+
+- from organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
+- from the project's settings allow beta features `Settings -> Advanced Settings -> Enable build processing (preview)`
+
+See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-orbs/).
 
 ## Examples
 

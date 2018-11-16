@@ -146,7 +146,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: cypress/base-10
+        default: base-10
         description: Cypress executor to use, see [executors.md](executors.md).
 
       record:
@@ -271,7 +271,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: cypress/base-10
+        default: base-10
         description: Cypress executor to use
       build:
         type: string
