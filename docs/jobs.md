@@ -43,7 +43,7 @@ type: string
 type: executor
 
 
-default: `cypress/base-10`
+default: `base-10`
 
 
 **`group`**
@@ -130,5 +130,5 @@ type: string
 type: executor
 
 
-default: `cypress/base-10`
+default: `base-10`
 
