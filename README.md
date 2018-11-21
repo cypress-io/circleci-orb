@@ -11,6 +11,8 @@ See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-or
 
 ## Examples
 
+### simple
+
 Install dependencies (using `npm ci`) and run all Cypress tests:
 
 ```yaml
@@ -26,6 +28,8 @@ workflows:
       # "run" is the name of the job defined in Cypress orb
       - cypress/run
 ```
+
+### parallel
 
 A more complex project that needs to install dependencies, build an application and run tests across 10 CI machines [in parallel](https://on.cypress.io/parallelization) may have:
 
@@ -54,6 +58,32 @@ workflows:
 ```
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
+
+### release
+
+If you want to run a job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could do
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.0.1
+jobs:
+  release:
+    executor: cypress/base-10
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run semantic-release
+workflows:
+  build:
+    jobs:
+      - cypress/run
+      - release:
+          requires:
+            - cypress/run
+```
+
+### other examples
 
 For more examples, see the [docs/examples.md](docs/examples.md) generated from the [src/orb.yml](src/orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
 
