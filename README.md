@@ -223,6 +223,12 @@ workflows:
   version: 2
 ```
 
+You can delete all commented out original lines from the result by piping result through Unix `sed` command
+
+```shell
+$ circleci config process .circleci/config.yml | sed /^#/d
+```
+
 ### Ejecting
 
 If you want to customize the orb configuration, you can save and tweak the output of the `circleci config process ...` to suit your needs.

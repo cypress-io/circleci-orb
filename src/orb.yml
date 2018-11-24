@@ -73,15 +73,25 @@ commands:
         description: Optional build command(s)
         type: steps
         default: []
+      install-steps:
+        description: Steps to install NPM dependencies
+        type: steps
+        default:
+          - run:
+              name: 'Npm CI'
+              command: 'npm ci'
+
     steps:
       - restore_cache:
           keys:
             - cache-{{ .Branch }}-{{ checksum "package.json" }}
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
-      - run:
-          name: 'Npm CI'
-          command: 'npm ci'
+      # - run:
+      #     name: 'Npm CI'
+      #     command: 'npm ci'
+      - steps: << parameters.install-steps >>
+
       - run: npx cypress verify
       # save new cache folder if needed
       - save_cache:
@@ -108,6 +118,13 @@ commands:
     description: |
       Install NPM dependencies using "npm ci" then optionally runs your build command
     parameters:
+      install:
+        description: Steps to install NPM dependencies
+        type: steps
+        default:
+          - run:
+              name: 'Npm CI'
+              command: 'npm ci'
       build:
         type: steps
         default: []
@@ -115,6 +132,7 @@ commands:
     steps:
       - setup:
           build: << parameters.build >>
+          install-steps: << parameters.install >>
       - write_workspace
 
 #
@@ -273,6 +291,13 @@ jobs:
         type: executor
         default: base-10
         description: Cypress executor to use
+      install:
+        description: Steps to install NPM dependencies
+        type: steps
+        default:
+          - run:
+              name: 'Npm CI'
+              command: 'npm ci'
       build:
         type: string
         default: ''
@@ -285,12 +310,14 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install:
+                install: << parameters.install >>
                 build:
                   - run: << parameters.build >>
       - unless:
           condition: << parameters.build >>
           steps:
-            - install
+            - install:
+                install: << parameters.install >>
 
 #
 # user examples showing how to use the above Cypress Orb
@@ -318,6 +345,17 @@ examples:
           jobs:
             - cypress/run:
                 executor: cypress/base-6
+
+  yarn:
+    description: Uses Yarn to install dependencies
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.0.1
+      workflows:
+        build:
+          jobs:
+            - cypress/run
 
   recording:
     description: Runs all Cypress tests and records them on the Cypress Dashboard
@@ -428,3 +466,10 @@ examples:
                 group: 'smoke tests'
                 browser: 'chrome'
                 spec: 'cypress/integration/smoke/*'
+
+workflows:
+  build:
+    jobs:
+      - install:
+          install:
+            - run: 'yarn install'
