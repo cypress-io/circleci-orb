@@ -33,6 +33,22 @@ workflows:
 
 ```
 
+## yarn
+
+
+Uses Yarn to install dependencies
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/run
+
+```
+
 ## recording
 
 

@@ -132,3 +132,14 @@ type: executor
 
 default: `base-10`
 
+
+**`install`**
+
+> Steps to install NPM dependencies
+
+
+type: steps
+
+
+default: `[object Object]`
+
