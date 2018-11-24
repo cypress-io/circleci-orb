@@ -11,6 +11,8 @@ See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-or
 
 ## Examples
 
+Each example below should be placed into `circle.yml` or `.circleci/config.yml` file
+
 ### simple
 
 Install dependencies (using `npm ci`) and run all Cypress tests:
