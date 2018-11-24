@@ -135,11 +135,11 @@ default: `base-10`
 
 **`install`**
 
-> Steps to install NPM dependencies
+> How to install NPM dependencies
 
 
-type: steps
+type: enum
 
 
-default: `[object Object]`
+default: `npm ci`
 
