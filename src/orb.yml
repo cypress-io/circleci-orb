@@ -301,7 +301,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -312,7 +312,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -324,7 +324,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -336,7 +336,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -349,7 +349,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -361,7 +361,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -381,7 +381,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
@@ -404,7 +404,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.0.0
+        cypress: cypress-io/cypress@1.0.1
       workflows:
         build:
           jobs:
