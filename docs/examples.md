@@ -88,7 +88,7 @@ workflows:
 ## wait-for-server-to-respond
 
 
-Starts server, waits for it to respond and then runs all Cypress tests
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme) 
 
 ```yaml
 version: 2.1

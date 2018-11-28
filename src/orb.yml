@@ -373,7 +373,9 @@ examples:
                 start: 'npm start'
 
   wait-for-server-to-respond:
-    description: Starts server, waits for it to respond and then runs all Cypress tests
+    description: |
+      Starts server, waits for it to respond and then runs all Cypress tests.
+      Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme)
     usage:
       version: 2.1
       orbs:
