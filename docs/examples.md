@@ -8,7 +8,7 @@ Runs all Cypress tests without recording results on the Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -24,7 +24,7 @@ Runs all Cypress tests on Node 6 image
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -41,7 +41,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -58,7 +58,7 @@ Runs tests using Chrome browser in custom executor (Cypress docker image)
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -76,7 +76,7 @@ Starts server and then runs all Cypress tests
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -93,7 +93,7 @@ Starts server, waits for it to respond and then runs all Cypress tests. Uses `np
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -111,7 +111,7 @@ Runs all Cypress tests by load balancing them on two machines
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -134,7 +134,7 @@ Install dependencies and run custom build command on one machine. Then run on 3 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -158,7 +158,7 @@ Runs all tests on 4 machines using Electron browser (default). Also runs some te
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
