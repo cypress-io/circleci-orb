@@ -85,6 +85,24 @@ workflows:
 
 ```
 
+## wait-for-server-to-respond
+
+
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme) 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+
+```
+
 ## parallel-on-2-machines
 
 

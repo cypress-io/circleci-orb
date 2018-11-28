@@ -108,6 +108,17 @@ type: string
 
 type: string
 
+
+**`wait-on`**
+
+> Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.
+> Example:
+>   wait-on: "http://localhost:4200" # wait for local port 4200 to respond to HEAD request
+>   wait-on: "http-get://127.0.0.1:3000" # wait for port 3000 to respond to GET request
+
+
+type: string
+
 ## install
 
 

@@ -31,6 +31,21 @@ workflows:
       - cypress/run
 ```
 
+### record on Dashboard
+
+Runs all Cypress tests and records them on the Cypress Dashboard
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.0.1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          record: true
+```
+
 ### parallel
 
 A more complex project that needs to install dependencies, build an application and run tests across 10 CI machines [in parallel](https://on.cypress.io/parallelization) may have:
@@ -87,7 +102,9 @@ workflows:
 
 ### other examples
 
-For more examples, see the [docs/examples.md](docs/examples.md) generated from the [src/orb.yml](src/orb.yml). Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
+For more examples, see the [docs/examples.md](docs/examples.md) generated from the [src/orb.yml](src/orb.yml).
+
+Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
 
 ## Jobs and executors
 

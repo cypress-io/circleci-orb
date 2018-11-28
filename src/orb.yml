@@ -188,6 +188,15 @@ jobs:
         description: |
           Optional server start command to run in the background before running Cypress tests
 
+      wait-on:
+        type: string
+        default: ''
+        description: |
+          Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.
+          Example:
+            wait-on: "http://localhost:4200" # wait for local port 4200 to respond to HEAD request
+            wait-on: "http-get://127.0.0.1:3000" # wait for port 3000 to respond to GET request
+
       browser:
         type: string
         default: ''
@@ -245,6 +254,13 @@ jobs:
                 background: true
 
       - when:
+          condition: <<parameters.wait-on>>
+          steps:
+            - run:
+                name: Wait-on <<parameters.wait-on>>
+                command: npx wait-on <<parameters.wait-on>>
+
+      - when:
           condition: <<parameters.command>>
           steps:
             - run:
@@ -293,7 +309,7 @@ jobs:
             - install
 
 #
-# user examples showing how to use the above Cypress Orb
+# User examples showing how to use the above Cypress Orb
 #
 examples:
   simple:
@@ -355,6 +371,21 @@ examples:
           jobs:
             - cypress/run:
                 start: 'npm start'
+
+  wait-for-server-to-respond:
+    description: |
+      Starts server, waits for it to respond and then runs all Cypress tests.
+      Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme)
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.0.1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                start: 'npm start'
+                wait-on: 'http://localhost:4200'
 
   parallel-on-2-machines:
     description: Runs all Cypress tests by load balancing them on two machines
@@ -428,3 +459,14 @@ examples:
                 group: 'smoke tests'
                 browser: 'chrome'
                 spec: 'cypress/integration/smoke/*'
+##
+## Development (internal)
+##
+## process this workflow using above jobs and commands like inline orb
+## Useful for local developing, especially by showing the effective config
+## using: npm run effective:config
+# workflows:
+#   build:
+#     jobs:
+#       - run:
+#           wait-on: http://localhost:4200
