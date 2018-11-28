@@ -19,7 +19,8 @@
     "docs": "npm run doc",
     "doc:examples": "ts-node ./scripts/examples > docs/examples.md",
     "doc:jobs": "ts-node ./scripts/jobs > docs/jobs.md",
-    "doc:executors": "ts-node ./scripts/executors > docs/executors.md"
+    "doc:executors": "ts-node ./scripts/executors > docs/executors.md",
+    "effective:config": "circleci config process src/orb.yml | sed /^#/d"
   },
   "repository": {
     "type": "git",
