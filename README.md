@@ -22,7 +22,7 @@ Install dependencies (using `npm ci`) and run all Cypress tests:
 version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -38,7 +38,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -53,7 +53,7 @@ A more complex project that needs to install dependencies, build an application 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -83,7 +83,7 @@ If you want to run a job after running Cypress tests, you can reuse the workspac
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 jobs:
   release:
     executor: cypress/base-10
@@ -123,7 +123,7 @@ A typical example:
 version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -145,7 +145,7 @@ Sometimes you need to install the project's npm dependencies and build the appli
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -190,7 +190,7 @@ For example, if your current CircleCI configuration file is `.circleci/config.ym
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.0.1
+  cypress: cypress-io/cypress@1.1.0
 workflows:
   build:
     jobs:
@@ -201,7 +201,7 @@ The fully resolved configuration will show:
 
 ```shell
 $ circleci config process .circleci/config.yml
-# Orb 'cypress-io/cypress@1.0.1' resolved to 'cypress-io/cypress@1.0.1'
+# Orb 'cypress-io/cypress@1.1.0' resolved to 'cypress-io/cypress@1.1.0'
 version: 2
 jobs:
   cypress/run:
