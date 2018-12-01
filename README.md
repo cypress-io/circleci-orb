@@ -183,7 +183,7 @@ You can find all changes and published orb versions at [cypress-io/circleci-orb/
 
 ## Effective config
 
-You can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
+If you install [Circle local CLI][local-cli], you can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
 
 For example, if your current CircleCI configuration file is `.circleci/config.yml` and it contains the following:
 
@@ -256,3 +256,4 @@ This project is licensed under the terms of the [MIT license](/LICENSE.md).
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
+[local-cli]: https://circleci.com/docs/2.0/local-cli/
