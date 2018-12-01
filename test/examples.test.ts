@@ -9,8 +9,15 @@ exampleNames.forEach(name => {
   const example = orb.examples[name]
   test(name, t => {
     t.plan(0)
+    const jobs = example.usage.jobs
     const workflows = example.usage.workflows
-    const text = safeDump({ workflows })
+    const output = { workflows }
+    if (jobs) {
+      //@ts-ignore
+      output.jobs = jobs
+    }
+    const text = safeDump(output)
+    // console.log(text)
     return processWorkflows(text)
   })
 })

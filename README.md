@@ -76,33 +76,18 @@ workflows:
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
 
-### release
-
-If you want to run a job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could do
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1.1.0
-jobs:
-  release:
-    executor: cypress/base-10
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: npm run semantic-release
-workflows:
-  build:
-    jobs:
-      - cypress/run
-      - release:
-          requires:
-            - cypress/run
-```
-
 ### other examples
 
-For more examples, see the [docs/examples.md](docs/examples.md) generated from the [src/orb.yml](src/orb.yml).
+- [running tests using Node 6](docs/examples.md#using-node6)
+- [running tests using Chrome browser](docs/examples.md#chrome)
+- [start server before running tests](docs/examples.md#start-server)
+- [wait for server to respond before starting tests](docs/examples.md#wait-for-server-to-respond)
+- [parallel run across two machines](docs/examples.md#parallel-on-2-machines)
+- [build application after install](docs/examples.md#build-app)
+- [running several groups of tests](docs/examples.md#groups)
+- [running another job after tests](docs/examples.md#release)
+
+All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
 Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
 

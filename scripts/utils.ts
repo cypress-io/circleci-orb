@@ -9,6 +9,7 @@ import * as tempWrite from 'temp-write'
 export type example = {
   description: string
   usage: {
+    jobs?: string
     workflows: string
   }
 }

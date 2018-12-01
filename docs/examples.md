@@ -185,3 +185,32 @@ workflows:
 
 ```
 
+## release
+
+
+If you want to run a job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could do the following 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.1.0
+jobs:
+  release:
+    executor: cypress/base-10
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run semantic-release
+workflows:
+  build:
+    jobs:
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+      - release:
+          requires:
+            - cypress/run
+
+```
+
