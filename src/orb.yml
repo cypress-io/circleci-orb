@@ -52,14 +52,6 @@ executors:
 # reusable commands
 #
 commands:
-  hello:
-    description: just a tiny command for checking if things work
-    parameters:
-      greeting:
-        type: string
-    steps:
-      - run: echo "Cypress says, Hello <<parameters.greeting>>"
-
   #
   # individual "building blocks" commands
   #
@@ -121,13 +113,6 @@ commands:
 # jobs defined by the orb
 #
 jobs:
-  hello:
-    description: Dummy job for testing commands
-    executor: default
-    steps:
-      - hello:
-          greeting: 'friend'
-
   # a single e2e test run that
   #   - checks out code
   #   - installs NPM dependencies
