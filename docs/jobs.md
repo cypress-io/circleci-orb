@@ -106,6 +106,18 @@ type: string
 type: string
 
 
+**`store_artifacts`**
+
+> Store Cypress-generated screenshots and videos as CircleCI test artifacts.
+> See https://circleci.com/docs/2.0/artifacts/
+
+
+type: boolean
+
+
+default: `false`
+
+
 **`wait-on`**
 
 > Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.

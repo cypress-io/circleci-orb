@@ -50,6 +50,23 @@ workflows:
 
 ```
 
+## artifacts
+
+
+Stores test screenshots and videos as CircleCI artifacts
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.2.0
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          store_artifacts: true
+
+```
+
 ## chrome
 
 

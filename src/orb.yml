@@ -201,6 +201,13 @@ jobs:
         default: ''
         description: Custom test command to run Cypress tests, which overrides all individual options.
 
+      store_artifacts:
+        type: boolean
+        default: false
+        description: |
+          Store Cypress-generated screenshots and videos as CircleCI test artifacts.
+          See https://circleci.com/docs/2.0/artifacts/
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -267,6 +274,16 @@ jobs:
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                     <</ parameters.record>>
 
+      - when:
+          condition: << parameters.store_artifacts >>
+          # store videos and screenshots (if any) as Circle artifacts
+          # https://circleci.com/docs/2.0/artifacts/
+          steps:
+            - store_artifacts:
+                path: cypress/videos
+            - store_artifacts:
+                path: cypress/screenshots
+
   # Install Job
   install:
     parameters:
@@ -331,6 +348,18 @@ examples:
           jobs:
             - cypress/run:
                 record: true
+
+  artifacts:
+    description: Stores test screenshots and videos as CircleCI artifacts
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.2.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                store_artifacts: true
 
   chrome:
     description: Runs tests using Chrome browser in custom executor (Cypress docker image)
@@ -478,8 +507,8 @@ examples:
 ## process this workflow using above jobs and commands like inline orb
 ## Useful for local developing, especially by showing the effective config
 ## using: npm run effective:config
-workflows:
-  build:
-    jobs:
-      - run:
-          record: true
+# workflows:
+#   build:
+#     jobs:
+#       - run:
+#           store_artifacts: true
