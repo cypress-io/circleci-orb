@@ -54,9 +54,6 @@ default: `base-10`
 type: string
 
 
-default: `default group`
-
-
 **`parallel`**
 
 > Use test balancing using Cypress Dashboard,
