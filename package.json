@@ -1,6 +1,6 @@
 {
   "name": "circleci-orb",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Install, cache and run Cypress.io tests on CircleCI with minimal configuration.",
   "main": "index.js",
   "scripts": {
