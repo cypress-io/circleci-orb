@@ -158,7 +158,7 @@ jobs:
 
       group:
         type: string
-        default: 'default group'
+        default: ''
         description: |
           Test group name when recording on the dashboard. Requires `record: true`
 
@@ -263,7 +263,7 @@ jobs:
                     <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
                     <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
                     <<# parameters.record >> --record \
-                      --group '<<parameters.group>>' \
+                      <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                     <</ parameters.record>>
 
@@ -478,8 +478,8 @@ examples:
 ## process this workflow using above jobs and commands like inline orb
 ## Useful for local developing, especially by showing the effective config
 ## using: npm run effective:config
-# workflows:
-#   build:
-#     jobs:
-#       - run:
-#           wait-on: http://localhost:4200
+workflows:
+  build:
+    jobs:
+      - run:
+          record: true
