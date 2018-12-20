@@ -11,6 +11,7 @@ export type example = {
   usage: {
     jobs?: string
     workflows: string
+    executors?: string
   }
 }
 
