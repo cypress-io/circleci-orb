@@ -231,3 +231,27 @@ workflows:
 
 ```
 
+## linux-and-mac
+
+
+Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses own executor "mac" 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.3.0
+executors:
+  mac:
+    macos:
+      xcode: 10.1.0
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          name: Linux test
+      - cypress/run:
+          name: Mac test
+          executor: mac
+
+```
+

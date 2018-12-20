@@ -11,11 +11,17 @@ exampleNames.forEach(name => {
     t.plan(0)
     const jobs = example.usage.jobs
     const workflows = example.usage.workflows
+    const executors = example.usage.executors
     const output = { workflows }
     if (jobs) {
       //@ts-ignore
       output.jobs = jobs
     }
+    if (executors) {
+      //@ts-ignore
+      output.executors = executors
+    }
+
     const text = safeDump(output)
     // console.log(text)
     return processWorkflows(text)
