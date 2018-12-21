@@ -543,6 +543,27 @@ examples:
           jobs:
             - cypress/run:
                 executor: with-chrome
+
+  env-vars:
+    description: Set environment variables when running the job using executor.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.3.0
+
+      executors:
+        base10-foo-bar:
+          docker:
+            - image: cypress/base:10
+          environment:
+            FOO: 'foo'
+            BAR: 'bar'
+
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                executor: base10-foo-bar
 ##
 ## Development (internal)
 ##

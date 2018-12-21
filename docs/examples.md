@@ -276,3 +276,27 @@ workflows:
 
 ```
 
+## env-vars
+
+
+Set environment variables when running the job using executor.
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.3.0
+executors:
+  base10-foo-bar:
+    docker:
+      - image: 'cypress/base:10'
+    environment:
+      FOO: foo
+      BAR: bar
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          executor: base10-foo-bar
+
+```
+

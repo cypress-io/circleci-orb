@@ -88,6 +88,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [running another job after tests](docs/examples.md#release)
 - [building using orb on Mac and Linux](docs/examples.md#linux-and-mac)
 - [use any executor](docs/examples.md#custom-executor)
+- [set additional environment variables](docs/examples.md#env-vars)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
