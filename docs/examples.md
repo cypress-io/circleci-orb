@@ -255,3 +255,24 @@ workflows:
 
 ```
 
+## custom-executor
+
+
+Use any executor to run the job defined by the orb. Assumes the executor has all OS dependencies necessary to run Cypress. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.3.0
+executors:
+  with-chrome:
+    docker:
+      - image: 'cypress/browsers:chrome69'
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          executor: with-chrome
+
+```
+

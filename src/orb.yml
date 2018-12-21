@@ -523,6 +523,26 @@ examples:
             - cypress/run:
                 name: Mac test
                 executor: mac
+
+  custom-executor:
+    description: |
+      Use any executor to run the job defined by the orb.
+      Assumes the executor has all OS dependencies necessary to run Cypress.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.3.0
+
+      executors:
+        with-chrome:
+          docker:
+            - image: cypress/browsers:chrome69
+
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                executor: with-chrome
 ##
 ## Development (internal)
 ##
