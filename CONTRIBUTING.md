@@ -46,6 +46,12 @@ The better way is to let the [publish.js](publish.js) increment the version, tag
 npm run orb:publish
 ```
 
+After publishing, the `package.json` file will have new version (if any). A new git tag will be created and you should push the updated code and tag to GitHub
+
+```shell
+git push --tag
+```
+
 Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits:
 
 ```text
