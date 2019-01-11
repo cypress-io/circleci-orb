@@ -65,22 +65,45 @@ commands:
         description: Optional build command(s)
         type: steps
         default: []
+      yarn:
+        description: Use yarn instead of npm
+        type: boolean
+        default: false
     steps:
       - restore_cache:
           keys:
             - cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
-      - run:
-          name: 'Npm CI'
-          command: 'npm ci'
+      - when:
+          condition: << parameters.yarn >>
+          steps:
+            - run:
+                name: 'Yarn install'
+                command: 'yarn install'
+      - unless:
+          condition: << parameters.yarn >>
+          steps:
+            - run:
+                name: 'Npm CI'
+                command: 'npm ci'
       - run: npx cypress verify
       # save new cache folder if needed
-      - save_cache:
-          key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
+      - when:
+          condition: << parameters.yarn >>
+          steps:
+            - save_cache:
+                key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+                paths:
+                  - ~/.cache
+      - unless:
+          condition: << parameters.yarn >>
+          steps:
+            - save_cache:
+                key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+                paths:
+                  - ~/.npm
+                  - ~/.cache
       - steps: << parameters.build >>
 
   write_workspace:
@@ -98,15 +121,20 @@ commands:
   # Install command
   install:
     description: |
-      Install NPM dependencies using "npm ci" then optionally runs your build command
+      Install NPM dependencies using "npm ci" or "yarn install" then optionally runs your build command
     parameters:
       build:
         type: steps
         default: []
         description: Custom build commands to run after install
+      yarn:
+        description: Use yarn instead of npm
+        type: boolean
+        default: false
     steps:
       - setup:
           build: << parameters.build >>
+          yarn: << parameters.yarn >>
       - write_workspace
 
 #
@@ -208,6 +236,11 @@ jobs:
           Store Cypress-generated screenshots and videos as CircleCI test artifacts.
           See https://circleci.com/docs/2.0/artifacts/
 
+      yarn:
+        description: Use yarn instead of npm
+        type: boolean
+        default: false
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -230,12 +263,14 @@ jobs:
                 condition: << parameters.build >>
                 steps:
                   - install:
+                      yarn: << parameters.yarn >>
                       build:
                         - run: << parameters.build >>
             - unless:
                 condition: <<parameters.build>>
                 steps:
-                  - install
+                  - install:
+                      yarn: << parameters.yarn >>
 
       - when:
           condition: <<parameters.start>>
@@ -295,6 +330,10 @@ jobs:
         type: string
         default: ''
         description: Custom build command to run after install
+      yarn:
+        description: Use yarn instead of npm
+        type: boolean
+        default: false
     description: Checks out code, installs dependencies, attaches code to the workspace
     executor: <<parameters.executor>>
     steps:
@@ -303,12 +342,14 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install:
+                yarn: << parameters.yarn >>
                 build:
                   - run: << parameters.build >>
       - unless:
           condition: << parameters.build >>
           steps:
-            - install
+            - install:
+                yarn: << parameters.yarn >>
 
 #
 # User examples showing how to use the above Cypress Orb
