@@ -128,6 +128,17 @@ default: `false`
 
 type: string
 
+
+**`yarn`**
+
+> Use yarn instead of npm
+
+
+type: boolean
+
+
+default: `false`
+
 ## install
 
 
@@ -151,4 +162,15 @@ type: executor
 
 
 default: `base-10`
+
+
+**`yarn`**
+
+> Use yarn instead of npm
+
+
+type: boolean
+
+
+default: `false`
 

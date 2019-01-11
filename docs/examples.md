@@ -16,6 +16,23 @@ workflows:
 
 ```
 
+## yarn
+
+
+Installs NPM dependencies using "yarn install" command
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.4.0
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          yarn: true
+
+```
+
 ## using-node6
 
 

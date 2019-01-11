@@ -366,6 +366,18 @@ examples:
           jobs:
             - cypress/run
 
+  yarn:
+    description: Installs NPM dependencies using "yarn install" command
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.4.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                yarn: true
+
   using-node6:
     description: Runs all Cypress tests on Node 6 image
     usage:
@@ -615,5 +627,4 @@ examples:
 #   build:
 #     jobs:
 #       - run:
-#           name: Mac test
-#           executor: mac
+#           yarn: true
