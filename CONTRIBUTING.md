@@ -10,6 +10,16 @@ To see existing orbs:
 $ circleci orb list cypress-io
 ```
 
+### Commits
+
+Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits:
+
+```text
+major: breaking change
+minor: new feature added
+fix: a patch release
+```
+
 ### Development
 
 You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing before publishing a production immutable version. For example, to publish version `1.0.0-my-fork`, run:
@@ -22,6 +32,12 @@ You can first do a dry dev publish to see the command with:
 
 ```shell
 node ./publish --dev 1.0.0-my-fork --dry
+```
+
+Note: you can publish a temporary version of the orb using the `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
+
+```
+circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
 ```
 
 ### Production
@@ -52,19 +68,7 @@ After publishing, the `package.json` file will have new version (if any). A new 
 git push --tag
 ```
 
-Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits:
-
-```text
-major: breaking change
-minor: new feature added
-fix: a patch release
-```
-
-Note: you can publish a temporary version of the orb using the `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
-
-```
-circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
-```
+After pushing, go to [GitHub releases](https://github.com/cypress-io/circleci-orb/releases) and update notes for the new release.
 
 ## Additional information
 
