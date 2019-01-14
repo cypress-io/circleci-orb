@@ -472,6 +472,24 @@ examples:
                 parallelism: 2
                 group: '2 machines'
 
+  install-private-npm-modules:
+    description: |
+      In this example, we write the NPM auth token before running "npm install" command.
+      This allows us to install private NPM modules for example.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.4.0
+      workflows:
+        build:
+          jobs:
+            - cypress/install:
+                pre-steps:
+                  - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            - cypress/run:
+                requires:
+                  - cypress/install
+
   build-app:
     description: |
       Install dependencies and run custom build command on one machine.
@@ -626,5 +644,6 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - run:
-#           yarn: true
+#       - install:
+#           pre-steps:
+#             - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
