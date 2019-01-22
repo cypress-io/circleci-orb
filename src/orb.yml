@@ -80,7 +80,7 @@ commands:
           steps:
             - run:
                 name: 'Yarn install'
-                command: 'yarn install'
+                command: 'yarn install --frozen-lockfile'
       - unless:
           condition: << parameters.yarn >>
           steps:
@@ -121,7 +121,7 @@ commands:
   # Install command
   install:
     description: |
-      Install NPM dependencies using "npm ci" or "yarn install" then optionally runs your build command
+      Install NPM dependencies using "npm ci" or "yarn install --frozen-lockfile" then optionally runs your build command
     parameters:
       build:
         type: steps
@@ -367,7 +367,7 @@ examples:
             - cypress/run
 
   yarn:
-    description: Installs NPM dependencies using "yarn install" command
+    description: Installs NPM dependencies using "yarn install --frozen-lockfile" command
     usage:
       version: 2.1
       orbs:
