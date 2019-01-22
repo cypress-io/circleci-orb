@@ -19,7 +19,7 @@ workflows:
 ## yarn
 
 
-Installs NPM dependencies using "yarn install" command
+Installs NPM dependencies using "yarn install --frozen-lockfile" command
 
 ```yaml
 version: 2.1
