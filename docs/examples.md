@@ -19,7 +19,7 @@ workflows:
 ## yarn
 
 
-Installs NPM dependencies using "yarn install" command
+Installs NPM dependencies using "yarn install --frozen-lockfile" command
 
 ```yaml
 version: 2.1
@@ -157,6 +157,27 @@ workflows:
           parallel: true
           parallelism: 2
           group: 2 machines
+
+```
+
+## install-private-npm-modules
+
+
+In this example, we write the NPM auth token before running "npm install" command. This allows us to install private NPM modules for example. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.4.0
+workflows:
+  build:
+    jobs:
+      - cypress/install:
+          pre-steps:
+            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+      - cypress/run:
+          requires:
+            - cypress/install
 
 ```
 

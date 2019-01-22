@@ -80,7 +80,7 @@ commands:
           steps:
             - run:
                 name: 'Yarn install'
-                command: 'yarn install'
+                command: 'yarn install --frozen-lockfile'
       - unless:
           condition: << parameters.yarn >>
           steps:
@@ -121,7 +121,7 @@ commands:
   # Install command
   install:
     description: |
-      Install NPM dependencies using "npm ci" or "yarn install" then optionally runs your build command
+      Install NPM dependencies using "npm ci" or "yarn install --frozen-lockfile" then optionally runs your build command
     parameters:
       build:
         type: steps
@@ -367,7 +367,7 @@ examples:
             - cypress/run
 
   yarn:
-    description: Installs NPM dependencies using "yarn install" command
+    description: Installs NPM dependencies using "yarn install --frozen-lockfile" command
     usage:
       version: 2.1
       orbs:
@@ -471,6 +471,24 @@ examples:
                 parallel: true
                 parallelism: 2
                 group: '2 machines'
+
+  install-private-npm-modules:
+    description: |
+      In this example, we write the NPM auth token before running "npm install" command.
+      This allows us to install private NPM modules for example.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.4.0
+      workflows:
+        build:
+          jobs:
+            - cypress/install:
+                pre-steps:
+                  - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            - cypress/run:
+                requires:
+                  - cypress/install
 
   build-app:
     description: |
@@ -626,5 +644,6 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - run:
-#           yarn: true
+#       - install:
+#           pre-steps:
+#             - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
