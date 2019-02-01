@@ -69,7 +69,7 @@ workflows:
             - cypress/install
           record: true # record results on Cypress Dashboard
           parallel: true # split all specs across machines
-          parallelism: 10 # use 10 CircleCI machines to finish quickly
+          parallelism: 4 # use 4 CircleCI machines to finish quickly
           group: 'all tests' # name this group "all tests" on the dashboard
           start: 'npm start' # start server before running tests
 ```
