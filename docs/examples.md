@@ -314,6 +314,25 @@ workflows:
 
 ```
 
+## store-test-reports
+
+
+Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results" 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-steps:
+            - store_test_results:
+                path: cypress/results
+
+```
+
 ## env-vars
 
 

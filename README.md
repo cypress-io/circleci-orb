@@ -107,6 +107,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [use custom executor](docs/examples.md#custom-executor)
 - [set additional environment variables](docs/examples.md#env-vars)
 - [install private NPM dependencies](docs/examples.md#install-private-npm-modules)
+- [store test reports on Circle](docs/examples.md#store-test-reports)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
