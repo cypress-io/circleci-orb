@@ -360,7 +360,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -371,7 +371,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.4.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -383,7 +383,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -395,7 +395,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -407,7 +407,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.2.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -419,7 +419,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -432,7 +432,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -446,7 +446,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -459,7 +459,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -479,7 +479,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.4.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -497,7 +497,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -520,7 +520,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       workflows:
         build:
           jobs:
@@ -553,7 +553,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.1.0
+        cypress: cypress-io/cypress@1
       jobs:
         release:
           executor: cypress/base-10
@@ -579,7 +579,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.3.0
+        cypress: cypress-io/cypress@1
 
       executors:
         mac:
@@ -602,7 +602,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.3.0
+        cypress: cypress-io/cypress@1
 
       executors:
         with-chrome:
@@ -620,7 +620,7 @@ examples:
     usage:
       version: 2.1
       orbs:
-        cypress: cypress-io/cypress@1.3.0
+        cypress: cypress-io/cypress@1
 
       executors:
         base10-foo-bar:

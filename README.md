@@ -1,6 +1,6 @@
 # Cypress CircleCI Orb [![CircleCI](https://circleci.com/gh/cypress-io/circleci-orb.svg?style=svg)](https://circleci.com/gh/cypress-io/circleci-orb) [![renovate-app badge][renovate-badge]][renovate-app]
 
-The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on [CircleCI](https://circleci.com) with very little effort.
+The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on CircleCI with very little effort. See this orb in [CircleCI Registry](https://circleci.com/orbs/registry/orb/cypress-io/cypress).
 
 **Note ⚠️:** To use CircleCI Orbs in your projects, you need to enable two settings:
 
@@ -21,8 +21,9 @@ Install dependencies (using `npm ci`) and run all Cypress tests:
 # to use orbs, must use version >= 2.1
 version: 2.1
 orbs:
-  # import Cypress orb by specifying an exact version
-  cypress: cypress-io/cypress@1.1.0
+  # import Cypress orb by specifying an exact version x.y.z
+  # or the latest version 1.x.x
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -38,7 +39,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -53,7 +54,7 @@ A more complex project that needs to install dependencies, build an application 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -112,8 +113,9 @@ A typical example:
 # to use orbs, must use version >= 2.1
 version: 2.1
 orbs:
-  # import Cypress orb by specifying an exact version
-  cypress: cypress-io/cypress@1.1.0
+  # import Cypress orb by specifying an exact version x.y.z
+  # or the latest version 1.x.x
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -135,7 +137,7 @@ Sometimes you need to install the project's npm dependencies and build the appli
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -171,6 +173,8 @@ Cypress orb is _versioned_ so you can be sure that the configuration will _not_ 
 
 You can find all changes and published orb versions at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
 
+We are using `cypress-io/cypress@1` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
+
 ## Effective config
 
 If you install [Circle local CLI][local-cli], you can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
@@ -180,7 +184,7 @@ For example, if your current CircleCI configuration file is `.circleci/config.ym
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -191,7 +195,7 @@ The fully resolved configuration will show:
 
 ```shell
 $ circleci config process .circleci/config.yml
-# Orb 'cypress-io/cypress@1.1.0' resolved to 'cypress-io/cypress@1.1.0'
+# Orb 'cypress-io/cypress@1' resolved to 'cypress-io/cypress@1.1.0'
 version: 2
 jobs:
   cypress/run:

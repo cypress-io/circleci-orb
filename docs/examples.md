@@ -8,7 +8,7 @@ Runs all Cypress tests without recording results on the Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -24,7 +24,7 @@ Installs NPM dependencies using "yarn install --frozen-lockfile" command
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.4.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -41,7 +41,7 @@ Runs all Cypress tests on Node 6 image
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -58,7 +58,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -75,7 +75,7 @@ Stores test screenshots and videos as CircleCI artifacts
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.2.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -92,7 +92,7 @@ Runs tests using Chrome browser in custom executor (Cypress docker image)
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -110,7 +110,7 @@ Starts server and then runs all Cypress tests
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -127,7 +127,7 @@ Starts server, waits for it to respond and then runs all Cypress tests. Uses `np
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -145,7 +145,7 @@ Runs all Cypress tests by load balancing them on two machines
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -168,7 +168,7 @@ In this example, we write the NPM auth token before running "npm install" comman
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.4.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -189,7 +189,7 @@ Install dependencies and run custom build command on one machine. Then run on 3 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -213,7 +213,7 @@ Runs all tests on 4 machines using Electron browser (default). Also runs some te
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
@@ -248,7 +248,7 @@ If you want to run a job after running Cypress tests, you can reuse the workspac
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.1.0
+  cypress: cypress-io/cypress@1
 jobs:
   release:
     executor: cypress/base-10
@@ -277,7 +277,7 @@ Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.3.0
+  cypress: cypress-io/cypress@1
 executors:
   mac:
     macos:
@@ -301,7 +301,7 @@ Use any executor to run the job defined by the orb. Assumes the executor has all
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.3.0
+  cypress: cypress-io/cypress@1
 executors:
   with-chrome:
     docker:
@@ -322,7 +322,7 @@ Set environment variables when running the job using executor.
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.3.0
+  cypress: cypress-io/cypress@1
 executors:
   base10-foo-bar:
     docker:
