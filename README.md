@@ -2,6 +2,20 @@
 
 The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on CircleCI with very little effort. See this orb in [CircleCI Registry](https://circleci.com/orbs/registry/orb/cypress-io/cypress).
 
+## Contents
+
+- [How to enable orbs](#how-to-enable)
+- [Lots of examples](#examples)
+  * [simple](#simple)
+  * [with recording on Dashboard](#record-on-dashboard)
+  * [with parallel tests](#parallel)
+- [Jobs and executors in this orb](#jobs-and-executors)
+- [Orb versions](#versions)
+- [Effective config](#effective-config)
+- [Development and license](#development)
+
+## How to enable
+
 **Note ⚠️:** To use CircleCI Orbs in your projects, you need to enable two settings:
 
 - from organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
@@ -22,7 +36,7 @@ Install dependencies (using `npm ci`) and run all Cypress tests:
 version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
-  # or the latest version 1.x.x
+  # or the latest version 1.x.x using "@1" syntax
   cypress: cypress-io/cypress@1
 workflows:
   build:
@@ -89,7 +103,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [running several groups of tests](docs/examples.md#groups)
 - [running another job after tests](docs/examples.md#release)
 - [building using orb on Mac and Linux](docs/examples.md#linux-and-mac)
-- [use any executor](docs/examples.md#custom-executor)
+- [use custom executor](docs/examples.md#custom-executor)
 - [set additional environment variables](docs/examples.md#env-vars)
 - [install private NPM dependencies](docs/examples.md#install-private-npm-modules)
 
