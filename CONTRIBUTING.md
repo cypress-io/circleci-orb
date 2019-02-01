@@ -40,6 +40,8 @@ Note: you can publish a temporary version of the orb using the `dev` label. This
 circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
 ```
 
+It is a good idea to test a dev version of the orb first using [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) before publishing new public version.
+
 ### Production
 
 You can publish a new orb version manually, by incrementing the version. For example:
