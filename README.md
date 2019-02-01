@@ -9,6 +9,7 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
   * [simple](#simple)
   * [with recording on Dashboard](#record-on-dashboard)
   * [with parallel tests](#parallel)
+  * [other examples](#other-examples)
 - [Jobs and executors in this orb](#jobs-and-executors)
 - [Orb versions](#versions)
 - [Effective config](#effective-config)
@@ -183,9 +184,9 @@ The first job `install` runs on a single machine, and usually is very fast becau
 
 ## Versions
 
-Cypress orb is _versioned_ so you can be sure that the configuration will _not_ suddenly change as we change orb commands. We follow semantic versioning to make sure you can upgrade project configuration to minor and patch versions without breaking changes.
+Cypress orb is _versioned_ so you can be sure that the configuration will _not_ suddenly change as we change orb commands. We follow semantic versioning to make sure you can upgrade project configuration to minor and patch versions without breaking changes. See [CircleCI Orb versioning documentation](https://circleci.com/docs/2.0/creating-orbs/#semantic-versioning-in-orbs).
 
-You can find all changes and published orb versions at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
+You can find all changes and published orb versions for Cypress orb at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
 
 We are using `cypress-io/cypress@1` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
 
