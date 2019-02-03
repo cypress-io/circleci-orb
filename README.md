@@ -109,6 +109,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [install private NPM dependencies](docs/examples.md#install-private-npm-modules)
 - [store test reports on Circle](docs/examples.md#store-test-reports)
 - [store screenshots and videos on Cicle](docs/examples.md#artifacts)
+- [store other folders as artifacts on Circle](docs/examples.md#any-artifacts)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 

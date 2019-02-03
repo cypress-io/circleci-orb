@@ -423,6 +423,20 @@ examples:
             - cypress/run:
                 store_artifacts: true
 
+  any-artifacts:
+    description: Stores additional folders like "mochawesome-report" as a CircleCI artifact
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                post-steps:
+                  - store_artifacts:
+                      path: mochawesome-report
+
   chrome:
     description: Runs tests using Chrome browser in custom executor (Cypress docker image)
     usage:

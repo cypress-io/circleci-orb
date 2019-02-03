@@ -84,6 +84,25 @@ workflows:
 
 ```
 
+## any-artifacts
+
+
+Stores additional folders like "mochawesome-report" as a CircleCI artifact
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-steps:
+            - store_artifacts:
+                path: mochawesome-report
+
+```
+
 ## chrome
 
 
