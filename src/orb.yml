@@ -412,7 +412,7 @@ examples:
                 record: true
 
   artifacts:
-    description: Stores test screenshots and videos as CircleCI artifacts
+    description: Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option.
     usage:
       version: 2.1
       orbs:

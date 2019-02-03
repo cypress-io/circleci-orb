@@ -70,7 +70,7 @@ workflows:
 ## artifacts
 
 
-Stores test screenshots and videos as CircleCI artifacts
+Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option.
 
 ```yaml
 version: 2.1
