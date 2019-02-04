@@ -70,7 +70,7 @@ workflows:
 ## artifacts
 
 
-Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option.
+Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option. Note, this setting assumes the default Cypress folders for screenshots and videos. If you store screenshots and videos in custom folders, see "any-artifacts" example how to store arbitrary folders. 
 
 ```yaml
 version: 2.1
@@ -141,7 +141,7 @@ workflows:
 ## wait-for-server-to-respond
 
 
-Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme) 
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` on url `http-get://localhost:....` url. 
 
 ```yaml
 version: 2.1
