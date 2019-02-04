@@ -141,7 +141,7 @@ workflows:
 ## wait-for-server-to-respond
 
 
-Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` on url `http-get://localhost:....` url. 
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`. 
 
 ```yaml
 version: 2.1
