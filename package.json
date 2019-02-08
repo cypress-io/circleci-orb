@@ -47,7 +47,7 @@
     "next-ver": "1.8.0",
     "temp-write": "3.4.0",
     "ts-node": "8.0.2",
-    "typescript": "3.3.1"
+    "typescript": "3.3.3"
   },
   "husky": {
     "hooks": {
