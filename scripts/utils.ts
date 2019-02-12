@@ -23,9 +23,13 @@ export type parameter = {
 
 export type parallelism = string
 
+export type parameters = {
+  [key: string]: parameter
+}
+
 export type job = {
   description: string
-  parameters: parameter
+  parameters: parameters
   executor: string
   parallelism: parallelism
 }

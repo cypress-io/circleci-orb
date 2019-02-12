@@ -3,6 +3,28 @@
 
 Public jobs defined in this orb that your config workflow can use. See [examples.md](./examples.md)
 
+
+ - [run](#run)
+     - executor
+     - record
+     - parallel
+     - parallelism
+     - group
+     - build
+     - start
+     - wait-on
+     - browser
+     - spec
+     - command
+     - store_artifacts
+     - yarn
+    
+ - [install](#install)
+     - executor
+     - build
+     - yarn
+    
+
 ## run
 
 

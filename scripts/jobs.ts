@@ -55,9 +55,34 @@ const description = {
   `),
 }
 
+const getJobContents = (name: string, job: job) => {
+  return {
+    ul: [{
+      p: name
+    }]
+  }
+}
+
+const toLink = (name) => `[${name}](#${name})`
+
+const getToc = () => {
+  const toc = {ul: []}
+  jobNames.forEach(name => {
+    toc.ul.push(toLink(name))
+    const job: job = orb.jobs[name]
+    const params = {ul: []}
+    Object.keys(job.parameters).forEach(name => {
+      params.ul.push(name)
+    })
+    toc.ul.push(params)
+  })
+  return toc
+}
+
 const contents = []
   .concat(header)
   .concat(description)
+  .concat(getToc())
   .concat(...fragments)
 // console.error(contents)
 
