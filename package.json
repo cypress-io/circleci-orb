@@ -45,6 +45,7 @@
     "json2md": "1.6.2",
     "minimist": "1.2.0",
     "next-ver": "1.8.0",
+    "ramda": "0.26.1",
     "temp-write": "3.4.0",
     "ts-node": "8.0.2",
     "typescript": "3.3.3"

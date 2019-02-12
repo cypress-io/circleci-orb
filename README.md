@@ -64,7 +64,7 @@ workflows:
 
 ### parallel
 
-A more complex project that needs to install dependencies, build an application and run tests across 10 CI machines [in parallel](https://on.cypress.io/parallelization) may have:
+A more complex project that needs to install dependencies, build an application and run tests across 4 CI machines [in parallel](https://on.cypress.io/parallelization) may have:
 
 ```yaml
 version: 2.1

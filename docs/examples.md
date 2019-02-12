@@ -1,5 +1,25 @@
 # Examples
 
+
+ - [simple](#simple) - installs NPM dependencies and runs Cypress tests
+ - [recording](#recording) - Runs all Cypress tests and records them on the Cypress Dashboard
+ - [parallel-on-2-machines](#parallel-on-2-machines) - Runs all Cypress tests by load balancing them on two machines
+ - [yarn](#yarn) - install dependencies using Yarn
+ - [using-node6](#using-node6) - running tests using Node 6
+ - [chrome](#chrome) - running tests using Chrome browser
+ - [start-server](#start-server) - start server before running tests
+ - [wait-for-server-to-respond](#wait-for-server-to-respond) - wait for server to respond before starting tests
+ - [build-app](#build-app) - build application after install
+ - [groups](#groups) - running several groups of tests
+ - [release](#release) - running another job after tests
+ - [linux-and-mac](#linux-and-mac) - building using orb on Mac and Linux
+ - [custom-executor](#custom-executor) - use custom executor
+ - [env-vars](#env-vars) - set additional environment variables
+ - [install-private-npm-modules](#install-private-npm-modules) - install private NPM dependencies
+ - [store-test-reports](#store-test-reports) - store test reports on Circle
+ - [artifacts](#artifacts) - store screenshots and videos on Cicle
+ - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
+
 ## simple
 
 
