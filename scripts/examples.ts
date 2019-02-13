@@ -30,7 +30,9 @@ const exampleTitles = {
   'any-artifacts': 'store other folders as artifacts on Circle'
 }
 
-const getToc = () => {
+// we want to make sure all orb examples are represented in the object above
+// and appear in the generated Markdown in the above order
+const checkExamples = () => {
   const knownNames = Object.keys(exampleTitles)
   const examplesNames = Object.keys(examples)
   const unknownNames = symmetricDifference(knownNames, examplesNames)
@@ -40,6 +42,11 @@ const getToc = () => {
     console.error('Check orb.yml examples and scripts/examples.ts to resolve the lists')
     throw new Error('example names do not match')
   }
+}
+checkExamples()
+
+const getToc = () => {
+  const knownNames = Object.keys(exampleTitles)
 
   const items = knownNames.map(name => {
     const description = exampleTitles[name]
@@ -64,9 +71,17 @@ const docExample = (name: string, example: example) => {
   ]
 }
 
-const fragments = Object.keys(examples).map(name => {
-  return docExample(name, orb.examples[name])
-})
+const getExampleFragments = () => {
+  // use order we have defined, but check that all examples match
+  checkExamples()
+
+  const knownNames = Object.keys(exampleTitles)
+  const fragments = knownNames.map(name => {
+    return docExample(name, orb.examples[name])
+  })
+  return fragments
+}
+
 
 const header = {
   h1: 'Examples',
@@ -74,7 +89,7 @@ const header = {
 
 const toc = getToc()
 
-const contents = [].concat(header).concat(toc).concat(...fragments)
+const contents = [].concat(header).concat(toc).concat(...getExampleFragments())
 // console.log(contents)
 
 const md = json2md(contents)

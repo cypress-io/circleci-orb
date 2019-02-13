@@ -36,6 +36,46 @@ workflows:
 
 ```
 
+## recording
+
+
+Runs all Cypress tests and records them on the Cypress Dashboard
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          record: true
+
+```
+
+## parallel-on-2-machines
+
+
+Runs all Cypress tests by load balancing them on two machines
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+          record: true
+          parallel: true
+          parallelism: 2
+          group: 2 machines
+
+```
+
 ## yarn
 
 
@@ -67,59 +107,6 @@ workflows:
     jobs:
       - cypress/run:
           executor: cypress/base-6
-
-```
-
-## recording
-
-
-Runs all Cypress tests and records them on the Cypress Dashboard
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          record: true
-
-```
-
-## artifacts
-
-
-Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option. Note, this setting assumes the default Cypress folders for screenshots and videos. If you store screenshots and videos in custom folders, see "any-artifacts" example how to store arbitrary folders. 
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          store_artifacts: true
-
-```
-
-## any-artifacts
-
-
-Stores additional folders like "mochawesome-report" as a CircleCI artifact
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          post-steps:
-            - store_artifacts:
-                path: mochawesome-report
 
 ```
 
@@ -173,50 +160,6 @@ workflows:
       - cypress/run:
           start: npm start
           wait-on: 'http://localhost:4200'
-
-```
-
-## parallel-on-2-machines
-
-
-Runs all Cypress tests by load balancing them on two machines
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/install
-      - cypress/run:
-          requires:
-            - cypress/install
-          record: true
-          parallel: true
-          parallelism: 2
-          group: 2 machines
-
-```
-
-## install-private-npm-modules
-
-
-In this example, we write the NPM auth token before running "npm install" command. This allows us to install private NPM modules for example. 
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/install:
-          pre-steps:
-            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
-      - cypress/run:
-          requires:
-            - cypress/install
 
 ```
 
@@ -353,25 +296,6 @@ workflows:
 
 ```
 
-## store-test-reports
-
-
-Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results" 
-
-```yaml
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          post-steps:
-            - store_test_results:
-                path: cypress/results
-
-```
-
 ## env-vars
 
 
@@ -393,6 +317,82 @@ workflows:
     jobs:
       - cypress/run:
           executor: base10-foo-bar
+
+```
+
+## install-private-npm-modules
+
+
+In this example, we write the NPM auth token before running "npm install" command. This allows us to install private NPM modules for example. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install:
+          pre-steps:
+            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+      - cypress/run:
+          requires:
+            - cypress/install
+
+```
+
+## store-test-reports
+
+
+Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results" 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-steps:
+            - store_test_results:
+                path: cypress/results
+
+```
+
+## artifacts
+
+
+Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option. Note, this setting assumes the default Cypress folders for screenshots and videos. If you store screenshots and videos in custom folders, see "any-artifacts" example how to store arbitrary folders. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          store_artifacts: true
+
+```
+
+## any-artifacts
+
+
+Stores additional folders like "mochawesome-report" as a CircleCI artifact
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-steps:
+            - store_artifacts:
+                path: mochawesome-report
 
 ```
 
