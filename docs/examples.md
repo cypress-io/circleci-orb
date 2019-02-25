@@ -17,7 +17,7 @@
  - [env-vars](#env-vars) - set additional environment variables
  - [install-private-npm-modules](#install-private-npm-modules) - install private NPM dependencies
  - [store-test-reports](#store-test-reports) - store test reports on Circle
- - [artifacts](#artifacts) - store screenshots and videos on Cicle
+ - [artifacts](#artifacts) - store screenshots and videos on Circle
  - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
 
 ## simple
