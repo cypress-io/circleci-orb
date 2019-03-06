@@ -27,7 +27,8 @@ const exampleTitles = {
   'install-private-npm-modules': 'install private NPM dependencies',
   'store-test-reports': 'store test reports on Circle',
   artifacts: 'store screenshots and videos on Circle',
-  'any-artifacts': 'store other folders as artifacts on Circle'
+  'any-artifacts': 'store other folders as artifacts on Circle',
+  'custom-command': 'use a custom command to launch tests'
 }
 
 // we want to make sure all orb examples are represented in the object above

@@ -661,6 +661,7 @@ examples:
                 post-steps:
                   - store_test_results:
                       path: cypress/results
+
   env-vars:
     description: Set environment variables when running the job using executor.
     usage:
@@ -681,6 +682,18 @@ examples:
           jobs:
             - cypress/run:
                 executor: base10-foo-bar
+
+  custom-command:
+    description: Use your own arbitrary command to launch Cypress tests.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                command: npx cypress run --record
 ##
 ## Development (internal)
 ##

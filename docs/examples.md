@@ -19,6 +19,7 @@
  - [store-test-reports](#store-test-reports) - store test reports on Circle
  - [artifacts](#artifacts) - store screenshots and videos on Circle
  - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
+ - [custom-command](#custom-command) - use a custom command to launch tests
 
 ## simple
 
@@ -393,6 +394,23 @@ workflows:
           post-steps:
             - store_artifacts:
                 path: mochawesome-report
+
+```
+
+## custom-command
+
+
+Use your own arbitrary command to launch Cypress tests.
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          command: npx cypress run --record
 
 ```
 
