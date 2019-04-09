@@ -69,10 +69,14 @@ commands:
         description: Use yarn instead of npm
         type: boolean
         default: false
+      cache-key:
+        description: Npm cache key
+        type: string
+        default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
     steps:
       - restore_cache:
           keys:
-            - cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+            - << parameters.cache-key >>
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
       - when:
@@ -102,14 +106,14 @@ commands:
           condition: << parameters.yarn >>
           steps:
             - save_cache:
-                key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+                key: << parameters.cache-key >>
                 paths:
                   - ~/.cache
       - unless:
           condition: << parameters.yarn >>
           steps:
             - save_cache:
-                key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+                key: << parameters.cache-key >>
                 paths:
                   - ~/.npm
                   - ~/.cache
@@ -140,10 +144,15 @@ commands:
         description: Use yarn instead of npm
         type: boolean
         default: false
+      cache-key:
+        description: Npm cache key
+        type: string
+        default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
     steps:
       - setup:
           build: << parameters.build >>
           yarn: << parameters.yarn >>
+          cache-key: << parameters.cache-key >>
       - write_workspace
 
 #
@@ -250,6 +259,11 @@ jobs:
         type: boolean
         default: false
 
+      cache-key:
+        description: Npm cache key
+        type: string
+        default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -273,12 +287,14 @@ jobs:
                 steps:
                   - install:
                       yarn: << parameters.yarn >>
+                      cache-key: << parameters.cache-key >>
                       build:
                         - run: << parameters.build >>
             - unless:
                 condition: <<parameters.build>>
                 steps:
                   - install:
+                      cache-key: << parameters.cache-key >>
                       yarn: << parameters.yarn >>
 
       - when:
@@ -386,6 +402,19 @@ examples:
           jobs:
             - cypress/run:
                 yarn: true
+
+  custom-cache-key:
+    description: Apply custom key for npm install (or yarn install) cache
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                yarn: true
+                cache-key: yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}
 
   using-node6:
     description: Runs all Cypress tests on Node 6 image

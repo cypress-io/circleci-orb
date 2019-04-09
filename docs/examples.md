@@ -5,6 +5,7 @@
  - [recording](#recording) - Runs all Cypress tests and records them on the Cypress Dashboard
  - [parallel-on-2-machines](#parallel-on-2-machines) - Runs all Cypress tests by load balancing them on two machines
  - [yarn](#yarn) - install dependencies using Yarn
+ - [custom-cache-key](#custom-cache-key) - apply custom key for npm install (or yarn install) cache
  - [using-node6](#using-node6) - running tests using Node 6
  - [chrome](#chrome) - running tests using Chrome browser
  - [start-server](#start-server) - start server before running tests
@@ -91,6 +92,24 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
+
+```
+
+## custom-cache-key
+
+
+Apply custom key for npm install (or yarn install) cache
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          yarn: true
+          cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
 
 ```
 
