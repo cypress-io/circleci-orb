@@ -4,7 +4,7 @@
 import { safeDump } from 'js-yaml'
 import * as json2md from 'json2md'
 import { example, getOrb, normalizeString } from '../scripts/utils'
-import {symmetricDifference} from 'ramda'
+import { symmetricDifference } from 'ramda'
 
 const orb = getOrb()
 const examples = orb.examples
@@ -14,6 +14,7 @@ const exampleTitles = {
   recording: 'Runs all Cypress tests and records them on the Cypress Dashboard',
   'parallel-on-2-machines': 'Runs all Cypress tests by load balancing them on two machines',
   yarn: 'install dependencies using Yarn',
+  'custom-cache-key': 'apply custom key for npm install (or yarn install) cache',
   'using-node6': 'running tests using Node 6',
   chrome: 'running tests using Chrome browser',
   'start-server': 'start server before running tests',
@@ -53,7 +54,7 @@ const getToc = () => {
     const description = exampleTitles[name]
     return `[${name}](#${name}) - ${description}`
   })
-  return {ul: items}
+  return { ul: items }
 }
 
 const docExample = (name: string, example: example) => {
