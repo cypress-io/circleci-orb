@@ -18,6 +18,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - command
      - store_artifacts
      - yarn
+     - cache-key
     
  - [install](#install)
      - executor
@@ -47,6 +48,17 @@ type: string
 
 
 type: string
+
+
+**`cache-key`**
+
+> Npm cache key
+
+
+type: string
+
+
+default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 
 
 **`command`**
