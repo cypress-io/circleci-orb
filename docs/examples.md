@@ -21,6 +21,7 @@
  - [artifacts](#artifacts) - store screenshots and videos on Circle
  - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
  - [custom-command](#custom-command) - use a custom command to launch tests
+ - [no-workspace](#no-workspace) - faster for a single cypress/run job without saving workspace
 
 ## simple
 
@@ -430,6 +431,23 @@ workflows:
     jobs:
       - cypress/run:
           command: npx cypress run --record
+
+```
+
+## no-workspace
+
+
+Faster "cypress/run" job that does not attach workspace, because there are no jobs that follow, so no need to save files. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          no-workspace: true
 
 ```
 

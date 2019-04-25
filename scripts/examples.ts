@@ -29,7 +29,8 @@ const exampleTitles = {
   'store-test-reports': 'store test reports on Circle',
   artifacts: 'store screenshots and videos on Circle',
   'any-artifacts': 'store other folders as artifacts on Circle',
-  'custom-command': 'use a custom command to launch tests'
+  'custom-command': 'use a custom command to launch tests',
+  'no-workspace': 'faster for a single cypress/run job without saving workspace'
 }
 
 // we want to make sure all orb examples are represented in the object above
