@@ -19,6 +19,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - store_artifacts
      - yarn
      - cache-key
+     - no-workspace
     
  - [install](#install)
      - executor
@@ -86,6 +87,17 @@ default: `base-10`
 
 
 type: string
+
+
+**`no-workspace`**
+
+> Do not write workspace (for example if there are no jobs to follow)
+
+
+type: boolean
+
+
+default: `false`
 
 
 **`parallel`**

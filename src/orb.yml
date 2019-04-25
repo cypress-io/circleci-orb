@@ -148,12 +148,20 @@ commands:
         description: Npm cache key
         type: string
         default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+      no-workspace:
+        description: |
+          Do not write workspace (for example if there are no jobs to follow)
+        type: boolean
+        default: false
     steps:
       - setup:
           build: << parameters.build >>
           yarn: << parameters.yarn >>
           cache-key: << parameters.cache-key >>
-      - write_workspace
+      - unless:
+          condition: << parameters.no-workspace >>
+          steps:
+            - write_workspace
 
 #
 # jobs defined by the orb
@@ -264,6 +272,12 @@ jobs:
         type: string
         default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
 
+      no-workspace:
+        description: |
+          Do not write workspace (for example if there are no jobs to follow)
+        type: boolean
+        default: false
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -288,6 +302,7 @@ jobs:
                   - install:
                       yarn: << parameters.yarn >>
                       cache-key: << parameters.cache-key >>
+                      no-workspace: << parameters.no-workspace >>
                       build:
                         - run: << parameters.build >>
             - unless:
@@ -296,6 +311,7 @@ jobs:
                   - install:
                       cache-key: << parameters.cache-key >>
                       yarn: << parameters.yarn >>
+                      no-workspace: << parameters.no-workspace >>
 
       - when:
           condition: <<parameters.start>>
@@ -723,6 +739,21 @@ examples:
           jobs:
             - cypress/run:
                 command: npx cypress run --record
+
+  no-workspace:
+    description: |
+      Faster "cypress/run" job that does not attach workspace,
+      because there are no jobs that follow, so no need save anything.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                no-workspace: true
+
 ##
 ## Development (internal)
 ##
@@ -732,6 +763,5 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - install:
-#           pre-steps:
-#             - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+#       - run:
+#           no-workspace: true
