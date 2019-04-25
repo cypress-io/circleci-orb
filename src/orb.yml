@@ -743,7 +743,7 @@ examples:
   no-workspace:
     description: |
       Faster "cypress/run" job that does not attach workspace,
-      because there are no jobs that follow, so no need save anything.
+      because there are no jobs that follow, so no need to save files.
     usage:
       version: 2.1
       orbs:
