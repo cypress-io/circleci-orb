@@ -111,6 +111,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [store screenshots and videos on Circle](docs/examples.md#artifacts)
 - [store other folders as artifacts on Circle](docs/examples.md#any-artifacts)
 - [use your own custom command to run tests](docs/examples.md#custom-command)
+- [skip saving workspace](docs/examples.md#no-workspace)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
