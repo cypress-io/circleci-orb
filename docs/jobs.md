@@ -194,12 +194,12 @@ default: `false`
 ## install
 
 
-Checks out code, installs dependencies, attaches code to the workspace
+Checks out code, installs dependencies, attaches code to the workspace for the future jobs to use (usually `cypress/run` follows the install step). 
 
 
 **`build`**
 
-> Custom build command to run after install
+> Custom build command to run after install to build the web application or web server.
 
 
 type: string
@@ -207,7 +207,7 @@ type: string
 
 **`executor`**
 
-> Cypress executor to use
+> Cypress or custom executor name to use to run the install.
 
 
 type: executor
@@ -218,7 +218,7 @@ default: `base-10`
 
 **`yarn`**
 
-> Use yarn instead of npm
+> Use yarn to install NPM modules instead of npm.
 
 
 type: boolean

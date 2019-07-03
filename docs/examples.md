@@ -187,7 +187,7 @@ workflows:
 ## build-app
 
 
-Install dependencies and run custom build command on one machine. Then run on 3 machines tests in load balancing mode. 
+Install dependencies and run a custom build command on one machine that builds the web application. Then runs Cypress tests on 3 machines and balances them using [Dashboard parallelization](https://on.cypress.io/parallelization). 
 
 ```yaml
 version: 2.1
@@ -246,7 +246,7 @@ workflows:
 ## release
 
 
-If you want to run a job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could do the following 
+If you want to run an entire job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could follow this example. Note - for simpler steps you can use "post-steps" parameter, see "store-test-reports" example. 
 
 ```yaml
 version: 2.1
@@ -320,7 +320,7 @@ workflows:
 ## env-vars
 
 
-Set environment variables when running the job using executor.
+Set additional environment variables when running Cypress tests by adding them to the executor. 
 
 ```yaml
 version: 2.1
@@ -365,7 +365,7 @@ workflows:
 ## store-test-reports
 
 
-Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results" 
+Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results". Also see "artifacts" parameter. 
 
 ```yaml
 version: 2.1
