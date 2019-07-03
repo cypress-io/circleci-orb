@@ -43,6 +43,9 @@ executors:
     docker:
       - image: cypress/base:10
 
+  # TODO add Node 12 docker image
+  # https://hub.docker.com/r/cypress/base/tags
+
   browsers-chrome69:
     description: Docker container with Node 10, Cypress dependencies and Chrome 69
     docker:
@@ -186,7 +189,9 @@ jobs:
       executor:
         type: executor
         default: base-10
-        description: Cypress executor to use, see [executors.md](executors.md).
+        description: |
+          Cypress executor to use, see [executors.md](executors.md).
+          You can define your own executor, see examples.
 
       record:
         type: boolean
@@ -201,7 +206,9 @@ jobs:
         default: false
         description: |
           Use test balancing using Cypress Dashboard,
-          see https://on.cypress.io/parallelization. Requires `record: true`
+          see https://on.cypress.io/parallelization. Requires `record: true` and
+          only makes sense with CircleCI `parallelism` setting to spin several CI machines.
+          Related options "record" and "group".
 
       parallelism:
         type: integer
@@ -219,13 +226,16 @@ jobs:
       build:
         type: string
         default: ''
-        description: Custom build command to run after install
+        description: |
+          Custom build command to run after install to build your application.
+          Related parameter "start"
 
       start:
         type: string
         default: ''
         description: |
-          Optional server start command to run in the background before running Cypress tests
+          Optional server start command to run in the background before running Cypress tests.
+          Related parameters "build" and "wait-on".
 
       wait-on:
         type: string
@@ -248,12 +258,13 @@ jobs:
         type: string
         default: ''
         description: |
-          Spec pattern to use to run only some test files.
+          Spec pattern to use to run only some test files, passed as `--spec ...` CLI argument.
 
       command:
         type: string
         default: ''
-        description: Custom test command to run Cypress tests, which overrides all individual options.
+        description: |
+          Custom test command to run Cypress tests, which overrides all individual options.
 
       store_artifacts:
         type: boolean
@@ -263,18 +274,20 @@ jobs:
           See https://circleci.com/docs/2.0/artifacts/
 
       yarn:
-        description: Use yarn instead of npm
+        description: Use yarn to install NPM modules instead of npm.
         type: boolean
         default: false
 
       cache-key:
-        description: Npm cache key
+        description: |
+          Custom CircleCI cache key for storing NPM modules and Cypress binary.
         type: string
         default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
 
       no-workspace:
         description: |
-          Do not write workspace (for example if there are no jobs to follow)
+          Do not write workspace (for example if there are no jobs to follow), which
+          saves time on each build.
         type: boolean
         default: false
 
@@ -360,22 +373,27 @@ jobs:
             - store_artifacts:
                 path: cypress/screenshots
 
-  # Install Job
+  # Install Job that can be performed before running jobs
+  # often used to have a single installation step, and then
+  # multiple run jobs can share the same pre-installed workspace.
   install:
     parameters:
       executor:
         type: executor
         default: base-10
-        description: Cypress executor to use
+        description: Cypress or custom executor name to use to run the install.
       build:
         type: string
         default: ''
-        description: Custom build command to run after install
+        description: |
+          Custom build command to run after install to build the web application or web server.
       yarn:
-        description: Use yarn instead of npm
+        description: Use yarn to install NPM modules instead of npm.
         type: boolean
         default: false
-    description: Checks out code, installs dependencies, attaches code to the workspace
+    description: |
+      Checks out code, installs dependencies, attaches code to the workspace for the future jobs
+      to use (usually `cypress/run` follows the install step).
     executor: <<parameters.executor>>
     steps:
       - checkout
@@ -397,7 +415,9 @@ jobs:
 #
 examples:
   simple:
-    description: Runs all Cypress tests without recording results on the Dashboard
+    description: |
+      Runs all Cypress tests without recording results on the Dashboard.
+      Installs dependencies with "npm ci", caches NPM modules and Cypress binary.
     usage:
       version: 2.1
       orbs:
@@ -408,7 +428,9 @@ examples:
             - cypress/run
 
   yarn:
-    description: Installs NPM dependencies using "yarn install --frozen-lockfile" command
+    description: |
+      Installs NPM dependencies using "yarn install --frozen-lockfile" command,
+      then runs Cypress tests. Caches NPM modules and Cypress binary.
     usage:
       version: 2.1
       orbs:
@@ -420,7 +442,9 @@ examples:
                 yarn: true
 
   custom-cache-key:
-    description: Apply custom key for npm install (or yarn install) cache
+    description: |
+      Apply custom key for npm install (or yarn install) cache.
+      Useful to tweak caching settings to your liking. Related options "yarn".
     usage:
       version: 2.1
       orbs:
@@ -433,7 +457,10 @@ examples:
                 cache-key: yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}
 
   using-node6:
-    description: Runs all Cypress tests on Node 6 image
+    description: |
+      Runs all Cypress tests on Node 6 image by specifying `executor` name.
+      There are several executors included with this orb, and you can use
+      your own executor, see "custom-executor" example.
     usage:
       version: 2.1
       orbs:
@@ -445,7 +472,10 @@ examples:
                 executor: cypress/base-6
 
   recording:
-    description: Runs all Cypress tests and records them on the Cypress Dashboard
+    description: |
+      Runs all Cypress tests and records them on the
+      [Cypress Dashboard](https://on.cypress.io/dashboard-service).
+      Requires `CYPRESS_RECORD_KEY` environment variable to be set.
     usage:
       version: 2.1
       orbs:
@@ -473,7 +503,9 @@ examples:
                 store_artifacts: true
 
   any-artifacts:
-    description: Stores additional folders like "mochawesome-report" as a CircleCI artifact
+    description: |
+      Stores additional folders like "mochawesome-report" or code coverage folder
+      as a CircleCI artifact. Related option "artifacts".
     usage:
       version: 2.1
       orbs:
@@ -487,7 +519,10 @@ examples:
                       path: mochawesome-report
 
   chrome:
-    description: Runs tests using Chrome browser in custom executor (Cypress docker image)
+    description: |
+      Runs tests using Chrome browser in a custom executor - a Docker image
+      that includes Chrome browser. See [`--browser`](https://on.cypress.io/launching-browsers)
+      Cypress run option documentation.
     usage:
       version: 2.1
       orbs:
@@ -500,7 +535,10 @@ examples:
                 browser: chrome
 
   start-server:
-    description: Starts server and then runs all Cypress tests
+    description: |
+      Often we need to start a local webserver before running end-to-end tests.
+      This option runs the given command to starts the server in the background
+      and then runs all Cypress tests. Related option "wait-on".
     usage:
       version: 2.1
       orbs:
@@ -518,6 +556,7 @@ examples:
       Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request.
       In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`.
       You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90).
+      Related option "start"
     usage:
       version: 2.1
       orbs:
@@ -530,7 +569,10 @@ examples:
                 wait-on: 'http://localhost:4200'
 
   parallel-on-2-machines:
-    description: Runs all Cypress tests by load balancing them on two machines
+    description: |
+      Runs all Cypress tests by load balancing them on two machines. Note that
+      first a single job installs NPM dependencies, then 2 jobs run the tests
+      in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization).
     usage:
       version: 2.1
       orbs:
@@ -567,8 +609,9 @@ examples:
 
   build-app:
     description: |
-      Install dependencies and run custom build command on one machine.
-      Then run on 3 machines tests in load balancing mode.
+      Install dependencies and run a custom build command on one machine that builds the
+      web application. Then runs Cypress tests on 3 machines and balances them using
+      [Dashboard parallelization](https://on.cypress.io/parallelization).
     usage:
       version: 2.1
       orbs:
@@ -622,9 +665,10 @@ examples:
 
   release:
     description: |
-      If you want to run a job after running Cypress tests, you can
+      If you want to run an entire job after running Cypress tests, you can
       reuse the workspace from the `cypress/run` job. For example,
-      to run a semantic release script you could do the following
+      to run a semantic release script you could follow this example.
+      Note - for simpler steps you can use "post-steps" parameter, see "store-test-reports" example.
     usage:
       version: 2.1
       orbs:
@@ -693,7 +737,7 @@ examples:
   store-test-reports:
     description: |
       Stores test results using post-steps parameter, see https://on.cypress.io/reporters,
-      assumes that reports are saved in folder "cypress/results"
+      assumes that reports are saved in folder "cypress/results". Also see "artifacts" parameter.
     usage:
       version: 2.1
       orbs:
@@ -708,7 +752,9 @@ examples:
                       path: cypress/results
 
   env-vars:
-    description: Set environment variables when running the job using executor.
+    description: |
+      Set additional environment variables when running Cypress tests by
+      adding them to the executor.
     usage:
       version: 2.1
       orbs:

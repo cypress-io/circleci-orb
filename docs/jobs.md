@@ -45,7 +45,8 @@ type: string
 
 **`build`**
 
-> Custom build command to run after install
+> Custom build command to run after install to build your application.
+> Related parameter "start"
 
 
 type: string
@@ -53,7 +54,7 @@ type: string
 
 **`cache-key`**
 
-> Npm cache key
+> Custom CircleCI cache key for storing NPM modules and Cypress binary.
 
 
 type: string
@@ -73,6 +74,7 @@ type: string
 **`executor`**
 
 > Cypress executor to use, see [executors.md](executors.md).
+> You can define your own executor, see examples.
 
 
 type: executor
@@ -91,7 +93,8 @@ type: string
 
 **`no-workspace`**
 
-> Do not write workspace (for example if there are no jobs to follow)
+> Do not write workspace (for example if there are no jobs to follow), which
+> saves time on each build.
 
 
 type: boolean
@@ -103,7 +106,9 @@ default: `false`
 **`parallel`**
 
 > Use test balancing using Cypress Dashboard,
-> see https://on.cypress.io/parallelization. Requires `record: true`
+> see https://on.cypress.io/parallelization. Requires `record: true` and
+> only makes sense with CircleCI `parallelism` setting to spin several CI machines.
+> Related options "record" and "group".
 
 
 type: boolean
@@ -138,7 +143,7 @@ default: `false`
 
 **`spec`**
 
-> Spec pattern to use to run only some test files.
+> Spec pattern to use to run only some test files, passed as `--spec ...` CLI argument.
 
 
 type: string
@@ -146,7 +151,8 @@ type: string
 
 **`start`**
 
-> Optional server start command to run in the background before running Cypress tests
+> Optional server start command to run in the background before running Cypress tests.
+> Related parameters "build" and "wait-on".
 
 
 type: string
@@ -177,7 +183,7 @@ type: string
 
 **`yarn`**
 
-> Use yarn instead of npm
+> Use yarn to install NPM modules instead of npm.
 
 
 type: boolean
