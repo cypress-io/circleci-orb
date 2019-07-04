@@ -475,6 +475,22 @@ examples:
             - cypress/run:
                 yarn: true
 
+  custom-directory:
+    description: |
+      Runs all commands in a custom directory, this is useful when using a monorepo where
+      the `package.json` file isn't at the root of the repository (eg. in the `frontend/`
+      subfolder).
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                yarn: true
+                working_directory: frontend
+
   custom-cache-key:
     description: |
       Apply custom key for npm install (or yarn install) cache.
