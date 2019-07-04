@@ -26,7 +26,7 @@
 ## simple
 
 
-Runs all Cypress tests without recording results on the Dashboard
+Runs all Cypress tests without recording results on the Dashboard. Installs dependencies with "npm ci", caches NPM modules and Cypress binary. 
 
 ```yaml
 version: 2.1
@@ -42,7 +42,7 @@ workflows:
 ## recording
 
 
-Runs all Cypress tests and records them on the Cypress Dashboard
+Runs all Cypress tests and records them on the [Cypress Dashboard](https://on.cypress.io/dashboard-service). Requires `CYPRESS_RECORD_KEY` environment variable to be set. 
 
 ```yaml
 version: 2.1
@@ -59,7 +59,7 @@ workflows:
 ## parallel-on-2-machines
 
 
-Runs all Cypress tests by load balancing them on two machines
+Runs all Cypress tests by load balancing them on two machines. Note that first a single job installs NPM dependencies, then 2 jobs run the tests in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). 
 
 ```yaml
 version: 2.1
@@ -82,7 +82,7 @@ workflows:
 ## yarn
 
 
-Installs NPM dependencies using "yarn install --frozen-lockfile" command
+Installs NPM dependencies using "yarn install --frozen-lockfile" command, then runs Cypress tests. Caches NPM modules and Cypress binary. 
 
 ```yaml
 version: 2.1
@@ -99,7 +99,7 @@ workflows:
 ## custom-cache-key
 
 
-Apply custom key for npm install (or yarn install) cache
+Apply custom key for npm install (or yarn install) cache. Useful to tweak caching settings to your liking. Related options "yarn". 
 
 ```yaml
 version: 2.1
@@ -117,7 +117,7 @@ workflows:
 ## using-node6
 
 
-Runs all Cypress tests on Node 6 image
+Runs all Cypress tests on Node 6 image by specifying `executor` name. There are several executors included with this orb, and you can use your own executor, see "custom-executor" example. 
 
 ```yaml
 version: 2.1
@@ -134,7 +134,7 @@ workflows:
 ## chrome
 
 
-Runs tests using Chrome browser in custom executor (Cypress docker image)
+Runs tests using Chrome browser in a custom executor - a Docker image that includes Chrome browser. See [`--browser`](https://on.cypress.io/launching-browsers) Cypress run option documentation. 
 
 ```yaml
 version: 2.1
@@ -152,7 +152,7 @@ workflows:
 ## start-server
 
 
-Starts server and then runs all Cypress tests
+Often we need to start a local webserver before running end-to-end tests. This option runs the given command to starts the server in the background and then runs all Cypress tests. Related option "wait-on". 
 
 ```yaml
 version: 2.1
@@ -169,7 +169,7 @@ workflows:
 ## wait-for-server-to-respond
 
 
-Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`. You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90). 
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`. You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90). Related option "start" 
 
 ```yaml
 version: 2.1
@@ -187,7 +187,7 @@ workflows:
 ## build-app
 
 
-Install dependencies and run custom build command on one machine. Then run on 3 machines tests in load balancing mode. 
+Install dependencies and run a custom build command on one machine that builds the web application. Then runs Cypress tests on 3 machines and balances them using [Dashboard parallelization](https://on.cypress.io/parallelization). 
 
 ```yaml
 version: 2.1
@@ -246,7 +246,7 @@ workflows:
 ## release
 
 
-If you want to run a job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could do the following 
+If you want to run an entire job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could follow this example. Note - for simpler steps you can use "post-steps" parameter, see "store-test-reports" example. 
 
 ```yaml
 version: 2.1
@@ -320,7 +320,7 @@ workflows:
 ## env-vars
 
 
-Set environment variables when running the job using executor.
+Set additional environment variables when running Cypress tests by adding them to the executor. 
 
 ```yaml
 version: 2.1
@@ -365,7 +365,7 @@ workflows:
 ## store-test-reports
 
 
-Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results" 
+Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results". Also see "artifacts" parameter. 
 
 ```yaml
 version: 2.1
@@ -401,7 +401,7 @@ workflows:
 ## any-artifacts
 
 
-Stores additional folders like "mochawesome-report" as a CircleCI artifact
+Stores additional folders like "mochawesome-report" or code coverage folder as a CircleCI artifact. Related option "artifacts". 
 
 ```yaml
 version: 2.1
