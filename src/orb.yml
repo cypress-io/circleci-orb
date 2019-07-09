@@ -76,6 +76,10 @@ commands:
         description: Npm cache key
         type: string
         default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+      working_directory:
+        description: Directory containing package.json
+        type: string
+        default: ''
     steps:
       - restore_cache:
           keys:
@@ -88,6 +92,7 @@ commands:
             - run:
                 name: 'Yarn install'
                 command: 'yarn install --frozen-lockfile'
+                working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.yarn >>
           steps:
@@ -100,10 +105,14 @@ commands:
                     echo "and commit 'package-lock.json' to your repo."
                     exit 1
                   fi
+                working_directory: << parameters.working_directory >>
             - run:
                 name: 'Npm CI'
                 command: 'npm ci'
-      - run: npx cypress verify
+                working_directory: << parameters.working_directory >>
+      - run:
+          command: npx cypress verify
+          working_directory: << parameters.working_directory >>
       # save new cache folder if needed
       - when:
           condition: << parameters.yarn >>
@@ -156,11 +165,16 @@ commands:
           Do not write workspace (for example if there are no jobs to follow)
         type: boolean
         default: false
+      working_directory:
+        description: Directory containing package.json
+        type: string
+        default: ''
     steps:
       - setup:
           build: << parameters.build >>
           yarn: << parameters.yarn >>
           cache-key: << parameters.cache-key >>
+          working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.no-workspace >>
           steps:
@@ -291,6 +305,13 @@ jobs:
         type: boolean
         default: false
 
+      working_directory:
+        description: |
+          Directory containing package.json. Use this parameter if you're using a monorepo and your
+          cypress tests aren't at the root of the repository (eg. `frontend`).
+        type: string
+        default: ''
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -318,6 +339,7 @@ jobs:
                       no-workspace: << parameters.no-workspace >>
                       build:
                         - run: << parameters.build >>
+                      working_directory: << parameters.working_directory >>
             - unless:
                 condition: <<parameters.build>>
                 steps:
@@ -325,6 +347,7 @@ jobs:
                       cache-key: << parameters.cache-key >>
                       yarn: << parameters.yarn >>
                       no-workspace: << parameters.no-workspace >>
+                      working_directory: << parameters.working_directory >>
 
       - when:
           condition: <<parameters.start>>
@@ -333,6 +356,7 @@ jobs:
                 name: Start
                 command: <<parameters.start>>
                 background: true
+                working_directory: << parameters.working_directory >>
 
       - when:
           condition: <<parameters.wait-on>>
@@ -346,6 +370,7 @@ jobs:
           steps:
             - run:
                 command: <<parameters.command>>
+                working_directory: << parameters.working_directory >>
 
       - unless:
           condition: <<parameters.command>>
@@ -362,6 +387,7 @@ jobs:
                       <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                     <</ parameters.record>>
+                working_directory: << parameters.working_directory >>
 
       - when:
           condition: << parameters.store_artifacts >>
@@ -391,6 +417,12 @@ jobs:
         description: Use yarn to install NPM modules instead of npm.
         type: boolean
         default: false
+      working_directory:
+        description: |
+          Directory containing package.json. Use this parameter if you're using a monorepo and your
+          cypress tests aren't at the root of the repository (eg. `frontend`).
+        type: string
+        default: ''
     description: |
       Checks out code, installs dependencies, attaches code to the workspace for the future jobs
       to use (usually `cypress/run` follows the install step).
@@ -404,11 +436,13 @@ jobs:
                 yarn: << parameters.yarn >>
                 build:
                   - run: << parameters.build >>
+                working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.build >>
           steps:
             - install:
                 yarn: << parameters.yarn >>
+                working_directory: << parameters.working_directory >>
 
 #
 # User examples showing how to use the above Cypress Orb
@@ -440,6 +474,22 @@ examples:
           jobs:
             - cypress/run:
                 yarn: true
+
+  custom-directory:
+    description: |
+      Runs all commands in a custom directory, this is useful when using a monorepo where
+      the `package.json` file isn't at the root of the repository (eg. in the `frontend/`
+      subfolder).
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                yarn: true
+                working_directory: frontend
 
   custom-cache-key:
     description: |
