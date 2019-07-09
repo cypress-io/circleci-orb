@@ -20,11 +20,13 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - yarn
      - cache-key
      - no-workspace
+     - working_directory
     
  - [install](#install)
      - executor
      - build
      - yarn
+     - working_directory
     
 
 ## run
@@ -181,6 +183,15 @@ default: `false`
 type: string
 
 
+**`working_directory`**
+
+> Directory containing package.json. Use this parameter if you're using a monorepo and your
+> cypress tests aren't at the root of the repository (eg. `frontend`).
+
+
+type: string
+
+
 **`yarn`**
 
 > Use yarn to install NPM modules instead of npm.
@@ -214,6 +225,15 @@ type: executor
 
 
 default: `base-10`
+
+
+**`working_directory`**
+
+> Directory containing package.json. Use this parameter if you're using a monorepo and your
+> cypress tests aren't at the root of the repository (eg. `frontend`).
+
+
+type: string
 
 
 **`yarn`**

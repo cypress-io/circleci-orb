@@ -31,7 +31,8 @@ const exampleTitles = {
   'any-artifacts': 'store other folders as artifacts on Circle',
   'custom-command': 'use a custom command to launch tests',
   'no-workspace': 'faster for a single cypress/run job without saving workspace',
-  'private-npm-module': 'complete NPM module publishing example'
+  'private-npm-module': 'complete NPM module publishing example',
+  'custom-directory': 'run commands in a subfolder of a monorepo'
 }
 
 // we want to make sure all orb examples are represented in the object above

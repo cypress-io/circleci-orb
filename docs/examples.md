@@ -23,6 +23,7 @@
  - [custom-command](#custom-command) - use a custom command to launch tests
  - [no-workspace](#no-workspace) - faster for a single cypress/run job without saving workspace
  - [private-npm-module](#private-npm-module) - complete NPM module publishing example
+ - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
 
 ## simple
 
@@ -472,6 +473,24 @@ workflows:
           wait-on: 'http://localhost:3003'
           post-steps:
             - run: npm run semantic-release
+
+```
+
+## custom-directory
+
+
+Runs all commands in a custom directory, this is useful when using a monorepo where the `package.json` file isn't at the root of the repository (eg. in the `frontend/` subfolder). 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          yarn: true
+          working_directory: frontend
 
 ```
 

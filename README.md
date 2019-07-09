@@ -113,6 +113,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [store other folders as artifacts on Circle](docs/examples.md#any-artifacts)
 - [use your own custom command to run tests](docs/examples.md#custom-command)
 - [skip saving workspace](docs/examples.md#no-workspace)
+- [run commands in a subfolder of a monorepo](docs/examples.md#custom-directory)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
