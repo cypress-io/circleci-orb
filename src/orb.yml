@@ -800,6 +800,28 @@ examples:
             - cypress/run:
                 no-workspace: true
 
+  private-npm-module:
+    description: |
+      This example shows how to install private NPM modules using NPM_TOKEN environment
+      variable using "pre-steps" parameter. Then it starts the server, waits for it to respond
+      and runs Cypress tests. Then it publishes a new version of the current module
+      using semantic-release script (using the same NPM_TOKEN variable to publish).
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                pre-steps:
+                  - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+                no-workspace: true
+                start: npm start
+                wait-on: 'http://localhost:3003'
+                post-steps:
+                  - run: npm run semantic-release
+
 ##
 ## Development (internal)
 ##

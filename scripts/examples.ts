@@ -30,7 +30,8 @@ const exampleTitles = {
   artifacts: 'store screenshots and videos on Circle',
   'any-artifacts': 'store other folders as artifacts on Circle',
   'custom-command': 'use a custom command to launch tests',
-  'no-workspace': 'faster for a single cypress/run job without saving workspace'
+  'no-workspace': 'faster for a single cypress/run job without saving workspace',
+  'private-npm-module': 'complete NPM module publishing example'
 }
 
 // we want to make sure all orb examples are represented in the object above
