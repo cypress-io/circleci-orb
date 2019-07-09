@@ -22,6 +22,7 @@
  - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
  - [custom-command](#custom-command) - use a custom command to launch tests
  - [no-workspace](#no-workspace) - faster for a single cypress/run job without saving workspace
+ - [private-npm-module](#private-npm-module) - complete NPM module publishing example
 
 ## simple
 
@@ -448,6 +449,29 @@ workflows:
     jobs:
       - cypress/run:
           no-workspace: true
+
+```
+
+## private-npm-module
+
+
+This example shows how to install private NPM modules using NPM_TOKEN environment variable using "pre-steps" parameter. Then it starts the server, waits for it to respond and runs Cypress tests. Then it publishes a new version of the current module using semantic-release script (using the same NPM_TOKEN variable to publish). 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          pre-steps:
+            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+          no-workspace: true
+          start: npm start
+          wait-on: 'http://localhost:3003'
+          post-steps:
+            - run: npm run semantic-release
 
 ```
 
