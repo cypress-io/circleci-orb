@@ -35,6 +35,14 @@ Single Docker container with Node 10 and Cypress dependencies
 
 Docker image: `cypress/base:10`
 
+## base-12-6-0
+
+
+Single Docker container with Node 12.6.0 and Cypress dependencies
+
+
+Docker image: `cypress/base:12.6.0`
+
 ## browsers-chrome69
 
 
