@@ -1,6 +1,6 @@
 // @ts-check
 import { stripIndent } from 'common-tags'
-import * as execa from 'execa'
+import execa from 'execa'
 import { readFileSync } from 'fs'
 import { safeDump, safeLoad } from 'js-yaml'
 import { join } from 'path'
@@ -64,9 +64,8 @@ export const getOrb = (): orb => {
   return orb
 }
 
-const validate = (filename: string): Promise<void> => {
-  const cmd = `circleci config validate ${filename}`
-  return execa.shell(cmd, { stdio: 'inherit' })
+const validate = async (filename: string): Promise<void> => {
+  await execa('circleci', ['config', 'validate', filename], { stdio: 'inherit' })
 }
 
 const inlineOrb = (workflows: string): string => {

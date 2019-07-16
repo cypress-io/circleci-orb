@@ -2,7 +2,7 @@
 // grabs jobs from orb.yml itself and generates markdown
 
 import { stripIndent } from 'common-tags'
-import * as json2md from 'json2md'
+import json2md from 'json2md'
 import { getOrb, job, normalizeString, parameter } from '../scripts/utils'
 
 const orb = getOrb()

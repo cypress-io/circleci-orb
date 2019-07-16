@@ -2,7 +2,7 @@
 // grabs examples from orb.yml itself and generates markdown
 
 import { safeDump } from 'js-yaml'
-import * as json2md from 'json2md'
+import json2md from 'json2md'
 import { example, getOrb, normalizeString } from '../scripts/utils'
 import { symmetricDifference } from 'ramda'
 

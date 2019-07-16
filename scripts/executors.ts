@@ -2,7 +2,7 @@
 // grabs them from from orb.yml and generates markdown
 
 import { stripIndent } from 'common-tags'
-import * as json2md from 'json2md'
+import json2md from 'json2md'
 import { executor, getOrb, normalizeString } from '../scripts/utils'
 
 const orb = getOrb()
