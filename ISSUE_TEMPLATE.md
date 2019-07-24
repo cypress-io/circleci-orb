@@ -6,6 +6,7 @@
 ## The orb does not work as expected
 
 - what version of the orb are you currently using?
+  * maybe the problem has been fixed already, check the orb releases at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases)
 - paste the `circle.yml` file if possible or at least the relevant portion
 - describe what you think should happen
 - describe what happens
