@@ -20,7 +20,7 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
 **Note ⚠️:** To use CircleCI Orbs in your projects, you need to enable two settings:
 
 - from organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
-- from the project's settings allow beta features `Settings -> Advanced Settings -> Enable build processing (preview)`
+- from the project's settings allow beta features `Settings -> Advanced Settings -> Enable pipelines`
 
 See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-orbs/).
 
