@@ -35,7 +35,7 @@
   "homepage": "https://github.com/cypress-io/circleci-orb#readme",
   "devDependencies": {
     "@types/common-tags": "1.8.0",
-    "@types/node": "10.14.14",
+    "@types/node": "10.14.15",
     "ava": "2.2.0",
     "ava-ts": "0.25.2",
     "common-tags": "1.8.0",
