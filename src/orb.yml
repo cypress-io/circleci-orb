@@ -416,6 +416,10 @@ jobs:
         default: ''
         description: |
           Custom build command to run after install to build the web application or web server.
+      cache-key:
+        description: Npm cache key
+        type: string
+        default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
       yarn:
         description: Use yarn to install NPM modules instead of npm.
         type: boolean
@@ -423,7 +427,9 @@ jobs:
       working_directory:
         description: |
           Directory containing package.json. Use this parameter if you're using a monorepo and your
-          cypress tests aren't at the root of the repository (eg. `frontend`).
+          cypress tests aren't at the root of the repository (eg. `frontend`). Additionally,
+          monorepo users will want to provide a `cache-key` parameter to key the cache with an
+          appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
         type: string
         default: ''
     description: |
@@ -440,12 +446,14 @@ jobs:
                 build:
                   - run: << parameters.build >>
                 working_directory: << parameters.working_directory >>
+                cache-key: << parameters.cache-key >>
       - unless:
           condition: << parameters.build >>
           steps:
             - install:
                 yarn: << parameters.yarn >>
                 working_directory: << parameters.working_directory >>
+                cache-key: << parameters.cache-key >>
 
 #
 # User examples showing how to use the above Cypress Orb
