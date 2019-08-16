@@ -25,6 +25,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
  - [install](#install)
      - executor
      - build
+     - cache-key
      - yarn
      - working_directory
     
@@ -214,6 +215,18 @@ Checks out code, installs dependencies, attaches code to the workspace for the f
 
 
 type: string
+
+
+**`cache-key`**
+
+> Custom CircleCI cache key for storing NPM modules and Cypress binary.
+> Use this parameter if you're using a monorepo and your cypress tests aren't at the root of the repository (eg. `frontend`). Additionally, monorepo users may want to provide a `cache-key` parameter to key the cache with an appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
+
+
+type: string
+
+
+default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 
 
 **`executor`**
