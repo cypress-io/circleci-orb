@@ -114,6 +114,7 @@ commands:
                 command: 'npm ci'
                 working_directory: << parameters.working_directory >>
       - run:
+          name: 'Verify Cypress'
           command: npx cypress verify
           working_directory: << parameters.working_directory >>
       # save new cache folder if needed
@@ -438,7 +439,9 @@ jobs:
             - install:
                 yarn: << parameters.yarn >>
                 build:
-                  - run: << parameters.build >>
+                  - run:
+                      name: 'Build'
+                      command: << parameters.build >>
                 working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.build >>
