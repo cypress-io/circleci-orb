@@ -36,10 +36,10 @@
   "devDependencies": {
     "@types/common-tags": "1.8.0",
     "@types/node": "10.14.15",
-    "ava": "2.2.0",
+    "ava": "2.3.0",
     "ava-ts": "0.25.2",
     "common-tags": "1.8.0",
-    "execa": "2.0.3",
+    "execa": "2.0.4",
     "husky": "3.0.4",
     "js-yaml": "3.13.1",
     "json2md": "1.6.3",
