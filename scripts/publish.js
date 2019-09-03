@@ -30,12 +30,13 @@ const loadNameAndVersion = () => {
 }
 
 const publishOrb = (nameVersion) => {
-  const cmd = `circleci orb publish src/orb.yml ${nameVersion}`
+  const cmd = 'circleci'
+  const args = ['orb', 'publish', 'src/orb.yml', nameVersion]
   if (argv.dry) {
-    console.log('dry run: %s', cmd)
+    console.log('dry run: %s %s', cmd, args.join(' '))
     return Promise.resolve()
   } else {
-    return execa.shell(cmd, {stdio: 'inherit'})
+    return execa(cmd, args, {stdio: 'inherit'})
   }
 }
 
