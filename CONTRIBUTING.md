@@ -25,13 +25,13 @@ fix: a patch release
 You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing before publishing a production immutable version. For example, to publish version `1.0.0-my-fork`, run:
 
 ```shell
-node ./publish --dev 1.0.0-my-fork
+node ./scripts/publish --dev 1.0.0-my-fork
 ```
 
 You can first do a dry dev publish to see the command with:
 
 ```shell
-node ./publish --dev 1.0.0-my-fork --dry
+node ./scripts/publish --dev 1.0.0-my-fork --dry
 ```
 
 Note: you can publish a temporary version of the orb using the `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
