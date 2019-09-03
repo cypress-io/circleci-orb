@@ -493,8 +493,8 @@ examples:
   custom-directory:
     description: |
       Runs all commands in a custom directory, this is useful when using a monorepo where
-      the `package.json` file isn't at the root of the repository (eg. in the `frontend/`
-      subfolder).
+      the `package.json` file isn't at the root of the repository
+      (eg. in the `frontend/subfolder`).
     usage:
       version: 2.1
       orbs:
@@ -520,6 +520,25 @@ examples:
             - cypress/run:
                 yarn: true
                 cache-key: yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}
+
+  custom-cache-and-directory:
+    description: |
+      Monorepo users may want to provide a `cache-key` parameter to key the cache
+      with an appropriate checksum.
+      (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/install:
+                cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+            - cypress/run:
+                yarn: true
+                cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+                working_directory: frontend
 
   using-node6:
     description: |

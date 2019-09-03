@@ -219,8 +219,7 @@ type: string
 
 **`cache-key`**
 
-> Custom CircleCI cache key for storing NPM modules and Cypress binary.
-> Use this parameter if you're using a monorepo and your cypress tests aren't at the root of the repository (eg. `frontend`). Additionally, monorepo users may want to provide a `cache-key` parameter to key the cache with an appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
+> Npm cache key
 
 
 type: string
@@ -243,7 +242,9 @@ default: `base-10`
 **`working_directory`**
 
 > Directory containing package.json. Use this parameter if you're using a monorepo and your
-> cypress tests aren't at the root of the repository (eg. `frontend`).
+> cypress tests aren't at the root of the repository (eg. `frontend`). Additionally,
+> monorepo users will want to provide a `cache-key` parameter to key the cache with an
+> appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
 
 
 type: string

@@ -24,6 +24,7 @@
  - [no-workspace](#no-workspace) - faster for a single cypress/run job without saving workspace
  - [private-npm-module](#private-npm-module) - complete NPM module publishing example
  - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
+ - [custom-cache-and-directory](#custom-cache-and-directory) - use custom cache key in a monorepo situation
 
 ## simple
 
@@ -479,7 +480,7 @@ workflows:
 ## custom-directory
 
 
-Runs all commands in a custom directory, this is useful when using a monorepo where the `package.json` file isn't at the root of the repository (eg. in the `frontend/` subfolder). 
+Runs all commands in a custom directory, this is useful when using a monorepo where the `package.json` file isn't at the root of the repository (eg. in the `frontend/subfolder`). 
 
 ```yaml
 version: 2.1
@@ -494,7 +495,10 @@ workflows:
 
 ```
 
-Additionally, monorepo users may want to provide a `cache-key` parameter to key the cache with an appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
+## custom-cache-and-directory
+
+
+Monorepo users may want to provide a `cache-key` parameter to key the cache with an appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`) 
 
 ```yaml
 version: 2.1
@@ -504,10 +508,14 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+          cache-key: >-
+            cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json"
+            }}
       - cypress/run:
           yarn: true
-          cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+          cache-key: >-
+            cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json"
+            }}
           working_directory: frontend
 
 ```

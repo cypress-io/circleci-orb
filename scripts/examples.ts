@@ -32,7 +32,8 @@ const exampleTitles = {
   'custom-command': 'use a custom command to launch tests',
   'no-workspace': 'faster for a single cypress/run job without saving workspace',
   'private-npm-module': 'complete NPM module publishing example',
-  'custom-directory': 'run commands in a subfolder of a monorepo'
+  'custom-directory': 'run commands in a subfolder of a monorepo',
+  'custom-cache-and-directory': 'use custom cache key in a monorepo situation',
 }
 
 // we want to make sure all orb examples are represented in the object above
