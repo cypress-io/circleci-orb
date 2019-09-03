@@ -494,3 +494,21 @@ workflows:
 
 ```
 
+Additionally, monorepo users may want to provide a `cache-key` parameter to key the cache with an appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install:
+          cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+      - cypress/run:
+          yarn: true
+          cache-key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}
+          working_directory: frontend
+
+```
+
