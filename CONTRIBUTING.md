@@ -2,6 +2,10 @@
 
 There are scripts for creating namespace, orbs, etc in the `package.json`. They all start with an `orb:` prefix, use `npm run` to view them. Usually you need to only run `npm run orb:publish` to publish a new version of the orb.
 
+## Examples
+
+The more examples, the better. All examples in `docs/examples.md` are generated automatically from `src/orb.yml` source code via `npm run docs`. To make sure the examples referenced from the [README.md](README.md) list are correct, the list of links is checked in [scripts/examples.ts](scripts/examples.ts) file.
+
 ## Publishing
 
 To see existing orbs:
