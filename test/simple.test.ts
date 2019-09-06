@@ -42,3 +42,21 @@ test('parallel 2 machines', t => {
   `
   return processWorkflows(workflows)
 })
+
+test('Use non-default executors', async t => {
+  t.plan(0)
+  const executors = ['cypress/browsers-chrome69', 'cypress/browsers-chrome73',
+    'cypress/browsers-chrome74', 'cypress/browsers-chrome75', 'cypress/browsers-chrome76']
+  for (let ex of executors) {
+    const workflows = stripIndent`
+      workflows:
+        build:
+          jobs:
+            - cypress/install:
+                executor: ${ex}
+            - cypress/run:
+                executor: ${ex}
+    `
+    await processWorkflows(workflows)
+  }
+})
