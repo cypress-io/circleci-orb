@@ -55,6 +55,25 @@ executors:
     docker:
       - image: cypress/browsers:chrome69
 
+  browsers-chrome73:
+    description: Docker container with Node 11.13.0, Cypress dependencies and Chrome 73
+    docker:
+      - image: cypress/browsers:node11.13.0-chrome73
+
+  browsers-chrome74:
+    description: Docker container with Node 10.1.2, Cypress dependencies and Chrome 74
+    docker:
+      - image: cypress/browsers:node10.2.1-chrome74
+
+  browsers-chrome75:
+    description: Docker container with Node 12.6.0, Cypress dependencies and Chrome 75
+    docker:
+      - image: cypress/browsers:node12.6.0-chrome75
+
+  browsers-chrome76:
+    description: Docker container with Node 10.16.0, Cypress dependencies and Chrome 69
+    docker:
+      - image: cypress/browsers:node10.16.0-chrome76
 #
 # reusable commands
 #
