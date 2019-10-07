@@ -19,14 +19,14 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
 
 **Note ⚠️:** To use CircleCI Orbs in your projects, you need to enable two settings:
 
-- from organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
-- from the project's settings allow beta features `Settings -> Advanced Settings -> Enable pipelines`
+- From organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
+- From the project's settings allow beta features `Settings -> Advanced Settings -> Enable pipelines`
 
 See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-orbs/).
 
 ## Examples
 
-Each example below should be placed into `circle.yml` or `.circleci/config.yml` file
+Each example below should be placed into `circle.yml` or `.circleci/config.yml` file:
 
 ### simple
 
@@ -49,7 +49,7 @@ workflows:
 
 ### record on Dashboard
 
-Runs all Cypress tests and records them on the Cypress Dashboard
+Runs all Cypress tests and records them on the Cypress Dashboard:
 
 ```yaml
 version: 2.1
@@ -149,7 +149,7 @@ workflows:
           record: true
 ```
 
-See all its parameters at the [cypress/run job example](docs/jobs.md#run)
+See all its parameters at the [cypress/run job example](docs/jobs.md#run).
 
 ### `install`
 
