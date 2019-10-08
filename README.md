@@ -60,6 +60,8 @@ workflows:
     jobs:
       - cypress/run:
           record: true
+          yarn: true
+          working_directory: frontend
 ```
 
 ### parallel
