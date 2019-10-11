@@ -336,6 +336,11 @@ jobs:
         type: string
         default: ''
 
+      timeout:
+        description: Optional timeout for running tests
+        type: string
+        default: 10m
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -401,6 +406,7 @@ jobs:
           steps:
             - run:
                 name: Run Cypress tests
+                no_output_timeout: <<parameters.timeout>>
                 # GOOD EXAMPLE conditional text based on boolean parameter
                 # --record is needed to pass many other arguments, like "--group" and "--parallel"
                 command: |
