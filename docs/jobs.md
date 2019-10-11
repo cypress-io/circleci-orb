@@ -21,6 +21,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - cache-key
      - no-workspace
      - working_directory
+     - timeout
     
  - [install](#install)
      - executor
@@ -171,6 +172,17 @@ type: boolean
 
 
 default: `false`
+
+
+**`timeout`**
+
+> Optional timeout for running tests
+
+
+type: string
+
+
+default: `10m`
 
 
 **`wait-on`**
