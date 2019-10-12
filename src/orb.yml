@@ -344,6 +344,9 @@ jobs:
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
+    environment:
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+
     steps:
       - when:
           condition: << parameters.parallel >>
@@ -463,6 +466,8 @@ jobs:
       Checks out code, installs dependencies, attaches code to the workspace for the future jobs
       to use (usually `cypress/run` follows the install step).
     executor: <<parameters.executor>>
+    environment:
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     steps:
       - checkout
       - when:
