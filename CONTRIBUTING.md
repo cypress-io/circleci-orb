@@ -1,6 +1,6 @@
 ## Development
 
-There are scripts for creating namespace, orbs, etc in the `package.json`. They all start with an `orb:` prefix, use `npm run` to view them. Usually you need to only run `npm run orb:publish` to publish a new version of the orb.
+In the 'package.json', there are scripts for creating namespaces, orbs, etc. They all start with an `orb:` prefix. Use `npm run` to view them. Usually you need to only run `npm run orb:publish` to publish a new version of the orb.
 
 ## Examples
 
