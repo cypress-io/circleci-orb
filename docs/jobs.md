@@ -10,6 +10,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - parallel
      - parallelism
      - group
+     - post-install
      - build
      - start
      - wait-on
@@ -25,6 +26,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
     
  - [install](#install)
      - executor
+     - post-install
      - build
      - cache-key
      - yarn
@@ -131,6 +133,18 @@ type: integer
 
 
 default: `1`
+
+
+**`post-install`**
+
+> Additional commands to run after running install
+> but before verifying Cypress and saving cache.
+
+
+type: steps
+
+
+default: ``
 
 
 **`record`**
@@ -249,6 +263,18 @@ type: executor
 
 
 default: `base-10`
+
+
+**`post-install`**
+
+> Additional commands to run after running install
+> but before verifying Cypress and saving cache.
+
+
+type: steps
+
+
+default: ``
 
 
 **`working_directory`**
