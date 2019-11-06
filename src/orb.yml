@@ -93,6 +93,12 @@ commands:
         description: Executor to use
         type: executor
         default: base-10
+      post-install:
+        description: |
+          Additional commands to run after running install
+          but before verifying Cypress and saving cache.
+        type: steps
+        default: []
       build:
         description: Optional build command(s)
         type: steps
@@ -139,6 +145,7 @@ commands:
                 name: 'Npm CI'
                 command: 'npm ci'
                 working_directory: << parameters.working_directory >>
+      - steps: << parameters.post-install >>
       - run:
           name: 'Verify Cypress'
           command: npx cypress verify
@@ -178,6 +185,12 @@ commands:
     description: |
       Install NPM dependencies using "npm ci" or "yarn install --frozen-lockfile" then optionally runs your build command
     parameters:
+      post-install:
+        description: |
+          Additional commands to run after running install
+          but before verifying Cypress and saving cache.
+        type: steps
+        default: []
       build:
         type: steps
         default: []
@@ -201,9 +214,10 @@ commands:
         default: ''
     steps:
       - setup:
-          build: << parameters.build >>
+          post-install: << parameters.post-install >>
           yarn: << parameters.yarn >>
           cache-key: << parameters.cache-key >>
+          build: << parameters.build >>
           working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.no-workspace >>
@@ -266,6 +280,13 @@ jobs:
         default: ''
         description: |
           Test group name when recording on the dashboard. Requires `record: true`
+
+      post-install:
+        description: |
+          Additional commands to run after running install
+          but before verifying Cypress and saving cache.
+        type: steps
+        default: []
 
       build:
         type: string
@@ -370,6 +391,7 @@ jobs:
                 steps:
                   - install:
                       yarn: << parameters.yarn >>
+                      post-install: << parameters.post-install >>
                       cache-key: << parameters.cache-key >>
                       no-workspace: << parameters.no-workspace >>
                       build:
@@ -381,6 +403,7 @@ jobs:
                   - install:
                       cache-key: << parameters.cache-key >>
                       yarn: << parameters.yarn >>
+                      post-install: << parameters.post-install >>
                       no-workspace: << parameters.no-workspace >>
                       working_directory: << parameters.working_directory >>
 
@@ -444,6 +467,12 @@ jobs:
         type: executor
         default: base-10
         description: Cypress or custom executor name to use to run the install.
+      post-install:
+        description: |
+          Additional commands to run after running install
+          but before verifying Cypress and saving cache.
+        type: steps
+        default: []
       build:
         type: string
         default: ''
@@ -476,6 +505,7 @@ jobs:
           steps:
             - install:
                 yarn: << parameters.yarn >>
+                post-install: << parameters.post-install >>
                 build:
                   - run:
                       name: 'Build'
@@ -487,6 +517,7 @@ jobs:
           steps:
             - install:
                 yarn: << parameters.yarn >>
+                post-install: << parameters.post-install >>
                 working_directory: << parameters.working_directory >>
                 cache-key: << parameters.cache-key >>
 
@@ -937,6 +968,22 @@ examples:
                 post-steps:
                   - run: npm run semantic-release
 
+  install-extra-tool:
+    description: |
+      Sometimes you want to install another tool after installing regular dependencies
+      but before running "cypress verify" and caching NPM modules and Cypress binary.
+      In this example, it installs one more tool "print-env" and runs it.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                post-install:
+                  - run: npm install -g print-env
+                  - run: print-env CIRCLE
 ##
 ## Development (internal)
 ##
@@ -947,4 +994,6 @@ examples:
 #   build:
 #     jobs:
 #       - run:
+#           post-install:
+#             - run: 'echo built it'
 #           no-workspace: true

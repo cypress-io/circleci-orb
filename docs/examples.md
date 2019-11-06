@@ -25,6 +25,7 @@
  - [private-npm-module](#private-npm-module) - complete NPM module publishing example
  - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
  - [custom-cache-and-directory](#custom-cache-and-directory) - use custom cache key in a monorepo situation
+ - [install-extra-tool](#install-extra-tool) - run commands after installing NPM modules but before caching
 
 ## simple
 
@@ -517,6 +518,25 @@ workflows:
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json"
             }}
           working_directory: frontend
+
+```
+
+## install-extra-tool
+
+
+Sometimes you want to install another tool after installing regular dependencies but before running "cypress verify" and caching NPM modules and Cypress binary. In this example, it installs one more tool "print-env" and runs it. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-install:
+            - run: npm install -g print-env
+            - run: print-env CIRCLE
 
 ```
 
