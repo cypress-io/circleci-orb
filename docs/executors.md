@@ -83,3 +83,11 @@ Docker container with Node 10.16.0, Cypress dependencies and Chrome 69
 
 Docker image: `cypress/browsers:node10.16.0-chrome76`
 
+## browsers-chrome73-ff68
+
+
+Docker container with Node 12.0.0, Cypress dependencies, Chrome 73 and Firefox 68.0.2
+
+
+Docker image: `cypress/browsers:node12.0.0-chrome73-ff68`
+
