@@ -18,12 +18,14 @@ description: |
 #
 executors:
   default:
-    description: Single Docker container with Cypress dependencies
+    description: |
+      Single Docker container with Cypress dependencies,
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base
     parameters:
       node:
         type: string
-        default: '10'
-        description: Version of Node 6/8/10 to use
+        default: '12.14.0'
+        description: Version of Node 6/8/10/12.x to use
     docker:
       - image: cypress/base:<< parameters.node >>
 
@@ -49,6 +51,13 @@ executors:
     description: Single Docker container with Node 12.6.0 and Cypress dependencies
     docker:
       - image: cypress/base:12.6.0
+
+  base-12-14-0:
+    description: |
+      Single Docker container with Node 12.14.0 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base
+    docker:
+      - image: cypress/base:12.14.0
 
   browsers-chrome69:
     description: Docker container with Node 10, Cypress dependencies and Chrome 69
