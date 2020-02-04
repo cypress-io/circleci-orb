@@ -224,7 +224,7 @@ version: 2
 jobs:
   cypress/run:
     docker:
-    - image: cypress/base:10
+    - image: cypress/base:12.14.0
     parallelism: 1
     steps:
     - checkout

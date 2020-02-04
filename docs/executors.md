@@ -6,7 +6,7 @@ Docker images that jobs can use via `executor` parameter. Typically an image fro
 ## default
 
 
-Single Docker container with Cypress dependencies
+Single Docker container with Cypress dependencies, see https://github.com/cypress-io/cypress-docker-images/tree/master/base 
 
 
 Docker image: `cypress/base:<< parameters.node >>`
@@ -42,6 +42,14 @@ Single Docker container with Node 12.6.0 and Cypress dependencies
 
 
 Docker image: `cypress/base:12.6.0`
+
+## base-12-14-0
+
+
+Single Docker container with Node 12.14.0 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base 
+
+
+Docker image: `cypress/base:12.14.0`
 
 ## browsers-chrome69
 
