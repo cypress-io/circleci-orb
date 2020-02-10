@@ -390,6 +390,8 @@ jobs:
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
+    # be explicit about setting cache folder
+    # https://github.com/cypress-io/circleci-orb/issues/98
     environment:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
 
@@ -520,6 +522,8 @@ jobs:
       Checks out code, installs dependencies, attaches code to the workspace for the future jobs
       to use (usually `cypress/run` follows the install step).
     executor: <<parameters.executor>>
+    # be explicit about setting cache folder
+    # https://github.com/cypress-io/circleci-orb/issues/98
     environment:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     steps:
