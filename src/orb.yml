@@ -80,9 +80,19 @@ executors:
       - image: cypress/browsers:node12.6.0-chrome75
 
   browsers-chrome76:
-    description: Docker container with Node 10.16.0, Cypress dependencies and Chrome 69
+    description: Docker container with Node 10.16.0, Cypress dependencies and Chrome 76
     docker:
       - image: cypress/browsers:node10.16.0-chrome76
+
+  browsers-chrome77:
+    description: Docker container with Node 12.6.0, Cypress dependencies and Chrome 77
+    docker:
+      - image: cypress/browsers:node12.6.0-chrome77
+
+  browsers-chrome78-ff70:
+    description: Docker container with Node 12.13.0, Cypress dependencies and Chrome 78 and Firefox 70
+    docker:
+      - image: cypress/browsers:node12.13.0-chrome78-ff70
 
   browsers-chrome73-ff68:
     description: Docker container with Node 12.0.0, Cypress dependencies, Chrome 73 and Firefox 68.0.2
