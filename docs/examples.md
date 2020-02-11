@@ -26,6 +26,7 @@
  - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
  - [custom-cache-and-directory](#custom-cache-and-directory) - use custom cache key in a monorepo situation
  - [install-extra-tool](#install-extra-tool) - run commands after installing NPM modules but before caching
+ - [config-file](#config-file) - custom configuration file
 
 ## simple
 
@@ -537,6 +538,23 @@ workflows:
           post-install:
             - run: npm install -g print-env
             - run: print-env CIRCLE
+
+```
+
+## config-file
+
+
+Uses non-default configuration file
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          config-file: staging.json
 
 ```
 

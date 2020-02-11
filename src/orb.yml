@@ -387,6 +387,11 @@ jobs:
         type: string
         default: 10m
 
+      config-file:
+        description: Name of the Cypress configuration file to use
+        type: string
+        default: ''
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -466,6 +471,7 @@ jobs:
                   npx cypress run \
                     <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
                     <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                    <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                     <<# parameters.record >> --record \
                       <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -1012,6 +1018,18 @@ examples:
                 post-install:
                   - run: npm install -g print-env
                   - run: print-env CIRCLE
+
+  config-file:
+    description: Uses non-default configuration file
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                config-file: staging.json
 ##
 ## Development (internal)
 ##
