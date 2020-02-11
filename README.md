@@ -116,6 +116,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [skip saving workspace](docs/examples.md#no-workspace)
 - [run commands in a subfolder of a monorepo](docs/examples.md#custom-directory)
 - [cache using custom key in a monorepo](docs/examples.md#custom-cache-and-directory)
+- [custom configuration file](docs/examples.md#config-file)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 

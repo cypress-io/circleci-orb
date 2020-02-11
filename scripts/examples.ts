@@ -35,6 +35,7 @@ const exampleTitles = {
   'custom-directory': 'run commands in a subfolder of a monorepo',
   'custom-cache-and-directory': 'use custom cache key in a monorepo situation',
   'install-extra-tool': 'run commands after installing NPM modules but before caching',
+  'config-file': 'custom configuration file'
 }
 
 // we want to make sure all orb examples are represented in the object above
