@@ -481,7 +481,7 @@ jobs:
                     <<# parameters.record >> --record \
                       <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
-                      <<# parameters.tags>> --tags '<<parameters.tags>>' <</ parameters.tags>> \
+                      <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
                     <</ parameters.record>>
                 working_directory: << parameters.working_directory >>
 
