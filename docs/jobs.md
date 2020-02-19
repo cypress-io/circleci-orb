@@ -10,6 +10,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - parallel
      - parallelism
      - group
+     - tags
      - post-install
      - build
      - start
@@ -195,6 +196,14 @@ type: boolean
 
 
 default: `false`
+
+
+**`tags`**
+
+> Comma-separated tags to send to the dashboard. Requires `record: true`
+
+
+type: string
 
 
 **`timeout`**

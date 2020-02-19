@@ -300,6 +300,12 @@ jobs:
         description: |
           Test group name when recording on the dashboard. Requires `record: true`
 
+      tags:
+        type: string
+        default: ''
+        description: |
+          Comma-separated tags to send to the dashboard. Requires `record: true`
+
       post-install:
         description: |
           Additional commands to run after running install
@@ -475,6 +481,7 @@ jobs:
                     <<# parameters.record >> --record \
                       <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                      <<# parameters.tags>> --tags '<<parameters.tags>>' <</ parameters.tags>> \
                     <</ parameters.record>>
                 working_directory: << parameters.working_directory >>
 
@@ -1030,6 +1037,19 @@ examples:
           jobs:
             - cypress/run:
                 config-file: staging.json
+
+  tags:
+    description: Pass tags to the dashboard
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                record: true
+                tags: nightly,staging
 ##
 ## Development (internal)
 ##
