@@ -27,6 +27,7 @@
  - [custom-cache-and-directory](#custom-cache-and-directory) - use custom cache key in a monorepo situation
  - [install-extra-tool](#install-extra-tool) - run commands after installing NPM modules but before caching
  - [config-file](#config-file) - custom configuration file
+ - [tags](#tags) - tag recorded run
 
 ## simple
 
@@ -555,6 +556,24 @@ workflows:
     jobs:
       - cypress/run:
           config-file: staging.json
+
+```
+
+## tags
+
+
+Pass tags to the dashboard
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          record: true
+          tags: 'nightly,staging'
 
 ```
 
