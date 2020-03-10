@@ -28,6 +28,7 @@
  - [install-extra-tool](#install-extra-tool) - run commands after installing NPM modules but before caching
  - [config-file](#config-file) - custom configuration file
  - [tags](#tags) - tag recorded run
+ - [attach-workspace](#attach-workspace) - attaches the workspace assuming previous job has installed it
 
 ## simple
 
@@ -574,6 +575,26 @@ workflows:
       - cypress/run:
           record: true
           tags: 'nightly,staging'
+
+```
+
+## attach-workspace
+
+
+You may run multiple job after installing dependencies once. In that case every job should attach workspace and require cypress/install. Related parameter "no-workspace" 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+          attach-workspace: true
 
 ```
 

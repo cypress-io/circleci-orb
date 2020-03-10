@@ -21,6 +21,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - store_artifacts
      - yarn
      - cache-key
+     - attach-workspace
      - no-workspace
      - working_directory
      - timeout
@@ -39,6 +40,18 @@ Public jobs defined in this orb that your config workflow can use. See [examples
 
 
 A single complete job to run Cypress end-to-end tests in your project. If recording on the Dashboard, set `CYPRESS_RECORD_KEY` environment variable
+
+
+**`attach-workspace`**
+
+> Assuming there was an install job before, first attach
+> the workspace to avoid re-installing dependencies
+
+
+type: boolean
+
+
+default: `false`
 
 
 **`browser`**
@@ -109,8 +122,9 @@ type: string
 
 **`no-workspace`**
 
-> Do not write workspace (for example if there are no jobs to follow), which
-> saves time on each build.
+> Do not write workspace after this job is done.
+> This is useful if there are no jobs to follow,
+> which saves time on each build.
 
 
 type: boolean

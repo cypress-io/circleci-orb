@@ -5,6 +5,7 @@ import { safeDump } from 'js-yaml'
 import json2md from 'json2md'
 import { example, getOrb, normalizeString } from '../scripts/utils'
 import { symmetricDifference } from 'ramda'
+import chalk from 'chalk'
 
 const orb = getOrb()
 const examples = orb.examples
@@ -36,7 +37,8 @@ const exampleTitles = {
   'custom-cache-and-directory': 'use custom cache key in a monorepo situation',
   'install-extra-tool': 'run commands after installing NPM modules but before caching',
   'config-file': 'custom configuration file',
-  tags: 'tag recorded run'
+  tags: 'tag recorded run',
+  'attach-workspace': 'attaches the workspace assuming previous job has installed it'
 }
 
 // we want to make sure all orb examples are represented in the object above
@@ -47,7 +49,7 @@ const checkExamples = () => {
   const unknownNames = symmetricDifference(knownNames, examplesNames)
   if (unknownNames.length) {
     console.error('Hmm, I see example names that are different')
-    console.error(unknownNames.join(', '))
+    console.error(unknownNames.map(name => chalk.red(name)).join('\n'))
     console.error('Check orb.yml examples and scripts/examples.ts to resolve the lists')
     throw new Error('example names do not match')
   }
