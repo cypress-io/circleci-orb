@@ -6,7 +6,7 @@ description: |
 
 display:
   source_url: https://github.com/cypress-io/circleci-orb
-  home_url: Cypress.io
+  home_url: https://www.cypress.io
 
 #
 # See https://www.cypress.io/
@@ -1059,10 +1059,11 @@ examples:
 ## process this workflow using above jobs and commands like inline orb
 ## Useful for local developing, especially by showing the effective config
 ## using: npm run effective:config
-# workflows:
-#   build:
-#     jobs:
-#       - run:
-#           post-install:
-#             - run: 'echo built it'
-#           no-workspace: true
+workflows:
+  build:
+    jobs:
+      - install
+      - run:
+          requires:
+            - install
+          no-workspace: true
