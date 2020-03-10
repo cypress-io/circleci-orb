@@ -1085,14 +1085,14 @@ examples:
 ## process this workflow using above jobs and commands like inline orb
 ## Useful for local developing, especially by showing the effective config
 ## using: npm run effective:config
-workflows:
-  build:
-    jobs:
-      - install
-      - run:
-          requires:
-            - install
-          # use workspace created by the install job
-          attach-workspace: true
-          # do not save workspace after THIS job
-          no-workspace: true
+# workflows:
+#   build:
+#     jobs:
+#       - install
+#       - run:
+#           requires:
+#             - install
+#           # use workspace created by the install job
+#           attach-workspace: true
+#           # do not save workspace after THIS job
+#           no-workspace: true
