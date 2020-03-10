@@ -429,29 +429,32 @@ jobs:
                 at: ~/
 
       - unless:
-          condition: << parameters.parallel >> << parameters.attach-workspace >>
+          condition: << parameters.parallel >>
           steps:
-            - checkout
-            - when:
-                condition: << parameters.build >>
-                steps:
-                  - install:
-                      yarn: << parameters.yarn >>
-                      post-install: << parameters.post-install >>
-                      cache-key: << parameters.cache-key >>
-                      no-workspace: << parameters.no-workspace >>
-                      build:
-                        - run: << parameters.build >>
-                      working_directory: << parameters.working_directory >>
             - unless:
-                condition: <<parameters.build>>
+                condition: << parameters.attach-workspace >>
                 steps:
-                  - install:
-                      cache-key: << parameters.cache-key >>
-                      yarn: << parameters.yarn >>
-                      post-install: << parameters.post-install >>
-                      no-workspace: << parameters.no-workspace >>
-                      working_directory: << parameters.working_directory >>
+                - checkout
+                - when:
+                    condition: << parameters.build >>
+                    steps:
+                      - install:
+                          yarn: << parameters.yarn >>
+                          post-install: << parameters.post-install >>
+                          cache-key: << parameters.cache-key >>
+                          no-workspace: << parameters.no-workspace >>
+                          build:
+                            - run: << parameters.build >>
+                          working_directory: << parameters.working_directory >>
+                - unless:
+                    condition: <<parameters.build>>
+                    steps:
+                      - install:
+                          cache-key: << parameters.cache-key >>
+                          yarn: << parameters.yarn >>
+                          post-install: << parameters.post-install >>
+                          no-workspace: << parameters.no-workspace >>
+                          working_directory: << parameters.working_directory >>
 
       - when:
           condition: <<parameters.start>>
@@ -1092,7 +1095,4 @@ examples:
 #       - run:
 #           requires:
 #             - install
-#           # use workspace created by the install job
 #           attach-workspace: true
-#           # do not save workspace after THIS job
-#           no-workspace: true
