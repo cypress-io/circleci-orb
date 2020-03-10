@@ -6,7 +6,7 @@ description: |
 
 display:
   source_url: https://github.com/cypress-io/circleci-orb
-  home_url: Cypress.io
+  home_url: https://www.cypress.io
 
 #
 # See https://www.cypress.io/
@@ -377,10 +377,18 @@ jobs:
         type: string
         default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
 
+      attach-workspace:
+        description: |
+          Assuming there was an install job before, first attach
+          the workspace to avoid re-installing dependencies
+        type: boolean
+        default: false
+
       no-workspace:
         description: |
-          Do not write workspace (for example if there are no jobs to follow), which
-          saves time on each build.
+          Do not write workspace after this job is done.
+          This is useful if there are no jobs to follow,
+          which saves time on each build.
         type: boolean
         default: false
 
@@ -411,7 +419,7 @@ jobs:
 
     steps:
       - when:
-          condition: << parameters.parallel >>
+          condition: << parameters.parallel >> << parameters.attach-workspace >>
           # user wants to run in parallel mode
           # thus we assume the dependencies were installed as separate job
           # hmm, can we detect if this job requires cypress/install automatically?
@@ -421,7 +429,7 @@ jobs:
                 at: ~/
 
       - unless:
-          condition: << parameters.parallel >>
+          condition: << parameters.parallel >> << parameters.attach-workspace >>
           steps:
             - checkout
             - when:
@@ -1053,16 +1061,38 @@ examples:
             - cypress/run:
                 record: true
                 tags: nightly,staging
+
+  attach-workspace:
+    description: |
+      You may run multiple job after installing dependencies once.
+      In that case every job should attach workspace and require cypress/install.
+      Related parameter "no-workspace"
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/install
+            - cypress/run:
+                requires:
+                  - cypress/install
+                attach-workspace: true
 ##
 ## Development (internal)
 ##
 ## process this workflow using above jobs and commands like inline orb
 ## Useful for local developing, especially by showing the effective config
 ## using: npm run effective:config
-# workflows:
-#   build:
-#     jobs:
-#       - run:
-#           post-install:
-#             - run: 'echo built it'
-#           no-workspace: true
+workflows:
+  build:
+    jobs:
+      - install
+      - run:
+          requires:
+            - install
+          # use workspace created by the install job
+          attach-workspace: true
+          # do not save workspace after THIS job
+          no-workspace: true
