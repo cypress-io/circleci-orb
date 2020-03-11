@@ -68,7 +68,7 @@ const getToc = () => {
 }
 
 const docExample = (name: string, example: example) => {
-  const usage = safeDump(example.usage)
+  const usage = safeDump(example.usage).trim()
   const codeExample = {
     code: {
       language: 'yaml',
