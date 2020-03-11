@@ -15,6 +15,7 @@ const exampleTitles = {
   recording: 'Runs all Cypress tests and records them on the Cypress Dashboard',
   'parallel-on-2-machines': 'Runs all Cypress tests by load balancing them on two machines',
   yarn: 'install dependencies using Yarn',
+  'custom-install': 'install dependencies using any command',
   'custom-cache-key': 'apply custom key for npm install (or yarn install) cache',
   'using-node6': 'running tests using Node 6',
   chrome: 'running tests using Chrome browser',
@@ -67,7 +68,7 @@ const getToc = () => {
 }
 
 const docExample = (name: string, example: example) => {
-  const usage = safeDump(example.usage)
+  const usage = safeDump(example.usage).trim()
   const codeExample = {
     code: {
       language: 'yaml',

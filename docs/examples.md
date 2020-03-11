@@ -5,6 +5,7 @@
  - [recording](#recording) - Runs all Cypress tests and records them on the Cypress Dashboard
  - [parallel-on-2-machines](#parallel-on-2-machines) - Runs all Cypress tests by load balancing them on two machines
  - [yarn](#yarn) - install dependencies using Yarn
+ - [custom-install](#custom-install) - install dependencies using any command
  - [custom-cache-key](#custom-cache-key) - apply custom key for npm install (or yarn install) cache
  - [using-node6](#using-node6) - running tests using Node 6
  - [chrome](#chrome) - running tests using Chrome browser
@@ -43,7 +44,6 @@ workflows:
   build:
     jobs:
       - cypress/run
-
 ```
 
 ## recording
@@ -60,7 +60,6 @@ workflows:
     jobs:
       - cypress/run:
           record: true
-
 ```
 
 ## parallel-on-2-machines
@@ -83,7 +82,6 @@ workflows:
           parallel: true
           parallelism: 2
           group: 2 machines
-
 ```
 
 ## yarn
@@ -100,7 +98,22 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
+```
 
+## custom-install
+
+
+Install dependencies using your own custom command. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          install-command: yarn install --frozen-lockfile --production=true
 ```
 
 ## custom-cache-key
@@ -118,7 +131,6 @@ workflows:
       - cypress/run:
           yarn: true
           cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
-
 ```
 
 ## using-node6
@@ -135,7 +147,6 @@ workflows:
     jobs:
       - cypress/run:
           executor: cypress/base-6
-
 ```
 
 ## chrome
@@ -153,7 +164,6 @@ workflows:
       - cypress/run:
           executor: cypress/browsers-chrome69
           browser: chrome
-
 ```
 
 ## start-server
@@ -170,7 +180,6 @@ workflows:
     jobs:
       - cypress/run:
           start: npm start
-
 ```
 
 ## wait-for-server-to-respond
@@ -188,7 +197,6 @@ workflows:
       - cypress/run:
           start: npm start
           wait-on: 'http://localhost:4200'
-
 ```
 
 ## build-app
@@ -212,7 +220,6 @@ workflows:
           parallel: true
           parallelism: 3
           group: 3x
-
 ```
 
 ## groups
@@ -247,7 +254,6 @@ workflows:
           group: smoke tests
           browser: chrome
           spec: cypress/integration/smoke/*
-
 ```
 
 ## release
@@ -276,7 +282,6 @@ workflows:
       - release:
           requires:
             - cypress/run
-
 ```
 
 ## linux-and-mac
@@ -300,7 +305,6 @@ workflows:
       - cypress/run:
           name: Mac test
           executor: mac
-
 ```
 
 ## custom-executor
@@ -321,7 +325,6 @@ workflows:
     jobs:
       - cypress/run:
           executor: with-chrome
-
 ```
 
 ## env-vars
@@ -345,7 +348,6 @@ workflows:
     jobs:
       - cypress/run:
           executor: base10-foo-bar
-
 ```
 
 ## install-private-npm-modules
@@ -366,7 +368,6 @@ workflows:
       - cypress/run:
           requires:
             - cypress/install
-
 ```
 
 ## store-test-reports
@@ -385,7 +386,6 @@ workflows:
           post-steps:
             - store_test_results:
                 path: cypress/results
-
 ```
 
 ## artifacts
@@ -402,7 +402,6 @@ workflows:
     jobs:
       - cypress/run:
           store_artifacts: true
-
 ```
 
 ## any-artifacts
@@ -421,7 +420,6 @@ workflows:
           post-steps:
             - store_artifacts:
                 path: mochawesome-report
-
 ```
 
 ## custom-command
@@ -438,7 +436,6 @@ workflows:
     jobs:
       - cypress/run:
           command: npx cypress run --record
-
 ```
 
 ## no-workspace
@@ -455,7 +452,6 @@ workflows:
     jobs:
       - cypress/run:
           no-workspace: true
-
 ```
 
 ## private-npm-module
@@ -478,7 +474,6 @@ workflows:
           wait-on: 'http://localhost:3003'
           post-steps:
             - run: npm run semantic-release
-
 ```
 
 ## custom-directory
@@ -496,7 +491,6 @@ workflows:
       - cypress/run:
           yarn: true
           working_directory: frontend
-
 ```
 
 ## custom-cache-and-directory
@@ -521,7 +515,6 @@ workflows:
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json"
             }}
           working_directory: frontend
-
 ```
 
 ## install-extra-tool
@@ -540,7 +533,6 @@ workflows:
           post-install:
             - run: npm install -g print-env
             - run: print-env CIRCLE
-
 ```
 
 ## config-file
@@ -557,7 +549,6 @@ workflows:
     jobs:
       - cypress/run:
           config-file: staging.json
-
 ```
 
 ## tags
@@ -575,7 +566,6 @@ workflows:
       - cypress/run:
           record: true
           tags: 'nightly,staging'
-
 ```
 
 ## attach-workspace
@@ -595,6 +585,5 @@ workflows:
           requires:
             - cypress/install
           attach-workspace: true
-
 ```
 

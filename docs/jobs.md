@@ -17,6 +17,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - wait-on
      - browser
      - spec
+     - install-command
      - command
      - store_artifacts
      - yarn
@@ -33,6 +34,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - build
      - cache-key
      - yarn
+     - install-command
      - working_directory
     
 
@@ -115,6 +117,14 @@ default: `base-10`
 **`group`**
 
 > Test group name when recording on the dashboard. Requires `record: true`
+
+
+type: string
+
+
+**`install-command`**
+
+> Overrides the default NPM or Yarn command
 
 
 type: string
@@ -295,6 +305,14 @@ type: executor
 
 
 default: `base-10`
+
+
+**`install-command`**
+
+> Overrides the default NPM or Yarn command
+
+
+type: string
 
 
 **`post-install`**
