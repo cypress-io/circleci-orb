@@ -39,7 +39,8 @@ const exampleTitles = {
   'install-extra-tool': 'run commands after installing NPM modules but before caching',
   'config-file': 'custom configuration file',
   tags: 'tag recorded run',
-  'attach-workspace': 'attaches the workspace assuming previous job has installed it'
+  'attach-workspace': 'attaches the workspace assuming previous job has installed it',
+  'run-tasks-post-checkout': 'perform steps after code checkout but before installing dependencies'
 }
 
 // we want to make sure all orb examples are represented in the object above

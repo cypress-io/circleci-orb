@@ -30,6 +30,7 @@
  - [config-file](#config-file) - custom configuration file
  - [tags](#tags) - tag recorded run
  - [attach-workspace](#attach-workspace) - attaches the workspace assuming previous job has installed it
+ - [run-tasks-post-checkout](#run-tasks-post-checkout) - perform steps after code checkout but before installing dependencies
 
 ## simple
 
@@ -113,7 +114,7 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          install-command: yarn install --frozen-lockfile --production=true
+          install-command: yarn install --frozen-lockfile
 ```
 
 ## custom-cache-key
@@ -585,5 +586,22 @@ workflows:
           requires:
             - cypress/install
           attach-workspace: true
+```
+
+## run-tasks-post-checkout
+
+
+Perform commands after checkout, but before install
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-checkout:
+            - run: echo Scaffolding before installing
 ```
 

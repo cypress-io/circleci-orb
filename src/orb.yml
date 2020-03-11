@@ -297,6 +297,11 @@ jobs:
           Cypress executor to use, see [executors.md](executors.md).
           You can define your own executor, see examples.
 
+      post-checkout:
+        description: Additional commands to run after performing Git checkout
+        type: steps
+        default: []
+
       record:
         type: boolean
         default: false
@@ -464,6 +469,7 @@ jobs:
                 condition: << parameters.attach-workspace >>
                 steps:
                 - checkout
+                - steps: << parameters.post-checkout >>
                 - when:
                     condition: << parameters.build >>
                     steps:
@@ -549,6 +555,10 @@ jobs:
         type: executor
         default: base-10
         description: Cypress or custom executor name to use to run the install.
+      post-checkout:
+        description: Additional commands to run after performing Git checkout
+        type: steps
+        default: []
       post-install:
         description: |
           Additional commands to run after running install
@@ -590,6 +600,7 @@ jobs:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     steps:
       - checkout
+      - steps: << parameters.post-checkout >>
       - when:
           condition: << parameters.build >>
           steps:
@@ -1073,6 +1084,19 @@ examples:
                 post-steps:
                   - run: npm run semantic-release
 
+  run-tasks-post-checkout:
+    description: Perform commands after checkout, but before install
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                post-checkout:
+                  - run: echo Scaffolding before installing
+
   install-extra-tool:
     description: |
       Sometimes you want to install another tool after installing regular dependencies
@@ -1142,4 +1166,5 @@ examples:
 #   build:
 #     jobs:
 #       - run:
-#           install-command: 'yarn install --non-interactive --frozen-lockfile'
+#           post-checkout:
+#             - run: echo Scaffolding before installing
