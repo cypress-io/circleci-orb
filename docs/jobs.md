@@ -6,6 +6,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
 
  - [run](#run)
      - executor
+     - post-checkout
      - record
      - parallel
      - parallelism
@@ -30,6 +31,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
     
  - [install](#install)
      - executor
+     - post-checkout
      - post-install
      - build
      - cache-key
@@ -167,6 +169,17 @@ type: integer
 
 
 default: `1`
+
+
+**`post-checkout`**
+
+> Additional commands to run after performing Git checkout
+
+
+type: steps
+
+
+default: ``
 
 
 **`post-install`**
@@ -313,6 +326,17 @@ default: `base-10`
 
 
 type: string
+
+
+**`post-checkout`**
+
+> Additional commands to run after performing Git checkout
+
+
+type: steps
+
+
+default: ``
 
 
 **`post-install`**
