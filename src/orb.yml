@@ -110,6 +110,8 @@ commands:
   # individual "building blocks" commands
   #
   setup:
+    description: |
+      Command to do "npm ci" or "yarn" or custom command (maybe)
     parameters:
       executor:
         description: Executor to use
@@ -125,6 +127,10 @@ commands:
         description: Optional build command(s)
         type: steps
         default: []
+      install-command:
+        description: Overrides the default NPM or Yarn command
+        type: string
+        default: ''
       yarn:
         description: Use yarn instead of npm
         type: boolean
@@ -141,32 +147,45 @@ commands:
       - restore_cache:
           keys:
             - << parameters.cache-key >>
+      - when:
+          condition: << parameters.install-command >>
+          steps:
+            - run:
+                name: 'Custom install'
+                command: << parameters.install-command >>
+                working_directory: << parameters.working_directory >>
       # it would be nice to vary this command based on presence of "package-lock.json"
       # and also allow using yarn or pnpm
       - when:
           condition: << parameters.yarn >>
           steps:
-            - run:
-                name: 'Yarn install'
-                command: 'yarn install --frozen-lockfile'
-                working_directory: << parameters.working_directory >>
+            - unless:
+              condition: << parameters.install-command >>
+              steps:
+              - run:
+                  name: 'Yarn install'
+                  command: 'yarn install --frozen-lockfile'
+                  working_directory: << parameters.working_directory >>
       - unless:
           condition: << parameters.yarn >>
           steps:
-            - run:
-                name: 'Check if package-lock.json exists'
-                command: |
-                  if [ ! -e ./package-lock.json ]; then
-                    echo "The Cypress orb uses 'npm ci' to install 'node_modules', which requires a 'package-lock.json'."
-                    echo "A 'package-lock.json' file was not found. Please run 'npm install' in your project,"
-                    echo "and commit 'package-lock.json' to your repo."
-                    exit 1
-                  fi
-                working_directory: << parameters.working_directory >>
-            - run:
-                name: 'Npm CI'
-                command: 'npm ci'
-                working_directory: << parameters.working_directory >>
+            - unless:
+                condition: << parameters.install-command >>
+                steps:
+                - run:
+                    name: 'Check if package-lock.json exists'
+                    command: |
+                      if [ ! -e ./package-lock.json ]; then
+                        echo "The Cypress orb uses 'npm ci' to install 'node_modules', which requires a 'package-lock.json'."
+                        echo "A 'package-lock.json' file was not found. Please run 'npm install' in your project,"
+                        echo "and commit 'package-lock.json' to your repo."
+                        exit 1
+                      fi
+                    working_directory: << parameters.working_directory >>
+                - run:
+                    name: 'Npm CI'
+                    command: 'npm ci'
+                    working_directory: << parameters.working_directory >>
       - steps: << parameters.post-install >>
       - run:
           name: 'Verify Cypress'
@@ -234,8 +253,13 @@ commands:
         description: Directory containing package.json
         type: string
         default: ''
+      install-command:
+        description: Overrides the default NPM or Yarn command
+        type: string
+        default: ''
     steps:
       - setup:
+          install-command: << parameters.install-command >>
           post-install: << parameters.post-install >>
           yarn: << parameters.yarn >>
           cache-key: << parameters.cache-key >>
@@ -353,6 +377,11 @@ jobs:
         description: |
           Spec pattern to use to run only some test files, passed as `--spec ...` CLI argument.
 
+      install-command:
+        description: Overrides the default NPM or Yarn command
+        type: string
+        default: ''
+
       command:
         type: string
         default: ''
@@ -440,6 +469,7 @@ jobs:
                     steps:
                       - install:
                           yarn: << parameters.yarn >>
+                          install-command: << parameters.install-command >>
                           post-install: << parameters.post-install >>
                           cache-key: << parameters.cache-key >>
                           no-workspace: << parameters.no-workspace >>
@@ -452,6 +482,7 @@ jobs:
                       - install:
                           cache-key: << parameters.cache-key >>
                           yarn: << parameters.yarn >>
+                          install-command: << parameters.install-command >>
                           post-install: << parameters.post-install >>
                           no-workspace: << parameters.no-workspace >>
                           working_directory: << parameters.working_directory >>
@@ -537,6 +568,10 @@ jobs:
         description: Use yarn to install NPM modules instead of npm.
         type: boolean
         default: false
+      install-command:
+        description: Overrides the default NPM or Yarn command
+        type: string
+        default: ''
       working_directory:
         description: |
           Directory containing package.json. Use this parameter if you're using a monorepo and your
@@ -559,6 +594,7 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install:
+                install-command: << parameters.install-command >>
                 yarn: << parameters.yarn >>
                 post-install: << parameters.post-install >>
                 build:
@@ -571,6 +607,7 @@ jobs:
           condition: << parameters.build >>
           steps:
             - install:
+                install-command: << parameters.install-command >>
                 yarn: << parameters.yarn >>
                 post-install: << parameters.post-install >>
                 working_directory: << parameters.working_directory >>
@@ -606,6 +643,19 @@ examples:
           jobs:
             - cypress/run:
                 yarn: true
+
+  custom-install:
+    description: |
+      Install dependencies using your own custom command.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                install-command: 'yarn install --frozen-lockfile --production=true'
 
   custom-directory:
     description: |
@@ -1091,8 +1141,5 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - install
 #       - run:
-#           requires:
-#             - install
-#           attach-workspace: true
+#           install-command: 'yarn install --non-interactive --frozen-lockfile --production=true'
