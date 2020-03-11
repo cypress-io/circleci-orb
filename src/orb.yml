@@ -655,7 +655,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                install-command: 'yarn install --frozen-lockfile --production=true'
+                install-command: 'yarn install --frozen-lockfile'
 
   custom-directory:
     description: |
@@ -1142,4 +1142,4 @@ examples:
 #   build:
 #     jobs:
 #       - run:
-#           install-command: 'yarn install --non-interactive --frozen-lockfile --production=true'
+#           install-command: 'yarn install --non-interactive --frozen-lockfile'
