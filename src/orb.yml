@@ -147,45 +147,29 @@ commands:
       - restore_cache:
           keys:
             - << parameters.cache-key >>
-      - when:
-          condition: << parameters.install-command >>
-          steps:
-            - run:
-                name: 'Custom install'
-                command: << parameters.install-command >>
-                working_directory: << parameters.working_directory >>
-      # it would be nice to vary this command based on presence of "package-lock.json"
-      # and also allow using yarn or pnpm
-      - when:
-          condition: << parameters.yarn >>
-          steps:
-            - unless:
-              condition: << parameters.install-command >>
-              steps:
-              - run:
-                  name: 'Yarn install'
-                  command: 'yarn install --frozen-lockfile'
-                  working_directory: << parameters.working_directory >>
-      - unless:
-          condition: << parameters.yarn >>
-          steps:
-            - unless:
-                condition: << parameters.install-command >>
-                steps:
-                - run:
-                    name: 'Check if package-lock.json exists'
-                    command: |
-                      if [ ! -e ./package-lock.json ]; then
-                        echo "The Cypress orb uses 'npm ci' to install 'node_modules', which requires a 'package-lock.json'."
-                        echo "A 'package-lock.json' file was not found. Please run 'npm install' in your project,"
-                        echo "and commit 'package-lock.json' to your repo."
-                        exit 1
-                      fi
-                    working_directory: << parameters.working_directory >>
-                - run:
-                    name: 'Npm CI'
-                    command: 'npm ci'
-                    working_directory: << parameters.working_directory >>
+      # we can install dependencies using "NPM CI", or "Yarn" or the
+      # user-supplies custom command. Because of orb template expressions
+      # being very limited, have to do this as a single script
+      - run:
+          name: Install
+          working_directory: << parameters.working_directory >>
+          command: |
+            if [[ ! -z "<< parameters.install-command >>" ]]; then
+              echo "Installing using custom command"
+              echo "<< parameters.install-command >>"
+              << parameters.install-command >>
+            elif [ "<< parameters.yarn >>" = "true" ]; then
+              echo "Installing using Yarn"
+              yarn install --frozen-lockfile
+            elif [ ! -e ./package-lock.json ]; then
+              echo "The Cypress orb uses 'npm ci' to install 'node_modules', which requires a 'package-lock.json'."
+              echo "A 'package-lock.json' file was not found. Please run 'npm install' in your project,"
+              echo "and commit 'package-lock.json' to your repo."
+              exit 1
+            else
+              echo "Installing dependencies using NPM ci"
+              npm ci
+            fi
       - steps: << parameters.post-install >>
       - run:
           name: 'Verify Cypress'
@@ -1165,6 +1149,6 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - run:
-#           post-checkout:
-#             - run: echo Scaffolding before installing
+#       - install:
+#           yarn: true
+#           install-command: echo 'Custom install command'
