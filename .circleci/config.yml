@@ -28,6 +28,7 @@ jobs:
 
       - circleci-cli/install
       - run: npm test
+      - run: npm run manual:tests
       - run: npm run docs
 
 workflows:
