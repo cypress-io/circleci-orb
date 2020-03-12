@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   circleci-cli: circleci/circleci-cli@0.1.7
-  orb-tools: circleci/orb-tools@9.0.1
 jobs:
   build:
     docker:
@@ -35,9 +34,3 @@ workflows:
   orb_tests:
     jobs:
     - build
-    # - orb-tools/test-in-builds:
-    #     checkout: true
-    #     orb-location: src/orb.yml
-    #     orb-name: 'cypress-io/cypress'
-    #     test-steps:
-    #       - run: echo 'Hello there'
