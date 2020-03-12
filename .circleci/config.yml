@@ -32,3 +32,9 @@ workflows:
   orb_tests:
     jobs:
     - build
+    - orb-tools/test-in-builds:
+        checkout: true
+        orb-location: src/orb.yml
+        orb-name: 'cypress-io/cypress'
+        test-steps:
+          - run: echo 'Hello there'
