@@ -46,6 +46,18 @@ circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
 
 It is a good idea to test a dev version of the orb first using [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) before publishing new public version.
 
+### Testing
+
+Because we need to see the effective config for a few basic orb uses, please install [CircleCI CLI tool][circleci-cli] and run the following tests before committing.
+
+```shell
+npm run manual:tests
+```
+
+Any changes that modify the effective configs will probably not match previously saved snapshots.
+
+**Note:** manual tests are NOT executed on CI because CircleCI CLI v2 is not available on Circle images.
+
 ### Production
 
 You can publish a new orb version manually, by incrementing the version. For example:
@@ -88,3 +100,5 @@ After pushing, go to [GitHub releases](https://github.com/cypress-io/circleci-or
 - https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/rollbar/orb.yml
 - https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/codecov/orb.yml
 - https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/heroku/orb.yml
+
+[circleci-cli]: https://circleci.com/docs/2.0/orb-author-cli/#authoring-an-orb---circleci-cli

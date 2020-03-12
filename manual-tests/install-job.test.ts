@@ -2,7 +2,7 @@ import test from 'ava'
 import { stripIndent } from 'common-tags'
 import { effectiveConfig } from '../scripts/utils'
 
-test('install', async t => {
+test('install job', async t => {
   const workflows = stripIndent`
     workflows:
       build:
@@ -11,5 +11,5 @@ test('install', async t => {
   `
   t.is(typeof workflows, 'string')
   const result = await effectiveConfig(workflows)
-  t.snapshot(result, 'install job with no parameters')
+  t.snapshot(result, 'with no parameters')
 })
