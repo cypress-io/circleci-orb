@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  circleci-cli: circleci/circleci-cli@0.1.7
 jobs:
   build:
     docker:
@@ -23,5 +25,12 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - circleci-cli/install
       - run: npm test
+      - run: npm run manual:tests
       - run: npm run docs
+
+workflows:
+  orb_tests:
+    jobs:
+    - build

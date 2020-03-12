@@ -3,8 +3,20 @@ import { stripIndent } from 'common-tags'
 import execa from 'execa'
 import { readFileSync } from 'fs'
 import { safeDump, safeLoad } from 'js-yaml'
-import { join } from 'path'
 import * as tempWrite from 'temp-write'
+import { join } from 'path'
+import { prop, split, filter, startsWith, join as joinStrings } from 'ramda'
+import os from 'os'
+
+const isComment = s => !startsWith('# ', s)
+
+const computeEffectiveConfig = async (filename: string) => {
+  return execa('circleci', ['config', 'process', filename])
+    .then(prop('stdout'))
+    .then(split(os.EOL))
+    .then(filter(isComment))
+    .then(joinStrings(os.EOL))
+}
 
 export type example = {
   description: string
@@ -86,4 +98,10 @@ export const processWorkflows = (workflows: string): Promise<any> => {
   const inlined = inlineOrb(workflows)
   const filename = tempWrite.sync(inlined, 'config.yml')
   return validate(filename)
+}
+
+export const effectiveConfig = (workflows: string): Promise<any> => {
+  const inlined = inlineOrb(workflows)
+  const filename = tempWrite.sync(inlined, 'config.yml')
+  return computeEffectiveConfig(filename)
 }

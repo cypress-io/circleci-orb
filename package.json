@@ -15,6 +15,7 @@
     "next-ver": "next-ver",
     "set-next-version": "next-ver --go",
     "unit": "ava-ts 'test/*.test.ts'",
+    "manual:tests": "ava-ts 'manual-tests/*.test.ts'",
     "doc": "npm run doc:examples && npm run doc:jobs && npm run doc:executors",
     "docs": "npm run doc",
     "doc:examples": "FORCE_COLOR=2 ts-node ./scripts/examples > docs/examples.md",
@@ -53,7 +54,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run orb:validate && npm run unit && npm run doc"
+      "pre-commit": "npm run orb:validate && npm run unit && npm run manual:tests && npm run doc"
     }
   },
   "release": {
