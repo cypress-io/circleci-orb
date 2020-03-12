@@ -24,4 +24,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm test
+      - run:
+          name: install CircleCI CLI
+          command: curl -fLSs https://circle.ci/cli | DESTDIR=/opt/bin/bash
       - run: npm run docs
