@@ -56,8 +56,6 @@ npm run manual:tests
 
 Any changes that modify the effective configs will probably not match previously saved snapshots.
 
-**Note:** manual tests are NOT executed on CI because CircleCI CLI v2 is not available on Circle images.
-
 ### Production
 
 You can publish a new orb version manually, by incrementing the version. For example:
