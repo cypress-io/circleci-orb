@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  orb-tools: circleci/orb-tools@9.0.1
 jobs:
   build:
     docker:
@@ -25,3 +27,8 @@ jobs:
 
       - run: npm test
       - run: npm run docs
+
+workflows:
+  orb_tests:
+    jobs:
+    - build
