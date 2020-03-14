@@ -45,7 +45,7 @@
     "husky": "3.0.3",
     "js-yaml": "3.13.1",
     "json2md": "1.6.5",
-    "minimist": "1.2.0",
+    "minimist": "1.2.5",
     "next-ver": "1.8.0",
     "ramda": "0.27.0",
     "temp-write": "4.0.0",
