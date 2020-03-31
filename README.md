@@ -48,6 +48,8 @@ workflows:
       - cypress/run
 ```
 
+See [cypress-io/circleci-orb-example](https://github.com/cypress-io/circleci-orb-example) [![CircleCI](https://circleci.com/gh/cypress-io/circleci-orb-example/tree/master.svg?style=svg)](https://circleci.com/gh/cypress-io/circleci-orb-example/tree/master)
+
 ### record on Dashboard
 
 Runs all Cypress tests and records them on the Cypress Dashboard:
