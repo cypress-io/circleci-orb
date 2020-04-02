@@ -42,7 +42,7 @@
     "chalk": "3.0.0",
     "common-tags": "1.8.0",
     "execa": "4.0.0",
-    "husky": "3.0.3",
+    "husky": "3.1.0",
     "js-yaml": "3.13.1",
     "json2md": "1.6.5",
     "minimist": "1.2.5",
