@@ -15,15 +15,15 @@ workflows:
       # AND build the library once
       # then the workspace will be passed to other jobs
       - cypress/install:
-          name: Install 📦
+          name: Install
           build: npm run transpile
 
       # the test job automatically attaches the workspace
       # created by the install job, so it is ready to test
       - cypress/run:
-          name: Test 🧪
+          name: Test
           requires:
-            - Install 📦
+            - Install
           # notice a trick to avoid re-installing dependencies
           # in this job - a do-nothing "install-command" parameter
           install-command: echo 'Nothing to install in this job'
@@ -34,12 +34,12 @@ workflows:
       # so it is ready to run Cypress tests
       # only we will run semantic release script instead
       - cypress/run:
-          name: NPM release 🚀
+          name: NPM release
           # we need newer Node for semantic release
           executor: cypress/base-12-6-0
           requires:
-            - Install 📦
-            - Test 🧪
+            - Install
+            - Test
           install-command: echo 'Nothing to install in this job'
           no-workspace: true
           # instead of "cypress run" do NPM release 😁
@@ -64,7 +64,7 @@ workflows:
       # first, run a single job to install dependencies and Cypress
       # and perform a few more small steps like linting
       - cypress/install:
-          name: Install 📦
+          name: Install
           post-steps:
             - run:
                 name: Show info 📺
@@ -77,9 +77,9 @@ workflows:
       # reuse the workspace from the install job
       # to run end-to-end tests in Electron browser
       - cypress/run:
-          name: Electron test 🧪
+          name: Electron test
           requires:
-            - Install 📦
+            - Install
           install-command: echo 'Nothing to install in this job'
           # to run tests, we need to start the web application
           start: npm start
@@ -89,10 +89,10 @@ workflows:
       # reuse the workspace from the install job
       # to run end-to-end tests in Firefox browser
       - cypress/run:
-          name: Firefox test 🦊🧪
+          name: Firefox test
           executor: cypress/browsers-chrome78-ff70
           requires:
-            - Install 📦
+            - Install
           install-command: echo 'Nothing to install in this job'
           # to run tests, we need to start the web application
           start: npm start
@@ -103,11 +103,11 @@ workflows:
 
       # wait for all jobs to finish and possible run NPM release
       - cypress/run:
-          name: NPM release 🚀
+          name: NPM release
           requires:
-            - Install 📦
-            - Electron test 🧪
-            - Firefox test 🦊🧪
+            - Install
+            - Electron test
+            - Firefox test
           # nothing to install - cypress/install job does it
           # and nothing to pass to the next job
           install-command: echo 'Nothing to install in this job'
