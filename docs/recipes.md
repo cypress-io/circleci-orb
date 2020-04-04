@@ -1,5 +1,8 @@
 # Recipes
 
+* [Install, test and release](#install-test-and-release)
+* [Install, then run two different test jobs](#install-and-run-two-test-jobs)
+
 ## Install test and release
 
 Imagine you would like to install dependencies, run Cypress tests, then publish a new version of your library to NPM. To avoid re-installing dependencies in every job, you can use the following recipe from [bahmutov/cypress-react-unit-test](https://github.com/bahmutov/cypress-react-unit-test). The `cypress/install` job builds the application and passes the entire workspace down to `cypress/run` jobs.
