@@ -30,7 +30,7 @@ Docker image: `cypress/base:8`
 ## base-10
 
 
-Single Docker container with Node 10 and Cypress dependencies
+Single Docker container with Node 10 and Cypress dependencies. Use example: `executor: cypress/base-10`. 
 
 
 Docker image: `cypress/base:10`
@@ -38,7 +38,7 @@ Docker image: `cypress/base:10`
 ## base-12-6-0
 
 
-Single Docker container with Node 12.6.0 and Cypress dependencies
+Single Docker container with Node 12.6.0 and Cypress dependencies Use example: `executor: cypress/base-12-6-0`. 
 
 
 Docker image: `cypress/base:12.6.0`
@@ -46,7 +46,7 @@ Docker image: `cypress/base:12.6.0`
 ## base-12-14-0
 
 
-Single Docker container with Node 12.14.0 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base 
+Single Docker container with Node 12.14.0 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-12-14-0`. 
 
 
 Docker image: `cypress/base:12.14.0`
@@ -102,7 +102,7 @@ Docker image: `cypress/browsers:node12.6.0-chrome77`
 ## browsers-chrome78-ff70
 
 
-Docker container with Node 12.13.0, Cypress dependencies and Chrome 78 and Firefox 70
+Docker container with Node 12.13.0, Cypress dependencies and Chrome 78 and Firefox 70. Use example: `executor: cypress/browsers-chrome78-ff70`. 
 
 
 Docker image: `cypress/browsers:node12.13.0-chrome78-ff70`
