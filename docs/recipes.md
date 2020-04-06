@@ -2,6 +2,7 @@
 
 * [Install, test and release](#install-test-and-release)
 * [Install, then run two different test jobs](#install-and-run-two-test-jobs)
+* [Custom test command](#custom-test-command)
 
 ## Install test and release
 
@@ -120,3 +121,33 @@ workflows:
 ```
 
 ![Run two test jobs after install](/img/two-test-jobs.png)
+
+## Custom test command
+
+You can use this orb to correctly install Cypress, but run your own test command using a specific version of Node 12 (via an executor). This recipe comes from [cypress-io/cypress-webpack-preprocessor](https://github.com/cypress-io/cypress-webpack-preprocessor) where we test how Cypress is compatible with the latest Webpack version.
+
+```yml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          executor: cypress/base-12-14-0
+          yarn: true
+          command: npm test
+          post-steps:
+            - run:
+                name: Lint code 🧹
+                command: npm run lint
+            - run:
+                name: Install latest webpack 📦
+                command: yarn add -D webpack@latest webpack-cli@latest
+            - run:
+                name: Run tests w/ webpack@latest 🧪
+                command: npm test
+            - run:
+                name: Semantic release 🚀
+                command: npm run semantic-release
+```
