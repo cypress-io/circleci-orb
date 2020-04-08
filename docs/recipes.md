@@ -3,6 +3,7 @@
 * [Install, test and release](#install-test-and-release)
 * [Install, then run two different test jobs](#install-and-run-two-test-jobs)
 * [Custom test command](#custom-test-command)
+* [Service containers](#service-containers)
 
 ## Install test and release
 
@@ -150,4 +151,28 @@ workflows:
             - run:
                 name: Semantic release 🚀
                 command: npm run semantic-release
+```
+
+## Service containers
+
+If your test container needs additional containers like a Postgres database, you can define a custom executor to be used with the orb's jobs. For example, the [bahmutov/hasura-example](https://github.com/bahmutov/hasura-example) spins the main test container and 2 service containers: one with Postgres database, another with Hasura GraphQL engine.
+
+```yml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+executors:
+  pg-and-hasura:
+    docker:
+      - image: cypress/base:12.16.1
+      - image: postgres:12
+          # database env variables
+      - image: hasura/graphql-engine:v1.1.1
+          # hasura env variables
+workflows:
+  hasura_workflow:
+    jobs:
+      - cypress/run:
+          executor: pg-and-hasura
+          # runs Cypress tests
 ```
