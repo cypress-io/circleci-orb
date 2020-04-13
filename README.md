@@ -165,7 +165,7 @@ workflows:
       #             ↳ job "run" defined in the orb
 ```
 
-But we suggest using local name `cypress` and instead giving explicit name to each job.
+We suggest importing the orb under the local name `cypress` and giving names to each job using the `name` parameter.
 
 ```yaml
 version: 2.1
