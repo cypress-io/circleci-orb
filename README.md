@@ -16,6 +16,7 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
   * [Install, then run two different test jobs](./docs/recipes.md#install-and-run-two-test-jobs)
   * [Custom test command](./docs/recipes.md#custom-test-command)
   * [other recipes](./docs/recipes.md)
+- [Naming](#naming)
 - [Jobs and executors in this orb](#jobs-and-executors)
 - [Orb versions](#versions)
 - [Effective config](#effective-config)
@@ -129,6 +130,57 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
 Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
+
+## Naming
+
+When importing this orb, we suggest using local name "cypress" for consistency.
+
+```yaml
+version: 2.1
+orbs:
+  #          ↱ official orb name in the registry (org + name)
+  cypress: cypress-io/cypress@1
+  #  ↳ your local name for the imported orb
+workflows:
+  build:
+    jobs:
+      #   ↱ local orb name
+      - cypress/run
+      #          ↳ job "run" defined in the orb
+```
+
+You can of course use another local name
+
+```yaml
+version: 2.1
+orbs:
+  #             ↱ official orb name in the registry (org + name)
+  e2eCypress: cypress-io/cypress@1
+  #  ↳ your local name for the imported orb
+workflows:
+  build:
+    jobs:
+      #   ↱ local orb name
+      - e2eCypress/run
+      #             ↳ job "run" defined in the orb
+```
+
+But we suggest using local name `cypress` and instead giving explicit name to each job.
+
+```yaml
+version: 2.1
+orbs:
+  #          ↱ official orb name in the registry (org + name)
+  cypress: cypress-io/cypress@1
+  #  ↳ your local name for the imported orb
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          name: E2E tests
+```
+
+See [Recipes](./docs/recipes.md) for more examples.
 
 ## Jobs and executors
 
