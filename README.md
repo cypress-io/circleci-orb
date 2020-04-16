@@ -126,6 +126,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [cache using custom key in a monorepo](docs/examples.md#custom-cache-and-directory)
 - [custom configuration file](docs/examples.md#config-file)
 - [tag recorded run](docs/examples.md#tags)
+- [run different tests depending on the branch](docs/examples.md#run-on-master-branch)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 

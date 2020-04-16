@@ -40,7 +40,8 @@ const exampleTitles = {
   'config-file': 'custom configuration file',
   tags: 'tag recorded run',
   'attach-workspace': 'attaches the workspace assuming previous job has installed it',
-  'run-tasks-post-checkout': 'perform steps after code checkout but before installing dependencies'
+  'run-tasks-post-checkout': 'perform steps after code checkout but before installing dependencies',
+  'run-on-master-branch': 'run different tests depending on the branch'
 }
 
 // we want to make sure all orb examples are represented in the object above

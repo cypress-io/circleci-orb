@@ -31,6 +31,7 @@
  - [tags](#tags) - tag recorded run
  - [attach-workspace](#attach-workspace) - attaches the workspace assuming previous job has installed it
  - [run-tasks-post-checkout](#run-tasks-post-checkout) - perform steps after code checkout but before installing dependencies
+ - [run-on-master-branch](#run-on-master-branch) - run different tests depending on the branch
 
 ## simple
 
@@ -603,5 +604,32 @@ workflows:
       - cypress/run:
           post-checkout:
             - run: echo Scaffolding before installing
+```
+
+## run-on-master-branch
+
+
+Sometimes you want to execute only some tests on the "master" branch. This recipe shows how to set job filters in the workflow. Development tests job runs all the specs on every branch but master. Production tests executes only some specs and runs only on "master" branch. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - run:
+          name: Development tests
+          filters:
+            branches:
+              ignore:
+                - master
+      - run:
+          name: Production tests
+          spec: cypress/integration/prod/*
+          filters:
+            branches:
+              only:
+                - master
 ```
 
