@@ -618,13 +618,13 @@ orbs:
 workflows:
   build:
     jobs:
-      - run:
+      - cypress/run:
           name: Development tests
           filters:
             branches:
               ignore:
                 - master
-      - run:
+      - cypress/run:
           name: Production tests
           spec: cypress/integration/prod/*
           filters:
