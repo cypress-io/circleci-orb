@@ -1147,6 +1147,33 @@ examples:
                 requires:
                   - cypress/install
                 attach-workspace: true
+
+  run-on-master-branch:
+    description: |
+      Sometimes you want to execute only some tests on the "master" branch.
+      This recipe shows how to set job filters in the workflow. Development tests job
+      runs all the specs on every branch but master. Production tests executes only
+      some specs and runs only on "master" branch.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                name: Development tests
+                filters:
+                  branches:
+                    ignore:
+                      - master
+            - cypress/run:
+                name: Production tests
+                spec: 'cypress/integration/prod/*'
+                filters:
+                  branches:
+                    only:
+                      - master
 ##
 ## Development (internal)
 ##
@@ -1156,6 +1183,17 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - install:
-#           yarn: true
-#           install-command: echo 'Custom install command'
+#       - run:
+#           name: Development tests
+#           filters:
+#             branches:
+#               ignore:
+#                 - master
+#       - run:
+#           name: Production tests
+#           spec: 'cypress/integration/prod/*'
+#           filters:
+#             branches:
+#               only:
+#                 - master
+
