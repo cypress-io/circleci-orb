@@ -25,6 +25,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # we need to install CircleCI CLI tool
+      # to run the "manual" tests
       - circleci-cli/install
       - run: npm test
       - run: npm run manual:tests
