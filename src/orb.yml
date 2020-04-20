@@ -457,12 +457,15 @@ jobs:
           condition: << parameters.parallel >>
           steps:
             - when:
-                condition: << parameters.attach-workspace >> << parameters.build >>
+                condition: << parameters.attach-workspace >>
                 steps:
-                  - run:
-                      name: Build 🏗
-                      command: <<parameters.build>>
-                      working_directory: << parameters.working_directory >>
+                  - when:
+                      condition: << parameters.build >>
+                      steps:
+                      - run:
+                          name: Build 🏗
+                          command: <<parameters.build>>
+                          working_directory: << parameters.working_directory >>
 
             - unless:
                 condition: << parameters.attach-workspace >>

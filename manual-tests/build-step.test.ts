@@ -19,3 +19,16 @@ test('build step works after attaching workspace', async t => {
   const result = await effectiveConfig(workflows)
   t.snapshot(result, 'must include build step')
 })
+
+test('no build step after attaching workspace', async t => {
+  const workflows = stripIndent`
+    workflows:
+      build:
+        jobs:
+          - cypress/run:
+              attach-workspace: true
+  `
+  t.is(typeof workflows, 'string')
+  const result = await effectiveConfig(workflows)
+  t.snapshot(result, 'must include build step')
+})
