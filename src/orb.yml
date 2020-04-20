@@ -457,12 +457,15 @@ jobs:
           condition: << parameters.parallel >>
           steps:
             - when:
-                condition: << parameters.attach-workspace >> << parameters.build >>
+                condition: << parameters.attach-workspace >>
                 steps:
-                  - run:
-                      name: Build 🏗
-                      command: <<parameters.build>>
-                      working_directory: << parameters.working_directory >>
+                  - when:
+                      condition: << parameters.build >>
+                      steps:
+                      - run:
+                          name: Build 🏗
+                          command: <<parameters.build>>
+                          working_directory: << parameters.working_directory >>
 
             - unless:
                 condition: << parameters.attach-workspace >>
@@ -542,8 +545,10 @@ jobs:
           steps:
             - store_artifacts:
                 path: cypress/videos
+                working_directory: << parameters.working_directory >>
             - store_artifacts:
                 path: cypress/screenshots
+                working_directory: << parameters.working_directory >>
 
   # Install Job that can be performed before running jobs
   # often used to have a single installation step, and then
