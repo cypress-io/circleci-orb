@@ -2,6 +2,7 @@
 
 * [Install, test and release](#install-test-and-release)
 * [Install, then run two different test jobs](#install-and-run-two-test-jobs)
+* [Install dependencies using Yarn](#using-yarn)
 * [Custom test command](#custom-test-command)
 * [Service containers](#service-containers)
 
@@ -122,6 +123,57 @@ workflows:
 ```
 
 ![Run two test jobs after install](/img/two-test-jobs.png)
+
+## Using Yarn
+
+You can find a good example of using Yarn to install dependencies in [cypress-io/cypress-example-todomvc-redux](https://github.com/cypress-io/cypress-example-todomvc-redux) repository. Summary of details:
+
+```yml
+# see https://github.com/cypress-io/circleci-orb
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install:
+          name: Install
+          yarn: true
+          executor: cypress/base-12-14-0
+
+      - cypress/run:
+          name: full tests
+          executor: cypress/base-12-14-0
+          requires:
+            - Install
+          install-command: echo 'Nothing to install in this job'
+          # more commands
+
+      - cypress/run:
+          name: component tests
+          executor: cypress/base-12-14-0
+          requires:
+            - Install
+          install-command: echo 'Nothing to install in this job'
+          # more commands
+
+      - cypress/run:
+          name: smoke tests
+          executor: cypress/base-12-14-0
+          requires:
+            - Install
+          install-command: echo 'Nothing to install in this job'
+          # we will only run smoke tests on master branch
+          filters:
+            branches:
+              only:
+                - master
+          start: npm start
+          command: NODE_ENV=test npx cypress run --config-file cypress-smoke.json
+          no-workspace: true
+```
+
+![Yarn example](/img/yarn.png)
 
 ## Custom test command
 
