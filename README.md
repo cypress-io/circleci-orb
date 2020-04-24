@@ -262,6 +262,10 @@ We are using `cypress-io/cypress@1` version in our examples, so you get the late
 
 ## Effective config
 
+CircleCI expands orbs in your config file before running the workflows. You can see this _effective_ config in their UI
+
+![Effective config on CircleCI](img/effective-config.gif)
+
 If you install [Circle local CLI][local-cli], you can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
 
 For example, if your current CircleCI configuration file is `.circleci/config.yml` and it contains the following:
