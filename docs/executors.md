@@ -51,6 +51,38 @@ Single Docker container with Node 12.14.0 and Cypress dependencies see https://g
 
 Docker image: `cypress/base:12.14.0`
 
+## base-12-16-1
+
+
+Single Docker container with Node 12.16.1 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-12-16-1`. 
+
+
+Docker image: `cypress/base:12.16.1`
+
+## base-12
+
+
+Single Docker container with the latest Node v12 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-12`. 
+
+
+Docker image: `cypress/base:12.16.1`
+
+## base-14-0-0
+
+
+Single Docker container with Node 14.0.0 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-14-0-0`. 
+
+
+Docker image: `cypress/base:14.0.0`
+
+## base-14
+
+
+Single Docker container with the latest Node v14 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-14`. 
+
+
+Docker image: `cypress/base:14.0.0`
+
 ## browsers-chrome69
 
 

@@ -67,6 +67,38 @@ executors:
     docker:
       - image: cypress/base:12.14.0
 
+  base-12-16-1:
+    description: |
+      Single Docker container with Node 12.16.1 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-12-16-1`.
+    docker:
+      - image: cypress/base:12.16.1
+
+  base-12:
+    description: |
+      Single Docker container with the latest Node v12 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-12`.
+    docker:
+      - image: cypress/base:12.16.1
+
+  base-14-0-0:
+    description: |
+      Single Docker container with Node 14.0.0 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-14-0-0`.
+    docker:
+      - image: cypress/base:14.0.0
+
+  base-14:
+    description: |
+      Single Docker container with the latest Node v14 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-14`.
+    docker:
+      - image: cypress/base:14.0.0
+
   browsers-chrome69:
     description: Docker container with Node 10, Cypress dependencies and Chrome 69
     docker:
