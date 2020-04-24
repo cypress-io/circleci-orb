@@ -1,6 +1,5 @@
 # Cypress CircleCI Orb [![CircleCI](https://circleci.com/gh/cypress-io/circleci-orb.svg?style=svg)](https://circleci.com/gh/cypress-io/circleci-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/cypress-io/cypress)](https://circleci.com/orbs/registry/orb/cypress-io/cypress) [![renovate-app badge][renovate-badge]][renovate-app] [![GitHub license](https://img.shields.io/github/license/cypress-io/circleci-orb?logo=license)](https://github.com/cypress-io/circleci-orb/blob/master/LICENSE.md)
 
-
 The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` file to correctly install, cache and run [Cypress.io](https://www.cypress.io) tests on CircleCI with very little effort. See this orb in [CircleCI Registry](https://circleci.com/orbs/registry/orb/cypress-io/cypress).
 
 ## Contents
@@ -262,6 +261,10 @@ You can find all changes and published orb versions for Cypress orb at [cypress-
 We are using `cypress-io/cypress@1` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
 
 ## Effective config
+
+CircleCI expands orbs in your config file before running the workflows. You can see this _effective_ config in their UI
+
+![Effective config on CircleCI](img/effective-config.gif)
 
 If you install [Circle local CLI][local-cli], you can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
 
