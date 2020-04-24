@@ -515,7 +515,9 @@ jobs:
           condition: <<parameters.command>>
           steps:
             - run:
+                name: Run Cypress tests using custom command
                 command: <<parameters.command>>
+                no_output_timeout: <<parameters.timeout>>
                 working_directory: << parameters.working_directory >>
 
       - unless:

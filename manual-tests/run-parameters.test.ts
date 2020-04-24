@@ -29,3 +29,27 @@ test('timeout parameter', async t => {
   debug('found run step %o', runTestsStep)
   t.snapshot(runTestsStep, 'must have no_output_timeout of 15 minutes')
 })
+
+test('timeout parameter with custom command', async t => {
+  const workflows = stripIndent`
+    workflows:
+      build:
+        jobs:
+          - cypress/run:
+              timeout: 15m
+              command: npm run e2e
+  `
+  t.is(typeof workflows, 'string')
+  const result = await effectiveConfig(workflows)
+  if (debug.enabled) {
+    debug('effective config')
+    console.error(result)
+  }
+  const parsed = yaml.safeLoad(result)
+  debug('parsed %o', parsed)
+
+  const isRunStep = (step) => step.run && step.run.command === 'npm run e2e'
+  const runTestsStep = find(isRunStep)(parsed.jobs['cypress/run'].steps)
+  debug('found run step %o', runTestsStep)
+  t.snapshot(runTestsStep, 'must have no_output_timeout of 15 minutes')
+})
