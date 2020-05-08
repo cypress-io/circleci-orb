@@ -170,6 +170,10 @@ commands:
         description: Overrides the default NPM or Yarn command
         type: string
         default: ''
+      verify-command:
+        description: Overrides the default NPM or Yarn command to verify Cypress
+        type: string
+        default: 'npx cypress verify'
       yarn:
         description: Use yarn instead of npm
         type: boolean
@@ -212,7 +216,7 @@ commands:
       - steps: << parameters.post-install >>
       - run:
           name: 'Verify Cypress'
-          command: npx cypress verify
+          command: << parameters.verify-command >>
           working_directory: << parameters.working_directory >>
       # save new cache folder if needed
       - when:
@@ -280,9 +284,14 @@ commands:
         description: Overrides the default NPM or Yarn command
         type: string
         default: ''
+      verify-command:
+        description: Overrides the default NPM or Yarn command to verify Cypress
+        type: string
+        default: 'npx cypress verify'
     steps:
       - setup:
           install-command: << parameters.install-command >>
+          verify-command: << parameters.verify-command >>
           post-install: << parameters.post-install >>
           yarn: << parameters.yarn >>
           cache-key: << parameters.cache-key >>
@@ -410,6 +419,11 @@ jobs:
         type: string
         default: ''
 
+      verify-command:
+        description: Overrides the default NPM or Yarn command to verify Cypress
+        type: string
+        default: 'npx cypress verify'
+
       command:
         type: string
         default: ''
@@ -510,6 +524,7 @@ jobs:
                       - install:
                           yarn: << parameters.yarn >>
                           install-command: << parameters.install-command >>
+                          verify-command: << parameters.verify-command >>
                           post-install: << parameters.post-install >>
                           cache-key: << parameters.cache-key >>
                           no-workspace: << parameters.no-workspace >>
@@ -523,6 +538,7 @@ jobs:
                           cache-key: << parameters.cache-key >>
                           yarn: << parameters.yarn >>
                           install-command: << parameters.install-command >>
+                          verify-command: << parameters.verify-command >>
                           post-install: << parameters.post-install >>
                           no-workspace: << parameters.no-workspace >>
                           working_directory: << parameters.working_directory >>
@@ -620,6 +636,10 @@ jobs:
         description: Overrides the default NPM or Yarn command
         type: string
         default: ''
+      verify-command:
+        description: Overrides the default NPM or Yarn command to verify Cypress
+        type: string
+        default: 'npx cypress verify'
       working_directory:
         description: |
           Directory containing package.json. Use this parameter if you're using a monorepo and your
@@ -644,6 +664,7 @@ jobs:
           steps:
             - install:
                 install-command: << parameters.install-command >>
+                verify-command: << parameters.verify-command >>
                 yarn: << parameters.yarn >>
                 post-install: << parameters.post-install >>
                 build:
@@ -657,6 +678,7 @@ jobs:
           steps:
             - install:
                 install-command: << parameters.install-command >>
+                verify-command: << parameters.verify-command >>
                 yarn: << parameters.yarn >>
                 post-install: << parameters.post-install >>
                 working_directory: << parameters.working_directory >>
@@ -696,6 +718,7 @@ examples:
   custom-install:
     description: |
       Install dependencies using your own custom command.
+      Related parameter: "custom-verify"
     usage:
       version: 2.1
       orbs:
@@ -705,6 +728,19 @@ examples:
           jobs:
             - cypress/run:
                 install-command: 'yarn install --frozen-lockfile'
+  custom-verify:
+    description: |
+      Verify Cypress was installed using custom command. Default command is "npx cypress verify"
+      Related parameter: "custom-install"
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                verify-command: 'yarn cypress verify'
 
   custom-directory:
     description: |
