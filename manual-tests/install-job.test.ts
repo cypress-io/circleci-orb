@@ -39,3 +39,17 @@ test('install job 3', async t => {
   const result = await effectiveConfig(workflows)
   t.snapshot(result, 'using custom install command')
 })
+
+test('use custom verify command', async t => {
+  const workflows = stripIndent`
+    workflows:
+      build:
+        jobs:
+          - cypress/install:
+              install-command: 'my own install command'
+              verify-command: 'my own verify command'
+  `
+  t.is(typeof workflows, 'string')
+  const result = await effectiveConfig(workflows)
+  t.snapshot(result, 'using custom verify command')
+})

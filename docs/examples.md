@@ -6,6 +6,7 @@
  - [parallel-on-2-machines](#parallel-on-2-machines) - Runs all Cypress tests by load balancing them on two machines
  - [yarn](#yarn) - install dependencies using Yarn
  - [custom-install](#custom-install) - install dependencies using any command
+ - [custom-verify](#custom-verify) - use custom command to verify Cypress
  - [custom-cache-key](#custom-cache-key) - apply custom key for npm install (or yarn install) cache
  - [using-node6](#using-node6) - running tests using Node 6
  - [chrome](#chrome) - running tests using Chrome browser
@@ -105,7 +106,7 @@ workflows:
 ## custom-install
 
 
-Install dependencies using your own custom command. 
+Install dependencies using your own custom command. Related parameter: "custom-verify" 
 
 ```yaml
 version: 2.1
@@ -116,6 +117,22 @@ workflows:
     jobs:
       - cypress/run:
           install-command: yarn install --frozen-lockfile
+```
+
+## custom-verify
+
+
+Verify Cypress was installed using custom command. Default command is "npx cypress verify" Related parameter: "custom-install" 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          verify-command: yarn cypress verify
 ```
 
 ## custom-cache-key

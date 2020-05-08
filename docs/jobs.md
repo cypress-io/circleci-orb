@@ -19,6 +19,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - browser
      - spec
      - install-command
+     - verify-command
      - command
      - store_artifacts
      - yarn
@@ -37,6 +38,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - cache-key
      - yarn
      - install-command
+     - verify-command
      - working_directory
     
 
@@ -254,6 +256,17 @@ type: string
 default: `10m`
 
 
+**`verify-command`**
+
+> Overrides the default NPM or Yarn command to verify Cypress
+
+
+type: string
+
+
+default: `npx cypress verify`
+
+
 **`wait-on`**
 
 > Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.
@@ -349,6 +362,17 @@ type: steps
 
 
 default: ``
+
+
+**`verify-command`**
+
+> Overrides the default NPM or Yarn command to verify Cypress
+
+
+type: string
+
+
+default: `npx cypress verify`
 
 
 **`working_directory`**

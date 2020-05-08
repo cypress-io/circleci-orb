@@ -16,6 +16,7 @@ const exampleTitles = {
   'parallel-on-2-machines': 'Runs all Cypress tests by load balancing them on two machines',
   yarn: 'install dependencies using Yarn',
   'custom-install': 'install dependencies using any command',
+  'custom-verify': 'use custom command to verify Cypress',
   'custom-cache-key': 'apply custom key for npm install (or yarn install) cache',
   'using-node6': 'running tests using Node 6',
   chrome: 'running tests using Chrome browser',
