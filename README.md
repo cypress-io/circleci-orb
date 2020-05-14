@@ -123,6 +123,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [skip saving workspace](docs/examples.md#no-workspace)
 - [run commands in a subfolder of a monorepo](docs/examples.md#custom-directory)
 - [cache using custom key in a monorepo](docs/examples.md#custom-cache-and-directory)
+- [config](docs/examples.md#config)
 - [custom configuration file](docs/examples.md#config-file)
 - [tag recorded run](docs/examples.md#tags)
 - [run different tests depending on the branch](docs/examples.md#run-on-master-branch)

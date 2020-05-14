@@ -29,6 +29,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - working_directory
      - timeout
      - config-file
+     - config
     
  - [install](#install)
      - executor
@@ -93,6 +94,14 @@ default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 **`command`**
 
 > Custom test command to run Cypress tests, which overrides all individual options.
+
+
+type: string
+
+
+**`config`**
+
+> Additional configuration values to pass using --config
 
 
 type: string

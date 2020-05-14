@@ -38,6 +38,7 @@ const exampleTitles = {
   'custom-directory': 'run commands in a subfolder of a monorepo',
   'custom-cache-and-directory': 'use custom cache key in a monorepo situation',
   'install-extra-tool': 'run commands after installing NPM modules but before caching',
+  config: 'pass additional config parameter via --config argument',
   'config-file': 'custom configuration file',
   tags: 'tag recorded run',
   'attach-workspace': 'attaches the workspace assuming previous job has installed it',
