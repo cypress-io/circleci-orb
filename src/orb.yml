@@ -480,6 +480,11 @@ jobs:
         type: string
         default: ''
 
+      config:
+        description: Additional configuration values to pass using --config
+        type: string
+        default: ''
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -581,6 +586,7 @@ jobs:
                     <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
                     <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
                     <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
+                    <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
                     <<# parameters.record >> --record \
                       <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                       <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -728,6 +734,7 @@ examples:
           jobs:
             - cypress/run:
                 install-command: 'yarn install --frozen-lockfile'
+
   custom-verify:
     description: |
       Verify Cypress was installed using custom command. Default command is "npx cypress verify"
@@ -1187,6 +1194,18 @@ examples:
                 post-install:
                   - run: npm install -g print-env
                   - run: print-env CIRCLE
+
+  config:
+    description: Passing additional Cypress config parameters via --config CLI argument
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                config: pageLoadTimeout=100000,watchForFileChanges=false
 
   config-file:
     description: Uses non-default configuration file

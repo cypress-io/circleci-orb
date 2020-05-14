@@ -5,12 +5,16 @@ import { readFileSync } from 'fs'
 import { safeDump, safeLoad } from 'js-yaml'
 import * as tempWrite from 'temp-write'
 import { join } from 'path'
-import { prop, split, filter, startsWith, join as joinStrings } from 'ramda'
+import { find, prop, split, filter, startsWith, join as joinStrings } from 'ramda'
 import os from 'os'
+import yaml from 'js-yaml'
+import debugApi from 'debug'
+
+const debug = debugApi('test')
 
 const isComment = s => !startsWith('# ', s)
 
-const computeEffectiveConfig = async (filename: string) => {
+const computeEffectiveConfig = async (filename: string): Promise<string> => {
   return execa('circleci', ['config', 'process', filename])
     .then(prop('stdout'))
     .then(split(os.EOL))
@@ -103,5 +107,39 @@ export const processWorkflows = (workflows: string): Promise<any> => {
 export const effectiveConfig = (workflows: string): Promise<any> => {
   const inlined = inlineOrb(workflows)
   const filename = tempWrite.sync(inlined, 'config.yml')
-  return computeEffectiveConfig(filename)
+  return computeEffectiveConfig(filename).then(s => {
+    // special handling for test run command that includes a few empty escaped newlines
+    // to get each 'command: "npx cypress run\\\\n \\\\n"' into
+    // 'command: "npx cypress run"
+    const lines = s.split(os.EOL).map(line => {
+      if (/\s+command: "/.test(line)) {
+        return line.replace(/"npx .+"/, (match) => {
+          return match.replace(/\\\\\\n/g, '').replace(/\s+/g, ' ').trim().replace(' "', '"')
+        })
+      } else {
+        return line
+      }
+    }).join(os.EOL)
+
+    return lines
+  })
+}
+
+/**
+ * Removes new lines in parsed run command
+ */
+export const removeNewLines = (runCommand: string) =>
+  runCommand.replace(/\\\n/g, '').replace(/\s+/g, ' ').trim()
+
+export const extractCypressRun = (circleText: string) => {
+  const parsed = yaml.safeLoad(circleText)
+  debug('parsed %o', parsed)
+
+  const isRunStep = (step) => step.run && step.run.name === 'Run Cypress tests'
+  const runTestsStep = find(isRunStep)(parsed.jobs['cypress/run'].steps)
+  debug('found run step %o', runTestsStep)
+
+  runTestsStep.run.command = removeNewLines(runTestsStep.run.command)
+
+  return runTestsStep.run
 }
