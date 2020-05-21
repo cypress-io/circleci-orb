@@ -21,6 +21,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - install-command
      - verify-command
      - command
+     - command-prefix
      - store_artifacts
      - yarn
      - cache-key
@@ -94,6 +95,14 @@ default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 **`command`**
 
 > Custom test command to run Cypress tests, which overrides all individual options.
+
+
+type: string
+
+
+**`command-prefix`**
+
+> Custom prefix for the default test command.
 
 
 type: string
