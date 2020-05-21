@@ -1159,7 +1159,7 @@ examples:
                 command: npx cypress run --record
 
   custom-command-prefix:
-    description: Use your own arbitrary command to prefix default cypress run test command..
+    description: Use your own arbitrary command to prefix default cypress run test command.
     usage:
       version: 2.1
       orbs:
