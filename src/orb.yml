@@ -27,7 +27,7 @@ executors:
     parameters:
       node:
         type: string
-        default: '12.14.0'
+        default: "12.14.0"
         description: Version of Node 6/8/10/12.x to use
     docker:
       - image: cypress/base:<< parameters.node >>
@@ -169,11 +169,11 @@ commands:
       install-command:
         description: Overrides the default NPM or Yarn command
         type: string
-        default: ''
+        default: ""
       verify-command:
         description: Overrides the default NPM or Yarn command to verify Cypress
         type: string
-        default: 'npx cypress verify'
+        default: "npx cypress verify"
       yarn:
         description: Use yarn instead of npm
         type: boolean
@@ -185,7 +185,7 @@ commands:
       working_directory:
         description: Directory containing package.json
         type: string
-        default: ''
+        default: ""
     steps:
       - restore_cache:
           keys:
@@ -215,7 +215,7 @@ commands:
             fi
       - steps: << parameters.post-install >>
       - run:
-          name: 'Verify Cypress'
+          name: "Verify Cypress"
           command: << parameters.verify-command >>
           working_directory: << parameters.working_directory >>
       # save new cache folder if needed
@@ -279,15 +279,15 @@ commands:
       working_directory:
         description: Directory containing package.json
         type: string
-        default: ''
+        default: ""
       install-command:
         description: Overrides the default NPM or Yarn command
         type: string
-        default: ''
+        default: ""
       verify-command:
         description: Overrides the default NPM or Yarn command to verify Cypress
         type: string
-        default: 'npx cypress verify'
+        default: "npx cypress verify"
     steps:
       - setup:
           install-command: << parameters.install-command >>
@@ -360,13 +360,13 @@ jobs:
 
       group:
         type: string
-        default: ''
+        default: ""
         description: |
           Test group name when recording on the dashboard. Requires `record: true`
 
       tags:
         type: string
-        default: ''
+        default: ""
         description: |
           Comma-separated tags to send to the dashboard. Requires `record: true`
 
@@ -379,21 +379,21 @@ jobs:
 
       build:
         type: string
-        default: ''
+        default: ""
         description: |
           Custom build command to run after install to build your application.
           Related parameter "start"
 
       start:
         type: string
-        default: ''
+        default: ""
         description: |
           Optional server start command to run in the background before running Cypress tests.
           Related parameters "build" and "wait-on".
 
       wait-on:
         type: string
-        default: ''
+        default: ""
         description: |
           Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.
           Example:
@@ -402,7 +402,7 @@ jobs:
 
       browser:
         type: string
-        default: ''
+        default: ""
         description: |
           Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
           See https://on.cypress.io/launching-browsers, requires using executor with the browser installed,
@@ -410,25 +410,31 @@ jobs:
 
       spec:
         type: string
-        default: ''
+        default: ""
         description: |
           Spec pattern to use to run only some test files, passed as `--spec ...` CLI argument.
 
       install-command:
         description: Overrides the default NPM or Yarn command
         type: string
-        default: ''
+        default: ""
 
       verify-command:
         description: Overrides the default NPM or Yarn command to verify Cypress
         type: string
-        default: 'npx cypress verify'
+        default: "npx cypress verify"
 
       command:
         type: string
-        default: ''
+        default: ""
         description: |
           Custom test command to run Cypress tests, which overrides all individual options.
+
+      command-prefix:
+        type: string
+        default: ""
+        description: |
+          Custom prefix for the default test command.
 
       store_artifacts:
         type: boolean
@@ -468,7 +474,7 @@ jobs:
           Directory containing package.json. Use this parameter if you're using a monorepo and your
           cypress tests aren't at the root of the repository (eg. `frontend`).
         type: string
-        default: ''
+        default: ""
 
       timeout:
         description: Optional timeout for running tests
@@ -478,12 +484,12 @@ jobs:
       config-file:
         description: Name of the Cypress configuration file to use
         type: string
-        default: ''
+        default: ""
 
       config:
         description: Additional configuration values to pass using --config
         type: string
-        default: ''
+        default: ""
 
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
@@ -513,40 +519,40 @@ jobs:
                   - when:
                       condition: << parameters.build >>
                       steps:
-                      - run:
-                          name: Build 🏗
-                          command: <<parameters.build>>
-                          working_directory: << parameters.working_directory >>
+                        - run:
+                            name: Build 🏗
+                            command: <<parameters.build>>
+                            working_directory: << parameters.working_directory >>
 
             - unless:
                 condition: << parameters.attach-workspace >>
                 steps:
-                - checkout
-                - steps: << parameters.post-checkout >>
-                - when:
-                    condition: << parameters.build >>
-                    steps:
-                      - install:
-                          yarn: << parameters.yarn >>
-                          install-command: << parameters.install-command >>
-                          verify-command: << parameters.verify-command >>
-                          post-install: << parameters.post-install >>
-                          cache-key: << parameters.cache-key >>
-                          no-workspace: << parameters.no-workspace >>
-                          build:
-                            - run: << parameters.build >>
-                          working_directory: << parameters.working_directory >>
-                - unless:
-                    condition: <<parameters.build>>
-                    steps:
-                      - install:
-                          cache-key: << parameters.cache-key >>
-                          yarn: << parameters.yarn >>
-                          install-command: << parameters.install-command >>
-                          verify-command: << parameters.verify-command >>
-                          post-install: << parameters.post-install >>
-                          no-workspace: << parameters.no-workspace >>
-                          working_directory: << parameters.working_directory >>
+                  - checkout
+                  - steps: << parameters.post-checkout >>
+                  - when:
+                      condition: << parameters.build >>
+                      steps:
+                        - install:
+                            yarn: << parameters.yarn >>
+                            install-command: << parameters.install-command >>
+                            verify-command: << parameters.verify-command >>
+                            post-install: << parameters.post-install >>
+                            cache-key: << parameters.cache-key >>
+                            no-workspace: << parameters.no-workspace >>
+                            build:
+                              - run: << parameters.build >>
+                            working_directory: << parameters.working_directory >>
+                  - unless:
+                      condition: <<parameters.build>>
+                      steps:
+                        - install:
+                            cache-key: << parameters.cache-key >>
+                            yarn: << parameters.yarn >>
+                            install-command: << parameters.install-command >>
+                            verify-command: << parameters.verify-command >>
+                            post-install: << parameters.post-install >>
+                            no-workspace: << parameters.no-workspace >>
+                            working_directory: << parameters.working_directory >>
 
       - when:
           condition: <<parameters.start>>
@@ -576,23 +582,46 @@ jobs:
       - unless:
           condition: <<parameters.command>>
           steps:
-            - run:
-                name: Run Cypress tests
-                no_output_timeout: <<parameters.timeout>>
-                # GOOD EXAMPLE conditional text based on boolean parameter
-                # --record is needed to pass many other arguments, like "--group" and "--parallel"
-                command: |
-                  npx cypress run \
-                    <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
-                    <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
-                    <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
-                    <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
-                    <<# parameters.record >> --record \
-                      <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
-                      <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
-                      <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
-                    <</ parameters.record>>
-                working_directory: << parameters.working_directory >>
+            - when:
+                condition: <<parameters.command-prefix>>
+                steps:
+                  - run:
+                      name: Run Cypress tests
+                      no_output_timeout: <<parameters.timeout>>
+                      # GOOD EXAMPLE conditional text based on boolean parameter
+                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
+                      command: |
+                        <<parameters.command-prefix>> cypress run \
+                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
+                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
+                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.record >> --record \
+                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
+                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                          <</ parameters.record>>
+                      working_directory: << parameters.working_directory >>
+            - unless:
+                condition: <<parameters.command-prefix>>
+                steps:
+                  - run:
+                      name: Run Cypress tests
+                      no_output_timeout: <<parameters.timeout>>
+                      # GOOD EXAMPLE conditional text based on boolean parameter
+                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
+                      command: |
+                        npx cypress run \
+                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
+                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
+                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.record >> --record \
+                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
+                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                          <</ parameters.record>>
+                      working_directory: << parameters.working_directory >>
 
       - when:
           condition: << parameters.store_artifacts >>
@@ -627,7 +656,7 @@ jobs:
         default: []
       build:
         type: string
-        default: ''
+        default: ""
         description: |
           Custom build command to run after install to build the web application or web server.
       cache-key:
@@ -641,11 +670,11 @@ jobs:
       install-command:
         description: Overrides the default NPM or Yarn command
         type: string
-        default: ''
+        default: ""
       verify-command:
         description: Overrides the default NPM or Yarn command to verify Cypress
         type: string
-        default: 'npx cypress verify'
+        default: "npx cypress verify"
       working_directory:
         description: |
           Directory containing package.json. Use this parameter if you're using a monorepo and your
@@ -653,7 +682,7 @@ jobs:
           monorepo users will want to provide a `cache-key` parameter to key the cache with an
           appropriate checksum. (i.e. `cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'`)
         type: string
-        default: ''
+        default: ""
     description: |
       Checks out code, installs dependencies, attaches code to the workspace for the future jobs
       to use (usually `cypress/run` follows the install step).
@@ -675,7 +704,7 @@ jobs:
                 post-install: << parameters.post-install >>
                 build:
                   - run:
-                      name: 'Build'
+                      name: "Build"
                       command: << parameters.build >>
                 working_directory: << parameters.working_directory >>
                 cache-key: << parameters.cache-key >>
@@ -733,7 +762,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                install-command: 'yarn install --frozen-lockfile'
+                install-command: "yarn install --frozen-lockfile"
 
   custom-verify:
     description: |
@@ -747,7 +776,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                verify-command: 'yarn cypress verify'
+                verify-command: "yarn cypress verify"
 
   custom-directory:
     description: |
@@ -890,7 +919,7 @@ examples:
         build:
           jobs:
             - cypress/run:
-                start: 'npm start'
+                start: "npm start"
 
   wait-for-server-to-respond:
     description: |
@@ -908,8 +937,8 @@ examples:
         build:
           jobs:
             - cypress/run:
-                start: 'npm start'
-                wait-on: 'http://localhost:4200'
+                start: "npm start"
+                wait-on: "http://localhost:4200"
 
   parallel-on-2-machines:
     description: |
@@ -930,7 +959,7 @@ examples:
                 record: true
                 parallel: true
                 parallelism: 2
-                group: '2 machines'
+                group: "2 machines"
 
   install-private-npm-modules:
     description: |
@@ -963,14 +992,14 @@ examples:
         build:
           jobs:
             - cypress/install:
-                build: 'npm run build' # custom build command
+                build: "npm run build" # custom build command
             - cypress/run:
                 requires:
                   - cypress/install
                 record: true
                 parallel: true
                 parallelism: 3
-                group: '3x'
+                group: "3x"
 
   groups:
     description: |
@@ -987,24 +1016,24 @@ examples:
           jobs:
             - cypress/install
             - cypress/run:
-                name: '4 machines'
+                name: "4 machines"
                 requires:
                   - cypress/install
                 record: true
                 parallel: true
                 parallelism: 4
-                group: '4 machines'
+                group: "4 machines"
             - cypress/run:
-                name: 'Chrome'
+                name: "Chrome"
                 requires:
                   - cypress/install
                 executor: cypress/browsers-chrome69
                 record: true
                 parallel: true
                 parallelism: 2
-                group: 'smoke tests'
-                browser: 'chrome'
-                spec: 'cypress/integration/smoke/*'
+                group: "smoke tests"
+                browser: "chrome"
+                spec: "cypress/integration/smoke/*"
 
   release:
     description: |
@@ -1046,7 +1075,7 @@ examples:
       executors:
         mac:
           macos:
-            xcode: '10.1.0'
+            xcode: "10.1.0"
 
       workflows:
         build:
@@ -1108,8 +1137,8 @@ examples:
           docker:
             - image: cypress/base:10
           environment:
-            FOO: 'foo'
-            BAR: 'bar'
+            FOO: "foo"
+            BAR: "bar"
 
       workflows:
         build:
@@ -1128,6 +1157,18 @@ examples:
           jobs:
             - cypress/run:
                 command: npx cypress run --record
+
+  custom-command-prefix:
+    description: Use your own arbitrary command to prefix default cypress run test command..
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                command-prefix: npx percy exec --
 
   no-workspace:
     description: |
@@ -1161,7 +1202,7 @@ examples:
                   - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
                 no-workspace: true
                 start: npm start
-                wait-on: 'http://localhost:3003'
+                wait-on: "http://localhost:3003"
                 post-steps:
                   - run: npm run semantic-release
 
@@ -1271,7 +1312,7 @@ examples:
                       - master
             - cypress/run:
                 name: Production tests
-                spec: 'cypress/integration/prod/*'
+                spec: "cypress/integration/prod/*"
                 filters:
                   branches:
                     only:
