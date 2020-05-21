@@ -462,7 +462,7 @@ workflows:
 ## custom-command-prefix
 
 
-Use your own arbitrary command to prefix default cypress run test command..
+Use your own arbitrary command to prefix default cypress run test command.
 
 ```yaml
 version: 2.1
