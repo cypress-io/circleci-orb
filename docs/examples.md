@@ -23,6 +23,7 @@
  - [artifacts](#artifacts) - store screenshots and videos on Circle
  - [any-artifacts](#any-artifacts) - store other folders as artifacts on Circle
  - [custom-command](#custom-command) - use a custom command to launch tests
+ - [custom-command-prefix](#custom-command-prefix) - prefix default test command
  - [no-workspace](#no-workspace) - faster for a single cypress/run job without saving workspace
  - [private-npm-module](#private-npm-module) - complete NPM module publishing example
  - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
@@ -456,6 +457,22 @@ workflows:
     jobs:
       - cypress/run:
           command: npx cypress run --record
+```
+
+## custom-command-prefix
+
+
+Use your own arbitrary command to prefix default cypress run test command..
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          command-prefix: npx percy exec --
 ```
 
 ## no-workspace
