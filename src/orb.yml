@@ -586,7 +586,7 @@ jobs:
                 condition: <<parameters.command-prefix>>
                 steps:
                   - run:
-                      name: Run Cypress tests
+                      name: Run Cypress tests prefixed
                       no_output_timeout: <<parameters.timeout>>
                       # GOOD EXAMPLE conditional text based on boolean parameter
                       # --record is needed to pass many other arguments, like "--group" and "--parallel"
@@ -1339,4 +1339,3 @@ examples:
 #             branches:
 #               only:
 #                 - master
-
