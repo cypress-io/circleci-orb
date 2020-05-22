@@ -46,6 +46,7 @@
     "husky": "3.1.0",
     "js-yaml": "3.13.1",
     "json2md": "1.6.5",
+    "lint-staged": "10.2.6",
     "minimist": "1.2.5",
     "next-ver": "1.8.0",
     "prettier": "2.0.5",
@@ -56,8 +57,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run orb:validate && npm run unit && npm run manual:tests && npm run doc"
+      "pre-commit": "lint-staged && npm run orb:validate && npm run unit && npm run manual:tests && npm run doc"
     }
+  },
+  "lint-staged": {
+    "*.{js,ts}": ["prettier --write"]
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
