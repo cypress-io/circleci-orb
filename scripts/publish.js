@@ -5,7 +5,7 @@ const argv = minimist(process.argv.slice(2))
 console.dir(argv)
 
 const setNewVersion = () => {
-  return execa('npm', ['run', 'set-next-version'], {stdio: 'inherit'})
+  return execa('npm', ['run', 'set-next-version'], { stdio: 'inherit' })
 }
 
 const getPackageVersion = () => {
@@ -36,12 +36,11 @@ const publishOrb = (nameVersion) => {
     console.log('dry run: %s %s', cmd, args.join(' '))
     return Promise.resolve()
   } else {
-    return execa(cmd, args, {stdio: 'inherit'})
+    return execa(cmd, args, { stdio: 'inherit' })
   }
 }
 
-const getDevVersion = () =>
-  Promise.resolve(argv.dev)
+const getDevVersion = () => Promise.resolve(argv.dev)
 
 let decideVersion
 
@@ -54,7 +53,7 @@ if (argv.dev) {
 decideVersion
   .then(loadNameAndVersion)
   .then(publishOrb)
-  .catch(e => {
+  .catch((e) => {
     console.error(e.message)
     process.exit(1)
   })

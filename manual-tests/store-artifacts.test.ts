@@ -3,7 +3,7 @@ import { stripIndent } from 'common-tags'
 import { effectiveConfig } from '../scripts/utils'
 
 // https://github.com/cypress-io/circleci-orb/issues/265
-test('store video and screenshots in working directory', async t => {
+test('store video and screenshots in working directory', async (t) => {
   const workflows = stripIndent`
     workflows:
       build:

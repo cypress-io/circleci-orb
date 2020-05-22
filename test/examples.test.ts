@@ -5,9 +5,9 @@ import { getOrb, processWorkflows } from '../scripts/utils'
 
 const orb = getOrb()
 const exampleNames = Object.keys(orb.examples)
-exampleNames.forEach(name => {
+exampleNames.forEach((name) => {
   const example = orb.examples[name]
-  test(name, t => {
+  test(name, (t) => {
     t.plan(0)
     const jobs = example.usage.jobs
     const workflows = example.usage.workflows

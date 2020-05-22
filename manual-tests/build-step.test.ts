@@ -3,7 +3,7 @@ import { stripIndent } from 'common-tags'
 import { effectiveConfig } from '../scripts/utils'
 
 // https://github.com/cypress-io/circleci-orb/issues/266
-test('build step works after attaching workspace', async t => {
+test('build step works after attaching workspace', async (t) => {
   // we want to attach the workspace, probably after a shared install job
   // and build the application - and the effective config
   // should have the build step
@@ -20,7 +20,7 @@ test('build step works after attaching workspace', async t => {
   t.snapshot(result, 'must include build step')
 })
 
-test('no build step after attaching workspace', async t => {
+test('no build step after attaching workspace', async (t) => {
   const workflows = stripIndent`
     workflows:
       build:

@@ -19,7 +19,7 @@ const docExecutor = (name: string, executor: executor) => {
 
 const executorNames = Object.keys(orb.executors)
 
-const fragments = executorNames.map(name => {
+const fragments = executorNames.map((name) => {
   return docExecutor(name, orb.executors[name])
 })
 
