@@ -5,14 +5,21 @@ import { readFileSync } from 'fs'
 import { safeDump, safeLoad } from 'js-yaml'
 import * as tempWrite from 'temp-write'
 import { join } from 'path'
-import { find, prop, split, filter, startsWith, join as joinStrings } from 'ramda'
+import {
+  find,
+  prop,
+  split,
+  filter,
+  startsWith,
+  join as joinStrings,
+} from 'ramda'
 import os from 'os'
 import yaml from 'js-yaml'
 import debugApi from 'debug'
 
 const debug = debugApi('test')
 
-const isComment = s => !startsWith('# ', s)
+const isComment = (s) => !startsWith('# ', s)
 
 const computeEffectiveConfig = async (filename: string): Promise<string> => {
   return execa('circleci', ['config', 'process', filename])
@@ -55,7 +62,7 @@ export type executor = {
   docker: [
     {
       image: string
-    }
+    },
   ]
 }
 
@@ -81,7 +88,9 @@ export const getOrb = (): orb => {
 }
 
 const validate = async (filename: string): Promise<void> => {
-  await execa('circleci', ['config', 'validate', filename], { stdio: 'inherit' })
+  await execa('circleci', ['config', 'validate', filename], {
+    stdio: 'inherit',
+  })
 }
 
 const inlineOrb = (workflows: string): string => {
@@ -107,19 +116,26 @@ export const processWorkflows = (workflows: string): Promise<any> => {
 export const effectiveConfig = (workflows: string): Promise<any> => {
   const inlined = inlineOrb(workflows)
   const filename = tempWrite.sync(inlined, 'config.yml')
-  return computeEffectiveConfig(filename).then(s => {
+  return computeEffectiveConfig(filename).then((s) => {
     // special handling for test run command that includes a few empty escaped newlines
     // to get each 'command: "npx cypress run\\\\n \\\\n"' into
     // 'command: "npx cypress run"
-    const lines = s.split(os.EOL).map(line => {
-      if (/\s+command: "/.test(line)) {
-        return line.replace(/"npx .+"/, (match) => {
-          return match.replace(/\\\\\\n/g, '').replace(/\s+/g, ' ').trim().replace(' "', '"')
-        })
-      } else {
-        return line
-      }
-    }).join(os.EOL)
+    const lines = s
+      .split(os.EOL)
+      .map((line) => {
+        if (/\s+command: "/.test(line)) {
+          return line.replace(/"npx .+"/, (match) => {
+            return match
+              .replace(/\\\\\\n/g, '')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .replace(' "', '"')
+          })
+        } else {
+          return line
+        }
+      })
+      .join(os.EOL)
 
     return lines
   })

@@ -9,7 +9,7 @@ const orb = getOrb()
 
 const docParameters = (job: job) => {
   const names = Object.keys(job.parameters).sort()
-  return names.map(name => {
+  return names.map((name) => {
     const parameter: parameter = job.parameters[name]
     const list = [
       {
@@ -41,7 +41,7 @@ const docJob = (name: string, job: job) => {
 // because "run" is the most important command
 const jobNames = ['run', 'install']
 
-const fragments = jobNames.map(name => {
+const fragments = jobNames.map((name) => {
   return docJob(name, orb.jobs[name])
 })
 
@@ -57,21 +57,23 @@ const description = {
 
 const getJobContents = (name: string, job: job) => {
   return {
-    ul: [{
-      p: name
-    }]
+    ul: [
+      {
+        p: name,
+      },
+    ],
   }
 }
 
 const toLink = (name) => `[${name}](#${name})`
 
 const getToc = () => {
-  const toc = {ul: []}
-  jobNames.forEach(name => {
+  const toc = { ul: [] }
+  jobNames.forEach((name) => {
     toc.ul.push(toLink(name))
     const job: job = orb.jobs[name]
-    const params = {ul: []}
-    Object.keys(job.parameters).forEach(name => {
+    const params = { ul: [] }
+    Object.keys(job.parameters).forEach((name) => {
       params.ul.push(name)
     })
     toc.ul.push(params)

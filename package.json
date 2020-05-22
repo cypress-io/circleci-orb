@@ -21,7 +21,8 @@
     "doc:examples": "FORCE_COLOR=2 ts-node ./scripts/examples > docs/examples.md",
     "doc:jobs": "ts-node ./scripts/jobs > docs/jobs.md",
     "doc:executors": "ts-node ./scripts/executors > docs/executors.md",
-    "effective:config": "circleci config process src/orb.yml | sed /^#/d"
+    "effective:config": "circleci config process src/orb.yml | sed /^#/d",
+    "format": "prettier --write test scripts manual-tests"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "json2md": "1.6.5",
     "minimist": "1.2.5",
     "next-ver": "1.8.0",
+    "prettier": "2.0.5",
     "ramda": "0.27.0",
     "temp-write": "4.0.0",
     "ts-node": "8.6.2",

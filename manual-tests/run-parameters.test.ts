@@ -7,7 +7,7 @@ import { effectiveConfig } from '../scripts/utils'
 
 const debug = debugApi('test')
 
-test('timeout parameter', async t => {
+test('timeout parameter', async (t) => {
   const workflows = stripIndent`
     workflows:
       build:
@@ -30,7 +30,7 @@ test('timeout parameter', async t => {
   t.snapshot(runTestsStep, 'must have no_output_timeout of 15 minutes')
 })
 
-test('timeout parameter with custom command', async t => {
+test('timeout parameter with custom command', async (t) => {
   const workflows = stripIndent`
     workflows:
       build:
@@ -54,7 +54,7 @@ test('timeout parameter with custom command', async t => {
   t.snapshot(runTestsStep, 'must have no_output_timeout of 15 minutes')
 })
 
-test('command-prefix parameter', async t => {
+test('command-prefix parameter', async (t) => {
   const commandPrefix = 'npx percy exec --'
   const workflows = stripIndent`
     workflows:
@@ -72,14 +72,15 @@ test('command-prefix parameter', async t => {
   const parsed = yaml.safeLoad(result)
   debug('parsed %o', parsed)
 
-  const isRunStep = (step) => step.run && step.run.command === `${commandPrefix} cypress run`
+  const isRunStep = (step) =>
+    step.run && step.run.command === `${commandPrefix} cypress run`
   const runTestsStep = find(isRunStep)(parsed.jobs['cypress/run'].steps)
   debug('found run step %o', runTestsStep)
   t.snapshot(runTestsStep, 'must have prefixed test command')
 })
 
-test('should ignore command-prefix parameter if custom command parameter is provided', async t => {
-  const customCommand = "echo hello && npx cypress run"
+test('should ignore command-prefix parameter if custom command parameter is provided', async (t) => {
+  const customCommand = 'echo hello && npx cypress run'
   const workflows = stripIndent`
     workflows:
       build:

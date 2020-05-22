@@ -5,7 +5,7 @@ import { effectiveConfig, extractCypressRun } from '../scripts/utils'
 
 const debug = debugApi('test')
 
-test('config parameter', async t => {
+test('config parameter', async (t) => {
   const workflows = stripIndent`
     workflows:
       build:
