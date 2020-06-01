@@ -35,6 +35,7 @@
  - [attach-workspace](#attach-workspace) - attaches the workspace assuming previous job has installed it
  - [run-tasks-post-checkout](#run-tasks-post-checkout) - perform steps after code checkout but before installing dependencies
  - [run-on-master-branch](#run-on-master-branch) - run different tests depending on the branch
+ - [debug](#debug) - turn on specific DEBUG logs
 
 ## simple
 
@@ -682,5 +683,22 @@ workflows:
             branches:
               only:
                 - master
+```
+
+## debug
+
+
+To debug Cypress, use DEBUG=... environment variable which works via https://github.com/visionmedia/debug NPM module. For example, to debug Cypress CLI use "cypress:cli", and to debug everything use "cypress*", which could be very verbose. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          name: Debug with Cypress CLI logs
+          debug: 'cypress:cli'
 ```
 

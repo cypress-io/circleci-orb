@@ -6,6 +6,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
 
  - [run](#run)
      - executor
+     - debug
      - post-checkout
      - record
      - parallel
@@ -119,6 +120,14 @@ type: string
 **`config-file`**
 
 > Name of the Cypress configuration file to use
+
+
+type: string
+
+
+**`debug`**
+
+> Debug value to set as the DEBUG environment variable before running tests
 
 
 type: string

@@ -52,6 +52,7 @@ const exampleTitles = {
   'run-tasks-post-checkout':
     'perform steps after code checkout but before installing dependencies',
   'run-on-master-branch': 'run different tests depending on the branch',
+  debug: 'turn on specific DEBUG logs',
 }
 
 // we want to make sure all orb examples are represented in the object above

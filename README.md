@@ -6,15 +6,15 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
 
 - [How to enable orbs](#how-to-enable)
 - [Lots of examples](#examples)
-  * [simple](#simple)
-  * [with recording on Dashboard](#record-on-dashboard)
-  * [with parallel tests](#parallel)
-  * [other examples](#other-examples)
+  - [simple](#simple)
+  - [with recording on Dashboard](#record-on-dashboard)
+  - [with parallel tests](#parallel)
+  - [other examples](#other-examples)
 - [Recipes](./docs/recipes.md)
-  * [Install, test and release](./docs/recipes.md#install-test-and-release)
-  * [Install, then run two different test jobs](./docs/recipes.md#install-and-run-two-test-jobs)
-  * [Custom test command](./docs/recipes.md#custom-test-command)
-  * [other recipes](./docs/recipes.md)
+  - [Install, test and release](./docs/recipes.md#install-test-and-release)
+  - [Install, then run two different test jobs](./docs/recipes.md#install-and-run-two-test-jobs)
+  - [Custom test command](./docs/recipes.md#custom-test-command)
+  - [other recipes](./docs/recipes.md)
 - [Naming](#naming)
 - [Jobs and executors in this orb](#jobs-and-executors)
 - [Orb versions](#versions)
@@ -127,6 +127,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [custom configuration file](docs/examples.md#config-file)
 - [tag recorded run](docs/examples.md#tags)
 - [run different tests depending on the branch](docs/examples.md#run-on-master-branch)
+- [turn on specific DEBUG logs](docs/examples#debug)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
