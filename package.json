@@ -1,6 +1,6 @@
 {
   "name": "circleci-orb",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "description": "Install, cache and run Cypress.io tests on CircleCI with minimal configuration.",
   "main": "index.js",
   "scripts": {
@@ -61,7 +61,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": ["prettier --write"]
+    "*.{js,ts}": [
+      "prettier --write"
+    ]
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
