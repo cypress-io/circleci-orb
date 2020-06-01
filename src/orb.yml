@@ -643,12 +643,23 @@ jobs:
           # store videos and screenshots (if any) as Circle artifacts
           # https://circleci.com/docs/2.0/artifacts/
           steps:
-            - store_artifacts:
-                path: cypress/videos
-                working_directory: << parameters.working_directory >>
-            - store_artifacts:
-                path: cypress/screenshots
-                working_directory: << parameters.working_directory >>
+            - when:
+                condition: << parameters.working_directory >>
+                steps:
+                  # store artifacts does not understand working directory
+                  # thus we need to form full folder names ourselves
+                  - store_artifacts:
+                      path: << parameters.working_directory >>/cypress/videos
+                  - store_artifacts:
+                      path: << parameters.working_directory >>/cypress/screenshots
+            - unless:
+                # no custom working directory
+                condition: << parameters.working_directory >>
+                steps:
+                  - store_artifacts:
+                      path: cypress/videos
+                  - store_artifacts:
+                      path: cypress/screenshots
 
   # Install Job that can be performed before running jobs
   # often used to have a single installation step, and then
@@ -1358,5 +1369,6 @@ examples:
 # workflows:
 #   build:
 #     jobs:
-#       - run
-#         # debug: foo-bar,baz
+#       - run:
+#           store_artifacts: true
+#           working_directory: foo/bar
