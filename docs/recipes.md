@@ -1,10 +1,11 @@
 # Recipes
 
-* [Install, test and release](#install-test-and-release)
-* [Install, then run two different test jobs](#install-and-run-two-test-jobs)
-* [Install dependencies using Yarn](#using-yarn)
-* [Custom test command](#custom-test-command)
-* [Service containers](#service-containers)
+- [Install, test and release](#install-test-and-release)
+- [Install, then run two different test jobs](#install-and-run-two-test-jobs)
+- [Install dependencies using Yarn](#using-yarn)
+- [Custom test command](#custom-test-command)
+- [Service containers](#service-containers)
+- [Windows](#windows)
 
 ## Install test and release
 
@@ -217,9 +218,11 @@ executors:
   pg-and-hasura:
     docker:
       - image: cypress/base:12.16.1
-      - image: postgres:12
+      - image:
+          postgres:12
           # database env variables
-      - image: hasura/graphql-engine:v1.1.1
+      - image:
+          hasura/graphql-engine:v1.1.1
           # hasura env variables
 workflows:
   hasura_workflow:
@@ -228,3 +231,30 @@ workflows:
           executor: pg-and-hasura
           # runs Cypress tests
 ```
+
+## Windows
+
+You can use this orb with [CircleCI Windows](https://circleci.com/docs/2.0/hello-world-windows/) containers.
+
+```yml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+  # for testing on Windows
+  # https://circleci.com/docs/2.0/hello-world-windows/
+  win: circleci/windows@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          name: Windows test
+          executor:
+            # executor comes from the "windows" orb
+            name: win/vs2019
+            shell: bash.exe
+          start: npm start
+          # no need to save the workspace after this job
+          no-workspace: true
+```
+
+See [cypress-example-todomvc](https://github.com/cypress-io/cypress-example-todomvc) for live example.
