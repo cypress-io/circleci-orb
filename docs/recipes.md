@@ -6,6 +6,7 @@
 - [Custom test command](#custom-test-command)
 - [Service containers](#service-containers)
 - [Windows](#windows)
+- [Windows and Linux](#windows-and-linux)
 
 ## Install test and release
 
@@ -258,3 +259,34 @@ workflows:
 ```
 
 See [cypress-example-todomvc](https://github.com/cypress-io/cypress-example-todomvc) for live example.
+
+## Windows and Linux
+
+You can define several workflows in the same configuration file.
+
+```yml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+  win: circleci/windows@2
+workflows:
+  # the first workflow defines Linux jobs
+  linux:
+    jobs:
+      - cypress/run:
+          start: npm start
+          no-workspace: true
+  # the second workflow runs on Windows executor
+  windows:
+    jobs:
+      - cypress/run:
+          name: Windows test
+          executor:
+            # executor comes from the "windows" orb
+            name: win/vs2019
+            shell: bash.exe
+          start: npm start
+          no-workspace: true
+```
+
+**Tip:** Linux and Windows jobs cannot use the same installation workspace, thus if you split the workflow into setup and test jobs, make sure each OS depends on the correct `cypress/install` job. For full example see [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app) configuration.
