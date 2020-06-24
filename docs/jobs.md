@@ -11,6 +11,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - record
      - parallel
      - parallelism
+     - ci-build-id
      - group
      - tags
      - post-install
@@ -91,6 +92,15 @@ type: string
 
 
 default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
+
+
+**`ci-build-id`**
+
+> A common unique ID that ties multiple test jobs into a single logical run.
+> See [parallelization docs](https://on.cypress.io/parallelization)
+
+
+type: string
 
 
 **`command`**

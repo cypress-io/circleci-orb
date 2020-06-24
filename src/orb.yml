@@ -363,6 +363,13 @@ jobs:
           Number of Circle machines to use for load balancing, min 1
           (requires "parallel" parameter set to true, and requires `record: true`)
 
+      ci-build-id:
+        type: string
+        default: ''
+        description: |
+          A common unique ID that ties multiple test jobs into a single logical run.
+          See [parallelization docs](https://on.cypress.io/parallelization)
+
       group:
         type: string
         default: ''
@@ -615,6 +622,7 @@ jobs:
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                             <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                            <<# parameters.ci-build-id>> --ci-build-id '<<parameters.ci-build-id>>' <</ parameters.ci-build-id>> \
                           <</ parameters.record>>
                       working_directory: << parameters.working_directory >>
             - unless:
@@ -635,6 +643,7 @@ jobs:
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                             <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                            <<# parameters.ci-build-id>> --ci-build-id '<<parameters.ci-build-id>>' <</ parameters.ci-build-id>> \
                           <</ parameters.record>>
                       working_directory: << parameters.working_directory >>
 
@@ -986,6 +995,27 @@ examples:
                 parallel: true
                 parallelism: 2
                 group: '2 machines'
+
+  custom-build-id:
+    description: |
+      Runs two jobs splitting the specs in parallel using
+      Cypress Dashboard [parallelization](https://on.cypress.io/parallelization).
+      Uses custom build ID to link the jobs together into a logical run
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/install
+            - cypress/run:
+                requires:
+                  - cypress/install
+                record: true
+                parallel: true
+                parallelism: 2
+                ci-build-id: testing-commit-$CIRCLE_SHA1
 
   install-private-npm-modules:
     description: |
@@ -1370,5 +1400,5 @@ examples:
 #   build:
 #     jobs:
 #       - run:
-#           store_artifacts: true
-#           working_directory: foo/bar
+#           record: true
+#           ci-build-id: test-run-commit-$CIRCLE_SHA1
