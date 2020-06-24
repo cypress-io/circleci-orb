@@ -36,6 +36,7 @@
  - [run-tasks-post-checkout](#run-tasks-post-checkout) - perform steps after code checkout but before installing dependencies
  - [run-on-master-branch](#run-on-master-branch) - run different tests depending on the branch
  - [debug](#debug) - turn on specific DEBUG logs
+ - [custom-build-id](#custom-build-id) - Using custom ci-build-id parameter to tie jobs into a logical run
 
 ## simple
 
@@ -700,5 +701,27 @@ workflows:
       - cypress/run:
           name: Debug with Cypress CLI logs
           debug: 'cypress:cli'
+```
+
+## custom-build-id
+
+
+Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+          record: true
+          parallel: true
+          parallelism: 2
+          ci-build-id: testing-commit-$CIRCLE_SHA1
 ```
 

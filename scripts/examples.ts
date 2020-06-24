@@ -53,6 +53,8 @@ const exampleTitles = {
     'perform steps after code checkout but before installing dependencies',
   'run-on-master-branch': 'run different tests depending on the branch',
   debug: 'turn on specific DEBUG logs',
+  'custom-build-id':
+    'Using custom ci-build-id parameter to tie jobs into a logical run',
 }
 
 // we want to make sure all orb examples are represented in the object above
