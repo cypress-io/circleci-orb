@@ -706,7 +706,7 @@ workflows:
 ## custom-build-id
 
 
-Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run 
+Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run. Notice the environment variable syntax to be expanded at the build time. 
 
 ```yaml
 version: 2.1
@@ -722,6 +722,6 @@ workflows:
           record: true
           parallel: true
           parallelism: 2
-          ci-build-id: testing-commit-$CIRCLE_SHA1
+          ci-build-id: 'testing-commit-${CIRCLE_SHA1}'
 ```
 
