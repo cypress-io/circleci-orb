@@ -127,8 +127,8 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [custom configuration file](docs/examples.md#config-file)
 - [tag recorded run](docs/examples.md#tags)
 - [run different tests depending on the branch](docs/examples.md#run-on-master-branch)
-- [turn on specific DEBUG logs](docs/examples#debug)
-- [use custom `ci-build-id`](docs/examples#custom-build-id)
+- [turn on specific DEBUG logs](docs/examples.md#debug)
+- [use custom `ci-build-id`](docs/examples.md#custom-build-id)
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
