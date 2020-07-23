@@ -706,7 +706,7 @@ workflows:
 ## custom-build-id
 
 
-Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run. Notice the environment variable syntax to be expanded at the build time. 
+Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run. Notice the environment variable syntax to be expanded at the build time. See example in https://github.com/cypress-io/circleci-orb-parallel-example. 
 
 ```yaml
 version: 2.1

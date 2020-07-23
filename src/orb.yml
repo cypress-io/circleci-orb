@@ -1003,6 +1003,7 @@ examples:
       Cypress Dashboard [parallelization](https://on.cypress.io/parallelization).
       Uses custom build ID to link the jobs together into a logical run.
       Notice the environment variable syntax to be expanded at the build time.
+      See example in https://github.com/cypress-io/circleci-orb-parallel-example.
     usage:
       version: 2.1
       orbs:
