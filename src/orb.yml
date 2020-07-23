@@ -368,7 +368,8 @@ jobs:
         default: ''
         description: |
           A common unique ID that ties multiple test jobs into a single logical run.
-          See [parallelization docs](https://on.cypress.io/parallelization)
+          See Cypress [parallelization docs](https://on.cypress.io/parallelization).
+          See usage example in https://github.com/cypress-io/circleci-orb-parallel-example
 
       group:
         type: string
@@ -622,7 +623,7 @@ jobs:
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                             <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
-                            <<# parameters.ci-build-id>> --ci-build-id '<<parameters.ci-build-id>>' <</ parameters.ci-build-id>> \
+                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
                           <</ parameters.record>>
                       working_directory: << parameters.working_directory >>
             - unless:
@@ -643,7 +644,7 @@ jobs:
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
                             <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
-                            <<# parameters.ci-build-id>> --ci-build-id '<<parameters.ci-build-id>>' <</ parameters.ci-build-id>> \
+                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
                           <</ parameters.record>>
                       working_directory: << parameters.working_directory >>
 

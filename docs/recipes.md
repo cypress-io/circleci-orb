@@ -8,6 +8,8 @@
 - [Windows](#windows)
 - [Windows and Linux](#windows-and-linux)
 
+You can find our orb example repositories under GitHub topic [cypress-orb-example](https://github.com/topics/cypress-orb-example).
+
 ## Install test and release
 
 Imagine you would like to install dependencies, run Cypress tests, then publish a new version of your library to NPM. To avoid re-installing dependencies in every job, you can use the following recipe from [bahmutov/cypress-react-unit-test](https://github.com/bahmutov/cypress-react-unit-test). The `cypress/install` job builds the application and passes the entire workspace down to `cypress/run` jobs.
