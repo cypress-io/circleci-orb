@@ -97,7 +97,8 @@ default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 **`ci-build-id`**
 
 > A common unique ID that ties multiple test jobs into a single logical run.
-> See [parallelization docs](https://on.cypress.io/parallelization)
+> See Cypress [parallelization docs](https://on.cypress.io/parallelization).
+> See usage example in https://github.com/cypress-io/circleci-orb-parallel-example
 
 
 type: string
