@@ -8,7 +8,7 @@
 - [Windows](#windows)
 - [Windows and Linux](#windows-and-linux)
 
-You can find our orb example repositories under GitHub topic [circleci-orb-example](https://github.com/topics/circleci-orb-example).
+You can find our orb example repositories under GitHub topic [cypress-orb-example](https://github.com/topics/cypress-orb-example).
 
 ## Install test and release
 

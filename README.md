@@ -132,7 +132,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 
 All examples are in [docs/examples.md](docs/examples.md) and are generated from the [src/orb.yml](src/orb.yml) file.
 
-Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files).
+Also take a look at [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) and [cypress-io/cypress-example-kitchensink](https://github.com/cypress-io/cypress-example-kitchensink/pull/148/files). You can find more examples under GitHub topic [cypress-orb-example](https://github.com/topics/cypress-orb-example).
 
 ## Naming
 
