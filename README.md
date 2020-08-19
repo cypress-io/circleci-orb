@@ -187,7 +187,20 @@ See [Recipes](./docs/recipes.md) for more examples.
 
 ## Jobs and executors
 
-See [docs/jobs.md](docs/jobs.md) and [docs/executors.md](docs/executors.md) for a full list of public jobs and executors that this orb provides.
+See [docs/jobs.md](docs/jobs.md) and [docs/executors.md](docs/executors.md) for a full list of public jobs and executors that this orb provides. For example, if you want to execute tests using Node 14
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          executor: cypress/base-14
+```
+
+For more examples, search for `executor` in the [docs/examples.md](docs/examples.md) page.
 
 The CircleCI Orb exports the following job definitions to be used by the user projects:
 
