@@ -8,7 +8,7 @@
  - [custom-install](#custom-install) - install dependencies using any command
  - [custom-verify](#custom-verify) - use custom command to verify Cypress
  - [custom-cache-key](#custom-cache-key) - apply custom key for npm install (or yarn install) cache
- - [using-node10](#using-node6) - running tests using Node 10
+ - [using-node14](#using-node14) - running tests using Node 14
  - [chrome](#chrome) - running tests using Chrome browser
  - [start-server](#start-server) - start server before running tests
  - [wait-for-server-to-respond](#wait-for-server-to-respond) - wait for server to respond before starting tests
@@ -156,10 +156,10 @@ workflows:
           cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
 ```
 
-## using-node10
+## using-node14
 
 
-Runs all Cypress tests on Node 10 image or [another Node.js version](https://github.com/cypress-io/cypress-docker-images/tree/master/base) by specifying `executor` name. There are several executors included with this orb, and you can use your own executor, see "custom-executor" example. 
+Runs all Cypress tests on Node 14 image by specifying `executor` name. There are several executors included with this orb, and you can use your own executor, see "custom-executor" example. 
 
 ```yaml
 version: 2.1
@@ -169,13 +169,13 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          executor: cypress/base-10
+          executor: cypress/base-14
 ```
 
 ## chrome
 
 
-Runs tests using Chrome browser in a custom executor - [a Docker image that includes Chrome browser](https://github.com/cypress-io/cypress-docker-images/tree/master/browsers). See [`--browser`](https://on.cypress.io/launching-browsers) Cypress run option documentation. 
+Runs tests using Chrome browser in a custom executor - a Docker image that includes Chrome browser. See [`--browser`](https://on.cypress.io/launching-browsers) Cypress run option documentation. 
 
 ```yaml
 version: 2.1

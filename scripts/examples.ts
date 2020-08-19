@@ -20,7 +20,7 @@ const exampleTitles = {
   'custom-verify': 'use custom command to verify Cypress',
   'custom-cache-key':
     'apply custom key for npm install (or yarn install) cache',
-  'using-node6': 'running tests using Node 6',
+  'using-node14': 'running tests using Node 14',
   chrome: 'running tests using Chrome browser',
   'start-server': 'start server before running tests',
   'wait-for-server-to-respond':

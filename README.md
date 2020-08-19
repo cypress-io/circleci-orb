@@ -103,7 +103,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 ### other examples
 
 - [install dependencies using Yarn](docs/examples.md#yarn)
-- [running tests using Node 6](docs/examples.md#using-node6)
+- [running tests using Node 14](docs/examples.md#using-node14)
 - [running tests using Chrome browser](docs/examples.md#chrome)
 - [start server before running tests](docs/examples.md#start-server)
 - [wait for server to respond before starting tests](docs/examples.md#wait-for-server-to-respond)
