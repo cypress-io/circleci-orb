@@ -115,6 +115,8 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [use custom executor](docs/examples.md#custom-executor)
 - [set additional environment variables](docs/examples.md#env-vars)
 - [install private NPM dependencies](docs/examples.md#install-private-npm-modules)
+- [print info](docs/examples.md#print-info) after install
+- [install extra tools](docs/examples.md#install-extra-tool)
 - [complete NPM module publishing example](docs/examples.md#private-npm-module)
 - [store test reports on Circle](docs/examples.md#store-test-reports)
 - [store screenshots and videos on Circle](docs/examples.md#artifacts)

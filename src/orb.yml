@@ -1309,6 +1309,21 @@ examples:
                 post-checkout:
                   - run: echo Scaffolding before installing
 
+  print-info:
+    description: |
+      It is useful to print information about the OS and found browsers
+      using the "cypress info" command
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                post-install:
+                  - run: npx cypress info
+
   install-extra-tool:
     description: |
       Sometimes you want to install another tool after installing regular dependencies

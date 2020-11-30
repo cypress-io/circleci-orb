@@ -28,6 +28,7 @@
  - [private-npm-module](#private-npm-module) - complete NPM module publishing example
  - [custom-directory](#custom-directory) - run commands in a subfolder of a monorepo
  - [custom-cache-and-directory](#custom-cache-and-directory) - use custom cache key in a monorepo situation
+ - [print-info](#print-info) - Run "cypress info" command after install
  - [install-extra-tool](#install-extra-tool) - run commands after installing NPM modules but before caching
  - [config](#config) - pass additional config parameter via --config argument
  - [config-file](#config-file) - custom configuration file
@@ -554,6 +555,23 @@ workflows:
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json"
             }}
           working_directory: frontend
+```
+
+## print-info
+
+
+It is useful to print information about the OS and found browsers using the "cypress info" command 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          post-install:
+            - run: npx cypress info
 ```
 
 ## install-extra-tool

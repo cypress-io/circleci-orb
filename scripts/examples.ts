@@ -42,6 +42,7 @@ const exampleTitles = {
   'private-npm-module': 'complete NPM module publishing example',
   'custom-directory': 'run commands in a subfolder of a monorepo',
   'custom-cache-and-directory': 'use custom cache key in a monorepo situation',
+  'print-info': 'Run "cypress info" command after install',
   'install-extra-tool':
     'run commands after installing NPM modules but before caching',
   config: 'pass additional config parameter via --config argument',
