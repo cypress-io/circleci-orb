@@ -179,6 +179,13 @@ workflows:
 
 ![Yarn example](/img/yarn.png)
 
+**Tip:** if you are using Yarn v2 aka Berry, you can use your own command because the flags have changed
+
+```yml
+- cypress/install
+    install-command: yarn install --immutable --immutable-cache
+```
+
 ## Custom test command
 
 You can use this orb to correctly install Cypress, but run your own test command using a specific version of Node 12 (via an executor). This recipe comes from [cypress-io/cypress-webpack-preprocessor](https://github.com/cypress-io/cypress-webpack-preprocessor) where we test how Cypress is compatible with the latest Webpack version.
