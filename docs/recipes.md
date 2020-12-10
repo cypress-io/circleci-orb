@@ -244,7 +244,7 @@ workflows:
 
 ## Windows
 
-You can use this orb with [CircleCI Windows](https://circleci.com/docs/2.0/hello-world-windows/) containers.
+You can combine this orb with [circleci/windows](https://circleci.com/developer/orbs/orb/circleci/windows) orb to run [CircleCI tests on Windows](https://circleci.com/docs/2.0/hello-world-windows/) containers.
 
 ```yml
 version: 2.1
