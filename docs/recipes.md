@@ -269,6 +269,18 @@ workflows:
 
 See [cypress-example-todomvc](https://github.com/cypress-io/cypress-example-todomvc) for live example.
 
+**Tip:** if you notice that saving the workspace takes a long time on Windows, disable the Windows Defender, like we have done in the [Cypress RealWorld App](https://github.com/cypress-io/cypress-realworld-app/pull/697).
+
+```yml
+pre-steps:
+  - run:
+      name: Disabling Windows Defender
+      shell: powershell.exe
+      command: Set-MpPreference -DisableRealtimeMonitoring $true
+```
+
+After disabling the Windows Defender saving the workspace on Windows dropped from 15 minutes to 2.5 minutes.
+
 ## Windows and Linux
 
 You can define several workflows in the same configuration file.
