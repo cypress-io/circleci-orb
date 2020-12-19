@@ -70,6 +70,8 @@ workflows:
           record: true
 ```
 
+**Note:** recording test results and artifacts requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) subscription.
+
 ### parallel
 
 A more complex project that needs to install dependencies, build an application and run tests across 4 CI machines [in parallel](https://on.cypress.io/parallelization) may have:
@@ -99,6 +101,8 @@ workflows:
 ```
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
+
+**Note:** recording test results and spec parallelization requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) subscription.
 
 ### other examples
 
