@@ -54,6 +54,12 @@ Because we need to see the effective config for a few basic orb uses, please ins
 npm run manual:tests
 ```
 
+If you want to run a single test file
+
+```shell
+npx ava-ts manual-tests/<filename>.ts
+```
+
 Any changes that modify the effective configs will probably not match previously saved snapshots.
 
 ### Production

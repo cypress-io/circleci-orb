@@ -194,9 +194,9 @@ commands:
         type: steps
         default: []
       build:
-        description: Optional build command(s)
-        type: steps
-        default: []
+        description: Optional build command
+        type: string
+        default: ''
       install-command:
         description: Overrides the default NPM or Yarn command
         type: string
@@ -265,7 +265,13 @@ commands:
                 paths:
                   - ~/.npm
                   - ~/.cache
-      - steps: << parameters.build >>
+      - when:
+          condition: << parameters.build >>
+          steps:
+            - run:
+                name: 'Build'
+                command: << parameters.build >>
+                working_directory: << parameters.working_directory >>
 
   write_workspace:
     steps:
@@ -291,9 +297,9 @@ commands:
         type: steps
         default: []
       build:
-        type: steps
-        default: []
-        description: Custom build commands to run after install
+        type: string
+        default: ''
+        description: Custom build command to run after install
       yarn:
         description: Use yarn instead of npm
         type: boolean
@@ -593,8 +599,7 @@ jobs:
                             post-install: << parameters.post-install >>
                             cache-key: << parameters.cache-key >>
                             no-workspace: << parameters.no-workspace >>
-                            build:
-                              - run: << parameters.build >>
+                            build: << parameters.build >>
                             working_directory: << parameters.working_directory >>
                   - unless:
                       condition: <<parameters.build>>
@@ -769,10 +774,7 @@ jobs:
                 verify-command: << parameters.verify-command >>
                 yarn: << parameters.yarn >>
                 post-install: << parameters.post-install >>
-                build:
-                  - run:
-                      name: 'Build'
-                      command: << parameters.build >>
+                build: << parameters.build >>
                 working_directory: << parameters.working_directory >>
                 cache-key: << parameters.cache-key >>
       - unless:

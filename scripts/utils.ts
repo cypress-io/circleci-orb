@@ -147,6 +147,9 @@ export const effectiveConfig = (workflows: string): Promise<any> => {
 export const removeNewLines = (runCommand: string) =>
   runCommand.replace(/\\\n/g, '').replace(/\s+/g, ' ').trim()
 
+/**
+ * Given Circle YML text finds the Cypress run command object.
+ */
 export const extractCypressRun = (circleText: string) => {
   const parsed = yaml.safeLoad(circleText)
   debug('parsed %o', parsed)
@@ -158,4 +161,23 @@ export const extractCypressRun = (circleText: string) => {
   runTestsStep.run.command = removeNewLines(runTestsStep.run.command)
 
   return runTestsStep.run
+}
+
+/**
+ * Given Circle YML text finds the build command object.
+ */
+export const extractBuildStep = (
+  circleText: string,
+  jobName: string = 'cypress/run',
+) => {
+  const parsed = yaml.safeLoad(circleText)
+  debug('parsed %o', parsed)
+
+  const isBuildStep = (step) => step.run && step.run.name === 'Build'
+  const found = find(isBuildStep)(parsed.jobs[jobName].steps)
+  debug('found build step %o', found)
+
+  found.run.command = removeNewLines(found.run.command)
+
+  return found.run
 }
