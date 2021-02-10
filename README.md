@@ -70,7 +70,7 @@ workflows:
           record: true
 ```
 
-**Note:** recording test results and artifacts requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) account.
+**Note:** recording test results and artifacts requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) account. You should also set your [record key](https://on.cypress.io/projects#Record-key) as `CYPRESS_RECORD_KEY` environment variable in the CircleCI project.
 
 ### parallel
 
@@ -102,7 +102,7 @@ workflows:
 
 In all cases, you are using `run` and `install` job definitions that Cypress provides inside the orb. Using the orb brings simplicity and static checks of parameters to CircleCI configuration.
 
-**Note:** recording test results and spec parallelization requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) account.
+**Note:** recording test results and spec parallelization requires [Cypress Dashboard](https://on.cypress.io/dashboard-introduction) account. You should also set your [record key](https://on.cypress.io/projects#Record-key) as `CYPRESS_RECORD_KEY` environment variable in the CircleCI project.
 
 ### other examples
 
