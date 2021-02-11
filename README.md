@@ -282,6 +282,10 @@ You can find all changes and published orb versions for Cypress orb at [cypress-
 
 We are using `cypress-io/cypress@1` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
 
+## Lock files
+
+This orb requires the repository to use a lock file like `package-lock.json` or `yarn.lock`. These lock files are recommended for consistent repeatable installations of dependencies on the CI machines. If a lock file is not found, the Orb shows an error and stops.
+
 ## Effective config
 
 CircleCI expands orbs in your config file before running the workflows. You can see this _effective_ config in their UI
