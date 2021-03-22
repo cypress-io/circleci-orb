@@ -481,7 +481,7 @@ workflows:
 ## no-workspace
 
 
-Faster "cypress/run" job that does not attach workspace, because there are no jobs that follow, so no need to save files. 
+Faster "cypress/run" job that does not attach workspace, because there are no jobs that follow, so no need to save files. This removes the "Persisting to workspace" step of the job. 
 
 ```yaml
 version: 2.1
