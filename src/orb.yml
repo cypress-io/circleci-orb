@@ -47,8 +47,8 @@ executors:
     docker:
       - image: cypress/base:8
 
-  # base:10 tag that can change
   base-10:
+    # deprecated
     description: |
       Single Docker container with Node 10 and Cypress dependencies, pointing
       at the Docker image `cypress/base:10` tag.
@@ -56,8 +56,8 @@ executors:
     docker:
       - image: cypress/base:10
 
-  # specific immutable Node 10 images
   base-10-22-0:
+    # deprecated
     description: |
       Single Docker container pointing at the immutable `cypress/base:10.22.0` image.
     docker:
@@ -102,7 +102,7 @@ executors:
       see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
       Use example: `executor: cypress/base-12`.
     docker:
-      - image: cypress/base:12
+      - image: cypress/base:12.0.0-libgbm
 
   # immutable Node 14.x images
   base-14-0-0:
@@ -186,7 +186,7 @@ commands:
       executor:
         description: Executor to use
         type: executor
-        default: base-10
+        default: base-12
       post-install:
         description: |
           Additional commands to run after running install
@@ -361,7 +361,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: base-10
+        default: base-12
         description: |
           Cypress executor to use, see [executors.md](executors.md).
           You can define your own executor, see examples.
@@ -714,7 +714,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: base-10
+        default: base-12
         description: Cypress or custom executor name to use to run the install.
       post-checkout:
         description: Additional commands to run after performing Git checkout
@@ -1139,7 +1139,7 @@ examples:
         cypress: cypress-io/cypress@1
       jobs:
         release:
-          executor: cypress/base-10
+          executor: cypress/base-12
           steps:
             # the workspace saved by cypress/install
             - attach_workspace:
