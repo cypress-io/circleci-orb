@@ -30,7 +30,7 @@ Docker image: `cypress/base:8`
 ## base-10
 
 
-Single Docker container with Node 10 and Cypress dependencies, pointing at the Docker image `cypress/base:10` tag. Use example: `executor: cypress/base-10`. 
+Single Docker container with Node 10 and Cypress dependencies, pointing at the Docker image `cypress/base:10` tag. Use example: `executor: cypress/base-10`. DEPRECATED 
 
 
 Docker image: `cypress/base:10`
@@ -81,7 +81,7 @@ Docker image: `cypress/base:12.18.3`
 Single Docker container with the latest Node v12 and Cypress dependencies see https://github.com/cypress-io/cypress-docker-images/tree/master/base. Use example: `executor: cypress/base-12`. 
 
 
-Docker image: `cypress/base:12`
+Docker image: `cypress/base:12.19.0`
 
 ## base-14-0-0
 

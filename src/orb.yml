@@ -53,10 +53,10 @@ executors:
       Single Docker container with Node 10 and Cypress dependencies, pointing
       at the Docker image `cypress/base:10` tag.
       Use example: `executor: cypress/base-10`.
+      DEPRECATED
     docker:
       - image: cypress/base:10
 
-  # specific immutable Node 10 images
   base-10-22-0:
     description: |
       Single Docker container pointing at the immutable `cypress/base:10.22.0` image.
@@ -95,14 +95,14 @@ executors:
     docker:
       - image: cypress/base:12.18.3
 
-  # latest Node 12 tag image
+  # the latest Node 12 tag image
   base-12:
     description: |
       Single Docker container with the latest Node v12 and Cypress dependencies
       see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
       Use example: `executor: cypress/base-12`.
     docker:
-      - image: cypress/base:12
+      - image: cypress/base:12.19.0
 
   # immutable Node 14.x images
   base-14-0-0:
@@ -184,9 +184,9 @@ commands:
       Command to do "npm ci" or "yarn" or custom command (maybe)
     parameters:
       executor:
-        description: Executor to use
+        description: Executor to use, by default Node 12 LTS
         type: executor
-        default: base-10
+        default: base-12
       post-install:
         description: |
           Additional commands to run after running install
@@ -361,7 +361,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: base-10
+        default: base-12
         description: |
           Cypress executor to use, see [executors.md](executors.md).
           You can define your own executor, see examples.
@@ -714,7 +714,7 @@ jobs:
     parameters:
       executor:
         type: executor
-        default: base-10
+        default: base-12
         description: Cypress or custom executor name to use to run the install.
       post-checkout:
         description: Additional commands to run after performing Git checkout

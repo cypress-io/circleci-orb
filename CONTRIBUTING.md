@@ -60,7 +60,15 @@ If you want to run a single test file
 npx ava-ts manual-tests/<filename>.ts
 ```
 
-Any changes that modify the effective configs will probably not match previously saved snapshots.
+#### Snapshots
+
+Some manual tests get the effective config or its part and use snapshot testing. To update the snapshots, first run the tests, inspect the differences and if you really want to update the snapshots execute:
+
+```shell
+npm run manual:tests:update
+```
+
+It is a good idea to then inspect the changed staged files to confirm the snapshots were updated as expected.
 
 ### Production
 
