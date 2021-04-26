@@ -153,7 +153,7 @@ type: string
 type: executor
 
 
-default: `base-10`
+default: `base-12`
 
 
 **`group`**
@@ -368,7 +368,7 @@ default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 type: executor
 
 
-default: `base-10`
+default: `base-12`
 
 
 **`install-command`**
