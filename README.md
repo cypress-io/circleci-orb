@@ -116,7 +116,7 @@ In all cases, you are using `run` and `install` job definitions that Cypress pro
 - [running several groups of tests](docs/examples.md#groups)
 - [running another job after tests](docs/examples.md#release)
 - [building using orb on Mac and Linux](docs/examples.md#linux-and-mac)
-- [use custom executor](docs/examples.md#custom-executor)
+- you can use your own or a [Cypress Docker image](https://github.com/cypress-io/cypress-docker-images) by making a [use custom executor](docs/examples.md#custom-executor)
 - [set additional environment variables](docs/examples.md#env-vars)
 - [install private NPM dependencies](docs/examples.md#install-private-npm-modules)
 - [print info](docs/examples.md#print-info) after install
