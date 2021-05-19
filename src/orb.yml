@@ -406,7 +406,7 @@ jobs:
         description: |
           A common unique ID that ties multiple test jobs into a single logical run.
           See Cypress [parallelization docs](https://on.cypress.io/parallelization).
-          See usage example in https://github.com/cypress-io/circleci-orb-parallel-example
+          See usage example in [circleci-orb-parallel-example](https://github.com/cypress-io/circleci-orb-parallel-example).
 
       group:
         type: string
@@ -822,7 +822,7 @@ examples:
   custom-install:
     description: |
       Install dependencies using your own custom command.
-      Related parameter: "custom-verify"
+      Related parameter: [custom-verify](#custom-verify)
     usage:
       version: 2.1
       orbs:
@@ -836,7 +836,7 @@ examples:
   custom-verify:
     description: |
       Verify Cypress was installed using custom command. Default command is "npx cypress verify"
-      Related parameter: "custom-install"
+      Related parameter: [custom-install](#custom-install)
     usage:
       version: 2.1
       orbs:
@@ -866,7 +866,7 @@ examples:
   custom-cache-key:
     description: |
       Apply custom key for npm install (or yarn install) cache.
-      Useful to tweak caching settings to your liking. Related options "yarn".
+      Useful to tweak caching settings to your liking. Related options [yarn](#yarn).
     usage:
       version: 2.1
       orbs:
@@ -899,9 +899,11 @@ examples:
 
   using-node14:
     description: |
-      Runs all Cypress tests on Node 14 image by specifying `executor` name.
-      There are several executors included with this orb, and you can use
-      your own executor, see "custom-executor" example.
+      Runs all Cypress tests on Node 14 image by specifying `executor` name. 
+      There are [several executors included](https://circleci.com/developer/orbs/orb/cypress-io/cypress#executors) 
+      with this orb or you can use your own executor, such as a Docker image 
+      from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
+      See [custom-executor](#custom-executor) example.
     usage:
       version: 2.1
       orbs:
@@ -931,7 +933,7 @@ examples:
     description: |
       Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option.
       Note, this setting assumes the default Cypress folders for screenshots and videos.
-      If you store screenshots and videos in custom folders, see "any-artifacts" example how
+      If you store screenshots and videos in custom folders, see [any-artifacts](#any-artifacts) example how
       to store arbitrary folders.
     usage:
       version: 2.1
@@ -946,7 +948,7 @@ examples:
   any-artifacts:
     description: |
       Stores additional folders like "mochawesome-report" or code coverage folder
-      as a CircleCI artifact. Related option "artifacts".
+      as a CircleCI artifact. Related option [artifacts](#artifacts).
     usage:
       version: 2.1
       orbs:
@@ -961,25 +963,30 @@ examples:
 
   chrome:
     description: |
-      Runs tests using Chrome browser in a custom executor - a Docker image
-      that includes Chrome browser. See [`--browser`](https://on.cypress.io/launching-browsers)
-      Cypress run option documentation.
+      Runs tests on Chrome in a [custom-executor](#custom-executor) - a Docker image 
+      that includes the Chrome browser, such as a Docker image from 
+      [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
+      See [`--browser`](https://on.cypress.io/launching-browsers) documentation for available browser arguments.
     usage:
       version: 2.1
       orbs:
         cypress: cypress-io/cypress@1
+      executors:
+        with-chrome:
+          docker:
+            - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
       workflows:
         build:
           jobs:
             - cypress/run:
-                executor: cypress/browsers-chrome69
+                executor: with-chrome
                 browser: chrome
 
   start-server:
     description: |
       Often we need to start a local webserver before running end-to-end tests.
       This option runs the given command to starts the server in the background
-      and then runs all Cypress tests. Related option "wait-on".
+      and then runs all Cypress tests. Related option [wait-on](#wait-for-server-to-respond).
     usage:
       version: 2.1
       orbs:
@@ -997,7 +1004,7 @@ examples:
       Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request.
       In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`.
       You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90).
-      Related option "start"
+      Related option [start](#start).
     usage:
       version: 2.1
       orbs:
@@ -1132,7 +1139,7 @@ examples:
       If you want to run an entire job after running Cypress tests, you can
       reuse the workspace from the `cypress/run` job. For example,
       to run a semantic release script you could follow this example.
-      Note - for simpler steps you can use "post-steps" parameter, see "store-test-reports" example.
+      Note - for simpler steps you can use "post-steps" parameter, see [store-test-reports](#store-test-reports) example.
     usage:
       version: 2.1
       orbs:
@@ -1158,7 +1165,8 @@ examples:
 
   linux-and-mac:
     description: |
-      Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses own executor "mac"
+      Runs tests on Linux and on Mac via two jobs. 
+      Note how the user defines and uses own [custom executor](#custom-executor) "mac".
     usage:
       version: 2.1
       orbs:
@@ -1180,7 +1188,8 @@ examples:
 
   custom-executor:
     description: |
-      Use any executor to run the job defined by the orb.
+      Use any executor to run the job defined by the orb, such as a custom 
+      Docker image name, or a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
       Assumes the executor has all OS dependencies necessary to run Cypress.
     usage:
       version: 2.1
@@ -1190,18 +1199,19 @@ examples:
       executors:
         with-chrome:
           docker:
-            - image: cypress/browsers:chrome69
+            - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
 
       workflows:
         build:
           jobs:
             - cypress/run:
                 executor: with-chrome
+                browser: chrome
 
   store-test-reports:
     description: |
       Stores test results using post-steps parameter, see https://on.cypress.io/reporters,
-      assumes that reports are saved in folder "cypress/results". Also see "artifacts" parameter.
+      assumes that reports are saved in folder "cypress/results". Also see [artifacts](#artifacts) parameter.
     usage:
       version: 2.1
       orbs:
@@ -1385,7 +1395,7 @@ examples:
     description: |
       You may run multiple job after installing dependencies once.
       In that case every job should attach workspace and require cypress/install.
-      Related parameter "no-workspace"
+      Related parameter [no-workspace](#no-workspace).
     usage:
       version: 2.1
       orbs:

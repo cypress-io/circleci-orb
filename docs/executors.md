@@ -1,7 +1,7 @@
 # Executors
 
 
-Docker images that jobs can use via `executor` parameter. Typically an image from [cypress-io/cypress-docker-images](https://github.com/cypress-io/cypress-docker-images)
+Docker images that jobs can use via `executor` parameter. Typically an image comes from the [cypress-io/cypress-docker-images](https://github.com/cypress-io/cypress-docker-images) repo
 
 ## default
 

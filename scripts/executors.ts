@@ -29,7 +29,7 @@ const header = {
 const description = {
   p: normalizeString(stripIndent`
     Docker images that jobs can use via \`executor\` parameter.
-    Typically an image from [cypress-io/cypress-docker-images](https://github.com/cypress-io/cypress-docker-images)
+    Typically an image comes from the [cypress-io/cypress-docker-images](https://github.com/cypress-io/cypress-docker-images) repo
   `),
 }
 const contents = []

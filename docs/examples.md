@@ -42,7 +42,7 @@
 ## simple
 
 
-Runs all Cypress tests without recording results on the Dashboard. Installs dependencies with "npm ci", caches NPM modules and Cypress binary. 
+Runs all Cypress tests without recording results on the Dashboard. Installs dependencies with `npm ci`, caches NPM modules and the Cypress binary. 
 
 ```yaml
 version: 2.1
@@ -95,7 +95,7 @@ workflows:
 ## yarn
 
 
-Installs NPM dependencies using "yarn install --frozen-lockfile" command, then runs Cypress tests. Caches NPM modules and Cypress binary. 
+Installs NPM dependencies using `yarn install --frozen-lockfile` command, then runs Cypress tests. Caches NPM modules and Cypress binary. 
 
 ```yaml
 version: 2.1
@@ -111,7 +111,7 @@ workflows:
 ## custom-install
 
 
-Install dependencies using your own custom command. Related parameter: "custom-verify" 
+Install dependencies using your own custom command. Related parameter: [custom-verify](#custom-verify). 
 
 ```yaml
 version: 2.1
@@ -127,7 +127,7 @@ workflows:
 ## custom-verify
 
 
-Verify Cypress was installed using custom command. Default command is "npx cypress verify" Related parameter: "custom-install" 
+Verify Cypress was installed using custom command. Default command is `npx cypress verify` Related parameter: [custom-install](#custom-install).
 
 ```yaml
 version: 2.1
@@ -143,7 +143,7 @@ workflows:
 ## custom-cache-key
 
 
-Apply custom key for npm install (or yarn install) cache. Useful to tweak caching settings to your liking. Related options "yarn". 
+Apply custom key for `npm install` (or `yarn install`) cache. Useful to tweak caching settings to your liking. Related options [yarn](#yarn). 
 
 ```yaml
 version: 2.1
@@ -160,7 +160,7 @@ workflows:
 ## using-node14
 
 
-Runs all Cypress tests on Node 14 image by specifying `executor` name. There are several executors included with this orb, and you can use your own executor, see "custom-executor" example. 
+Runs all Cypress tests on Node 14 image by specifying `executor` name. There are [several executors included](https://circleci.com/developer/orbs/orb/cypress-io/cypress#executors) with this orb or you can use your own executor, such as a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). See [custom-executor](#custom-executor) example.
 
 ```yaml
 version: 2.1
@@ -175,25 +175,28 @@ workflows:
 
 ## chrome
 
-
-Runs tests using Chrome browser in a custom executor - a Docker image that includes Chrome browser. See [`--browser`](https://on.cypress.io/launching-browsers) Cypress run option documentation. 
+Runs tests on Chrome in a [custom-executor](#custom-executor) - a Docker image that includes the Chrome browser, such as a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). See [`--browser`](https://on.cypress.io/launching-browsers) documentation for available browser arguments.
 
 ```yaml
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@1
+executors:
+  with-chrome:
+    docker:
+      - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
 workflows:
   build:
     jobs:
       - cypress/run:
-          executor: cypress/browsers-chrome69
+          executor: with-chrome
           browser: chrome
 ```
 
 ## start-server
 
 
-Often we need to start a local webserver before running end-to-end tests. This option runs the given command to starts the server in the background and then runs all Cypress tests. Related option "wait-on". 
+Often we need to start a local webserver before running end-to-end tests. This option runs the given command to starts the server in the background and then runs all Cypress tests. Related option [wait-on](#wait-for-server-to-respond).
 
 ```yaml
 version: 2.1
@@ -209,7 +212,7 @@ workflows:
 ## wait-for-server-to-respond
 
 
-Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`. You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90). Related option "start" 
+Starts server, waits for it to respond and then runs all Cypress tests. Uses `npx wait-on ...` command under the hood, see [wait-on](https://github.com/jeffbski/wait-on#readme). Note, if you are using Webpack server, it might not respond to the default HTTP OPTIONS request. In that case use `wait-on` to send `HTTP GET` request by using url `wait-on: 'http-get://localhost:....'`. You can also pass `wait-on` config, see [issue #90](https://github.com/cypress-io/circleci-orb/issues/90). Related option [start](#start).
 
 ```yaml
 version: 2.1
@@ -283,7 +286,7 @@ workflows:
 ## release
 
 
-If you want to run an entire job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could follow this example. Note - for simpler steps you can use "post-steps" parameter, see "store-test-reports" example. 
+If you want to run an entire job after running Cypress tests, you can reuse the workspace from the `cypress/run` job. For example, to run a semantic release script you could follow this example. Note - for simpler steps you can use "post-steps" parameter, see [store-test-reports](#store-test-reports) example.
 
 ```yaml
 version: 2.1
@@ -311,7 +314,7 @@ workflows:
 ## linux-and-mac
 
 
-Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses own executor "mac" 
+Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses own [custom executor](#custom-executor) "mac".
 
 ```yaml
 version: 2.1
@@ -333,8 +336,7 @@ workflows:
 
 ## custom-executor
 
-
-Use any executor to run the job defined by the orb. Assumes the executor has all OS dependencies necessary to run Cypress. 
+Use any executor to run the job defined by the orb, such as a custom Docker image name, or a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). Assumes the executor has all OS dependencies necessary to run Cypress.
 
 ```yaml
 version: 2.1
@@ -349,6 +351,7 @@ workflows:
     jobs:
       - cypress/run:
           executor: with-chrome
+          browser: chrome
 ```
 
 ## env-vars
@@ -361,7 +364,7 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@1
 executors:
-  base10-foo-bar:
+  base10:
     docker:
       - image: 'cypress/base:10'
     environment:
@@ -371,13 +374,13 @@ workflows:
   build:
     jobs:
       - cypress/run:
-          executor: base10-foo-bar
+          executor: base10
 ```
 
 ## install-private-npm-modules
 
 
-In this example, we write the NPM auth token before running "npm install" command. This allows us to install private NPM modules for example. 
+In this example, we write the NPM auth token before running `npm install` command. This allows us to install private NPM modules for example. 
 
 ```yaml
 version: 2.1
@@ -397,7 +400,7 @@ workflows:
 ## store-test-reports
 
 
-Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results". Also see "artifacts" parameter. 
+Stores test results using post-steps parameter, see https://on.cypress.io/reporters, assumes that reports are saved in folder "cypress/results". Also see [artifacts](#artifacts) parameter.
 
 ```yaml
 version: 2.1
@@ -415,7 +418,7 @@ workflows:
 ## artifacts
 
 
-Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option. Note, this setting assumes the default Cypress folders for screenshots and videos. If you store screenshots and videos in custom folders, see "any-artifacts" example how to store arbitrary folders. 
+Stores test screenshots and videos as CircleCI artifacts using "store_artifacts" job option. Note, this setting assumes the default Cypress folders for screenshots and videos. If you store screenshots and videos in custom folders, see [any-artifacts](#any-artifacts) example how to store arbitrary folders.
 
 ```yaml
 version: 2.1
@@ -431,7 +434,7 @@ workflows:
 ## any-artifacts
 
 
-Stores additional folders like "mochawesome-report" or code coverage folder as a CircleCI artifact. Related option "artifacts". 
+Stores additional folders like "mochawesome-report" or code coverage folder as a CircleCI artifact. Related option [artifacts](#artifacts).
 
 ```yaml
 version: 2.1
@@ -465,7 +468,7 @@ workflows:
 ## custom-command-prefix
 
 
-Use your own arbitrary command to prefix default cypress run test command.
+Use your own arbitrary command to prefix default `cypress run` test command.
 
 ```yaml
 version: 2.1
@@ -560,7 +563,7 @@ workflows:
 ## print-info
 
 
-It is useful to print information about the OS and found browsers using the "cypress info" command 
+It is useful to print information about the OS and found browsers using the `cypress info` command.
 
 ```yaml
 version: 2.1
@@ -577,7 +580,7 @@ workflows:
 ## install-extra-tool
 
 
-Sometimes you want to install another tool after installing regular dependencies but before running "cypress verify" and caching NPM modules and Cypress binary. In this example, it installs one more tool "print-env" and runs it. 
+Sometimes you want to install another tool after installing regular dependencies but before running `cypress verify` and caching NPM modules and Cypress binary. In this example, it installs one more tool, `print-env`, and runs it.
 
 ```yaml
 version: 2.1
@@ -595,7 +598,7 @@ workflows:
 ## config
 
 
-Passing additional Cypress config parameters via --config CLI argument
+Passing additional Cypress config parameters via `--config` CLI argument
 
 ```yaml
 version: 2.1
@@ -611,7 +614,7 @@ workflows:
 ## config-file
 
 
-Uses non-default configuration file
+Uses non-default configuration file like one would pass with `--config-file` argument.
 
 ```yaml
 version: 2.1
@@ -627,7 +630,7 @@ workflows:
 ## tags
 
 
-Pass tags to the dashboard
+Pass tags to the dashboard like one would pass with the `--tags` argument.
 
 ```yaml
 version: 2.1
@@ -644,7 +647,7 @@ workflows:
 ## attach-workspace
 
 
-You may run multiple job after installing dependencies once. In that case every job should attach workspace and require cypress/install. Related parameter "no-workspace" 
+You may run multiple job after installing dependencies once. In that case every job should attach workspace and require cypress/install. Related parameter [no-workspace](#no-workspace). 
 
 ```yaml
 version: 2.1
@@ -707,7 +710,7 @@ workflows:
 ## debug
 
 
-To debug Cypress, use DEBUG=... environment variable which works via https://github.com/visionmedia/debug NPM module. For example, to debug Cypress CLI use "cypress:cli", and to debug everything use "cypress*", which could be very verbose. 
+To debug Cypress, use `DEBUG=...` environment variable which works via the [debug](https://github.com/visionmedia/debug) NPM module. For example, to debug Cypress CLI use `cypress:cli`, and to debug everything use `cypress*` (which could be very verbose). 
 
 ```yaml
 version: 2.1
@@ -724,7 +727,7 @@ workflows:
 ## custom-build-id
 
 
-Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run. Notice the environment variable syntax to be expanded at the build time. See example in https://github.com/cypress-io/circleci-orb-parallel-example. 
+Runs two jobs splitting the specs in parallel using Cypress Dashboard [parallelization](https://on.cypress.io/parallelization). Uses custom build ID to link the jobs together into a logical run. Notice the environment variable syntax to be expanded at the build time. See example in [circleci-orb-parallel-example](https://github.com/cypress-io/circleci-orb-parallel-example). 
 
 ```yaml
 version: 2.1
@@ -742,4 +745,3 @@ workflows:
           parallelism: 2
           ci-build-id: 'testing-commit-${CIRCLE_SHA1}'
 ```
-
