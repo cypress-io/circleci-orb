@@ -334,7 +334,7 @@ workflows:
 ## custom-executor
 
 
-Use any executor to run the job defined by the orb. Assumes the executor has all OS dependencies necessary to run Cypress. 
+Use any executor to run the job defined by the orb, such as a custom Docker image name, or a Docker image from https://github.com/cypress-io/cypress-docker-images. Assumes the executor has all OS dependencies necessary to run Cypress. 
 
 ```yaml
 version: 2.1
