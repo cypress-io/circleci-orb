@@ -286,6 +286,17 @@ We are using `cypress-io/cypress@1` version in our examples, so you get the late
 
 This orb requires the repository to use a lock file like `package-lock.json` or `yarn.lock`. These lock files are recommended for consistent repeatable installations of dependencies on the CI machines. If a lock file is not found, the Orb shows an error and stops.
 
+## Validate CircleCI file
+
+You can quickly validate the syntax of the CircleCI config file using [Circle local CLI][local-cli] utility.
+
+```shell
+$ circleci config validate <config filename>
+# for example
+$ circleci config validate .circleci/config.yml
+Config file at .circleci/config.yml is valid.
+```
+
 ## Effective config
 
 CircleCI expands orbs in your config file before running the workflows. You can see this _effective_ config in their UI
