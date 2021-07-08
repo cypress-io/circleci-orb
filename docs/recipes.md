@@ -7,6 +7,7 @@
 - [Service containers](#service-containers)
 - [Windows](#windows)
 - [Windows and Linux](#windows-and-linux)
+- [Nightly test run](#nightly-test-run)
 
 You can find our orb example repositories under GitHub topic [cypress-orb-example](https://github.com/topics/cypress-orb-example).
 
@@ -311,3 +312,25 @@ workflows:
 ```
 
 **Tip:** Linux and Windows jobs cannot use the same installation workspace, thus if you split the workflow into setup and test jobs, make sure each OS depends on the correct `cypress/install` job. For full example see [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app) configuration.
+
+## Nightly test run
+
+You can schedule a workflow to run nightly using a [cron trigger](https://circleci.com/docs/2.0/workflows/#nightly-example). For example, to run the `main` branch every night at midnight, use:
+
+```yml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  nightly:
+    triggers:
+      - schedule:
+          cron: '0 0 * * *'
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - cypress/run:
+          name: Nightly Cypress E2E tests
+```

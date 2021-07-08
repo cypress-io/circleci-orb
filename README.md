@@ -14,7 +14,7 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
   - [Install, test and release](./docs/recipes.md#install-test-and-release)
   - [Install, then run two different test jobs](./docs/recipes.md#install-and-run-two-test-jobs)
   - [Custom test command](./docs/recipes.md#custom-test-command)
-  - [other recipes](./docs/recipes.md) like multiple jobs, testing on Windows, etc.
+  - [other recipes](./docs/recipes.md) like multiple jobs, testing on Windows, nightly tests, etc.
 - [Naming](#naming)
 - [Jobs and executors in this orb](#jobs-and-executors)
 - [Orb versions](#versions)
