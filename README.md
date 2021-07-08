@@ -14,7 +14,7 @@ The Cypress CircleCI Orb is a piece of configuration set in your `circle.yml` fi
   - [Install, test and release](./docs/recipes.md#install-test-and-release)
   - [Install, then run two different test jobs](./docs/recipes.md#install-and-run-two-test-jobs)
   - [Custom test command](./docs/recipes.md#custom-test-command)
-  - [other recipes](./docs/recipes.md) like multiple jobs, testing on Windows, etc.
+  - [other recipes](./docs/recipes.md) like multiple jobs, testing on Windows, nightly tests, etc.
 - [Naming](#naming)
 - [Jobs and executors in this orb](#jobs-and-executors)
 - [Orb versions](#versions)
@@ -285,6 +285,17 @@ We are using `cypress-io/cypress@1` version in our examples, so you get the late
 ## Lock files
 
 This orb requires the repository to use a lock file like `package-lock.json` or `yarn.lock`. These lock files are recommended for consistent repeatable installations of dependencies on the CI machines. If a lock file is not found, the Orb shows an error and stops.
+
+## Validate CircleCI file
+
+You can quickly validate the syntax of the CircleCI config file using [Circle local CLI][local-cli] utility.
+
+```shell
+$ circleci config validate <config filename>
+# for example
+$ circleci config validate .circleci/config.yml
+Config file at .circleci/config.yml is valid.
+```
 
 ## Effective config
 
