@@ -45,7 +45,7 @@
     "common-tags": "1.8.0",
     "execa": "4.0.0",
     "husky": "3.1.0",
-    "js-yaml": "3.13.1",
+    "js-yaml": "4.1.0",
     "json2md": "1.6.5",
     "lint-staged": "10.2.6",
     "minimist": "1.2.5",
