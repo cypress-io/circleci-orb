@@ -33,6 +33,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - timeout
      - config-file
      - config
+     - env
     
  - [install](#install)
      - executor
@@ -98,7 +99,7 @@ default: `cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}`
 
 > A common unique ID that ties multiple test jobs into a single logical run.
 > See Cypress [parallelization docs](https://on.cypress.io/parallelization).
-> See usage example in https://github.com/cypress-io/circleci-orb-parallel-example
+> See usage example in [circleci-orb-parallel-example](https://github.com/cypress-io/circleci-orb-parallel-example).
 
 
 type: string
@@ -139,6 +140,14 @@ type: string
 **`debug`**
 
 > Debug value to set as the DEBUG environment variable before running tests
+
+
+type: string
+
+
+**`env`**
+
+> Values to pass using --env argument
 
 
 type: string

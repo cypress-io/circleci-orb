@@ -541,6 +541,11 @@ jobs:
         type: string
         default: ''
 
+      env:
+        description: Values to pass using --env argument
+        type: string
+        default: ''
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -655,6 +660,7 @@ jobs:
                           <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -676,6 +682,7 @@ jobs:
                           <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -899,10 +906,10 @@ examples:
 
   using-node14:
     description: |
-      Runs all Cypress tests on Node 14 image by specifying `executor` name. 
-      There are [several executors included](https://circleci.com/developer/orbs/orb/cypress-io/cypress#executors) 
-      with this orb or you can use your own executor, such as a Docker image 
-      from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
+      Runs all Cypress tests on Node 14 image by specifying `executor` name.
+      There are [several executors included](https://circleci.com/developer/orbs/orb/cypress-io/cypress#executors)
+      with this orb or you can use your own executor, such as a Docker image
+      from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images).
       See [custom-executor](#custom-executor) example.
     usage:
       version: 2.1
@@ -963,9 +970,9 @@ examples:
 
   chrome:
     description: |
-      Runs tests on Chrome in a [custom-executor](#custom-executor) - a Docker image 
-      that includes the Chrome browser, such as a Docker image from 
-      [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
+      Runs tests on Chrome in a [custom-executor](#custom-executor) - a Docker image
+      that includes the Chrome browser, such as a Docker image from
+      [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images).
       See [`--browser`](https://on.cypress.io/launching-browsers) documentation for available browser arguments.
     usage:
       version: 2.1
@@ -1165,7 +1172,7 @@ examples:
 
   linux-and-mac:
     description: |
-      Runs tests on Linux and on Mac via two jobs. 
+      Runs tests on Linux and on Mac via two jobs.
       Note how the user defines and uses own [custom executor](#custom-executor) "mac".
     usage:
       version: 2.1
@@ -1188,8 +1195,8 @@ examples:
 
   custom-executor:
     description: |
-      Use any executor to run the job defined by the orb, such as a custom 
-      Docker image name, or a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images). 
+      Use any executor to run the job defined by the orb, such as a custom
+      Docker image name, or a Docker image from [cypress-docker-images](https://github.com/cypress-io/cypress-docker-images).
       Assumes the executor has all OS dependencies necessary to run Cypress.
     usage:
       version: 2.1
@@ -1377,6 +1384,18 @@ examples:
           jobs:
             - cypress/run:
                 config-file: staging.json
+
+  env:
+    description: Passing values via --env CLI argument
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                env: userName=Joe,apiKey=1234567890
 
   tags:
     description: Pass tags to the dashboard

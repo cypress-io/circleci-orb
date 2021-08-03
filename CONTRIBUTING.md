@@ -58,6 +58,8 @@ If you want to run a single test file
 
 ```shell
 npx ava-ts manual-tests/<filename>.ts
+# or with debug output
+DEBUG=test npx ava-ts manual-tests/<filename>.ts
 ```
 
 #### Snapshots
