@@ -339,6 +339,348 @@ commands:
           steps:
             - write_workspace
 
+  # Run cypress command
+  run_cypress:
+    description:
+      A single command to run Cypress end-to-end tests in your project.
+      If recording on the Dashboard, set `CYPRESS_RECORD_KEY` environment variable
+
+    parameters:
+
+      debug:
+        type: string
+        default: ''
+        description: Debug value to set as the DEBUG environment variable before running tests
+
+      post-checkout:
+        description: Additional commands to run after performing Git checkout
+        type: steps
+        default: []
+
+      record:
+        type: boolean
+        default: false
+        description: |
+          Record results on Cypress Dashboard, see https://on.cypress.io/dashboard-service.
+          This option is necessary to enable other related flags, like `parallel` and `group`.
+
+      # "parallel" parameter should be used with "parallelism" parameter
+      parallel:
+        type: boolean
+        default: false
+        description: |
+          Use test balancing using Cypress Dashboard,
+          see https://on.cypress.io/parallelization. Requires `record: true` and
+          only makes sense with CircleCI `parallelism` setting to spin several CI machines.
+          Related options "record" and "group".
+
+      ci-build-id:
+        type: string
+        default: ''
+        description: |
+          A common unique ID that ties multiple test jobs into a single logical run.
+          See Cypress [parallelization docs](https://on.cypress.io/parallelization).
+          See usage example in [circleci-orb-parallel-example](https://github.com/cypress-io/circleci-orb-parallel-example).
+
+      group:
+        type: string
+        default: ''
+        description: |
+          Test group name when recording on the dashboard. Requires `record: true`
+
+      tags:
+        type: string
+        default: ''
+        description: |
+          Comma-separated tags to send to the dashboard. Requires `record: true`
+
+      post-install:
+        description: |
+          Additional commands to run after running install
+          but before verifying Cypress and saving cache.
+        type: steps
+        default: []
+
+      build:
+        type: string
+        default: ''
+        description: |
+          Custom build command to run after install to build your application.
+          Related parameter "start"
+
+      start:
+        type: string
+        default: ''
+        description: |
+          Optional server start command to run in the background before running Cypress tests.
+          Related parameters "build" and "wait-on".
+
+      wait-on:
+        type: string
+        default: ''
+        description: |
+          Optional url check using `wait-on` utility. Useful to delay tests until server boots and responds.
+          Example:
+            wait-on: "http://localhost:4200" # wait for local port 4200 to respond to HEAD request
+            wait-on: "http-get://127.0.0.1:3000" # wait for port 3000 to respond to GET request
+
+      browser:
+        type: string
+        default: ''
+        description: |
+          Browser to use to run end-to-end tests. Typically "electron" (default) or "chrome".
+          See https://on.cypress.io/launching-browsers, requires using executor with the browser installed,
+          electron browser is already included with Cypress.
+
+      spec:
+        type: string
+        default: ''
+        description: |
+          Spec pattern to use to run only some test files, passed as `--spec ...` CLI argument.
+
+      install-command:
+        description: Overrides the default NPM or Yarn command
+        type: string
+        default: ''
+
+      verify-command:
+        description: Overrides the default NPM or Yarn command to verify Cypress
+        type: string
+        default: 'npx cypress verify'
+
+      command:
+        type: string
+        default: ''
+        description: |
+          Custom test command to run Cypress tests, which overrides all individual options.
+
+      command-prefix:
+        type: string
+        default: ''
+        description: |
+          Custom prefix for the default test command.
+
+      store_artifacts:
+        type: boolean
+        default: false
+        description: |
+          Store Cypress-generated screenshots and videos as CircleCI test artifacts.
+          See https://circleci.com/docs/2.0/artifacts/
+
+      yarn:
+        description: Use yarn to install NPM modules instead of npm.
+        type: boolean
+        default: false
+
+      cache-key:
+        description: |
+          Custom CircleCI cache key for storing NPM modules and Cypress binary.
+        type: string
+        default: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+
+      attach-workspace:
+        description: |
+          Assuming there was an install job before, first attach
+          the workspace to avoid re-installing dependencies
+        type: boolean
+        default: false
+
+      no-workspace:
+        description: |
+          Do not write workspace after this job is done.
+          This is useful if there are no jobs to follow,
+          which saves time on each build.
+        type: boolean
+        default: false
+
+      working_directory:
+        description: |
+          Directory containing package.json. Use this parameter if you're using a monorepo and your
+          cypress tests aren't at the root of the repository (eg. `frontend`).
+        type: string
+        default: ''
+
+      timeout:
+        description: Optional timeout for running tests
+        type: string
+        default: 10m
+
+      config-file:
+        description: Name of the Cypress configuration file to use
+        type: string
+        default: ''
+
+      config:
+        description: Additional configuration values to pass using --config
+        type: string
+        default: ''
+
+      env:
+        description: Values to pass using --env argument
+        type: string
+        default: ''
+
+    steps:
+      - when:
+          condition: << parameters.debug >>
+          # user sets custom DEBUG string, we need to set it as an environment variable
+          # https://circleci.com/docs/2.0/env-vars/
+          steps:
+            - run:
+                name: Export DEBUG variable
+                command: |
+                  echo 'export DEBUG="<< parameters.debug >>"' >> $BASH_ENV
+
+      - when:
+          condition: << parameters.parallel >> << parameters.attach-workspace >>
+          # user wants to run in parallel mode
+          # thus we assume the dependencies were installed as separate job
+          # hmm, can we detect if this job requires cypress/install automatically?
+          steps:
+            - run: echo "Assuming dependencies were installed using cypress/install job"
+            - attach_workspace:
+                at: ~/
+
+      - unless:
+          condition: << parameters.parallel >>
+          steps:
+            - when:
+                condition: << parameters.attach-workspace >>
+                steps:
+                  - when:
+                      condition: << parameters.build >>
+                      steps:
+                        - run:
+                            name: Build 🏗
+                            command: <<parameters.build>>
+                            working_directory: << parameters.working_directory >>
+
+            - unless:
+                condition: << parameters.attach-workspace >>
+                steps:
+                  - checkout
+                  - steps: << parameters.post-checkout >>
+                  - when:
+                      condition: << parameters.build >>
+                      steps:
+                        - install:
+                            yarn: << parameters.yarn >>
+                            install-command: << parameters.install-command >>
+                            verify-command: << parameters.verify-command >>
+                            post-install: << parameters.post-install >>
+                            cache-key: << parameters.cache-key >>
+                            no-workspace: << parameters.no-workspace >>
+                            build: << parameters.build >>
+                            working_directory: << parameters.working_directory >>
+                  - unless:
+                      condition: <<parameters.build>>
+                      steps:
+                        - install:
+                            cache-key: << parameters.cache-key >>
+                            yarn: << parameters.yarn >>
+                            install-command: << parameters.install-command >>
+                            verify-command: << parameters.verify-command >>
+                            post-install: << parameters.post-install >>
+                            no-workspace: << parameters.no-workspace >>
+                            working_directory: << parameters.working_directory >>
+
+      - when:
+          condition: <<parameters.start>>
+          steps:
+            - run:
+                name: Start
+                command: <<parameters.start>>
+                background: true
+                working_directory: << parameters.working_directory >>
+
+      - when:
+          condition: <<parameters.wait-on>>
+          steps:
+            - run:
+                name: Wait-on <<parameters.wait-on>>
+                command: npx wait-on <<parameters.wait-on>>
+
+      - when:
+          condition: <<parameters.command>>
+          steps:
+            - run:
+                name: Run Cypress tests using custom command
+                command: <<parameters.command>>
+                no_output_timeout: <<parameters.timeout>>
+                working_directory: << parameters.working_directory >>
+
+      - unless:
+          condition: <<parameters.command>>
+          steps:
+            - when:
+                condition: <<parameters.command-prefix>>
+                steps:
+                  - run:
+                      name: Run Cypress tests prefixed
+                      no_output_timeout: <<parameters.timeout>>
+                      # GOOD EXAMPLE conditional text based on boolean parameter
+                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
+                      command: |
+                        <<parameters.command-prefix>> cypress run \
+                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
+                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
+                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.record >> --record \
+                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
+                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
+                          <</ parameters.record>>
+                      working_directory: << parameters.working_directory >>
+            - unless:
+                condition: <<parameters.command-prefix>>
+                steps:
+                  - run:
+                      name: Run Cypress tests
+                      no_output_timeout: <<parameters.timeout>>
+                      # GOOD EXAMPLE conditional text based on boolean parameter
+                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
+                      command: |
+                        npx cypress run \
+                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
+                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
+                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
+                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
+                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.record >> --record \
+                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
+                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
+                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
+                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
+                          <</ parameters.record>>
+                      working_directory: << parameters.working_directory >>
+
+      - when:
+          condition: << parameters.store_artifacts >>
+          # store videos and screenshots (if any) as Circle artifacts
+          # https://circleci.com/docs/2.0/artifacts/
+          steps:
+            - when:
+                condition: << parameters.working_directory >>
+                steps:
+                  # store artifacts does not understand working directory
+                  # thus we need to form full folder names ourselves
+                  - store_artifacts:
+                      path: << parameters.working_directory >>/cypress/videos
+                  - store_artifacts:
+                      path: << parameters.working_directory >>/cypress/screenshots
+            - unless:
+                # no custom working directory
+                condition: << parameters.working_directory >>
+                steps:
+                  - store_artifacts:
+                      path: cypress/videos
+                  - store_artifacts:
+                      path: cypress/screenshots
+
+
 #
 # jobs defined by the orb
 #
@@ -555,164 +897,34 @@ jobs:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
 
     steps:
-      - when:
-          condition: << parameters.debug >>
-          # user sets custom DEBUG string, we need to set it as an environment variable
-          # https://circleci.com/docs/2.0/env-vars/
-          steps:
-            - run:
-                name: Export DEBUG variable
-                command: |
-                  echo 'export DEBUG="<< parameters.debug >>"' >> $BASH_ENV
-
-      - when:
-          condition: << parameters.parallel >> << parameters.attach-workspace >>
-          # user wants to run in parallel mode
-          # thus we assume the dependencies were installed as separate job
-          # hmm, can we detect if this job requires cypress/install automatically?
-          steps:
-            - run: echo "Assuming dependencies were installed using cypress/install job"
-            - attach_workspace:
-                at: ~/
-
-      - unless:
-          condition: << parameters.parallel >>
-          steps:
-            - when:
-                condition: << parameters.attach-workspace >>
-                steps:
-                  - when:
-                      condition: << parameters.build >>
-                      steps:
-                        - run:
-                            name: Build 🏗
-                            command: <<parameters.build>>
-                            working_directory: << parameters.working_directory >>
-
-            - unless:
-                condition: << parameters.attach-workspace >>
-                steps:
-                  - checkout
-                  - steps: << parameters.post-checkout >>
-                  - when:
-                      condition: << parameters.build >>
-                      steps:
-                        - install:
-                            yarn: << parameters.yarn >>
-                            install-command: << parameters.install-command >>
-                            verify-command: << parameters.verify-command >>
-                            post-install: << parameters.post-install >>
-                            cache-key: << parameters.cache-key >>
-                            no-workspace: << parameters.no-workspace >>
-                            build: << parameters.build >>
-                            working_directory: << parameters.working_directory >>
-                  - unless:
-                      condition: <<parameters.build>>
-                      steps:
-                        - install:
-                            cache-key: << parameters.cache-key >>
-                            yarn: << parameters.yarn >>
-                            install-command: << parameters.install-command >>
-                            verify-command: << parameters.verify-command >>
-                            post-install: << parameters.post-install >>
-                            no-workspace: << parameters.no-workspace >>
-                            working_directory: << parameters.working_directory >>
-
-      - when:
-          condition: <<parameters.start>>
-          steps:
-            - run:
-                name: Start
-                command: <<parameters.start>>
-                background: true
-                working_directory: << parameters.working_directory >>
-
-      - when:
-          condition: <<parameters.wait-on>>
-          steps:
-            - run:
-                name: Wait-on <<parameters.wait-on>>
-                command: npx wait-on <<parameters.wait-on>>
-
-      - when:
-          condition: <<parameters.command>>
-          steps:
-            - run:
-                name: Run Cypress tests using custom command
-                command: <<parameters.command>>
-                no_output_timeout: <<parameters.timeout>>
-                working_directory: << parameters.working_directory >>
-
-      - unless:
-          condition: <<parameters.command>>
-          steps:
-            - when:
-                condition: <<parameters.command-prefix>>
-                steps:
-                  - run:
-                      name: Run Cypress tests prefixed
-                      no_output_timeout: <<parameters.timeout>>
-                      # GOOD EXAMPLE conditional text based on boolean parameter
-                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
-                      command: |
-                        <<parameters.command-prefix>> cypress run \
-                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
-                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
-                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
-                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
-                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
-                          <<# parameters.record >> --record \
-                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
-                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
-                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
-                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
-                          <</ parameters.record>>
-                      working_directory: << parameters.working_directory >>
-            - unless:
-                condition: <<parameters.command-prefix>>
-                steps:
-                  - run:
-                      name: Run Cypress tests
-                      no_output_timeout: <<parameters.timeout>>
-                      # GOOD EXAMPLE conditional text based on boolean parameter
-                      # --record is needed to pass many other arguments, like "--group" and "--parallel"
-                      command: |
-                        npx cypress run \
-                          <<# parameters.spec>> --spec '<<parameters.spec>>' <</ parameters.spec>> \
-                          <<# parameters.browser>> --browser <<parameters.browser>> <</ parameters.browser>> \
-                          <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
-                          <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
-                          <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
-                          <<# parameters.record >> --record \
-                            <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
-                            <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
-                            <<# parameters.tags>> --tag '<<parameters.tags>>' <</ parameters.tags>> \
-                            <<# parameters.ci-build-id>> --ci-build-id <<parameters.ci-build-id>> <</ parameters.ci-build-id>> \
-                          <</ parameters.record>>
-                      working_directory: << parameters.working_directory >>
-
-      - when:
-          condition: << parameters.store_artifacts >>
-          # store videos and screenshots (if any) as Circle artifacts
-          # https://circleci.com/docs/2.0/artifacts/
-          steps:
-            - when:
-                condition: << parameters.working_directory >>
-                steps:
-                  # store artifacts does not understand working directory
-                  # thus we need to form full folder names ourselves
-                  - store_artifacts:
-                      path: << parameters.working_directory >>/cypress/videos
-                  - store_artifacts:
-                      path: << parameters.working_directory >>/cypress/screenshots
-            - unless:
-                # no custom working directory
-                condition: << parameters.working_directory >>
-                steps:
-                  - store_artifacts:
-                      path: cypress/videos
-                  - store_artifacts:
-                      path: cypress/screenshots
+      - run_cypress:
+          debug: <<parameters.debug>>
+          post-checkout: <<parameters.post-checkout>>
+          record: <<parameters.record>>
+          parallel: <<parameters.parallel>>
+          ci-build-id: <<parameters.ci-build-id>>
+          group: <<parameters.group>>
+          tags: <<parameters.tags>>
+          post-install: <<parameters.post-install>>
+          build: <<parameters.build>>
+          start: <<parameters.start>>
+          wait-on: <<parameters.wait-on>>
+          browser: <<parameters.browser>>
+          spec: <<parameters.spec>>
+          install-command: <<parameters.install-command>>
+          verify-command: <<parameters.verify-command>>
+          command: <<parameters.command>>
+          command-prefix: <<parameters.command-prefix>>
+          store_artifacts: <<parameters.store_artifacts>>
+          yarn: <<parameters.yarn>>
+          cache-key: <<parameters.cache-key>>
+          attach-workspace: <<parameters.attach-workspace>>
+          no-workspace: <<parameters.no-workspace>>
+          working_directory: <<parameters.working_directory>>
+          timeout: <<parameters.timeout>>
+          config-file: <<parameters.config-file>>
+          config: <<parameters.config>>
+          env: <<parameters.env>>
 
   # Install Job that can be performed before running jobs
   # often used to have a single installation step, and then
