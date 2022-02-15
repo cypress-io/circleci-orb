@@ -546,6 +546,11 @@ jobs:
         type: string
         default: ''
 
+      component:
+        description: Runs component tests using --component
+        type: boolean
+        default: false
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
