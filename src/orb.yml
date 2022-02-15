@@ -129,6 +129,15 @@ executors:
       Use example: `executor: cypress/base-14`.
     docker:
       - image: cypress/base:14
+      
+  # Node 16.13.2 tag images from Cypress
+  base-16-13-2:
+    description: |
+      Single Docker container with the latest Node v16 and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-16-13-2`.
+    docker:
+      - image: cypress/base:16.13.2
 
   browsers-chrome69:
     description: Docker container with Node 10, Cypress dependencies and Chrome 69
