@@ -12,6 +12,8 @@ const examples = orb.examples
 
 const exampleTitles = {
   simple: 'installs NPM dependencies and runs Cypress tests',
+  'component-tests':
+    'installs NPM dependencies and runs Cypress component tests',
   recording: 'Runs all Cypress tests and records them on the Cypress Dashboard',
   'parallel-on-2-machines':
     'Runs all Cypress tests by load balancing them on two machines',

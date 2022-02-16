@@ -819,6 +819,20 @@ examples:
           jobs:
             - cypress/run
 
+  component-tests:
+    description: |
+      Runs all Cypress component tests without recording results on the Dashboard.
+      Installs dependencies with "npm ci", caches NPM modules and Cypress binary.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.30.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                component: true
+
   yarn:
     description: |
       Installs NPM dependencies using "yarn install --frozen-lockfile" command,
