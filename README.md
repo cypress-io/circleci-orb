@@ -54,6 +54,25 @@ workflows:
 ```
 
 See [cypress-io/circleci-orb-example](https://github.com/cypress-io/circleci-orb-example) [![CircleCI](https://circleci.com/gh/cypress-io/circleci-orb-example/tree/master.svg?style=svg)](https://circleci.com/gh/cypress-io/circleci-orb-example/tree/master)
+### component tests
+
+Install dependencies (using `npm ci`) and run all Cypress component tests:
+
+```yaml
+# to use orbs, must use version >= 2.1
+version: 2.1
+orbs:
+  # import Cypress orb by specifying an exact version x.y.z
+  # or the latest version 1.x.x using "@1" syntax
+  cypress: cypress-io/cypress@1.30.0
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          component: true
+```
+
+See the [Real World App](https://github.com/cypress-io/cypress-realworld-app)
 
 ### record on Dashboard
 
