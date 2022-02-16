@@ -666,6 +666,7 @@ jobs:
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
                           <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.component>> --component <</ parameters.component>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -688,6 +689,7 @@ jobs:
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
                           <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.component>> --component <</ parameters.component>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
