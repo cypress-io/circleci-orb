@@ -44,7 +44,7 @@ version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
   # or the latest version 1.x.x using "@1" syntax
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -64,7 +64,7 @@ version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
   # or the latest version 1.x.x using "@1" syntax
-  cypress: cypress-io/cypress@1.30.0
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -81,7 +81,7 @@ Runs all Cypress tests and records them on the Cypress Dashboard:
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -98,7 +98,7 @@ A more complex project that needs to install dependencies, build an application 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -167,7 +167,7 @@ When importing this orb, we suggest using local name "cypress" for consistency.
 version: 2.1
 orbs:
   #          ↱ official orb name in the registry (org + name)
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
   #  ↳ your local name for the imported orb
 workflows:
   build:
@@ -183,7 +183,7 @@ You can of course use another local name
 version: 2.1
 orbs:
   #             ↱ official orb name in the registry (org + name)
-  e2eCypress: cypress-io/cypress@1
+  e2eCypress: cypress-io/cypress@2
   #  ↳ your local name for the imported orb
 workflows:
   build:
@@ -199,7 +199,7 @@ We suggest importing the orb under the local name `cypress` and giving names to 
 version: 2.1
 orbs:
   #          ↱ official orb name in the registry (org + name)
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
   #  ↳ your local name for the imported orb
 workflows:
   build:
@@ -217,7 +217,7 @@ See [docs/jobs.md](docs/jobs.md) and [docs/executors.md](docs/executors.md) for 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -241,7 +241,7 @@ version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
   # or the latest version 1.x.x
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -263,7 +263,7 @@ Sometimes you need to install the project's npm dependencies and build the appli
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -299,7 +299,7 @@ Cypress orb is _versioned_ so you can be sure that the configuration will _not_ 
 
 You can find all changes and published orb versions for Cypress orb at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
 
-We are using `cypress-io/cypress@1` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
+We are using `cypress-io/cypress@2` version in our examples, so you get the latest published orb version 1.x.x. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
 
 ## Lock files
 
@@ -329,7 +329,7 @@ For example, if your current CircleCI configuration file is `.circleci/config.ym
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -340,7 +340,7 @@ The fully resolved configuration will show:
 
 ```shell
 $ circleci config process .circleci/config.yml
-# Orb 'cypress-io/cypress@1' resolved to 'cypress-io/cypress@1.1.0'
+# Orb 'cypress-io/cypress@2' resolved to 'cypress-io/cypress@2.1.0'
 version: 2
 jobs:
   cypress/run:
