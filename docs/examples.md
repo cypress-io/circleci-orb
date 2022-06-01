@@ -2,6 +2,7 @@
 
 
  - [simple](#simple) - installs NPM dependencies and runs Cypress tests
+ - [component-tests](#component-tests) - installs NPM dependencies and runs Cypress component tests
  - [recording](#recording) - Runs all Cypress tests and records them on the Cypress Dashboard
  - [parallel-on-2-machines](#parallel-on-2-machines) - Runs all Cypress tests by load balancing them on two machines
  - [yarn](#yarn) - install dependencies using Yarn
@@ -53,6 +54,22 @@ workflows:
   build:
     jobs:
       - cypress/run
+```
+
+## component-tests
+
+
+Runs all Cypress component tests without recording results on the Dashboard. Installs dependencies with "npm ci", caches NPM modules and Cypress binary. 
+
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.30.0
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          component: true
 ```
 
 ## recording

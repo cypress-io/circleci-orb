@@ -34,6 +34,7 @@ Public jobs defined in this orb that your config workflow can use. See [examples
      - config-file
      - config
      - env
+     - component
     
  - [install](#install)
      - executor
@@ -119,6 +120,17 @@ type: string
 
 
 type: string
+
+
+**`component`**
+
+> Runs component tests using --component
+
+
+type: boolean
+
+
+default: `false`
 
 
 **`config`**

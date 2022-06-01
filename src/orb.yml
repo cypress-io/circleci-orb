@@ -1,6 +1,6 @@
 version: 2.1
 description: |
-  Run your Cypress.io end-to-end browser tests without spending time configuring CircleCI.
+  Run your Cypress.io end-to-end & component tests without spending time configuring CircleCI.
   This orb can also record results on the Cypress Dashboard and load balance tests in parallel mode.
   If recording on the dashboard, set `CYPRESS_RECORD_KEY` as CI environment variable.
 
@@ -546,6 +546,11 @@ jobs:
         type: string
         default: ''
 
+      component:
+        description: Runs component tests using --component
+        type: boolean
+        default: false
+
     executor: <<parameters.executor>>
     parallelism: <<parameters.parallelism>>
 
@@ -661,6 +666,7 @@ jobs:
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
                           <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.component>> --component <</ parameters.component>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -683,6 +689,7 @@ jobs:
                           <<# parameters.config-file>> --config-file <<parameters.config-file>> <</ parameters.config-file>> \
                           <<# parameters.config>> --config <<parameters.config>> <</ parameters.config>> \
                           <<# parameters.env>> --env <<parameters.env>> <</ parameters.env>> \
+                          <<# parameters.component>> --component <</ parameters.component>> \
                           <<# parameters.record >> --record \
                             <<# parameters.group>> --group '<<parameters.group>>' <</ parameters.group>> \
                             <<# parameters.parallel>> --parallel <</ parameters.parallel>> \
@@ -811,6 +818,20 @@ examples:
         build:
           jobs:
             - cypress/run
+
+  component-tests:
+    description: |
+      Runs all Cypress component tests without recording results on the Dashboard.
+      Installs dependencies with "npm ci", caches NPM modules and Cypress binary.
+    usage:
+      version: 2.1
+      orbs:
+        cypress: cypress-io/cypress@1.30.0
+      workflows:
+        build:
+          jobs:
+            - cypress/run:
+                component: true
 
   yarn:
     description: |
