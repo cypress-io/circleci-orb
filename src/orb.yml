@@ -130,6 +130,14 @@ executors:
     docker:
       - image: cypress/base:14
 
+  base-16-14-2-slim:
+    description: |
+      Single Docker container with Node 16.14.2-slim and Cypress dependencies
+      see https://github.com/cypress-io/cypress-docker-images/tree/master/base.
+      Use example: `executor: cypress/base-16-14-2-slim`.
+    docker:
+      - image: cypress/base:16.14.2-slim
+
   browsers-chrome69:
     description: Docker container with Node 10, Cypress dependencies and Chrome 69
     docker:
@@ -171,6 +179,16 @@ executors:
     description: Docker container with Node 12.0.0, Cypress dependencies, Chrome 73 and Firefox 68.0.2
     docker:
       - image: cypress/browsers:node12.0.0-chrome73-ff68
+
+  browsers-chrome99-ff97:
+    description: Docker container with Node 16.14.0, Cypress dependencies, Chrome 99 and Firefox 97
+    docker:
+      - image: cypress/browsers:node16.14.0-chrome99-ff97
+
+  browsers-chrome100-ff99-edge:
+    description: Docker container with Node 16.14.2, Cypress dependencies, Chrome 100, Firefox 99, and the latest Edge
+    docker:
+      - image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
 
 #
 # reusable commands
