@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:16
 
     working_directory: ~/repo
 
@@ -35,4 +35,4 @@ jobs:
 workflows:
   orb_tests:
     jobs:
-    - build
+      - build
