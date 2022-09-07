@@ -105,14 +105,12 @@ After pushing, go to [GitHub releases](https://github.com/cypress-io/circleci-or
 ## Additional information
 
 - https://github.com/CircleCI-Public/circleci-orbs
-- [Orb configuration](https://github.com/CircleCI-Public/config-preview-sdk/tree/master/docs)
-- [Authoring orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md)
-- [Testing orbs](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-testing.md)
+- [Orb configuration](https://circleci.com/docs/orb-concepts#orb-configuration-elements)
+- [Authoring orbs](https://circleci.com/docs/orb-author)
+- [Testing orbs](https://circleci.com/docs/testing-orbs)
 
 ## Examples of orbs
 
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/rollbar/orb.yml
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/codecov/orb.yml
-- https://github.com/CircleCI-Public/circleci-orbs/blob/master/src/heroku/orb.yml
-
-[circleci-cli]: https://circleci.com/docs/2.0/orb-author-cli/#authoring-an-orb---circleci-cli
+- https://github.com/rollbar/rollbar-orb/blob/master/src/rollbar/orb.yml
+- https://github.com/codecov/codecov-circleci-orb/blob/master/src/%40orb.yml
+- https://github.com/CircleCI-Public/heroku-orb/
