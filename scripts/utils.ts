@@ -98,7 +98,7 @@ const inlineOrb = (workflows: string): string => {
   const intro = stripIndent`
     version: 2.1
     orbs:
-      cypress: cypress-io/cypress@1.0.0
+      cypress: cypress-io/cypress@2.2.0
   `
   const config = intro + '\n' + workflows
   const yaml = safeLoad(config)
