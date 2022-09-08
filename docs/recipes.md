@@ -253,7 +253,7 @@ orbs:
   cypress: cypress-io/cypress@2
   # for testing on Windows
   # https://circleci.com/docs/2.0/hello-world-windows/
-  win: circleci/windows@1
+  win: circleci/windows@5.0.0
 workflows:
   build:
     jobs:

@@ -43,7 +43,7 @@ Install dependencies (using `npm ci`) and run all Cypress tests:
 version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
-  # or the latest version 1.x.x using "@1" syntax
+  # or the latest version 2.x.x using "@2" syntax
   cypress: cypress-io/cypress@2
 workflows:
   build:
@@ -63,7 +63,7 @@ Install dependencies (using `npm ci`) and run all Cypress component tests:
 version: 2.1
 orbs:
   # import Cypress orb by specifying an exact version x.y.z
-  # or the latest version 1.x.x using "@1" syntax
+  # or the latest version 2.x.x using "@2" syntax
   cypress: cypress-io/cypress@2
 workflows:
   build:

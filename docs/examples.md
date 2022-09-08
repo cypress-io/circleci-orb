@@ -64,7 +64,7 @@ Runs all Cypress component tests without recording results on the Dashboard. Ins
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@2.2.0
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
