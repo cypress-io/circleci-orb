@@ -18,7 +18,7 @@ Imagine you would like to install dependencies, run Cypress tests, then publish 
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -68,7 +68,7 @@ If you want to run a single install job, then run two different unrelated test j
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -137,7 +137,7 @@ You can find a good example of using Yarn to install dependencies in [cypress-io
 # see https://github.com/cypress-io/circleci-orb
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -194,7 +194,7 @@ You can use this orb to correctly install Cypress, but run your own test command
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -224,7 +224,7 @@ If your test container needs additional containers like a Postgres database, you
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 executors:
   pg-and-hasura:
     docker:
@@ -250,7 +250,7 @@ You can combine this orb with [circleci/windows](https://circleci.com/developer/
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
   # for testing on Windows
   # https://circleci.com/docs/2.0/hello-world-windows/
   win: circleci/windows@1
@@ -289,7 +289,7 @@ You can define several workflows in the same configuration file.
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
   win: circleci/windows@2
 workflows:
   # the first workflow defines Linux jobs
@@ -320,7 +320,7 @@ You can schedule a workflow to run nightly using a [cron trigger](https://circle
 ```yml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   nightly:
     triggers:

@@ -49,7 +49,7 @@ Runs all Cypress tests without recording results on the Dashboard. Installs depe
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -64,7 +64,7 @@ Runs all Cypress component tests without recording results on the Dashboard. Ins
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1.30.0
+  cypress: cypress-io/cypress@2.2.0
 workflows:
   build:
     jobs:
@@ -80,7 +80,7 @@ Runs all Cypress tests and records them on the [Cypress Dashboard](https://on.cy
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -96,7 +96,7 @@ Runs all Cypress tests by load balancing them on two machines. Note that first a
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -118,7 +118,7 @@ Installs NPM dependencies using "yarn install --frozen-lockfile" command, then r
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -134,7 +134,7 @@ Install dependencies using your own custom command. Related parameter: [custom-v
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -150,7 +150,7 @@ Verify Cypress was installed using custom command. Default command is "npx cypre
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -166,7 +166,7 @@ Apply custom key for npm install (or yarn install) cache. Useful to tweak cachin
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -183,7 +183,7 @@ Runs all Cypress tests on Node 14 image by specifying `executor` name. There are
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -199,7 +199,7 @@ Runs tests on Chrome in a [custom-executor](#custom-executor) - a Docker image t
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 executors:
   with-chrome:
     docker:
@@ -220,7 +220,7 @@ Often we need to start a local webserver before running end-to-end tests. This o
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -236,7 +236,7 @@ Starts server, waits for it to respond and then runs all Cypress tests. Uses `np
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -253,7 +253,7 @@ Install dependencies and run a custom build command on one machine that builds t
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -276,7 +276,7 @@ Runs all tests on 4 machines using Electron browser (default). Also runs some te
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -310,7 +310,7 @@ If you want to run an entire job after running Cypress tests, you can reuse the 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 jobs:
   release:
     executor: cypress/base-10
@@ -338,7 +338,7 @@ Runs tests on Linux and on Mac via two jobs. Note how the user defines and uses 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 executors:
   mac:
     macos:
@@ -361,7 +361,7 @@ Use any executor to run the job defined by the orb, such as a custom Docker imag
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 executors:
   with-chrome:
     docker:
@@ -382,7 +382,7 @@ Set additional environment variables when running Cypress tests by adding them t
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 executors:
   base10-foo-bar:
     docker:
@@ -405,7 +405,7 @@ In this example, we write the NPM auth token before running "npm install" comman
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -425,7 +425,7 @@ Stores test results using post-steps parameter, see https://on.cypress.io/report
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -443,7 +443,7 @@ Stores test screenshots and videos as CircleCI artifacts using "store_artifacts"
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -459,7 +459,7 @@ Stores additional folders like "mochawesome-report" or code coverage folder as a
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -477,7 +477,7 @@ Use your own arbitrary command to launch Cypress tests.
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -493,7 +493,7 @@ Use your own arbitrary command to prefix default cypress run test command.
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -509,7 +509,7 @@ Faster "cypress/run" job that does not attach workspace, because there are no jo
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -525,7 +525,7 @@ This example shows how to install private NPM modules using NPM_TOKEN environmen
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -547,7 +547,7 @@ Runs all commands in a custom directory, this is useful when using a monorepo wh
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -564,7 +564,7 @@ Monorepo users may want to provide a `cache-key` parameter to key the cache with
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -588,7 +588,7 @@ It is useful to print information about the OS and found browsers using the "cyp
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -605,7 +605,7 @@ Sometimes you want to install another tool after installing regular dependencies
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -623,7 +623,7 @@ Passing additional Cypress config parameters via --config CLI argument
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -639,7 +639,7 @@ Uses non-default configuration file
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -655,7 +655,7 @@ Passing values via --env CLI argument
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -671,7 +671,7 @@ Pass tags to the dashboard
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -688,7 +688,7 @@ You may run multiple job after installing dependencies once. In that case every 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -707,7 +707,7 @@ Perform commands after checkout, but before install
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -724,7 +724,7 @@ Sometimes you want to execute only some tests on the "master" branch. This recip
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -751,7 +751,7 @@ To debug Cypress, use DEBUG=... environment variable which works via https://git
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
@@ -768,7 +768,7 @@ Runs two jobs splitting the specs in parallel using Cypress Dashboard [paralleli
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@2
 workflows:
   build:
     jobs:
