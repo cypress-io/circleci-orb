@@ -27,7 +27,7 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            - cypress-run
           context: <publishing-context>
           filters:
             branches:

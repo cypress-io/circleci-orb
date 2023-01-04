@@ -5,10 +5,7 @@ description: >
 executor: default
 
 parameters:
-  to:
-    type: string
-    default: "World"
-    description: "Hello to whome?"
 steps:
-  - greet:
-      to: << parameters.to >>
+  - run:
+      name: Run Cypress tests
+      command: <<include(scripts/run.sh)>>
