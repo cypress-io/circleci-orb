@@ -1,0 +1,8 @@
+version: 2.1
+
+description: |
+  Run your Cypress.io end-to-end & component tests without spending time configuring CircleCI
+
+display:
+  home_url: "https://cypress.io"
+  source_url: "https://github.com/cypress-io/circleci-orb"
