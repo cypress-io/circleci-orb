@@ -1,1 +1,3 @@
-node_modules/
+# orb.yml is "packed" from source, and not published directly from the repositor
+orb.yml
+.DS_Store
