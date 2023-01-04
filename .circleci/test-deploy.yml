@@ -28,7 +28,7 @@ workflows:
           requires:
             - orb-tools/pack
             - cypress-run
-          context: <publishing-context>
+          context: circleci-orb-publishing
           filters:
             branches:
               ignore: /.*/
