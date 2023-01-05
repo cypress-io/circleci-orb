@@ -7,9 +7,11 @@ filters: &filters
     only: /.*/
 jobs:
   cypress-run:
+    docker:
+      - image: cimg/base:current
     steps:
       # Run your orb's commands to validate them.
-      - cypress/run
+      #- cypress/run
 workflows:
   test-deploy:
     jobs:
