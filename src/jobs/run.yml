@@ -1,0 +1,11 @@
+description: >
+  Sample description:
+# What will this job do?
+
+executor: default
+
+parameters:
+steps:
+  - run:
+      name: Run Cypress tests
+      command: <<include(scripts/run.sh)>>
