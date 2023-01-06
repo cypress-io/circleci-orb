@@ -33,18 +33,10 @@ steps:
   - run:
       environment:
         INSTALL_COMMAND: << parameters.install-command >>
+        WORKING_DIRECTORY: << parameters.working-directory>
       name: Install
       working_directory: << parameters.working-directory >>
-      command: |
-        if [[ ! -z "<<parameters.install-command >>" ]]; then
-          <<include(scripts/run-install-command.sh)>>
-        elif [ ! -e ./yarn.lock ]; then
-          <<include(scripts/run-yarn-install.sh)>>
-        elif [ ! -e ./package-lock.json ]; then
-          <<include(scripts/run-no-lock-file-found.sh)>>
-        else
-          <<include(scripts/run-install.sh)>>
-        fi
+      command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
       condition: [ ! -e ./yarn.lock ]
