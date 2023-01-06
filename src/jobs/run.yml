@@ -1,11 +1,62 @@
 description: >
-  Sample description:
+  A single complete job to run Cypress end-to-end tests in your project.
 # What will this job do?
 
 executor: default
 
 parameters:
+  post-install:
+    description: >
+      Additional commands to run after running install
+      but before verifying Cypress and saving cache.
+    type: steps
+    default: []
+  install-command:
+    description: Overrides the default NPM command (npm ci)
+    type: string
+    default: ''
+  cache-key:
+    description: Npm cache key used to cache Cypress and it's dependencies
+    type: string
+    default: 'cache-{{ arch }}-{{ checksum "package.json" }}'
+  working-directory:
+    description: Directory containing package.json
+    type: string
+    default: ''
+
 steps:
+  - restore_cache:
+      keys:
+        - << parameters.cache-key >>
+  # we can install dependencies using "npm ci" or the
+  # user-supplied "install-command".
   - run:
-      name: Run Cypress tests
-      command: <<include(scripts/run.sh)>>
+      environment:
+        INSTALL_COMMAND: << parameters.install-command >>
+      name: Install
+      working_directory: << parameters.working-directory >>
+      command: |
+        if [[ ! -z "<<parameters.install-command >>" ]]; then
+          <<include(scripts/run-install-command.sh)>>
+        elif [ ! -e ./yarn.lock ]; then
+          <<include(scripts/run-yarn-install.sh)
+        elif [ ! -e ./package-lock.json ]; then
+          <<include(scripts/run-no-lock-file-found.sh)
+        else
+          <<include(scripts/run-install.sh)
+  - steps: << parameters.post-install >>
+  - when:
+      condition: [ ! -e ./yarn.lock ]
+      steps:
+        - save_cache:
+            key: << parameters.cache-key >>
+            paths:
+              - ~/.cache
+  - unless:
+      condition: [ ! -e ./yarn.lock ]
+      steps:
+        - save_cache:
+            key: << parameters.cache-key >>
+            paths:
+              - ~/.npm
+              - ~/.cache
