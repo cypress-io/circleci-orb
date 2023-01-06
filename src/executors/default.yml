@@ -1,4 +1,4 @@
 description: >
-  A single complete job to run Cypress tests in your project
+  Single Docker container with Node 16.16.0 and Cypress dependencies
 docker:
   - image: cypress/base:16.16.0
