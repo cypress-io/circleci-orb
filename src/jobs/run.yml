@@ -44,6 +44,7 @@ steps:
           <<include(scripts/run-no-lock-file-found.sh)
         else
           <<include(scripts/run-install.sh)
+        fi
   - steps: << parameters.post-install >>
   - when:
       condition: [ ! -e ./yarn.lock ]
