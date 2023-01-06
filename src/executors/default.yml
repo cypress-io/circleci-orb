@@ -1,12 +1,4 @@
 description: >
-  This is a sample executor using Docker and Node. If you want to provide a custom environment in your orb, insert your image here.
-  If you do not require an executor, you can simply delete this directory.
+  A single complete job to run Cypress tests in your project
 docker:
-  - image: 'cimg/node:<<parameters.tag>>'
-parameters:
-  tag:
-    default: lts
-    description: >
-      Pick a specific cimg/node image variant:
-      https://hub.docker.com/r/cimg/node/tags
-    type: string
+  - image: cypress/base:16.16.0
