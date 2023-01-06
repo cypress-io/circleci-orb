@@ -35,7 +35,7 @@ steps:
         INSTALL_COMMAND: << parameters.install-command >>
       name: Install
       working_directory: << parameters.working-directory >>
-      command: |
+      command: >
         if [[ ! -z "<<parameters.install-command >>" ]]; then
           <<include(scripts/run-install-command.sh)>>
         elif [ ! -e ./yarn.lock ]; then
