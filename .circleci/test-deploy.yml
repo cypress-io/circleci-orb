@@ -6,7 +6,16 @@ filters: &filters
   tags:
     only: /.*/
 jobs:
+  clone-kitchensink:
+    steps:
+      - run:
+          name: "Cloning kitchensink"
+          working_directory:: /tmp/kitchensink
+          command: |
+            git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
   cypress/run:
+    - parameters:
+        working-directory: /tmp/kitchensink
 
 workflows:
   test-deploy:
@@ -22,6 +31,7 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
+            - clone-kitchensink
             - cypress/run
           context: circleci-orb-publishing
           filters:
