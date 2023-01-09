@@ -25,6 +25,8 @@ workflows:
       - cloning-kitchensink:
           filters: *filters
       - cypress/run:
+          requires:
+            - cloning-kitchensink
           working-directory: /tmp/kitchensink
           filters: *filters
       - orb-tools/pack:
