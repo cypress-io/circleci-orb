@@ -25,11 +25,12 @@ parameters:
     default: ''
 
 steps:
-  # - restore_cache:
-  #     keys:
-  #       - << parameters.cache-key >>
+  - restore_cache:
+      keys:
+        - << parameters.cache-key >>
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
+  - checkout
   - run:
       environment:
         INSTALL_COMMAND: << parameters.install-command >>
