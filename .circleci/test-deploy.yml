@@ -17,6 +17,9 @@ jobs:
       - run:
           name: 'log dir'
           command: ls -l
+      - persist_to_workspace:
+          paths:
+            ~/project
     
 workflows:
   test-deploy:
