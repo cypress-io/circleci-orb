@@ -19,7 +19,7 @@ jobs:
           command: ls -l
       - persist_to_workspace:
           paths:
-            ~/project
+            - ~/project
     
 workflows:
   test-deploy:
