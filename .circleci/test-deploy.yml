@@ -15,11 +15,10 @@ jobs:
           name: "Checkout Kitchensink App"
           command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
       - run:
-          name: 'log dir'
+          name: "log dir"
           command: ls -l
       - persist_to_workspace:
-          paths:
-            - ~/project
+          root: ~/project
     
 workflows:
   test-deploy:
