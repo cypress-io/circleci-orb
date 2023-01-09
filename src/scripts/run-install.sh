@@ -24,7 +24,7 @@ elif [ -f "$PACKAGELOCK" ]; then
 else
     echo "Installing dependencies using NPM ci"
     echo "${PACKAGELOCK}"
-    cd ~/project/tmp/kitchensink || exit
+    cd ~/project/ || exit
     ls -l
     npm ci
 
