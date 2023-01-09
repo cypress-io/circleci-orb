@@ -5,3 +5,5 @@ if [ -f "$PACKAGELOCK" ]; then
 
 else
     false
+
+fi

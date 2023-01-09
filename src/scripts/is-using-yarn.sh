@@ -5,3 +5,5 @@ if [ -f "$YARN" ]; then
 
 else
     false
+
+fi
