@@ -22,7 +22,7 @@ elif [ -f "$PACKAGELOCK" ]; then
 
 else
     echo "Installing dependencies using NPM ci"
-    ls
-    npm ci
+    echo "${PACKAGELOCK}"
+    npm install
 
 fi
