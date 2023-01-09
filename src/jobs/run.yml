@@ -28,6 +28,9 @@ steps:
   - restore_cache:
       keys:
         - << parameters.cache-key >>
+  - run:
+      name: "List Working Directory"
+      command: ls -l
   - checkout
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
