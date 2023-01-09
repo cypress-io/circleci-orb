@@ -1,2 +1,7 @@
 #!/bin/bash
-true
+YARN=/${WORKING_DIRECTORY}/yarn.lock
+if [ -f "$YARN" ]; then
+    true
+
+else
+    false

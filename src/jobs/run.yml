@@ -39,25 +39,21 @@ steps:
       command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
-      condition: [true, true]
+      environment:
+        WORKING_DIRECTORY: << parameters.working-directory >>
+      condition: <<include(scripts/is-using-yarn.sh)>>
       steps:
         - save_cache:
             key: << parameters.cache-key >>
             paths:
               - ~/.cache
-
-  # - when:
-  #     condition: [ ! -e "./yarn.lock" ]
-  #     steps:
-  #       - save_cache:
-  #           key: << parameters.cache-key >>
-  #           paths:
-  #             - ~/.cache
-  # - unless:
-  #     condition: [ ! -e "./yarn.lock" ]
-  #     steps:
-  #       - save_cache:
-  #           key: << parameters.cache-key >>
-  #           paths:
-  #             - ~/.npm
-  #             - ~/.cache
+  - when:
+      environment:
+        WORKING_DIRECTORY: << parameters.working-directory >>
+      condition: <<include(scripts/is-using-npm.sh)>>
+      steps:
+        - save_cache:
+            key: << parameters.cache-key >>
+            paths:
+              - ~/.cache
+              - ~/.npm
