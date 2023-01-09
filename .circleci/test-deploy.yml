@@ -13,9 +13,9 @@ jobs:
     steps:
       - run:
           name: "Cloning kitchensink"
-          working_directory: /tmp/kitchensink
+          working_directory: /tmp
           command: |
-            git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
+            git clone https://github.com/cypress-io/cypress-example-kitchensink.git kitchensink
             ls
   cypress/run:
     
