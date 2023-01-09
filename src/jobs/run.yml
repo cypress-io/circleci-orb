@@ -39,7 +39,7 @@ steps:
       command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
-      condition: [true, <<include(scripts/is-using-yarn.sh)>>]
+      condition: [true, true]
       steps:
         - save_cache:
             key: << parameters.cache-key >>
