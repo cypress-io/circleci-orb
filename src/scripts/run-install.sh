@@ -2,6 +2,7 @@
 YARN=/${WORKING_DIRECTORY}/yarn.lock
 PACKAGELOCK=/${WORKING_DIRECTORY}/package-lock.json
 
+
 echo "${WORKING_DIRECTORY}"
 
 if [ "${INSTALL_COMMAND}" ]; then
@@ -23,6 +24,8 @@ elif [ -f "$PACKAGELOCK" ]; then
 else
     echo "Installing dependencies using NPM ci"
     echo "${PACKAGELOCK}"
+    cd WORKING_DIRECTORY
+    ls -l
     npm ci
 
 fi
