@@ -2,6 +2,9 @@
 YARN=/${WORKING_DIRECTORY}/yarn.lock
 PACKAGELOCK=/${WORKING_DIRECTORY}/package-lock.json
 
+echo $WORKING_DIRECTORY
+echo $PACKAGELOCK
+
 if [ "${INSTALL_COMMAND}" ]; then
     echo "Installing using custom command"
     echo "${INSTALL_COMMAND}"
