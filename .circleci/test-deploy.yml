@@ -5,6 +5,8 @@ orbs:
 filters: &filters
   tags:
     only: /.*/
+jobs:
+  cypress/run:
     
 workflows:
   test-deploy:
