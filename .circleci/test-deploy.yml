@@ -14,7 +14,6 @@ jobs:
       - run:
           name: "Checkout Kitchensink App"
           command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
-      - cypress/run
     
 workflows:
   test-deploy:
@@ -22,6 +21,10 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - testing-kitchensink:
           filters: *filters
+      - cypress/run:
+          requires:
+            - testing-kitchensink
+          working-directory: ~/project/cypress-example-kitchensink
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
