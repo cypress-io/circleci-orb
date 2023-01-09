@@ -5,7 +5,7 @@ orbs:
 filters: &filters
   tags:
     only: /.*/
-jobs:
+commands:
   clone-kitchensink:
     steps:
       - run:
@@ -13,6 +13,8 @@ jobs:
           working_directory:: /tmp/kitchensink
           command: |
             git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
+jobs:
+  clone-kitchensink:
   cypress/run:
     - parameters:
         working-directory: /tmp/kitchensink
