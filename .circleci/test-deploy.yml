@@ -22,6 +22,7 @@ workflows:
       - testing-kitchensink:
           filters: *filters
       - cypress/run:
+          working-directory: ~/project
           requires:
             - testing-kitchensink
       - orb-tools/pack:
