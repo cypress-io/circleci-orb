@@ -1,6 +1,6 @@
 #!/bin/bash
-YARN=/${WORKING_DIRECTORY}/yarn.lock
-PACKAGELOCK=/${WORKING_DIRECTORY}/package-lock.json
+YARN=${WORKING_DIRECTORY}/yarn.lock
+PACKAGELOCK=${WORKING_DIRECTORY}/package-lock.json
 
 
 echo "${WORKING_DIRECTORY}"
@@ -24,7 +24,7 @@ elif [ -f "$PACKAGELOCK" ]; then
 else
     echo "Installing dependencies using NPM ci"
     echo "${PACKAGELOCK}"
-    cd "${WORKING_DIRECTORY}" || exit
+    cd /tmp/kitchensink || exit
     ls -l
     npm ci
 
