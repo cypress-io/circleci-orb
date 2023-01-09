@@ -33,7 +33,7 @@ steps:
   - run:
       environment:
         INSTALL_COMMAND: << parameters.install-command >>
-        WORKING_DIRECTORY: << parameters.working-directory>
+        WORKING_DIRECTORY: << parameters.working-directory >>
       name: Install
       working_directory: << parameters.working-directory >>
       command: <<include(scripts/run-install.sh)>>
