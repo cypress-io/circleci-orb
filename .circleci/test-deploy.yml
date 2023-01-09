@@ -13,14 +13,14 @@ jobs:
     steps:
       - run:
           name: "Checkout Kitchensink App"
-          command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project/kitchensink
+          command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
       - run:
           name: "log dir"
           command: ls -l
       - persist_to_workspace:
-          root: /home/circleci/project
+          root: /home/circleci
           paths:
-            - kitchensink
+            - project
     
 workflows:
   test-deploy:
