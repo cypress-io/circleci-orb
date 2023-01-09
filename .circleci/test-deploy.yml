@@ -24,7 +24,6 @@ workflows:
       - cypress/run:
           requires:
             - testing-kitchensink
-          working-directory: ~/project/cypress-example-kitchensink
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:

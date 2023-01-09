@@ -20,6 +20,7 @@ elif [ -f "$PACKAGELOCK" ]; then
 
 else
     echo "Installing dependencies using NPM ci"
+    echo "Install in ${WORKING_DIRECTORY}"
     npm ci
 
 fi
