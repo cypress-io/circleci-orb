@@ -5,25 +5,18 @@ orbs:
 filters: &filters
   tags:
     only: /.*/
-commands:
-  clone-kitchensink:
-    steps:
-      - run:
-          name: "Cloning kitchensink"
-          working_directory:: /tmp/kitchensink
-          command: |
-            git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
-jobs:
-  clone-kitchensink:
-  cypress/run:
-    - parameters:
-        working-directory: /tmp/kitchensink
-
+    
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - run:
+          name: "Cloning kitchensink"
+          working_directory: /tmp/kitchensink
+          command: |
+            git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
       - cypress/run:
+          working-directory: /tmp/kitchensink
           filters: *filters
       - orb-tools/pack:
           filters: *filters
@@ -33,7 +26,6 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - clone-kitchensink
             - cypress/run
           context: circleci-orb-publishing
           filters:
