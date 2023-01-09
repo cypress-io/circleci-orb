@@ -31,7 +31,8 @@ steps:
   - run:
       name: "List Working Directory"
       command: ls -l
-  - checkout
+  - checkout:
+      working_directory: << parameters.working-directory >>
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
   - run:
