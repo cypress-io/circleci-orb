@@ -18,7 +18,9 @@ jobs:
           name: "log dir"
           command: ls -l
       - persist_to_workspace:
-          root: ~/project
+          root: /home/circleci
+          paths:
+            - /project
     
 workflows:
   test-deploy:
