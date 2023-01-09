@@ -16,7 +16,6 @@ jobs:
           working_directory: /tmp/kitchensink
           command: |
             git clone https://github.com/cypress-io/cypress-example-kitchensink.git .
-            ls
   cypress/run:
     
 workflows:
