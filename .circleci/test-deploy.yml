@@ -35,6 +35,11 @@ jobs:
       #     environment:
       #       CYPRESS_INTERNAL_FORCE_SCAFFOLD: "1"
       #     command: rm -rf cypress.json
+
+      - run:
+          name: "log dir"
+          command: ls -l
+
       - run:
           name: Install prod dependencies
           command: yarn --production
