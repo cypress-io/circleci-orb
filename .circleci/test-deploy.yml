@@ -65,7 +65,7 @@ jobs:
           name: Run Kitchensink example project
           working_directory: /tmp/cypress-example-kitchensink
           command: |
-            yarn cypress:run --project /tmp/cypress-example-kitchensink
+            yarn cy:run --project /tmp/cypress-example-kitchensink
     
 workflows:
   test-deploy:
