@@ -24,7 +24,9 @@ jobs:
 
     steps:
       # - restore_cached_workspace
-      - command: git clone --depth 1 --no-single-branch https://github.com/cypress-io/cypress-example-kitchensink.git .
+      - run:
+          name: "Checkout Kitchensink App"
+          command: git clone --depth 1 --no-single-branch https://github.com/cypress-io/cypress-example-kitchensink.git .
       # - clone-repo-and-checkout-branch:
       #     repo: cypress-example-kitchensink
       # - install-required-node
