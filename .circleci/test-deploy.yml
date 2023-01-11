@@ -8,8 +8,8 @@ filters: &filters
 
 jobs:
   testing-kitchensink:
-    # docker:
-    #   - image: 'cimg/node:lts'
+    docker:
+      - image: 'cimg/node:lts'
     # steps:
     #   - run:
     #       name: "Checkout Kitchensink App"
