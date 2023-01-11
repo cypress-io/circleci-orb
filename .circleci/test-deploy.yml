@@ -41,7 +41,7 @@ jobs:
 
       - run:
           name: "log dir"
-          command: pwd
+          # /home/circleci/project 👈 we're here
           command: ls
 
       - run:
