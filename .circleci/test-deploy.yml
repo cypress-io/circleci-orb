@@ -63,6 +63,7 @@ jobs:
       #       fi
       - run:
           name: Run Kitchensink example project
+          working_directory: /tmp/cypress-example-kitchensink
           command: |
             yarn cypress:run --project /tmp/cypress-example-kitchensink
     
