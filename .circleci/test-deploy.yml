@@ -40,7 +40,7 @@ jobs:
 
       - run:
           name: "log dir"
-          command: ls -l
+          command: cwd
 
       - run:
           name: Install prod dependencies
