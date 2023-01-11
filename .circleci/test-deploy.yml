@@ -42,6 +42,7 @@ jobs:
       - run:
           name: "log dir"
           # /home/circleci/project 👈 we're here
+          working_directory: /tmp/cypress-example-kitchensink
           command: ls -l
 
       - run:
