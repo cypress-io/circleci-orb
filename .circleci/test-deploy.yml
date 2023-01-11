@@ -42,7 +42,7 @@ jobs:
       - run:
           name: "log dir"
           # /home/circleci/project 👈 we're here
-          command: ls
+          command: ls -l
 
       - run:
           name: Install prod dependencies
