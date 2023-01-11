@@ -26,6 +26,7 @@ jobs:
       # - restore_cached_workspace
       - run:
           name: "Checkout Kitchensink App"
+          working_directory: /tmp/cypress-example-kitchensink
           command: git clone --depth 1 --no-single-branch https://github.com/cypress-io/cypress-example-kitchensink.git .
       # - clone-repo-and-checkout-branch:
       #     repo: cypress-example-kitchensink
@@ -40,7 +41,7 @@ jobs:
 
       - run:
           name: "log dir"
-          command: cwd
+          command: pwd
 
       - run:
           name: Install prod dependencies
