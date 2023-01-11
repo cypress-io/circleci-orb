@@ -47,11 +47,11 @@ jobs:
 
       - run:
           name: Install prod dependencies
-          command: yarn --production
+          command: npm install --production
           working_directory: /tmp/cypress-example-kitchensink
       - run:
           name: Example server
-          command: yarn start
+          command: npm run start
           working_directory: /tmp/cypress-example-kitchensink
           background: true
       # - run:
@@ -65,7 +65,7 @@ jobs:
           name: Run Kitchensink example project
           working_directory: /tmp/cypress-example-kitchensink
           command: |
-            yarn cy:run --project /tmp/cypress-example-kitchensink
+            npx cypress run 
     
 workflows:
   test-deploy:
