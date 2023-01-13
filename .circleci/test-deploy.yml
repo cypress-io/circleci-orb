@@ -6,67 +6,62 @@ filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  testing-kitchensink:
+# setup environment
+# move/confirm we're in the correct project location(working dir)
+# check out code? 
+# check cache, otherwise
+# install cypress
+# save cache
+# run commands to assert project ran appropriately
+
+  jobs:
     docker:
       - image: 'cimg/node:lts'
+
+      - run:
+          name: "log dir before setting working_directory"
+          # /home/circleci/project 👈 we're here
+          working_directory: ~/repo
+          command: ls -l
+
+    # working_directory: ~/repo
+
+      - run:
+          name: "log dir after setting working_directory"
+          # /home/circleci/project 👈 we're here
+          working_directory: ~/repo/examples/yarn-install-project
+          command: ls -l
+
+    steps:
+      # - checkout
+      #   - checkout:
+      #      path: ~/repo
+
+      # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "package.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - v1-dependencies-
+
+      - run: yarn install --frozen-lockfile
+
+      # - save_cache:
+          # paths:
+          #   - node_modules
+          # key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: yarn test
+    
     # steps:
-    #   - run:
-    #       name: "Checkout Kitchensink App"
-    #       command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
-    #   - run:
-    #       name: "log dir"
-    #       command: ls -l
     #   - persist_to_workspace:
     #       root: /home/circleci
     #       paths:
     #         - project
 
-    steps:
       # - restore_cached_workspace
-      - run:
-          name: "Checkout Kitchensink App"
-          working_directory: /tmp/cypress-example-kitchensink
-          command: git clone --depth 1 --no-single-branch https://github.com/cypress-io/cypress-example-kitchensink.git .
-      # - clone-repo-and-checkout-branch:
-      #     repo: cypress-example-kitchensink
-      # - install-required-node
-      # - run:
-      #     name: Remove cypress.json
-      #     description: Remove cypress.json in case it exists
-      #     working_directory: /tmp/cypress-example-kitchensink
-      #     environment:
-      #       CYPRESS_INTERNAL_FORCE_SCAFFOLD: "1"
-      #     command: rm -rf cypress.json
-
-      - run:
-          name: "log dir"
-          # /home/circleci/project 👈 we're here
-          working_directory: /tmp/cypress-example-kitchensink
-          command: ls -l
-
-      - run:
-          name: Install prod dependencies
-          command: npm install --production
-          working_directory: /tmp/cypress-example-kitchensink
-      - run:
-          name: Example server
-          command: npm run start
-          working_directory: /tmp/cypress-example-kitchensink
-          background: true
-      # - run:
-      #     name: Rename support file
-      #     working_directory: /tmp/cypress-example-kitchensink
-      #     command: |
-      #       if [[ -f cypress/support/index.js ]]; then
-      #         mv cypress/support/index.js cypress/support/e2e.js
-      #       fi
-      - run:
-          name: Run Kitchensink example project
-          working_directory: /tmp/cypress-example-kitchensink
-          command: |
-            npx cypress run 
-    
+      
 workflows:
   test-deploy:
     jobs:
@@ -75,8 +70,8 @@ workflows:
           filters: *filters
       - cypress/run:
           working-directory: ~/project
-          requires:
-            - testing-kitchensink
+          # requires:
+          #   - testing-kitchensink
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
