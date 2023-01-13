@@ -15,52 +15,53 @@ filters: &filters
 # run commands to assert project ran appropriately
 
   jobs:
-    docker:
-      - image: 'cimg/node:lts'
+    build:
+      docker:
+        - image: 'cimg/node:lts'
 
-      - run:
-          name: "log dir before setting working_directory"
-          # /home/circleci/project 👈 we're here
-          working_directory: ~/repo
-          command: ls -l
+        - run:
+            name: "log dir before setting working_directory"
+            # /home/circleci/project 👈 we're here
+            working_directory: ~/repo
+            command: ls -l
 
-    # working_directory: ~/repo
+      # working_directory: ~/repo
 
-      - run:
-          name: "log dir after setting working_directory"
-          # /home/circleci/project 👈 we're here
-          working_directory: ~/repo/examples/yarn-install-project
-          command: ls -l
+        - run:
+            name: "log dir after setting working_directory"
+            # /home/circleci/project 👈 we're here
+            working_directory: ~/repo/examples/yarn-install-project
+            command: ls -l
 
-    steps:
-      # - checkout
-      #   - checkout:
-      #      path: ~/repo
+      steps:
+        # - checkout
+        #   - checkout:
+        #      path: ~/repo
 
-      # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "package.json" }}
-      #       # fallback to using the latest cache if no exact match is found
-      #       - v1-dependencies-
+        # Download and cache dependencies
+        # - restore_cache:
+        #     keys:
+        #       - v1-dependencies-{{ checksum "package.json" }}
+        #       # fallback to using the latest cache if no exact match is found
+        #       - v1-dependencies-
 
-      - run: yarn install --frozen-lockfile
+        - run: yarn install --frozen-lockfile
 
-      # - save_cache:
-          # paths:
-          #   - node_modules
-          # key: v1-dependencies-{{ checksum "package.json" }}
+        # - save_cache:
+            # paths:
+            #   - node_modules
+            # key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: yarn test
-    
-    # steps:
-    #   - persist_to_workspace:
-    #       root: /home/circleci
-    #       paths:
-    #         - project
+        # run tests!
+        - run: yarn test
+      
+      # steps:
+      #   - persist_to_workspace:
+      #       root: /home/circleci
+      #       paths:
+      #         - project
 
-      # - restore_cached_workspace
+        # - restore_cached_workspace
       
 workflows:
   test-deploy:
@@ -70,8 +71,8 @@ workflows:
           filters: *filters
       - cypress/run:
           working-directory: ~/project
-          # requires:
-          #   - testing-kitchensink
+          requires:
+            - build
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
