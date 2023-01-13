@@ -19,6 +19,8 @@ filters: &filters
       docker:
         - image: 'cimg/node:lts'
 
+      steps:
+
         - run:
             name: "log dir before setting working_directory"
             # /home/circleci/project 👈 we're here
@@ -32,8 +34,6 @@ filters: &filters
             # /home/circleci/project 👈 we're here
             working_directory: ~/repo/examples/yarn-install-project
             command: ls -l
-
-      steps:
         # - checkout
         #   - checkout:
         #      path: ~/repo
@@ -67,7 +67,7 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - testing-kitchensink:
+      - build:
           filters: *filters
       - cypress/run:
           working-directory: ~/project
