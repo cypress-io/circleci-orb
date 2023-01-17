@@ -2,7 +2,6 @@
   "name": "npm-install-project",
   "version": "1.0.0",
   "description": "basic example how to run Cypress tests",
-  "main": "index.js",
   "scripts": {
     "test": "cypress run"
   },
