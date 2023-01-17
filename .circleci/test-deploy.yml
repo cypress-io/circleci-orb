@@ -7,20 +7,14 @@ filters: &filters
     only: /.*/
 
 jobs:
-  testing-kitchensink:
-    docker:
-      - image: 'cimg/node:lts'
+  build:
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
+      - checkout
       - run:
-          name: "Checkout Kitchensink App"
-          command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
-      - run:
-          name: "log dir"
-          command: ls -l
-      - persist_to_workspace:
-          root: /home/circleci
-          paths:
-            - project
+          name: "Testing"
+          command: echo "Hi"
     
 workflows:
   test-deploy:
@@ -31,7 +25,7 @@ workflows:
       - cypress/run:
           working-directory: ~/project
           requires:
-            - testing-kitchensink
+            - build
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
