@@ -1,3 +1,4 @@
+#!/bin/bash
 YARN=${WORKING_DIRECTORY}/yarn.lock
 PACKAGELOCK=${WORKING_DIRECTORY}/package-lock.json
 
