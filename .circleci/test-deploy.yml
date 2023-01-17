@@ -6,29 +6,12 @@ filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  # Create a job to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
-  test-example-app:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      # Run your orb's commands to validate them!
-      - run:
-          name: "log dir"
-          command: ls -l
-
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - test-example-app:
-          filters: *filters
       - cypress/run:
           filters: *filters
-          requires:
-            - test-example-app
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
