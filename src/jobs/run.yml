@@ -25,14 +25,14 @@ parameters:
     default: ''
 
 steps:
-  - restore_cache:
-      keys:
-        - << parameters.cache-key >>
+  - checkout:
+      working_directory: << parameters.working-directory >>
   - run:
       name: "List Working Directory"
       command: ls -l
-  - checkout:
-      working_directory: << parameters.working-directory >>
+  - restore_cache:
+      keys:
+        - << parameters.cache-key >>
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
   - run:
@@ -44,18 +44,16 @@ steps:
       command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
-      environment:
-        WORKING_DIRECTORY: << parameters.working-directory >>
-      condition: <<include(scripts/is-using-yarn.sh)>>
+      condition:
+        equal: [ "true", -f <<parameters.working-directory>>/yarn.lock ]
       steps:
         - save_cache:
             key: << parameters.cache-key >>
             paths:
               - ~/.cache
-  - when:
-      environment:
-        WORKING_DIRECTORY: << parameters.working-directory >>
-      condition: <<include(scripts/is-using-npm.sh)>>
+  - unless:
+      condition:
+        equal: [ "true", -f <<parameters.working-directory>>/yarn.lock ]
       steps:
         - save_cache:
             key: << parameters.cache-key >>

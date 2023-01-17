@@ -6,32 +6,12 @@ filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  testing-kitchensink:
-    docker:
-      - image: 'cimg/node:lts'
-    steps:
-      - run:
-          name: "Checkout Kitchensink App"
-          command: git clone https://github.com/cypress-io/cypress-example-kitchensink.git ~/project
-      - run:
-          name: "log dir"
-          command: ls -l
-      - persist_to_workspace:
-          root: /home/circleci
-          paths:
-            - project
-    
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - testing-kitchensink:
-          filters: *filters
       - cypress/run:
-          working-directory: ~/project
-          requires:
-            - testing-kitchensink
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -40,7 +20,6 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - testing-kitchensink
           context: circleci-orb-publishing
           filters:
             branches:
