@@ -10,6 +10,7 @@ if [ "${INSTALL_COMMAND}" ]; then
 elif [ -f "$YARN" ]; then
     echo "Installing using Yarn"
     echo "yarn install --frozen-lockfile"
+    echo "Install in ${WORKING_DIRECTORY}"
     yarn install --frozen-lockfile
 
 elif [ -f "$PACKAGELOCK" ]; then
