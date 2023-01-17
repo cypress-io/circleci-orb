@@ -15,6 +15,9 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them!
+      - run:
+          name: "log dir"
+          command: ls -l
 
 workflows:
   test-deploy:
