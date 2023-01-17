@@ -7,25 +7,22 @@ filters: &filters
     only: /.*/
 
 jobs:
-  build:
-    machine:
-      image: ubuntu-2004:202010-01
+  # Create a job to test the commands of your orbs.
+  # You may want to add additional validation steps to ensure the commands are working as expected.
+  test-example-app:
+    docker:
+      - image: cimg/base:current
     steps:
       - checkout
-      - run:
-          name: "Testing"
-          command: echo "Hi"
+      # Run your orb's commands to validate them.
+      - cypress/run
     
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - testing-kitchensink:
+      - test-example-app:
           filters: *filters
-      - cypress/run:
-          working-directory: ~/project
-          requires:
-            - build
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
