@@ -35,41 +35,13 @@ steps:
         - << parameters.cache-key >>
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
-  # - run:
-  #     environment:
-  #       INSTALL_COMMAND: << parameters.install-command >>
-  #       WORKING_DIRECTORY: << parameters.working-directory >>
-  #     name: Install
-  #     working_directory: << parameters.working-directory >>
-  #     command: <<include(scripts/run-install.sh)>>
-  - when:
-      condition:
-        equal: [ "true", ! -z "<<parameters.install-command>>" ]
-      steps:
-        run:
-          name: 'Custom Install'
-          command: <<parameters.install-command>>
-  - when:
-      condition:
-        equal: [ "true", -f <<parameters.working-directory>>/yarn.lock ]
-      steps:
-        run:
-          name: 'Yarn Install'
-          command: 'yarn install --frozen-lockfile'
-  - when:
-      condition:
-        equal: [ "false", -f <<parameters.working-directory>>/package-lock.json ]
-      steps:
-        run:
-          name: 'No Package Lock File Found'
-          command: exit 1
-  - unless:
-      condition:
-        equal: [ "false", -f <<parameters.working-directory>>/package-lock.json ]
-      steps:
-        run:
-          name: 'Npm CI'
-          command: 'npm ci'
+  - run:
+      environment:
+        INSTALL_COMMAND: << parameters.install-command >>
+        WORKING_DIRECTORY: << parameters.working-directory >>
+      name: Install
+      working_directory: << parameters.working-directory >>
+      command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
       condition:
