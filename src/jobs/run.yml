@@ -24,22 +24,21 @@ parameters:
     type: string
     default: ''
 
-working_directory: << parameters.working-directory >>
 steps:
   - checkout
   - run:
       name: "List Working Directory"
       command: ls -l
   - restore_cache:
-      keys:
-        - << parameters.cache-key >>
+      key: << parameters.cache-key >>
+      path: << parameters.working-directory >>
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
   - run:
       environment:
         INSTALL_COMMAND: << parameters.install-command >>
       name: Install
-      # working_directory: << parameters.working-directory >>
+      working_directory: << parameters.working-directory >>
       command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
