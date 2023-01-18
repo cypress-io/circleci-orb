@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ "${INSTALL_COMMAND}" ]; then
     echo "Installing using custom command"
     echo "${INSTALL_COMMAND}"
