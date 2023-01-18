@@ -7,13 +7,17 @@ echo "${DIR}"
 if [ "${INSTALL_COMMAND}" ]; then
     echo "Installing using custom command"
     echo "${INSTALL_COMMAND}"
-    cd "${DIR}" || exit 1
+    ls -l
+    cd "examples/custom-install" || exit 1
+    ls -l
     ${INSTALL_COMMAND}
 
 elif [ -f "${DIR}/yarn.lock" ]; then
     echo "Installing using Yarn"
     echo "yarn install --frozen-lockfile"
-    cd "${DIR}" || exit 1
+    ls -l
+    cd "examples/yarn" || exit 1
+    ls -l
     yarn install --frozen-lockfile
 
 elif [ ! -f "${DIR}/package-lock.json" ]; then
@@ -25,7 +29,9 @@ elif [ ! -f "${DIR}/package-lock.json" ]; then
 else
     echo "Installing dependencies using NPM ci"
     echo "Install in ${WORKING_DIRECTORY}"
-    cd "${DIR}" || exit 1
+    ls -l
+    cd "examples/simple" || exit 1
+    ls -l
     npm ci
 
 fi
