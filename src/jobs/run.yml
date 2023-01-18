@@ -29,7 +29,7 @@ steps:
       working_directory: << parameters.working-directory >>
   - run:
       name: "List Working Directory"
-      command: ls -l
+      command: cd << parameters.working-directory>> && ls -l
   - restore_cache:
       keys:
         - << parameters.cache-key >>
