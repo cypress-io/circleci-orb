@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=${WORKING_DIRECTORY}
+DIR="./${WORKING_DIRECTORY}"
 
 echo "${DIR}"
 
