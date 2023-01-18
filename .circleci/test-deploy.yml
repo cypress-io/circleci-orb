@@ -12,13 +12,13 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - cypress/run:
           filters: *filters
-          working-directory: examples/simple
+          working_directory: examples/simple
       - cypress/run:
           filters: *filters
-          working-directory: examples/yarn
+          working_directory: examples/yarn
       - cypress/run:
           filters: *filters
-          working-directory: examples/custom-install
+          working_directory: examples/custom-install
           install-command: npm run custom-install
       - orb-tools/pack:
           filters: *filters
