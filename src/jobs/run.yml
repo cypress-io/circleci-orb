@@ -18,7 +18,7 @@ parameters:
   cache-key:
     description: Npm cache key used to cache Cypress and it's dependencies
     type: string
-    default: 'cache-{{ arch }}-{{ checksum "<< parameters.working-directory >>/package.json" }}'
+    default: 'cache-{{ arch }}-{{ checksum "package.json" }}'
   working-directory:
     description: Directory containing package.json
     type: string
