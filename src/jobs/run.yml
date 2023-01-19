@@ -24,7 +24,6 @@ parameters:
     type: string
     default: ''
 
-working_directory: << parameters.working-directory >>
 steps:
   - checkout
   - run:
