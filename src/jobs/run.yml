@@ -25,8 +25,7 @@ parameters:
     default: ''
 
 steps:
-  - checkout:
-      working_directory: << parameters.working-directory >>
+  - checkout
   - run:
       name: "List Working Directory"
       command: ls -l

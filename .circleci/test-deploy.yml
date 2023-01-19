@@ -13,13 +13,16 @@ workflows:
       - cypress/run:
           filters: *filters
           working-directory: examples/simple
+          cache-key: cache-{{ arch }}-{{ checksum "examples/simple/package.json" }}
       - cypress/run:
           filters: *filters
           working-directory: examples/yarn
+          cache-key: cache-{{ arch }}-{{ checksum "examples/yarn/package.json" }}
       - cypress/run:
           filters: *filters
           working-directory: examples/custom-install
           install-command: npm run custom-install
+          cache-key: cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
