@@ -24,6 +24,7 @@ parameters:
     type: string
     default: ''
 
+working_directory: << parameters.working-directory >>
 steps:
   - checkout
   - run:
@@ -41,7 +42,6 @@ steps:
       command: <<include(scripts/run-install.sh)>>
   - steps: << parameters.post-install >>
   - when:
-      working_directory: << parameters.working-directory >>
       condition:
         equal: [ "true", -f yarn.lock ]
       steps:
@@ -50,7 +50,6 @@ steps:
             paths:
               - ~/.cache
   - unless:
-      working_directory: << parameters.working-directory >>
       condition:
         equal: [ "true", -f yarn.lock ]
       steps:
