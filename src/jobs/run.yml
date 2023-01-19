@@ -18,7 +18,7 @@ parameters:
   cache-key:
     description: Npm cache key used to cache Cypress and it's dependencies
     type: string
-    default: 'cache-{{ arch }}-{{ checksum "<< parameters.working-directory >>/package.json" }}'
+    default: 'cache-{{ arch }}-{{ checksum "package.json" }}'
   working-directory:
     description: Directory containing package.json
     type: string
@@ -30,7 +30,7 @@ steps:
       name: "List Working Directory"
       command: ls -l
   - restore_cache:
-      key: << parameters.cache-key >>
+      key: cache-{{ arch }}-{{ checksum "<< parameters.working-directory >>/package.json" }}
   # we can install dependencies using "npm ci" or the
   # user-supplied "install-command".
   - run:
@@ -45,7 +45,7 @@ steps:
         equal: [ "true", -f yarn.lock ]
       steps:
         - save_cache:
-            key: << parameters.cache-key >>
+            key: cache-{{ arch }}-{{ checksum "<< parameters.working-directory >>/package.json" }}
             paths:
               - ~/.cache
   - unless:
