@@ -23,7 +23,7 @@ parameters:
     description: Directory containing package.json
     type: string
     default: ''
-  pkg-manager:
+  package-manager:
     type: enum
     enum: ['npm', 'yarn', 'yarn-berry']
     default: 'npm'
@@ -42,4 +42,4 @@ steps:
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
-      pkg-manager: << parameters.pkg-manager >>
+      pkg-manager: << parameters.package-manager >>

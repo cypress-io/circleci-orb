@@ -20,7 +20,7 @@ workflows:
           name: Yarn Example
           working-directory: examples/yarn
           cache-key: cache-{{ arch }}-{{ checksum "examples/yarn/package.json" }}
-          pkg-manager: 'yarn'
+          package-manager: 'yarn'
       - cypress/run:
           filters: *filters
           name: Custom Install Example
