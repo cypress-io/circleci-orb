@@ -18,6 +18,7 @@ workflows:
           filters: *filters
           working-directory: examples/yarn
           cache-key: cache-{{ arch }}-{{ checksum "examples/yarn/package.json" }}
+          pkg-manager: 'yarn'
       - cypress/run:
           filters: *filters
           working-directory: examples/custom-install

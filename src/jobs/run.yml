@@ -23,6 +23,11 @@ parameters:
     description: Directory containing package.json
     type: string
     default: ''
+  pkg-manager:
+    type: enum
+    enum: ['npm', 'yarn', 'yarn-berry']
+    default: 'npm'
+    description: Select the default node package manager to use. NPM v5+ Required.
 
 steps:
   - checkout
@@ -32,6 +37,8 @@ steps:
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
+      pkg-manager: << parameters.pkg-manager >>
+      
 
 
   # - restore_cache:
