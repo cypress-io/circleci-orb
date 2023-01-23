@@ -29,31 +29,35 @@ steps:
   - run:
       name: "List Working Directory"
       command: ls -l
-  - restore_cache:
-      key: << parameters.cache-key >>
-  # we can install dependencies using "npm ci" or the
-  # user-supplied "install-command".
-  - run:
-      environment:
-        INSTALL_COMMAND: << parameters.install-command >>
-      name: Install
-      working_directory: << parameters.working-directory >>
-      command: <<include(scripts/run-install.sh)>>
-  - steps: << parameters.post-install >>
-  - when:
-      condition:
-        equal: [ "true", -f yarn.lock ]
-      steps:
-        - save_cache:
-            key: << parameters.cache-key >>
-            paths:
-              - ~/.cache
-  - unless:
-      condition:
-        equal: [ "true", -f yarn.lock ]
-      steps:
-        - save_cache:
-            key: << parameters.cache-key >>
-            paths:
-              - ~/.cache
-              - ~/.npm
+  - node/install:
+      override-ci-command: << parameters.install-command >>
+      app-dir: << parameters.working-directory >>
+  
+  # - restore_cache:
+  #     key: << parameters.cache-key >>
+  # # we can install dependencies using "npm ci" or the
+  # # user-supplied "install-command".
+  # - run:
+  #     environment:
+  #       INSTALL_COMMAND: << parameters.install-command >>
+  #     name: Install
+  #     working_directory: << parameters.working-directory >>
+  #     command: <<include(scripts/run-install.sh)>>
+  # - steps: << parameters.post-install >>
+  # - when:
+  #     condition:
+  #       equal: [ "true", -f yarn.lock ]
+  #     steps:
+  #       - save_cache:
+  #           key: << parameters.cache-key >>
+  #           paths:
+  #             - ~/.cache
+  # - unless:
+  #     condition:
+  #       equal: [ "true", -f yarn.lock ]
+  #     steps:
+  #       - save_cache:
+  #           key: << parameters.cache-key >>
+  #           paths:
+  #             - ~/.cache
+  #             - ~/.npm
