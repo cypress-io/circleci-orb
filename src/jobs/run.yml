@@ -16,9 +16,14 @@ parameters:
     type: string
     default: ''
   cache-key:
-    description: Npm cache key used to cache Cypress and it's dependencies
+    description: Cache key used to cache the Cypress binary.
     type: string
     default: 'cache-{{ arch }}-{{ checksum "package.json" }}'
+  cache-path:
+    description: |
+        By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
+    type: string
+    default: '~/.cache'
   working-directory:
     description: Directory containing package.json
     type: string
@@ -34,12 +39,13 @@ steps:
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cache-key >>
-  - save_cache:
-      name: Save Cypress Binary
-      key: << parameters.cache-key >>
-      paths:
-        - ~/.cache
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
       pkg-manager: << parameters.package-manager >>
+  # run cypress
+  - save_cache:
+      name: Save Cypress Binary
+      key: << parameters.cache-key >>
+      paths:
+        - << parameters.cache-path >>
