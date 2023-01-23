@@ -9,4 +9,4 @@ display:
 
 # if our orb requires other orbs, we can import them like this. Otherwise remove the "orbs" stanza.
 orbs:
-  run: circleci/node@5
+  node: circleci/node@5

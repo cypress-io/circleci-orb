@@ -29,10 +29,11 @@ steps:
   - run:
       name: "List Working Directory"
       command: ls -l
-  - node/install:
+  - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
-  
+
+
   # - restore_cache:
   #     key: << parameters.cache-key >>
   # # we can install dependencies using "npm ci" or the
