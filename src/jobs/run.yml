@@ -38,8 +38,6 @@ steps:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
       pkg-manager: << parameters.pkg-manager >>
-      
-
 
   # - restore_cache:
   #     key: << parameters.cache-key >>
