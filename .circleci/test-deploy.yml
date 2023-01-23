@@ -12,15 +12,18 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - cypress/run:
           filters: *filters
+          name: Standard Npm Example
           working-directory: examples/simple
           cache-key: cache-{{ arch }}-{{ checksum "examples/simple/package.json" }}
       - cypress/run:
           filters: *filters
+          name: Yarn Example
           working-directory: examples/yarn
           cache-key: cache-{{ arch }}-{{ checksum "examples/yarn/package.json" }}
           pkg-manager: 'yarn'
       - cypress/run:
           filters: *filters
+          name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
           cache-key: cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
@@ -32,9 +35,15 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
+            - Standard Npm Example
+            - Yarn Example
+            - Custom Install Example
+
           context: circleci-orb-publishing
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+
+# VS Code Extension Version: 1.5.1
