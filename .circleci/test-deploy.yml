@@ -14,16 +14,19 @@ workflows:
           filters: *filters
           name: Standard Npm Example
           working-directory: examples/npm-install
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
