@@ -1,7 +1,6 @@
 description: >
-  A single complete job to run Cypress end-to-end tests in your project.
+  A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
-
 executor: default
 
 parameters:
@@ -14,28 +13,28 @@ parameters:
   install-command:
     description: Overrides the default NPM command (npm ci)
     type: string
-    default: ''
+    default: ""
   cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
     default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
   cache-path:
     description: |
-        By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
+      By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
-    default: '~/.cache'
+    default: "~/.cache"
   node-cache-version:
     type: string
-    default: 'v1'
+    default: "v1"
     description: Change the default node cache version if you need to clear the cache for any reason.
   working-directory:
     description: Directory containing package.json
     type: string
-    default: ''
+    default: ""
   package-manager:
     type: enum
-    enum: ['npm', 'yarn', 'yarn-berry']
-    default: 'npm'
+    enum: ["npm", "yarn", "yarn-berry"]
+    default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
 
 steps:
