@@ -39,7 +39,7 @@ parameters:
   start-command:
     description: Command used to start your local dev server for Cypress to tests against
     type: string
-    default: "npm run start"
+    default: ""
   cypress-command:
     description: Command used to run your Cypress tests
     type: string
