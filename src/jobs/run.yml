@@ -56,13 +56,18 @@ steps:
       pkg-manager: << parameters.package-manager >>
       include-branch-in-cache-key: false
       cache-version: << parameters.node-cache-version >>
+  - steps: << parameters.post-install >>
   - run:
-      name: Verify Cypress
-      comand: "npx cypress verify"
-  - run:
-      name: Start Server
-      command: << parameters.start-command >>
-      working-directory: << parameters.working-directory >>
+      name: "Verify Cypress"
+      command: "npx cypress open"
+      working_directory: << parameters.working-directory >>
+  - when:
+      condition: << parameters.start-command >>
+      steps:
+        - run:
+            name: Start Server
+            command: << parameters.start-command >>
+            working-directory: << parameters.working-directory >>
   - run:
       name: Run Cypress
       command: << parameters.cypress-command >>
