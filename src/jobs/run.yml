@@ -67,11 +67,11 @@ steps:
         - run:
             name: Start Server
             command: << parameters.start-command >>
-            working-directory: << parameters.working-directory >>
+            working_directory: << parameters.working-directory >>
   - run:
       name: Run Cypress
       command: << parameters.cypress-command >>
-      working-directory: << parameters.working-directory >>
+      working_directory: << parameters.working-directory >>
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:
