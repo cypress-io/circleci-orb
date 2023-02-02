@@ -59,7 +59,7 @@ steps:
   - steps: << parameters.post-install >>
   - run:
       name: Verify Cypress
-      command: "npx cypress open"
+      command: "npx cypress verify"
       working_directory: << parameters.working-directory >>
   - when:
       condition: << parameters.start-command >>
