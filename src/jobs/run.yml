@@ -58,7 +58,7 @@ steps:
       cache-version: << parameters.node-cache-version >>
   - steps: << parameters.post-install >>
   - run:
-      name: "Verify Cypress"
+      name: Verify Cypress
       command: "npx cypress open"
       working_directory: << parameters.working-directory >>
   - when:
