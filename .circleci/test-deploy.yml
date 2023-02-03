@@ -15,7 +15,9 @@ workflows:
           name: Standard Npm Example
           working-directory: examples/npm-install
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          post-install: "npm run postinstall"
+          post-install:
+            - "npm run say-hello"
+            - "npm run say-goodbye"
       - cypress/run:
           filters: *filters
           name: Yarn Example
