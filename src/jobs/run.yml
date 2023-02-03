@@ -2,6 +2,7 @@ description: >
   A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
 executor: default
+parallelism: << parameters.parallelism >>
 
 parameters:
   install-command:
@@ -44,6 +45,12 @@ parameters:
     description: Command used to run your Cypress tests
     type: string
     default: "npx cypress run"
+  parallelism:
+    type: integer
+    default: 1
+    description: |
+      Number of Circle machines to use for load balancing, min 1
+      (requires "parallel" parameter set to true, and requires `record: true`)
 
 steps:
   - checkout
