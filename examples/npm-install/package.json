@@ -4,7 +4,8 @@
   "description": "basic example how to run Cypress tests",
   "scripts": {
     "test": "cypress run",
-    "postinstall": "echo hello"
+    "say-hello": "echo hello",
+    "say-goodbye": "echo goodbye"
   },
   "author": "",
   "license": "ISC",
