@@ -28,6 +28,12 @@ workflows:
           working-directory: examples/custom-install
           install-command: npm run custom-install
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+      - cypress/run:
+          filters: *filters
+          name: Angular Application
+          working-directory: examples/angular-app
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          start-command: "ng serve"
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
