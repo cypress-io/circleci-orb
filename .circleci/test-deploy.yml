@@ -33,7 +33,7 @@ workflows:
           name: Angular Application
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          start-command: "ng serve"
+          start-command: "npm run start"
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -45,6 +45,7 @@ workflows:
             - Standard Npm Example
             - Yarn Example
             - Custom Install Example
+            - Angular Application
 
           context: circleci-orb-publishing
           filters:
