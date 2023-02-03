@@ -12,8 +12,8 @@ parameters:
     description: >
       Additional commands to run after running install
       but before verifying Cypress and saving cache.
-    type: steps
-    default: []
+    type: string
+    default: ""
   cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
