@@ -56,7 +56,7 @@ steps:
       pkg-manager: << parameters.package-manager >>
       include-branch-in-cache-key: false
       cache-version: << parameters.node-cache-version >>
-  - steps: << parameters.post-install >>
+  - run: << parameters.post-install >>
   - run:
       name: Verify Cypress
       command: "npx cypress verify"
