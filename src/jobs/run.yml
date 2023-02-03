@@ -62,6 +62,7 @@ steps:
         - run:
             name: Post Install Script
             command: << parameters.post-install >>
+            working_directory: << parameters.working-directory >>
   - run:
       name: Verify Cypress
       command: "npx cypress verify"
