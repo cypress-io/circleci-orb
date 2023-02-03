@@ -34,6 +34,12 @@ workflows:
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
+      - cypress/run:
+          filters: *filters
+          name: Angular Application Component Testing
+          working-directory: examples/angular-app
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component"
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -46,6 +52,7 @@ workflows:
             - Yarn Example
             - Custom Install Example
             - Angular Application
+            - Angular Application Component Testing
 
           context: circleci-orb-publishing
           filters:
