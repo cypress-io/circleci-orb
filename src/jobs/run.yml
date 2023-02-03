@@ -4,16 +4,16 @@ description: >
 executor: default
 
 parameters:
+  install-command:
+    description: Overrides the default NPM command (npm ci)
+    type: string
+    default: ""
   post-install:
     description: >
       Additional commands to run after running install
       but before verifying Cypress and saving cache.
     type: steps
     default: []
-  install-command:
-    description: Overrides the default NPM command (npm ci)
-    type: string
-    default: ""
   cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
@@ -76,7 +76,6 @@ steps:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/screenshots
-  # run cypress
   - save_cache:
       name: Save Cypress Binary
       key: << parameters.cache-key >>

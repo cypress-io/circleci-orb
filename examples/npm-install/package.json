@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "basic example how to run Cypress tests",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "postinstall": "echo hello"
   },
   "author": "",
   "license": "ISC",
