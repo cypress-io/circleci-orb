@@ -73,6 +73,7 @@ steps:
         - run:
             name: Start Server
             command: << parameters.start-command >>
+            background: true
             working_directory: << parameters.working-directory >>
   - run:
       name: Run Cypress
