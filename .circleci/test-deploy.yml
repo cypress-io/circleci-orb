@@ -40,7 +40,7 @@ workflows:
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
-          parallelism: 3
+          parallelism: 10
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
