@@ -15,7 +15,7 @@ jobs:
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
       - run:
           name: Log Root
-          command: pwd
+          command: ls -l
       - persist_to_workspace:
           root: ~/
           paths:
