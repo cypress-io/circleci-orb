@@ -27,7 +27,7 @@ jobs:
     steps:
       - run:
           name: Log Root
-          command: pwd
+          command: ls -l
           working_directory: examples/angular-app
       - cypress/run-tests:
           working-directory: examples/angular-app
