@@ -8,7 +8,7 @@ filters: &filters
 
 jobs:
   install-and-persist:
-    executor: cypress/base:16.18.0
+    executor: cypress/default
     steps:
       - cypress/install:
           working-directory: examples/angular-app
@@ -19,7 +19,7 @@ jobs:
             - .cache/Cypress
             - project
   run-tests-in-parallel:
-    executor: cypress/base:16.18.0
+    executor: cypress/default
     parallelism: 3
     steps:
       - cypress/run-tests:
