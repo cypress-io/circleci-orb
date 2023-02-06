@@ -17,7 +17,7 @@ jobs:
           name: Log Root
           command: pwd
       - persist_to_workspace:
-          root: ~/root
+          root: ~/
           paths:
             - .cache/Cypress
             - project/examples/angular-app
@@ -25,6 +25,9 @@ jobs:
     executor: cypress/default
     parallelism: 3
     steps:
+      - run:
+          name: Log Root
+          command: pwd
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
