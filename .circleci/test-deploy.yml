@@ -28,6 +28,7 @@ jobs:
       - run:
           name: Log Root
           command: pwd
+          working_directory: examples/angular-app
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
