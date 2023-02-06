@@ -11,7 +11,6 @@ jobs:
     executor: cypress/base:16.18.0
     steps:
       - cypress/install:
-          name: Install Angular Application
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
       - persist_to_workspace:
@@ -24,7 +23,6 @@ jobs:
     parallelism: 3
     steps:
       - cypress/run-tests:
-          name: Run Angular Application Component Tests
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
 
