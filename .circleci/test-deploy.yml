@@ -6,6 +6,28 @@ filters: &filters
   tags:
     only: /.*/
 
+jobs:
+  install-and-persist:
+    executor: cypress/base:16.18.0
+    steps:
+      - cypress/install:
+          name: Install Angular Application
+          working-directory: examples/angular-app
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
+            - project
+  run-tests-in-parallel:
+    executor: cypress/base:16.18.0
+    parallelism: 3
+    steps:
+      - cypress/run-tests:
+          name: Run Angular Application Component Tests
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record"
+
 workflows:
   test-deploy:
     jobs:
@@ -34,7 +56,7 @@ workflows:
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
-      - cypress/run:
+      - install-and-persist:
           filters: *filters
           name: Angular Application Component Testing
           working-directory: examples/angular-app
