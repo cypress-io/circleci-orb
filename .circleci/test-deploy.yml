@@ -73,7 +73,8 @@ workflows:
             - Yarn Example
             - Custom Install Example
             - Angular Application
-            - Angular Application Component Testing
+            - Install & Persist
+            - Run Tests in Parallel
 
           context: circleci-orb-publishing
           filters:
