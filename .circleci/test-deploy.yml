@@ -17,7 +17,7 @@ jobs:
           root: ~/
           paths:
             - .cache/Cypress
-            - ~/root/project/examples/angular-app
+            - project/examples/angular-app
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
