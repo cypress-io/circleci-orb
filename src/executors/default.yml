@@ -1,4 +1,4 @@
 description: >
   Single Docker container with Node 16.16
 docker:
-  - image: node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1 # cimg/node:16.16-browsers # cypress/base:16.18.1
+  - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1 # cimg/node:16.16-browsers # cypress/base:16.18.1
