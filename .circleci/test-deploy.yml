@@ -39,7 +39,7 @@ workflows:
           name: Angular Application Component Testing
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: "npx cypress run --component --parallel --record --browser=chrome"
           parallelism: 10
       - orb-tools/pack:
           filters: *filters
