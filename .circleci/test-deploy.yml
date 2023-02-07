@@ -17,9 +17,10 @@ jobs:
           name: Log Root
           command: cd examples/angular-app && ls -l
       - persist_to_workspace:
+          root: ~/
           paths:
             - .cache/Cypress
-            - project/examples/angular-app
+            - examples/angular-app
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
