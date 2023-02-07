@@ -27,7 +27,7 @@ jobs:
     steps:
       - run:
           name: Log Root
-          command: cd ../ && ls -l
+          command: cd examples/angular-app && ls -l
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
