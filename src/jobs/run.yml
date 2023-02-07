@@ -23,7 +23,7 @@ parameters:
     description: |
       By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
-    default: "~/.cache/cypress"
+    default: "~/.cache/Cypress"
   node-cache-version:
     type: string
     default: "v1"
