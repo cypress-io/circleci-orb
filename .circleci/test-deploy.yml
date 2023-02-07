@@ -15,19 +15,19 @@ jobs:
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
       - run:
           name: Log Root
-          command: cd examples/angular-app && ls -l
+          command: ls -l && pwd
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
-            - examples/angular-app
+            - project
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
     steps:
       - run:
           name: Log Root
-          command: cd examples/angular-app && ls -l
+          command: ls -l && pwd
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
