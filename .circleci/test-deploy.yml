@@ -13,9 +13,6 @@ jobs:
       - cypress/install:
           working-directory: examples/angular-app
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-      - run:
-          name: Log Root
-          command: ls -l && pwd
       - persist_to_workspace:
           root: ~/
           paths:
@@ -25,9 +22,9 @@ jobs:
     executor: cypress/default
     parallelism: 3
     steps:
-      - run:
-          name: Log Root
-          command: ls -l && pwd
+      - run: echo "Assuming dependencies were installed using cypress/install job"
+      - attach_workspace:
+          at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record"
