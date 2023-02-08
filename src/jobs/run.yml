@@ -50,7 +50,7 @@ parameters:
     default: 1
     description: |
       Number of Circle machines to use for load balancing, min 1
-      (requires "parallel" parameter set to true, and requires `record: true`)
+      (requires `parallel` and `record` flags in your `cypress-command`)
 
 steps:
   - checkout
