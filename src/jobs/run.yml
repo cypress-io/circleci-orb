@@ -2,16 +2,17 @@ description: >
   A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
 executor: default
+parallelism: << parameters.parallelism >>
 
 parameters:
+  install-command:
+    description: Overrides the default NPM command (npm ci)
+    type: string
+    default: ""
   post-install:
     description: >
       Additional commands to run after running install
       but before verifying Cypress and saving cache.
-    type: steps
-    default: []
-  install-command:
-    description: Overrides the default NPM command (npm ci)
     type: string
     default: ""
   cache-key:
@@ -22,7 +23,7 @@ parameters:
     description: |
       By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
-    default: "~/.cache"
+    default: "~/.cache/Cypress"
   node-cache-version:
     type: string
     default: "v1"
@@ -36,6 +37,20 @@ parameters:
     enum: ["npm", "yarn", "yarn-berry"]
     default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
+  start-command:
+    description: Command used to start your local dev server for Cypress to tests against
+    type: string
+    default: ""
+  cypress-command:
+    description: Command used to run your Cypress tests
+    type: string
+    default: "npx cypress run"
+  parallelism:
+    type: integer
+    default: 1
+    description: |
+      Number of Circle machines to use for load balancing, min 1
+      (requires `parallel` and `record` flags in your `cypress-command`)
 
 steps:
   - checkout
@@ -48,7 +63,33 @@ steps:
       pkg-manager: << parameters.package-manager >>
       include-branch-in-cache-key: false
       cache-version: << parameters.node-cache-version >>
-  # run cypress
+  - when:
+      condition: << parameters.post-install >>
+      steps:
+        - run:
+            name: Post Install Script
+            command: << parameters.post-install >>
+            working_directory: << parameters.working-directory >>
+  - run:
+      name: Verify Cypress
+      command: "npx cypress verify"
+      working_directory: << parameters.working-directory >>
+  - when:
+      condition: << parameters.start-command >>
+      steps:
+        - run:
+            name: Start Server
+            command: << parameters.start-command >>
+            background: true
+            working_directory: << parameters.working-directory >>
+  - run:
+      name: Run Cypress
+      command: << parameters.cypress-command >>
+      working_directory: << parameters.working-directory >>
+  - store_artifacts:
+      path: << parameters.working-directory >>/cypress/videos
+  - store_artifacts:
+      path: << parameters.working-directory >>/cypress/screenshots
   - save_cache:
       name: Save Cypress Binary
       key: << parameters.cache-key >>

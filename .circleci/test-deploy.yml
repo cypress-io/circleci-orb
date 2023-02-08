@@ -15,6 +15,7 @@ workflows:
           name: Standard Npm Example
           working-directory: examples/npm-install
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
           name: Yarn Example
@@ -27,6 +28,19 @@ workflows:
           working-directory: examples/custom-install
           install-command: npm run custom-install
           cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+      - cypress/run:
+          filters: *filters
+          name: Angular Application
+          working-directory: examples/angular-app
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          start-command: "npm run start"
+      - cypress/run:
+          filters: *filters
+          name: Angular Application Component Testing
+          working-directory: examples/angular-app
+          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record --browser=chrome"
+          parallelism: 3
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -38,6 +52,8 @@ workflows:
             - Standard Npm Example
             - Yarn Example
             - Custom Install Example
+            - Angular Application
+            - Angular Application Component Testing
 
           context: circleci-orb-publishing
           filters:

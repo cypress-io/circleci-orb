@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "basic example how to run Cypress tests",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "say-hello": "echo hello",
+    "say-goodbye": "echo goodbye"
   },
   "author": "",
   "license": "ISC",
