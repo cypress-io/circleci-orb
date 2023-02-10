@@ -20,7 +20,8 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-            - user/bin
+            - usr/local/bin/firefox
+            - usr/bin/google-chrome-stable
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
