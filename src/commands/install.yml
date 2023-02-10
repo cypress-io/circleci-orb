@@ -25,6 +25,11 @@ parameters:
     type: string
     default: "v1"
     description: Change the default node cache version if you need to clear the cache for any reason.
+  include-branch-in-node-cache-key:
+    type: boolean
+    default: false
+    description: >
+      If true, this cache will only apply to jobs within the same branch.
   working-directory:
     description: Directory containing package.json
     type: string
@@ -52,7 +57,7 @@ steps:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
       pkg-manager: << parameters.package-manager >>
-      include-branch-in-cache-key: false
+      include-branch-in-cache-key: << parameters.include-branch-in-node-cache-key >>
       cache-version: << parameters.node-cache-version >>
   - when:
       condition: << parameters.post-install >>

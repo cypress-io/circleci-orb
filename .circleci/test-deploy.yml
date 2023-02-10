@@ -14,6 +14,7 @@ jobs:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           install-browsers: true
+          include-branch-in-node-cache-key: true
       - persist_to_workspace:
           root: ~/
           paths:
