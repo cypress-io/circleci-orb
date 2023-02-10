@@ -20,7 +20,7 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-            - /usr/local/bin
+            - browsers
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
@@ -34,7 +34,18 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Firefox --browser firefox"
-
+  run-tests-in-edge:
+    executor:
+      docker:
+        - image: node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 3
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group Edge --browser edge"
 workflows:
   test-deploy:
     jobs:

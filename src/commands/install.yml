@@ -49,7 +49,10 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - browser-tools/install-browser-tools
+        - browser-tools/install-browser-tools:
+            chromedriver-install-dir: "browsers"
+            firefox-install-dir: "browsers"
+            geckodriver-install-dir: "browsers"
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>

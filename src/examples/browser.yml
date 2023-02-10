@@ -1,5 +1,5 @@
 description: >
-  Runs Cypress tests in specific browser.
+  Runs Cypress tests in specific (non-edge) browser.
   Installs dependencies and caches NPM modules and the Cypress binary.
 usage:
   version: 2.1
@@ -11,3 +11,4 @@ usage:
         - cypress/run:
             start-command: "npm run start:dev"
             cypress-command: "npx cypress run --browser=chrome"
+            install-browsers: true
