@@ -14,11 +14,13 @@ jobs:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           include-branch-in-node-cache-key: true
+          install-browsers: true
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
+            - /usr/local/bin
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
@@ -28,11 +30,9 @@ jobs:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          install-browsers: true
           cypress-command: "npx cypress run --component --parallel --record --group Chrome --browser chrome"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          install-browsers: true
           cypress-command: "npx cypress run --component --parallel --record --group Firefox --browser firefox"
 
 workflows:
@@ -45,21 +45,21 @@ workflows:
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
-          node-cache-version: "v2"
+          include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
-          node-cache-version: "v2"
+          include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
-          node-cache-version: "v2"
+          include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
           name: Angular Application

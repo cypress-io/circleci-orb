@@ -72,8 +72,8 @@ steps:
       working-directory: << parameters.working-directory >>
       package-manager: << parameters.package-manager >>
       include-branch-in-node-cache-key: << parameters.include-branch-in-node-cache-key >>
-  - run-tests:
       install-browsers: << parameters.install-browsers >>
+  - run-tests:
       working-directory: << parameters.working-directory >>
       start-command: << parameters.start-command >>
       cypress-command: << parameters.cypress-command >>
