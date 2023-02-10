@@ -2,6 +2,7 @@ description: >
   A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
 executor: default
+
 parallelism: << parameters.parallelism >>
 
 parameters:
@@ -15,13 +16,13 @@ parameters:
       but before verifying Cypress and saving cache.
     type: string
     default: ""
-  cache-key:
+  cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
     default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
-  cache-path:
+  cypress-cache-path:
     description: |
-      By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
+      By default, this will cache the '~/.cache/Cypress' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
     default: "~/.cache/Cypress"
   node-cache-version:
@@ -53,45 +54,15 @@ parameters:
       (requires `parallel` and `record` flags in your `cypress-command`)
 
 steps:
-  - checkout
-  - restore_cache:
-      name: Restore Cypress cache
-      key: << parameters.cache-key >>
-  - node/install-packages:
-      override-ci-command: << parameters.install-command >>
-      app-dir: << parameters.working-directory >>
-      pkg-manager: << parameters.package-manager >>
-      include-branch-in-cache-key: false
-      cache-version: << parameters.node-cache-version >>
-  - when:
-      condition: << parameters.post-install >>
-      steps:
-        - run:
-            name: Post Install Script
-            command: << parameters.post-install >>
-            working_directory: << parameters.working-directory >>
-  - run:
-      name: Verify Cypress
-      command: "npx cypress verify"
-      working_directory: << parameters.working-directory >>
-  - when:
-      condition: << parameters.start-command >>
-      steps:
-        - run:
-            name: Start Server
-            command: << parameters.start-command >>
-            background: true
-            working_directory: << parameters.working-directory >>
-  - run:
-      name: Run Cypress
-      command: << parameters.cypress-command >>
-      working_directory: << parameters.working-directory >>
-  - store_artifacts:
-      path: << parameters.working-directory >>/cypress/videos
-  - store_artifacts:
-      path: << parameters.working-directory >>/cypress/screenshots
-  - save_cache:
-      name: Save Cypress Binary
-      key: << parameters.cache-key >>
-      paths:
-        - << parameters.cache-path >>
+  - install:
+      install-command: << parameters.install-command >>
+      post-install: << parameters.post-install >>
+      cypress-cache-key: << parameters.cypress-cache-key >>
+      cypress-cache-path: << parameters.cypress-cache-path >>
+      node-cache-version: << parameters.node-cache-version >>
+      working-directory: << parameters.working-directory >>
+      package-manager: << parameters.package-manager >>
+  - run-tests:
+      working-directory: << parameters.working-directory >>
+      start-command: << parameters.start-command >>
+      cypress-command: << parameters.cypress-command >>

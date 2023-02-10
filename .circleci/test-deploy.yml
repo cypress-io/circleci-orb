@@ -6,6 +6,29 @@ filters: &filters
   tags:
     only: /.*/
 
+jobs:
+  install-and-persist:
+    executor: cypress/default
+    steps:
+      - cypress/install:
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
+            - project
+  run-tests-in-parallel:
+    executor: cypress/default
+    parallelism: 3
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record"
+
 workflows:
   test-deploy:
     jobs:
@@ -14,33 +37,34 @@ workflows:
           filters: *filters
           name: Standard Npm Example
           working-directory: examples/npm-install
-          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
-          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
-          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
       - cypress/run:
           filters: *filters
           name: Angular Application
           working-directory: examples/angular-app
-          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
-      - cypress/run:
+      - install-and-persist:
           filters: *filters
-          name: Angular Application Component Testing
-          working-directory: examples/angular-app
-          cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record --browser=chrome"
-          parallelism: 3
+          name: Install & Persist
+      - run-tests-in-parallel:
+          filters: *filters
+          name: Run Tests in Parallel
+          requires:
+            - Install & Persist
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -53,7 +77,8 @@ workflows:
             - Yarn Example
             - Custom Install Example
             - Angular Application
-            - Angular Application Component Testing
+            - Install & Persist
+            - Run Tests in Parallel
 
           context: circleci-orb-publishing
           filters:

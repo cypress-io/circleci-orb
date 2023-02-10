@@ -1,5 +1,5 @@
 description: >
-  Runs Cypress end-to-end tests without recording results to Cypress Cloud.
+  Runs Cypress end-to-end tests in parallel and record results to Cypress Cloud.
   Installs dependencies and caches NPM modules and the Cypress binary.
 usage:
   version: 2.1
@@ -9,4 +9,6 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
+            parallelism: 3
             start-command: "npm run start"
+            cypress-command: "npx cypress run --parallel --record"

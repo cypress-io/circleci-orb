@@ -1,0 +1,34 @@
+description: >
+  A single, complete job to run Cypress tests
+
+parameters:
+  working-directory:
+    description: Directory containing package.json
+    type: string
+    default: ""
+  start-command:
+    description: Command used to start your local dev server for Cypress to tests against
+    type: string
+    default: ""
+  cypress-command:
+    description: Command used to run your Cypress tests
+    type: string
+    default: "npx cypress run"
+
+steps:
+  - when:
+      condition: << parameters.start-command >>
+      steps:
+        - run:
+            name: Start Server
+            command: << parameters.start-command >>
+            background: true
+            working_directory: << parameters.working-directory >>
+  - run:
+      name: Run Cypress
+      command: << parameters.cypress-command >>
+      working_directory: << parameters.working-directory >>
+  - store_artifacts:
+      path: << parameters.working-directory >>/cypress/videos
+  - store_artifacts:
+      path: << parameters.working-directory >>/cypress/screenshots
