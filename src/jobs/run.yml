@@ -52,6 +52,10 @@ parameters:
     description: |
       Number of Circle machines to use for load balancing, min 1
       (requires `parallel` and `record` flags in your `cypress-command`)
+  install-browsers:
+    type: boolean
+    default: false
+    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes Chrome, FireFox, ChromeDriver and GeckoDriver. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
 
 steps:
   - install:
@@ -62,6 +66,7 @@ steps:
       node-cache-version: << parameters.node-cache-version >>
       working-directory: << parameters.working-directory >>
       package-manager: << parameters.package-manager >>
+      install-browsers: << parameters.install-browsers >>
   - run-tests:
       working-directory: << parameters.working-directory >>
       start-command: << parameters.start-command >>
