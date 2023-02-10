@@ -35,9 +35,8 @@ jobs:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Firefox --browser firefox"
   run-tests-in-edge:
-    executor:
-      docker:
-        - image: node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    docker:
+      - image: node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
     parallelism: 3
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -95,6 +94,11 @@ workflows:
           name: Run Tests in Parallel
           requires:
             - Install & Persist
+      - run-tests-in-edge:
+          filterss: *filters
+          name: Run Tests in Edge
+          requires:
+            - Install & Persist
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -109,7 +113,7 @@ workflows:
             - Angular Application
             - Install & Persist
             - Run Tests in Parallel
-
+            - Run Tests in Edge
           context: circleci-orb-publishing
           filters:
             branches:
