@@ -61,6 +61,8 @@ workflows:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
+          cypress-command: "npx cypress run --browser chrome"
+          install-browsers: true
       - cypress/run:
           filters: *filters
           name: Run in Parallel
