@@ -95,7 +95,7 @@ workflows:
           requires:
             - Install & Persist
       - run-tests-in-edge:
-          filterss: *filters
+          filters: *filters
           name: Run Tests in Edge
           requires:
             - Install & Persist
