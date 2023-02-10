@@ -43,18 +43,21 @@ workflows:
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
+          node-cache-version: "v2"
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
+          node-cache-version: "v2"
       - cypress/run:
           filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+          node-cache-version: "v2"
       - cypress/run:
           filters: *filters
           name: Angular Application
@@ -63,12 +66,14 @@ workflows:
           start-command: "npm run start"
           cypress-command: "npx cypress run --browser chrome"
           install-browsers: true
+          node-cache-version: "v2"
       - cypress/run:
           filters: *filters
           name: Run in Parallel
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
+          node-cache-version: "v2"
       - install-and-persist:
           filters: *filters
           name: Install & Persist

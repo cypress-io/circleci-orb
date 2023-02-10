@@ -47,9 +47,7 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - run:
-            name: Install Browsers
-            command: browser-tools/install-browser-tools
+        - browser-tools/install-browser-tools
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
