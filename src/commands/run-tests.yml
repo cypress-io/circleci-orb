@@ -2,6 +2,10 @@ description: >
   A single, complete job to run Cypress tests
 
 parameters:
+  install-browsers:
+    type: boolean
+    default: false
+    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes Chrome, FireFox, ChromeDriver and GeckoDriver. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
   working-directory:
     description: Directory containing package.json
     type: string
@@ -16,6 +20,10 @@ parameters:
     default: "npx cypress run"
 
 steps:
+  - when:
+      condition: << parameters.install-browsers >>
+      steps:
+        - browser-tools/install-browser-tools
   - when:
       condition: << parameters.start-command >>
       steps:
