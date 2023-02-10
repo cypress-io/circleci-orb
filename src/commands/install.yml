@@ -51,7 +51,7 @@ steps:
       steps:
         - run:
             name: Create Browsers directory
-            command: mkdir browsers && pwd
+            command: cd ~/ && mkdir browsers && ls -l
         - browser-tools/install-browser-tools:
             chromedriver-install-dir: "browsers"
             firefox-install-dir: "browsers"
