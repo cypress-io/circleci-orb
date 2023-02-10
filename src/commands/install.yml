@@ -49,6 +49,9 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
+        - run:
+            name: Create Browsers directory
+            command: mkdir browsers && pwd
         - browser-tools/install-browser-tools:
             chromedriver-install-dir: "browsers"
             firefox-install-dir: "browsers"
