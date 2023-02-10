@@ -20,7 +20,7 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-            - browsers
+            - Applications
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
