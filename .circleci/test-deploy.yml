@@ -26,11 +26,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
-          name: Chrome
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Chrome --browser chrome"
       - cypress/run-tests:
-          name: Firefox
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Firefox --browser firefox"
 
