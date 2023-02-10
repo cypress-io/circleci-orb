@@ -40,6 +40,7 @@ steps:
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
+  - browser-tools/install-browser-tools
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
