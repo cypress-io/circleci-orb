@@ -22,7 +22,7 @@ jobs:
     executor: cypress/default
     parallelism: 3
     steps:
-      - run: echo "Assuming dependencies were installed using cypress/install job"
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
       - cypress/run-tests:

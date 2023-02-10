@@ -1,5 +1,5 @@
 description: >
-  Runs Cypress tests when you are in a monorepo or your cypress folder does not exist in the root directory
+  Runs Cypress tests in a monorepo or when your Cypress folder is somewhere other than the root directory.
 usage:
   version: 2.1
   orbs:

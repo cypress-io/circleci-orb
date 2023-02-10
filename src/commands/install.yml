@@ -1,5 +1,5 @@
 description: >
-  Installs your project's node modules and cypress dependencies
+  Installs your application's node modules and cypress dependencies
 
 parameters:
   install-command:
@@ -18,9 +18,9 @@ parameters:
     default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
   cypress-cache-path:
     description: |
-      By default, this will cache the '~/.cache' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
+      By default, this will cache the '~/.cache/Cypress' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
-    default: "~/.cache/cypress"
+    default: "~/.cache/Cypress"
   node-cache-version:
     type: string
     default: "v1"

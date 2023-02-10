@@ -1,5 +1,5 @@
 description: >
-  Runs Cypress tests and update the cache
+  Runs Cypress tests and and invalidate the current cache
 usage:
   version: 2.1
   orbs:
