@@ -49,10 +49,12 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - command: mkdir browsers
+        - run:
+            name: Make Browsers Directory
+            command: "mkdir browsers"
         - browser-tools/install-browser-tools:
-            chromedriver-install-dir: browsers
-            firefox-install-dir: browsers
+            chromedriver-install-dir: "browsers"
+            firefox-install-dir: "browsers"
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
