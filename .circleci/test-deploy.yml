@@ -17,7 +17,7 @@ jobs:
           install-browsers: true
       - run:
           name: List Working Directory
-          command: pwd && ls -l
+          command: cd ../../../ && pwd && ls -l
       - persist_to_workspace:
           root: ~/
           paths:
