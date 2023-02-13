@@ -17,14 +17,13 @@ jobs:
           install-browsers: true
       - run:
           name: List Working Directory
-          command: cd ../../../usr/bin && pwd && ls -l
+          command: pwd && ls -l
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
-            - usr/local/bin/firefox
-            - usr/bin/google-chrome-stable
+            - browsers
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
