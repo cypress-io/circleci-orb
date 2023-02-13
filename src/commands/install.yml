@@ -49,8 +49,7 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - browser-tools/install-browser-tools:
-            working_directory: << parameters.working-directory >>
+        - browser-tools/install-browser-tools
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
