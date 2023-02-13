@@ -52,7 +52,7 @@ steps:
         - browser-tools/install-browser-tools
         - run:
             name: Copy to Working Directory
-            command: cp -avr ../../usr/bin/google-chrome-stable << parameters.working-directory >>
+            command: cd ~/../../ && pwd && ls -l && cp -avr usr/bin/google-chrome-stable home/circleci/<< parameters.working-directory >>
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
