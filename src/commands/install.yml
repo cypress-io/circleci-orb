@@ -49,10 +49,7 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - run:
-            name: List Directory
-            command: "pwd && ls -l"
-        - browser-tools/install-browser-tools
+        - browser-tools/install-chrome
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
