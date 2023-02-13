@@ -23,7 +23,7 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-            - ../../../usr
+            - usr
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
