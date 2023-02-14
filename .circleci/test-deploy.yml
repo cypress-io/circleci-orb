@@ -16,6 +16,11 @@ jobs:
           include-branch-in-node-cache-key: true
           install-browsers: true
       - persist_to_workspace:
+          root: ~/../../
+          paths:
+            - usr/local/bin/firefox
+            - usr/bin/google-chrome-stable
+      - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
