@@ -50,12 +50,6 @@ steps:
       condition: << parameters.install-browsers >>
       steps:
         - browser-tools/install-browser-tools
-        - run:
-            name: first log
-            command: pwd && ls -l
-        - run:
-            name: Copy to Working Directory
-            command: cd ../../../ && pwd && ls -l && cp usr/bin/google-chrome-stable home/circleci/project && cd home/circleci/project && pwd && ls -l
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>

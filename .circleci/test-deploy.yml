@@ -15,16 +15,11 @@ jobs:
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           include-branch-in-node-cache-key: true
           install-browsers: true
-      - run:
-          name: List Working Directory
-          command: pwd && ls -l
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
-            - project/google-chrome-stable
-            - google-chrome-stable
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
