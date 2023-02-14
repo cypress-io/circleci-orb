@@ -18,20 +18,22 @@ jobs:
       - persist_to_workspace:
           root: ~/../../
           paths:
+            - home/circleci/project
+            - home/circleci/.cache/Cypress
             - usr/local/bin/firefox
             - usr/bin/google-chrome-stable
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache/Cypress
-            - project
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - .cache/Cypress
+      #       - project
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 3
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
-          at: ~/
+          at: ~/../../
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Chrome --browser chrome"
