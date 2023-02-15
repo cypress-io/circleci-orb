@@ -29,13 +29,13 @@ jobs:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group Chrome --browser chrome"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group Firefox --browser firefox"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group Edge --browser edge"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
 workflows:
   test-deploy:
     jobs:
