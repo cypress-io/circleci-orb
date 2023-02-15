@@ -29,13 +29,13 @@ jobs:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome --ci-build-id $CIRCLE_BUILD_NUM"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox --ci-build-id $CIRCLE_BUILD_NUM"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge --ci-build-id $CIRCLE_BUILD_NUM"
 workflows:
   test-deploy:
     jobs:
@@ -44,14 +44,14 @@ workflows:
           filters: *filters
           name: Standard Npm Example
           working-directory: examples/npm-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
           include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
           include-branch-in-node-cache-key: true
       - cypress/run:
@@ -59,7 +59,7 @@ workflows:
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
           include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
