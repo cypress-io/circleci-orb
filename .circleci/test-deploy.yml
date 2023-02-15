@@ -14,29 +14,19 @@ jobs:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           include-branch-in-node-cache-key: true
-          install-browsers: true
       - persist_to_workspace:
-          root: ~/../../
+          root: ~/
           paths:
-            - home/circleci/project
-            - home/circleci/.cache/Cypress
-            - usr/local/bin/firefox
-            - usr/bin/google-chrome-stable
-      # - persist_to_workspace:
-      #     root: ~/
-      #     paths:
-      #       - .cache/Cypress
-      #       - project
+            - .cache/Cypress
+            - project
   run-tests-in-parallel:
-    executor: cypress/default
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
     parallelism: 3
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
-          at: ~/../../
-      - run:
-          name: Log Workspace
-          command: "pwd && ls -l && cd ../../ && pwd && ls -l"
+          at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group Chrome --browser chrome"
