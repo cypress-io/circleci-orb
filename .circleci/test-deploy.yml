@@ -29,13 +29,13 @@ jobs:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome --ci-build-id testing-commit-${CIRCLE_SHA1}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser chrome --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox --ci-build-id testing-commit-${CIRCLE_SHA1}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser firefox --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge --ci-build-id testing-commit-${CIRCLE_SHA1}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser edge --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
 workflows:
   test-deploy:
     jobs:
