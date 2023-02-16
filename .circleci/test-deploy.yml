@@ -61,14 +61,14 @@ workflows:
           filters: *filters
           name: Standard Npm Example
           working-directory: examples/npm-install
-          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
           include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
-          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           package-manager: "yarn"
           include-branch-in-node-cache-key: true
       - cypress/run:
@@ -76,7 +76,7 @@ workflows:
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
-          cypress-cache-key: cypress-cache-v2{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
           include-branch-in-node-cache-key: true
       - cypress/run:
           filters: *filters
