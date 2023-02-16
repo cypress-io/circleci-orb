@@ -19,23 +19,40 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-  run-tests-in-parallel:
+  run-tests-in-chrome:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
-    parallelism: 3
+    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser chrome --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+  run-tests-in-firefox:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser firefox --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+  run-tests-in-edge:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x --browser edge --ci-build-id testing-commit-${CIRCLE_BUILD_NUM}"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+
 workflows:
   test-deploy:
     jobs:
@@ -80,9 +97,19 @@ workflows:
       - install-and-persist:
           filters: *filters
           name: Install & Persist
-      - run-tests-in-parallel:
+      - run-tests-in-chrome:
           filters: *filters
-          name: Run Tests in Parallel
+          name: Run Tests in Chrome
+          requires:
+            - Install & Persist
+      - run-tests-in-firefox:
+          filters: *filters
+          name: Run Tests in Firefox
+          requires:
+            - Install & Persist
+      - run-tests-in-edge:
+          filters: *filters
+          name: Run Tests in Edge
           requires:
             - Install & Persist
       - orb-tools/pack:
@@ -98,7 +125,9 @@ workflows:
             - Custom Install Example
             - Angular Application
             - Install & Persist
-            - Run Tests in Parallel
+            - Run Tests in Chrome
+            - Run Tests in Firefox
+            - Run Tests in Edge
           context: circleci-orb-publishing
           filters:
             branches:
