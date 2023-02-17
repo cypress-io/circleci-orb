@@ -83,14 +83,12 @@ workflows:
           start-command: "npm run start"
           cypress-command: "npx cypress run --browser chrome"
           install-browsers: true
-          node-cache-version: "v2"
       - cypress/run:
           filters: *filters
-          name: Run in Parallel
+          name: Run CT in Parallel
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
-          node-cache-version: "v2"
       - install-and-persist:
           filters: *filters
           name: Install & Persist
@@ -121,6 +119,7 @@ workflows:
             - Yarn Example
             - Custom Install Example
             - Angular Application
+            - Run CT in Parallel
             - Install & Persist
             - Run Tests in Chrome
             - Run Tests in Firefox

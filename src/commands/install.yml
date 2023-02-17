@@ -15,7 +15,7 @@ parameters:
   install-browsers:
     type: boolean
     default: false
-    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes Chrome, FireFox, ChromeDriver and GeckoDriver. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
+    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes Chrome and FireFox. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
   cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string

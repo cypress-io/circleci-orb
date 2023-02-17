@@ -1,13 +1,10 @@
 description: >
-  Runs Cypress tests in specific (non-edge) browser.
-  Installs dependencies and caches NPM modules and the Cypress binary.
+  Run Cypress tests using specified browser. The (circleci/browser-tools)[https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install-browser-tools]
+  orb currently supports Chrome & Firefox. See [examples/edge](./edge.yml), for Microsoft Edge support.
 usage:
   version: 2.1
   orbs:
     cypress: cypress-io/cypress@3
-  executor:
-    docker:
-      image:
   workflows:
     use-my-orb:
       jobs:

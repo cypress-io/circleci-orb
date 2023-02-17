@@ -5,6 +5,6 @@ parameters:
     type: string
     default: "16.16"
     description: >
-      The version of node you want to use
+      The version of Node to run your tests with.
 docker:
   - image: cimg/node:<< parameters.node-version >>-browsers

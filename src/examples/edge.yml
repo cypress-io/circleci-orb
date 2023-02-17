@@ -1,0 +1,16 @@
+description: >
+  Run Cypress tests in Microsoft Edge.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  executor:
+    docker:
+      image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            start-command: "npm run start:dev"
+            cypress-command: "npx cypress run --browser=edge"
+            install-browsers: true

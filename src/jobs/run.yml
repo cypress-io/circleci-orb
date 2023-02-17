@@ -33,7 +33,7 @@ parameters:
     type: boolean
     default: false
     description: >
-      If true, this cache will only apply to jobs within the same branch.
+      If true, this cache will only apply to runs within the same branch. (Adds -{{ .Branch }}- to the node cache key)
   working-directory:
     description: Directory containing package.json
     type: string
@@ -60,7 +60,7 @@ parameters:
   install-browsers:
     type: boolean
     default: false
-    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes Chrome, FireFox, ChromeDriver and GeckoDriver. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
+    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes both Chrome and FireFox. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
 
 steps:
   - install:
