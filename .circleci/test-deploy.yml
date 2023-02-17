@@ -89,6 +89,7 @@ workflows:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
+          parallelism: 3
       - install-and-persist:
           filters: *filters
           name: Install & Persist
