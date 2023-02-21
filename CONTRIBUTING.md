@@ -71,7 +71,7 @@ circleci local execute --job orb-tools/review
 
 ### Commits
 
-Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits:
+Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits. For example:
 
 ```text
 major: breaking change
