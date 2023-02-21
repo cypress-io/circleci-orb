@@ -34,7 +34,7 @@ circleci orb validate orb.yml
 
 The orb-tools `orb-tools/lint` job uses a utility [yamllint](https://yamllint.readthedocs.io/en/stable/), which can be downloaded and run locally, or you can invoke the job locally with the CircleCI CLI.
 
-Assuming you `./circleci/config.yml` file appears similar to the one in this repository, you will have imported the orb-tools orb and defined the `orb-tools/lint` job in a workflow. Using the CLI from this directory, use the following command to locally lint your orb:
+Assuming your `./circleci/config.yml` file appears similar to the one in this repository, you will have imported the orb-tools orb and defined the `orb-tools/lint` job in a workflow. Use the Circle CLI from this directory with the following command to locally lint your orb:
 
 #### CircleCI Local Linting
 
