@@ -16,6 +16,13 @@ parameters:
       but before verifying Cypress and saving cache.
     type: string
     default: ""
+  install-browsers:
+    description: |
+      Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in. 
+      This is only needed if you are passing the `--browser` flag in your `cypress-command`. 
+      This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox. If you need additional browser support you can set this to false and use an executor with a docker image that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
+    type: boolean
+    default: false
   cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
@@ -57,10 +64,6 @@ parameters:
     description: |
       Number of Circle machines to use for load balancing, min 1
       (requires `parallel` and `record` flags in your `cypress-command`)
-  install-browsers:
-    type: boolean
-    default: false
-    description: Flag to install additional browsers to run your tests. This is only needed if you are passing the `--browser`` flag in your `cypress-command`. This includes both Chrome and FireFox. If you need additional browser support you can set this to false and make sure you use an executor with a docker image that includes the browsers of your choosing see https://hub.docker.com/r/cypress/browsers/tags
 
 steps:
   - install:

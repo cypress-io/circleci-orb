@@ -12,5 +12,5 @@ usage:
       jobs:
         - cypress/run:
             start-command: "npm run start:dev"
-            cypress-command: "npx cypress run --browser=edge"
+            cypress-command: "npx cypress run --browser edge"
             install-browsers: true

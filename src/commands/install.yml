@@ -1,4 +1,4 @@
-description: >
+description: |
   Installs your application's node modules and cypress dependencies
 
 parameters:
@@ -13,12 +13,12 @@ parameters:
     type: string
     default: ""
   install-browsers:
+    description: |
+      Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in. 
+      This is only needed if you are passing the `--browser` flag in your `cypress-command`. 
+      This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox. If you need additional browser support you can set this to false and use an executor with a docker image that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
     type: boolean
     default: false
-    description: | 
-    Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in. 
-    This is only needed if you are passing the `--browser` flag in your `cypress-command`. 
-    This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox. If you need additional browser support you can set this to false and use an executor with a docker image that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
   cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
@@ -35,8 +35,8 @@ parameters:
   include-branch-in-node-cache-key:
     type: boolean
     default: false
-    description: >
-      If true, this cache will only apply to jobs within the same branch.
+    description: |
+      If true, this cache will only apply to runs within the same branch. (Adds -{{ .Branch }}- to the node cache key)
   working-directory:
     description: Directory containing package.json
     type: string
