@@ -19,7 +19,7 @@ jobs:
           paths:
             - .cache/Cypress
             - project
-  run-tests-in-chrome:
+  run-ct-tests-in-chrome:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
     parallelism: 2
@@ -30,7 +30,7 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
-  run-tests-in-firefox:
+  run-ct-tests-in-firefox:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
     parallelism: 2
@@ -41,7 +41,7 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
-  run-tests-in-edge:
+  run-ct-tests-in-edge:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
     parallelism: 2
@@ -93,19 +93,19 @@ workflows:
       - install-and-persist:
           filters: *filters
           name: Install & Persist
-      - run-tests-in-chrome:
+      - run-ct-tests-in-chrome:
           filters: *filters
-          name: Run Tests in Chrome
+          name: Run CT Tests in Chrome
           requires:
             - Install & Persist
-      - run-tests-in-firefox:
+      - run-ct-tests-in-firefox:
           filters: *filters
-          name: Run Tests in Firefox
+          name: Run CT Tests in Firefox
           requires:
             - Install & Persist
-      - run-tests-in-edge:
+      - run-ct-tests-in-edge:
           filters: *filters
-          name: Run Tests in Edge
+          name: Run CT Tests in Edge
           requires:
             - Install & Persist
       - orb-tools/pack:
@@ -122,9 +122,9 @@ workflows:
             - Angular Application
             - Run CT in Parallel
             - Install & Persist
-            - Run Tests in Chrome
-            - Run Tests in Firefox
-            - Run Tests in Edge
+            - Run CT Tests in Chrome
+            - Run CT Tests in Firefox
+            - Run CT Tests in Edge
           context: circleci-orb-publishing
           filters:
             branches:
