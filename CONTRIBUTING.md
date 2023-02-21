@@ -49,7 +49,7 @@ yamllint ./src
 ```
 
 **Local Shellcheck**
-[Shellcheck](https://github.com/koalaman/shellcheck) is a static analysis tool for shell scripts, and haves like a linter for our shell scripts.
+[Shellcheck](https://github.com/koalaman/shellcheck) is a static analysis tool for shell scripts, and behaves like a linter for our shell scripts.
 
 #### CircleCI Local Shellcheck
 
