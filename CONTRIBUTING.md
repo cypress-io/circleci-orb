@@ -8,6 +8,8 @@ The repo provides a subset of the orb-tools orb jobs and scripts can be ran loca
 
 **Note:** A dev build of the orb will be published as part of the `orb-tools/publish` job run on every commit. You can use it to test your changes during development. It is also used to do the integration tests as part of the `./.circleci/test-deploy.yml` workflow.
 
+![Development Publish of the Orb](/assets//dev-publish-example.png)
+
 ### Local Packing
 
 All CircleCI orbs are single YAML files, typically named `orb.yml`. However, for development, it is often easier to break the code up into more manageable chunks. The `circleci orb pack` command, a component of the [orb development kit](https://circleci.com/docs/orb-development-kit/), is used to "pack" or condense the seprate YAML files together into a single `orb.yml` file.
