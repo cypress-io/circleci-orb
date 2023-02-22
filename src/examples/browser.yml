@@ -1,6 +1,6 @@
 description: >
-  Runs Cypress tests in specific browser.
-  Installs dependencies and caches NPM modules and the Cypress binary.
+  Run Cypress tests using specified browser. The CircleCI Browser Tools orb at https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install-browser-tools
+  currently supports Chrome & Firefox. See https://circleci.com/developer/orbs/orb/cypress-io/cypress#usage-edge, for Microsoft Edge support.
 usage:
   version: 2.1
   orbs:
@@ -10,4 +10,5 @@ usage:
       jobs:
         - cypress/run:
             start-command: "npm run start:dev"
-            cypress-command: "npx cypress run --browser=chrome"
+            cypress-command: "npx cypress run --browser chrome"
+            install-browsers: true

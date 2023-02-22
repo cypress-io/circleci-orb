@@ -13,21 +13,45 @@ jobs:
       - cypress/install:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          include-branch-in-node-cache-key: true
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
-  run-tests-in-parallel:
-    executor: cypress/default
-    parallelism: 3
+  run-ct-tests-in-chrome:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+  run-ct-tests-in-firefox:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+  run-ct-tests-in-edge:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
 
 workflows:
   test-deploy:
@@ -43,7 +67,8 @@ workflows:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          post-install: "npx cypress install"
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
@@ -57,12 +82,31 @@ workflows:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
+          cypress-command: "npx cypress run --browser chrome"
+          install-browsers: true
+      - cypress/run:
+          filters: *filters
+          name: Run CT in Parallel
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record"
+          parallelism: 3
       - install-and-persist:
           filters: *filters
           name: Install & Persist
-      - run-tests-in-parallel:
+      - run-ct-tests-in-chrome:
           filters: *filters
-          name: Run Tests in Parallel
+          name: Run CT Tests in Chrome
+          requires:
+            - Install & Persist
+      - run-ct-tests-in-firefox:
+          filters: *filters
+          name: Run CT Tests in Firefox
+          requires:
+            - Install & Persist
+      - run-ct-tests-in-edge:
+          filters: *filters
+          name: Run CT Tests in Edge
           requires:
             - Install & Persist
       - orb-tools/pack:
@@ -77,9 +121,11 @@ workflows:
             - Yarn Example
             - Custom Install Example
             - Angular Application
+            - Run CT in Parallel
             - Install & Persist
-            - Run Tests in Parallel
-
+            - Run CT Tests in Chrome
+            - Run CT Tests in Firefox
+            - Run CT Tests in Edge
           context: circleci-orb-publishing
           filters:
             branches:

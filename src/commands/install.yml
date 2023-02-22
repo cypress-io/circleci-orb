@@ -1,4 +1,4 @@
-description: >
+description: |
   Installs your application's node modules and cypress dependencies
 
 parameters:
@@ -12,6 +12,15 @@ parameters:
       but before verifying Cypress and saving cache.
     type: string
     default: ""
+  install-browsers:
+    description: |
+      Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in.
+      This is only needed if you are passing the `--browser` flag in your `cypress-command`.
+      This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox.
+      If you need additional browser support you can set this to false and use an executor with a docker image
+      that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
+    type: boolean
+    default: false
   cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
@@ -25,6 +34,11 @@ parameters:
     type: string
     default: "v1"
     description: Change the default node cache version if you need to clear the cache for any reason.
+  include-branch-in-node-cache-key:
+    type: boolean
+    default: false
+    description: |
+      If true, this cache will only apply to runs within the same branch. (Adds -{{ .Branch }}- to the node cache key)
   working-directory:
     description: Directory containing package.json
     type: string
@@ -37,6 +51,10 @@ parameters:
 
 steps:
   - checkout
+  - when:
+      condition: << parameters.install-browsers >>
+      steps:
+        - browser-tools/install-browser-tools
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
@@ -44,7 +62,7 @@ steps:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
       pkg-manager: << parameters.package-manager >>
-      include-branch-in-cache-key: false
+      include-branch-in-cache-key: << parameters.include-branch-in-node-cache-key >>
       cache-version: << parameters.node-cache-version >>
   - when:
       condition: << parameters.post-install >>
