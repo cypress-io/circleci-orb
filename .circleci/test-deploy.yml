@@ -68,6 +68,7 @@ workflows:
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-path: "~/.cache/Cypress"
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
