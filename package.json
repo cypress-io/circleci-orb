@@ -50,7 +50,7 @@
     "lint-staged": "10.2.6",
     "minimist": "1.2.5",
     "next-ver": "1.8.0",
-    "prettier": "2.0.5",
+    "prettier": "2.8.4",
     "ramda": "0.27.1",
     "temp-write": "4.0.0",
     "ts-node": "10.9.1",
