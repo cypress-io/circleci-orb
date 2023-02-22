@@ -57,75 +57,7 @@ You can find multiple examples at
 
 ### Arguments
 
-You can pass arguments to the `cypress/run` job to override any default behaviors.
-
-**install-command** **_(String)_**
-
-Overrides the default NPM command (npm ci)
-
-**post-install** **_(String)_**
-
-Additional command(s) to run after running install but before verifying Cypress
-and caching.
-
-**cypress-cache-key** **_(String)_**
-
-Cache key used to cache the Cypress binary.
-
-> The default value is `cypress-cache-{{ arch }}-{{ checksum: "package.json" }}`
-
-**cypress-cache-path** **_(String)_**
-
-By, default, this will cache the `~/.cache/Cypress` directory so that the
-Cypress binary is cached. You can override this by providing your own cache path.
-
-**node-cache-version** **_(String)_**
-
-Used to change the default node cache version (v1) if you need to clear this
-cache for any reason.
-
-**include-branch-in-node-cache-key** **_(String)_**
-
-If true, the node cache will only apply to jobs within the same branch.
-The default is set to false so the node cache will persist across jobs and branches
-as long as the `package.json` file has not been changed. If you want each PR to create a new
-cache of your dependencies than you can set this to true.
-
-**working-directory** **_(String)_**
-
-Directory containing the `package.json` file. Used primarily for those using
-monorepos or your cypress tests aren't at the root of the repository.
-
-**package-manager** **_(Enum)_**
-
-Select the default node package manager to use. NPM v5+ required.
-
-> Available values include: `npm` (default), `yarn`, or `yarn-berry`
-
-**start-command** **_(String)_**
-
-Command used to start your local dev server for Cypress to test against.
-
-**cypress-command** **_(String)_**
-
-Command used to run your Cypress tests, including any flags you want to use.
-
-**parallelism** **_(Integer)_**
-
-Number of Circle machines to use for load balancing, min 1 (requires `parallel`
-and `record` flags in your `cypress-command`). Defaults to 1.
-
-**install-browsers** **_(Boolean)_**
-
-Cypress uses Electron by default to run your tests.
-This flag used to install additional browsers to run your tests. This is only needed
-if you are passing the `--browser` flag in your `cypress-command`.
-Enabling this command will use the [CircleCI Browser Tools Orb](https://circleci.com/developer/orbs/orb/circleci/browser-tools)
-to install the Chrome and Firefox binaries at runtime. If you need additional
-browser support (example: `edge`), you can leave this flag as false and make
-sure you use an executor with a docker image that includes the browsers of your
-choosing. See
-[https://hub.docker.com/r/cypress/browsers/tags](https://hub.docker.com/r/cypress/browsers/tags).
+You can pass arguments to the `cypress/run` job to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run)
 
 ## Parallelization
 
@@ -182,25 +114,27 @@ necessary dependencies)
 
 A single Docker container used to run Cypress tests. This executor extends the [circleci/browser-tools orb](https://circleci.com/developer/orbs/orb/circleci/browser-tools).
 
-### Arguments
+```yaml
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@3
+executor: cypress/default
+jobs:
+  - cypress/run:
+```
 
-#### **node-version** **_(String)_**
-
-The version of Node to run your tests with.
-
-> Defaults to "16.16"
+You can also use your own executor by passing in your own Docker image. See our full list of images on [Docker Hub](https://hub.docker.com/r/cypress/browsers/tags), or feel free to compose your own image and use as part of the workflow.
 
 ```yaml
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
+executor:
+  docker:
+    image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1 # your Docker image here
 jobs:
-  install:
-    docker:
-      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1 # your Docker image here
+  - cypress/run:
 ```
-
-You can also use your own executor by passing in your own Docker image. See our full list of images on [Docker Hub](https://hub.docker.com/r/cypress/browsers/tags), or feel free to compose your own image and use as part of the workflow.
 
 ## Examples
 
@@ -225,16 +159,11 @@ jobs:
     executor: cypress/default
     parallelism: 10
     steps:
-      - run: echo "This step assumes dependencies were isntalled using the
+      - run: echo "This step assumes dependencies were installed using the
           cypress/install job"
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
-          cypress-command: "npx cypress run --parallel --record --group Chrome --browser chrome"
-          start-command: "npm run start"
-      - cypress/run-tests:
-          cypress-command:
-            "npx cypress run --parallel --record --group Firefox --browser
-            firefox"
+          cypress-command: "npx cypress run --parallel --record "
           start-command: "npm run start"
 ```
