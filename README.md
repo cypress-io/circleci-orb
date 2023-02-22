@@ -105,10 +105,18 @@ more CircleCI resources than are necessary.
 
 Command that installs your application's node modules and Cypress dependencies.
 
+#### Arguments
+
+You can pass arguments to the `cypress/install` command to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-install)
+
 ### run-tests
 
 Command that runs Cypress tests (assuming your machine has already installed
 necessary dependencies)
+
+#### Arguments
+
+You can pass arguments to the `cypress/run-tests` command to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-run-tests)
 
 ## Executors
 
