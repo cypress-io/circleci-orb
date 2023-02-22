@@ -42,7 +42,7 @@
     "ava": "2.4.0",
     "ava-ts": "0.25.2",
     "chalk": "4.1.2",
-    "common-tags": "1.8.0",
+    "common-tags": "1.8.2",
     "execa": "4.0.0",
     "husky": "3.1.0",
     "js-yaml": "3.13.1",
