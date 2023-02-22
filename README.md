@@ -53,7 +53,7 @@ brings simplicity and static checks of parameters to your CircleCI
 configuration.
 
 You can find multiple examples at
-[our official orb page](https://circleci.com/developer/orbs/orb/cypress-io/cypress)
+[our official orb page](https://circleci.com/developer/orbs/orb/cypress-io/cypress).
 
 ### Arguments
 
