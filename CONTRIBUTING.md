@@ -12,7 +12,7 @@ The repo provides a subset of the orb-tools orb jobs and scripts can be ran loca
 
 ### Installing CircleCI CLI
 
-> The [CircleCI command line interface (CLI)](https://circleci-public.github.io/circleci-cli/) brings CircleCI's advanced and powerful tools to your > terminal. See [Installing the CircleCI local CLI](https://circleci.com/docs/local-cli/) for instructions on how to install it locally on your machine.
+> The [CircleCI command line interface (CLI)](https://circleci-public.github.io/circleci-cli/) brings CircleCI's advanced and powerful tools to your terminal. See [Installing the CircleCI local CLI](https://circleci.com/docs/local-cli/) for instructions on how to install it locally on your machine to run the following commands.
 
 ### Local Packing
 
