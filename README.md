@@ -65,7 +65,7 @@ A more complex project that needs to install dependencies, build an application
 and run tests across 4 CI machines [in parallel](/guides/guides/parallelization)
 may have:
 
-> Note: `--parallel` flag tells Cypress to run tests in parallel. `parallelism` parameter tells Circle to run across `n` number of machines.`
+> Note: `--parallel` flag tells Cypress to run tests in parallel. `parallelism` parameter tells Circle to run across `n` number of machines.
 
 ```yaml
 version: 2.1
