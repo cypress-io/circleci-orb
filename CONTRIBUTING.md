@@ -4,7 +4,7 @@ This repo leverages the CircleCI _orb-tools_ orb as part of the [Orb Development
 
 ## Development
 
-The repo provides a subset of the orb-tools orb jobs and scripts can be ran locally. It is useful to be able to lint, shellcheck, and review your orbs locally, before committing. With this setup, it is possible to test your code locally, but integration tests of the built orb will be ran on CircleCI.
+The repo provides a subset of the _orb-tools_ jobs and scripts that can be run locally. It is useful to be able to lint, shellcheck, and review your orbs locally, before committing. With this setup, it is possible to test your code locally, but integration tests of the built orb will be run on CircleCI.
 
 **Note:** A dev build of the orb will be published as part of the `orb-tools/publish` job run on every commit. You can use it to test your changes during development. It is also used to do the integration tests as part of the `./.circleci/test-deploy.yml` workflow.
 
