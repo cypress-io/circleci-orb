@@ -83,7 +83,7 @@ machines:
 - **Consumption time** on CircleCI 
 - **Actual time** it takes for tests to run
 
-**Consumption time** is essentually the amount of CircleCI resources that a job requires
+**Consumption time** is essentially the amount of CircleCI resources that a job requires
 to execute. For example, you may have a job that runs on 5 machines and takes 1 minute
 for all to complete. In this example it would only take 1 minute of **actual time** to execute
 all the jobs but would **consume** 5 minutes of CircleCI resources. 
