@@ -54,8 +54,7 @@ jobs:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
   run-in-windows:
-    executor:
-      name: win/default
+    executor: win/default
     steps:
       cypress/install:
         working-directory: examples/angular-app
@@ -120,6 +119,9 @@ workflows:
           name: Run CT Tests in Edge
           requires:
             - Install & Persist
+      - run-in-windows:
+          filters: *filters
+          name: Run CT on a Windows Machine
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -137,6 +139,7 @@ workflows:
             - Run CT Tests in Chrome
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
+            - Run CT on a Windows Machine
           context: circleci-orb-publishing
           filters:
             branches:
