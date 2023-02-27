@@ -1,7 +1,7 @@
 # Cypress CircleCI Orb 
 
 The Cypress CircleCI Orb is a
-piece of configuration set in your `.circleci/config.yml` file to correctly install, cache and run Cypress with very little effort.
+piece of configuration set in your `.circleci/config.yml` file to correctly install, cache and run [Cypress](https://www.cypress.io) with very little effort.
 
 ## Usage
 
