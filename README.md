@@ -6,7 +6,7 @@ The [Cypress CircleCI Orb](https://github.com/cypress-io/circleci-orb) is a
 piece of configuration set in your `.circleci/config.yml` file to correctly
 install, cache and run Cypress with very little effort.
 
-💡 In CircleCI, a **Job** is a collection of steps to carry out an action. A **Command** defines a sequence of steps as a map to be executed in a job. Below are the jobs and commands that will allow you to run your Cypress tests with an out-of-the-box or customized configuration.
+💡 In CircleCI, a **Job** is a collection of steps to carry out an action. A **Command** defines a sequence of steps as a map to be executed in a job. **Executors** define the underlying technology to run a job. Below are all of these options that will allow you to run your Cypress tests with an out-of-the-box or customized configuration.
 
 For the Orb Quick Start Guide and usage cases, view the CircleCI
 [Cypress orb documentation](https://circleci.com/developer/orbs/orb/cypress-io/cypress).
