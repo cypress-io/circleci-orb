@@ -57,10 +57,10 @@ jobs:
     executor: win/default
     steps:
       - cypress/install:
-          working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          working-directory: examples\angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples\angular-app\package.json" }}
       - cypress/run-tests:
-          working-directory: examples/angular-app
+          working-directory: examples\angular-app
           cypress-command: "npx cypress run --component"
 
 workflows:
