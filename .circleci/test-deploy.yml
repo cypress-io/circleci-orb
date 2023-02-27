@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
+  win: circleci/windows@5.0
 filters: &filters
   tags:
     only: /.*/
@@ -52,6 +53,16 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+  run-in-windows:
+    executor:
+      name: win/default
+    steps:
+      cypress/install:
+        working-directory: examples/angular-app
+        cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+      cypress/run-tests:
+        working-directory: examples/angular-app
+        cypress-command: "npx cypress run --component"
 
 workflows:
   test-deploy:
