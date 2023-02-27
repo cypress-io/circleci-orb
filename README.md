@@ -6,16 +6,15 @@ The [Cypress CircleCI Orb](https://github.com/cypress-io/circleci-orb) is a
 piece of configuration set in your `.circleci/config.yml` file to correctly
 install, cache and run Cypress with very little effort.
 
-For the Orb Quick Start Guide and usage cases, view the CircleCI
-[Cypress orb documentation](https://circleci.com/developer/orbs/orb/cypress-io/cypress).
-
 💡 In CircleCI, a **Job** is a collection of steps to carry out an action. A **Command** defines a sequence of steps as a map to be executed in a job. Below are the jobs and commands that will allow you to run your Cypress tests with an out-of-the-box or customized configuration.
 
+For the Orb Quick Start Guide and usage cases, view the CircleCI
+[Cypress orb documentation](https://circleci.com/developer/orbs/orb/cypress-io/cypress).
 ## How to enable
 
-**Note** To use CircleCI Orbs in your projects, you need to enable some settings:
+**Note:** To use CircleCI Orbs in your projects, you need to enable some settings:
 
-- From organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
+From organization settings allow using uncertified orbs `Settings -> Security -> Allow uncertified orbs`
 
 See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-orbs/).
 
@@ -55,8 +54,7 @@ You can find more usage examples at
 
 #### Arguments
 
-You can pass arguments to the `cypress/run` job to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run)
-
+You can pass arguments to the `cypress/run` job to override any default behaviors. See the [full list of arguments](https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run).
 ## Parallelization
 
 A more complex project that needs to install dependencies 
@@ -88,12 +86,12 @@ machines:
 **Consumption time** is essentually the amount of CircleCI resources that a job requires
 to execute. For example, you may have a job that runs on 5 machines and takes 1 minute
 for all to complete. In this example it would only take 1 minute of **actual time** to execute
-all the jobs but would consume 5 minutes of CircleCI resources. 
+all the jobs but would **consume** 5 minutes of CircleCI resources. 
 
 The Cypress CircleCI Orb
 was designed to be as simple and fast as possible for the majority of use cases.
 If you are running your tests in parallel across more than 5
-machines, then you may _not_ want to use the `cypress/run` job directly as it will consume
+machines, you may _not_ want to use the `cypress/run` job directly as it will consume
 more CircleCI resources than are necessary.
 
 > **Parallelization Across 5+ Machines**
@@ -112,16 +110,16 @@ Command that installs your application's node modules and Cypress dependencies.
 
 #### Arguments
 
-You can pass arguments to the `cypress/install` command to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-install)
+You can pass arguments to the `cypress/install` command to override any default behaviors. See the [full list of arguments](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-install).
 
 ### _run-tests_
 
 Command that runs Cypress tests (assuming your machine has already installed
-necessary dependencies)
+necessary dependencies).
 
 #### Arguments
 
-You can pass arguments to the `cypress/run-tests` command to override any default behaviors. You can find the full list of arguments at [https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-run-tests)
+You can pass arguments to the `cypress/run-tests` command to override any default behaviors. See the [full list of arguments](https://circleci.com/developer/orbs/orb/cypress-io/cypress#commands-run-tests).
 
 ## Executors
 
@@ -136,7 +134,7 @@ jobs:
   - cypress/run:
 ```
 
-You can also use your own executor by passing in your own Docker image. See our full list of images on [Docker Hub](https://hub.docker.com/r/cypress/browsers/tags), or feel free to compose your own image and use as part of the workflow.
+You can also use your own executor by passing in your own Docker image. See the full list of Cypress images on [Docker Hub](https://hub.docker.com/r/cypress/browsers/tags), or compose your own image with the [Cypress Docker Factory](https://github.com/cypress-io/cypress-docker-images#cypressfactory).
 
 ```yaml
 version: 2.1
@@ -151,7 +149,7 @@ jobs:
 
 ## Examples
 
-#### Example using the `cypress/default` executor, `cypress/install` and `cypress/run-tests` commands:
+#### Example using the `cypress/default` executor with `cypress/install` and `cypress/run-tests` commands:
 
 ```yaml
 version: 2.1
@@ -172,8 +170,7 @@ jobs:
     executor: cypress/default
     parallelism: 10
     steps:
-      - run: echo "This step assumes dependencies were installed using the
-          cypress/install job"
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
