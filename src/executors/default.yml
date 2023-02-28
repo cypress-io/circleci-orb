@@ -1,0 +1,10 @@
+description: >
+  Single Docker container used to run Cypress Tests
+parameters:
+  node-version:
+    type: string
+    default: "16.16"
+    description: >
+      The version of Node to run your tests with.
+docker:
+  - image: cimg/node:<< parameters.node-version >>-browsers

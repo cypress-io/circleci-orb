@@ -1,0 +1,14 @@
+description: >
+  Runs Cypress tests and and invalidate the current cache
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            cypress-cache-key: custom-cypress-cache-v1-{{ arch }}-{{ checksum "package.json" }}
+            cypress-cache-path: "~/.cache/custom-dir/Cypress"
+            node-cache-version: "v2"
+            cypress-command: "npx cypress run --component"

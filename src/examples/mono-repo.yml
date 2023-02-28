@@ -1,0 +1,13 @@
+description: >
+  Runs Cypress tests in a monorepo or when your Cypress folder is somewhere other than the root directory.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            working-directory: "libs/shared-ui"
+            cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "libs/shared-ui/package.json" }}
+            cypress-command: "npx cypress run --component"

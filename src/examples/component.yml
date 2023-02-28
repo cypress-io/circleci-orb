@@ -1,0 +1,12 @@
+description: >
+  Runs Cypress component tests.
+  Installs dependencies and caches NPM modules and the Cypress binary.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            cypress-command: "npx cypress run --component"

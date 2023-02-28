@@ -1,22 +1,77 @@
+# Contributing Guide
+
+This repo leverages the CircleCI _orb-tools_ orb as part of the [Orb Development Kit](https://circleci.com/docs/2.0/orb-author/#orb-development-kit). It provides a full suite of jobs for packing, validating, reviewing, and testing and deploying the orb to the orb registry.
+
 ## Development
 
-In the 'package.json', there are scripts for creating namespaces, orbs, etc. They all start with an `orb:` prefix. Use `npm run` to view them. Usually you need to only run `npm run orb:publish` to publish a new version of the orb.
+The repo provides a subset of the _orb-tools_ jobs and scripts that can be run locally. It is useful to be able to lint, shellcheck, and review your orbs locally, before committing. With this setup, it is possible to test your code locally, but integration tests of the built orb will be run on CircleCI.
 
-## Examples
+**Note:** A dev build of the orb will be published as part of the `orb-tools/publish` job run on every commit. You can use it to test your changes during development. It is also used to do the integration tests as part of the `./.circleci/test-deploy.yml` workflow.
 
-The more examples, the better. All examples in `docs/examples.md` are generated automatically from `src/orb.yml` source code via `npm run docs`. To make sure the examples referenced from the [README.md](README.md) list are correct, the list of links is checked in [scripts/examples.ts](scripts/examples.ts) file.
+![Development Publish of the Orb](/assets//dev-publish-example.png)
 
-## Publishing
+### Installing CircleCI CLI
 
-To see existing orbs:
+> The [CircleCI command line interface (CLI)](https://circleci-public.github.io/circleci-cli/) brings CircleCI's advanced and powerful tools to your terminal. See [Installing the CircleCI local CLI](https://circleci.com/docs/local-cli/) for instructions on how to install it locally on your machine to run the following commands.
 
-```shell
-$ circleci orb list cypress-io
+### Local Packing
+
+All CircleCI orbs are single YAML files, typically named `orb.yml`. However, for development, it is often easier to break the code up into more manageable chunks. The `circleci orb pack` command, a component of the [orb development kit](https://circleci.com/docs/orb-development-kit/), is used to "pack" or condense the seprate YAML files together into a single `orb.yml` file.
+
+```bash
+circleci orb pack ./src
 ```
+
+### Local Validating
+
+Once the `orb.yml` file has been generate via _packing_ you can now validate the configuration using the CircleCI CLI.
+
+```bash
+circleci orb validate orb.yml
+```
+
+### Local Linting
+
+The orb-tools `orb-tools/lint` job uses a utility [yamllint](https://yamllint.readthedocs.io/en/stable/), which can be downloaded and run locally, or you can invoke the job locally with the CircleCI CLI.
+
+Assuming your `./circleci/config.yml` file appears similar to the one in this repository, you will have imported the orb-tools orb and defined the `orb-tools/lint` job in a workflow. Use the Circle CLI from this directory with the following command to locally lint your orb:
+
+#### CircleCI Local Linting
+
+```bash
+circleci local execute --job orb-tools/lint
+```
+
+#### YamlLint Local Linting
+
+```bash
+yamllint ./src
+```
+
+**Local Shellcheck**
+[Shellcheck](https://github.com/koalaman/shellcheck) is a static analysis tool for shell scripts, and behaves like a linter for our shell scripts.
+
+#### CircleCI Local Shellcheck
+
+```bash
+circleci local execute --job shellcheck/check
+```
+
+### Local Review
+
+The `review` job is a suite of Bash unit tests written using [bats-core](https://github.com/bats-core/bats-core), a test automation framework for Bash. Each test focuses on checking for a best practice in the orb. The tests can be executed directly with the `bats` CLI, or you can invoke the job locally with the CircleCI CLI.
+
+#### CircleCI Local Review
+
+```bash
+circleci local execute --job orb-tools/review
+```
+
+**Note**: You will _always_ see a failure at the end of this job when ran locally because the job contains a step to upload test results to CircleCI.com, which is _not_ supported in the local agent.
 
 ### Commits
 
-Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits:
+Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits. For example:
 
 ```text
 major: breaking change
@@ -24,93 +79,6 @@ minor: new feature added
 fix: a patch release
 ```
 
-### Development
-
-You can publish a [dev version](https://github.com/CircleCI-Public/config-preview-sdk/blob/master/docs/orbs-authoring.md) of the orb for testing before publishing a production immutable version. For example, to publish version `1.0.0-my-fork`, run:
-
-```shell
-node ./scripts/publish --dev 1.0.0-my-fork
-```
-
-You can first do a dry dev publish to see the command with:
-
-```shell
-node ./scripts/publish --dev 1.0.0-my-fork --dry
-```
-
-Note: you can publish a temporary version of the orb using the `dev` label. This is super useful for testing the orb in child projects before publishing an official immutable version. For example:
-
-```
-circleci orb publish src/orb.yml cypress-io/cypress@dev:1.1.0
-```
-
-It is a good idea to test a dev version of the orb first using [cypress-io/cypress-example-circleci-orb](https://github.com/cypress-io/cypress-example-circleci-orb) before publishing new public version.
-
-### Testing
-
-Because we need to see the effective config for a few basic orb uses, please install [CircleCI CLI tool][circleci-cli] and run the following tests before committing.
-
-```shell
-npm run manual:tests
-```
-
-If you want to run a single test file
-
-```shell
-npx ava-ts manual-tests/<filename>.ts
-# or with debug output
-DEBUG=test npx ava-ts manual-tests/<filename>.ts
-```
-
-#### Snapshots
-
-Some manual tests get the effective config or its part and use snapshot testing. To update the snapshots, first run the tests, inspect the differences and if you really want to update the snapshots execute:
-
-```shell
-npm run manual:tests:update
-```
-
-It is a good idea to then inspect the changed staged files to confirm the snapshots were updated as expected.
-
 ### Production
 
-You can publish a new orb version manually, by incrementing the version. For example:
-
-```shell
-$ circleci orb publish increment src/orb.yml cypress-io/cypress patch
-Orb `cypress-io/cypress` has been incremented to `cypress-op/cypress@1.0.2`.
-Please note that this is an open orb and is world-readable.
-```
-
-Or by specifying new version:
-
-```shell
-circleci orb publish src/orb.yml cypress-io/cypress@0.0.1
-```
-
-The better way is to let the [publish.js](publish.js) increment the version, tag the commit and publish the orb.
-
-```shell
-npm run orb:publish
-```
-
-After publishing, the `package.json` file will have new version (if any). A new git tag will be created and you should push the updated code and tag to GitHub
-
-```shell
-git push --tag
-```
-
-After pushing, go to [GitHub releases](https://github.com/cypress-io/circleci-orb/releases) and update notes for the new release.
-
-## Additional information
-
-- https://github.com/CircleCI-Public/circleci-orbs
-- [Orb configuration](https://circleci.com/docs/orb-concepts#orb-configuration-elements)
-- [Authoring orbs](https://circleci.com/docs/orb-author)
-- [Testing orbs](https://circleci.com/docs/testing-orbs)
-
-## Examples of orbs
-
-- https://github.com/rollbar/rollbar-orb/blob/master/src/rollbar/orb.yml
-- https://github.com/codecov/codecov-circleci-orb/blob/master/src/%40orb.yml
-- https://github.com/CircleCI-Public/heroku-orb/
+<!-- TODO -->

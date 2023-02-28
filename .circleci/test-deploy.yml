@@ -1,0 +1,135 @@
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.5
+filters: &filters
+  tags:
+    only: /.*/
+
+jobs:
+  install-and-persist:
+    executor: cypress/default
+    steps:
+      - cypress/install:
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          include-branch-in-node-cache-key: true
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
+            - project
+  run-ct-tests-in-chrome:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+  run-ct-tests-in-firefox:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+  run-ct-tests-in-edge:
+    docker:
+      - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+
+workflows:
+  test-deploy:
+    jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - cypress/run:
+          filters: *filters
+          name: Standard Npm Example
+          working-directory: examples/npm-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          post-install: "npm run say-hello && npm run say-goodbye"
+      - cypress/run:
+          filters: *filters
+          name: Yarn Example
+          working-directory: examples/yarn-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          post-install: "npx cypress install"
+          package-manager: "yarn"
+      - cypress/run:
+          filters: *filters
+          name: Custom Install Example
+          working-directory: examples/custom-install
+          install-command: npm run custom-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+      - cypress/run:
+          filters: *filters
+          name: Angular Application
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          start-command: "npm run start"
+          cypress-command: "npx cypress run --browser chrome"
+          install-browsers: true
+      - cypress/run:
+          filters: *filters
+          name: Run CT in Parallel
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record"
+          parallelism: 3
+      - install-and-persist:
+          filters: *filters
+          name: Install & Persist
+      - run-ct-tests-in-chrome:
+          filters: *filters
+          name: Run CT Tests in Chrome
+          requires:
+            - Install & Persist
+      - run-ct-tests-in-firefox:
+          filters: *filters
+          name: Run CT Tests in Firefox
+          requires:
+            - Install & Persist
+      - run-ct-tests-in-edge:
+          filters: *filters
+          name: Run CT Tests in Edge
+          requires:
+            - Install & Persist
+      - orb-tools/pack:
+          filters: *filters
+      - orb-tools/publish:
+          orb-name: cypress-io/cypress
+          vcs-type: << pipeline.project.type >>
+          pub-type: production
+          requires:
+            - orb-tools/pack
+            - Standard Npm Example
+            - Yarn Example
+            - Custom Install Example
+            - Angular Application
+            - Run CT in Parallel
+            - Install & Persist
+            - Run CT Tests in Chrome
+            - Run CT Tests in Firefox
+            - Run CT Tests in Edge
+          context: circleci-orb-publishing
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+# VS Code Extension Version: 1.5.1

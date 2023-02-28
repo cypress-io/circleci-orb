@@ -1,0 +1,34 @@
+description: >
+  Runs Cypress tests in your own job using commands
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  jobs:
+    install-and-persist:
+      executor: cypress/default
+      steps:
+        - cypress/install
+        - persist_to_workspace:
+            root: ~/
+            paths:
+              - .cache/Cypress
+              - project
+    run-tests-in-parallel:
+      executor: cypress/default
+      parallelism: 8
+      steps:
+        - attach_workspace:
+            at: ~/
+        - cypress/run-tests:
+            cypress-command: "npx cypress run --component --parallel --record"
+
+  workflows:
+    use-my-orb:
+      jobs:
+        - install-and-persist:
+            name: Install & Persist To Workspace
+        - run-tests-in-parallel:
+            name: Run Tests in Parallel
+            requires:
+              - Install & Persist To Workspace

@@ -1,0 +1,15 @@
+{
+  "name": "custom-install-project",
+  "version": "1.0.0",
+  "description": "basic example how to run Cypress tests with a custom install script",
+  "scripts": {
+    "custom-install": "npm install && echo 'Custom Install Script'",
+    "test": "cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "cypress": "^12.5.1"
+  }
+}
