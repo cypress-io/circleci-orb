@@ -81,4 +81,10 @@ fix: a patch release
 
 ### Production
 
-<!-- TODO -->
+1. Merge changes into `master` and validate the CI passes all the necessary steps.
+2. Manually click the `Draft a new release` button in the GitHub UI.
+3. Choose an existing `tag` or create a new one and target the `master` branch.
+4. Add the version number to the _Release Title_ and add release notes.
+5. Click the `Publish release` button.
+
+> For an example on how to publish the orb, you can view this [video on how to publish](https://www.youtube.com/watch?v=ImPE969yv08&list=PL9GgS3TcDh8yX7GeM8JheHsmGVWXlD-A_&index=4) > or you can view the [CircleCI Orb-Tools Publishing Documentation](https://circleci.com/developer/orbs/orb/circleci/orb-tools#jobs-publish)
