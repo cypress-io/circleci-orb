@@ -24,7 +24,7 @@ See the official [CircleCI documentation](https://circleci.com/docs/2.0/using-or
 
 ### _run_
 
-A complete job to run Cypress tests in your application. This is the out-of-the-box solution that will work for most use cases.
+A complete job to install your application's node modules and Cypress dependencies, handle caching and run your tests. This is the out-of-the-box solution that will work for most use cases.
 
 #### Basic Setup
 
@@ -55,7 +55,7 @@ You can find more usage examples at
 #### Arguments
 
 You can pass arguments to the `cypress/run` job to override any default behaviors. See the [full list of arguments](https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run).
-## Parallelization
+### Parallelization
 
 A more complex project that needs to install dependencies 
 and run tests across 4 CI machines [in parallel](https://docs.cypress.io/guides/guides/parallelization)
@@ -126,7 +126,7 @@ You can pass arguments to the `cypress/run-tests` command to override any defaul
 
 ## Executors
 
-A single Docker container used to run Cypress tests. This executor extends the [circleci/browser-tools orb](https://circleci.com/developer/orbs/orb/circleci/browser-tools).
+A single Docker container used to run Cypress tests. This default executor extends the [circleci/browser-tools orb](https://circleci.com/developer/orbs/orb/circleci/browser-tools).
 
 ```yaml
 version: 2.1
