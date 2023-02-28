@@ -184,9 +184,11 @@ jobs:
 ---
 
 ## Additional Info
+
 ### Effective config
 
 If you install [CircleCI local CLI](https://circleci.com/docs/local-cli/), you can see the final _effective_ configuration your project resolves to by running `circleci config process <config filename>` from the terminal.
+
 ### Versions
 
 Cypress orb is _versioned_ so you can be sure that the configuration will _not_ suddenly change as we change orb commands. We follow semantic versioning to make sure you can upgrade project configuration to minor and patch versions without breaking changes.
