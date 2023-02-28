@@ -115,6 +115,7 @@ workflows:
           orb-name: cypress-io/cypress
           vcs-type: << pipeline.project.type >>
           pub-type: production
+          enable-pr-comment: false
           requires:
             - orb-tools/pack
             - Standard Npm Example
