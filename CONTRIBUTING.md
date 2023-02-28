@@ -87,4 +87,6 @@ fix: a patch release
 4. Add the version number to the _Release Title_ and add release notes.
 5. Click the `Publish release` button.
 
-> For an example on how to publish the orb, you can view this [video on how to publish](https://www.youtube.com/watch?v=ImPE969yv08&list=PL9GgS3TcDh8yX7GeM8JheHsmGVWXlD-A_&index=4) > or you can view the [CircleCI Orb-Tools Publishing Documentation](https://circleci.com/developer/orbs/orb/circleci/orb-tools#jobs-publish)
+> For an example on how to publish the orb, view the 
+- [CircleCI Orb-Tools Publishing Documentation](https://circleci.com/docs/creating-orbs/)
+- [CircleCI Orb-Tools Publishing Params](https://circleci.com/developer/orbs/orb/circleci/orb-tools#jobs-publish)
