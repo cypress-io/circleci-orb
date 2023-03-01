@@ -109,7 +109,7 @@ more CircleCI resources than are necessary.
 
 Command that installs your application's node modules and Cypress dependencies.
 
-> ⚠️ Note: this command is only necessary if you plan to execute the `run` command later. Especially if you run the tests on multiple machines in parallel.
+> ⚠️ Note: this command is only necessary if you plan to execute the `run-tests` command in a separate job. Especially if you run the tests on multiple machines in parallel.
 
 #### Arguments
 
