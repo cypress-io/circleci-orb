@@ -94,7 +94,7 @@ fix: a patch release
 3. Verify the `test-deploy` workflow passes in [CircleCi](https://app.circleci.com/pipelines/github/cypress-io/circleci-orb). This is triggered by pushing the tag to origin which handles releasing the orb changes to https://circleci.com/developer/orbs/orb/cypress-io/cypress.
 4. Create a new [GitHub release](https://github.com/cypress-io/circleci-orb/releases).
     - Choose the tag you created previously.
-    - Add the version number to the _Release Title_ and click the `Generate release notes` button .
+    - Add the version number to the _Release Title_ and click the `Generate release notes` button.
     - Check `Set as the latest release` option.
     - Click the `Publish release` button.
 
