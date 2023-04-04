@@ -82,7 +82,7 @@ fix: a patch release
 ### Releasing
 
 1. Merge changes into `master` and validate the CI passes all the necessary steps.
-2. Create a Github tag of the last commit which merged to master and passed in CI:
+2. Create a Github tag of the last commit which merged to `master` and passed in CI:
     ```shell
     git checkout master
     git pull origin master
