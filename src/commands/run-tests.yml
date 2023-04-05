@@ -5,7 +5,7 @@ parameters:
   working-directory:
     description: Directory containing package.json
     type: string
-    default: ""
+    default: "."
   start-command:
     description: Command used to start your local dev server for Cypress to tests against
     type: string
