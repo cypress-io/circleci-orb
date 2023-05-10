@@ -111,10 +111,10 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb_name: cypress
-          vcs_type: << pipeline.project.type >>
-          pub_type: production
-          enable_pr_comment: false
+          orb-name: cypress-io/cypress
+          vcs-type: << pipeline.project.type >>
+          pub-type: production
+          enable-pr-comment: false
           requires:
             - orb-tools/pack
             - Standard Npm Example
@@ -126,7 +126,8 @@ workflows:
             - Run CT Tests in Chrome
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
-          context: circleci-orb-publishing
+          context:
+            - orb-publishing-context
           filters:
             branches:
               ignore: /.*/
