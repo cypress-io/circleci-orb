@@ -111,10 +111,10 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: cypress-io/cypress
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
-          enable-pr-comment: false
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
+          enable_pr_comment: false
           requires:
             - orb-tools/pack
             - Standard Npm Example
