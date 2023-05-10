@@ -1,0 +1,12 @@
+description: >
+  Runs Cypress tests and install dependencies using a custom install and post_install script.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            install_command: "npm install && echo hello"
+            post_install: "npm run build"

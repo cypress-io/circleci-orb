@@ -14,21 +14,21 @@ usage:
             paths:
               - .cache/Cypress
               - project
-    run-tests-in-parallel:
+    run_tests-in-parallel:
       executor: cypress/default
       parallelism: 8
       steps:
         - attach_workspace:
             at: ~/
-        - cypress/run-tests:
-            cypress-command: "npx cypress run --component --parallel --record"
+        - cypress/run_tests:
+            cypress_command: "npx cypress run --component --parallel --record"
 
   workflows:
     use-my-orb:
       jobs:
         - install-and-persist:
             name: Install & Persist To Workspace
-        - run-tests-in-parallel:
+        - run_tests-in-parallel:
             name: Run Tests in Parallel
             requires:
               - Install & Persist To Workspace

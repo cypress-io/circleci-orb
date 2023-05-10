@@ -9,4 +9,4 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            cypress-command: "npx cypress run --component"
+            cypress_command: "npx cypress run --component"

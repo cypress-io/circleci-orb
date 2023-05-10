@@ -2,48 +2,48 @@ description: |
   Installs your application's node modules and cypress dependencies
 
 parameters:
-  install-command:
+  install_command:
     description: Overrides the default NPM command (npm ci)
     type: string
     default: ""
-  post-install:
+  post_install:
     description: >
       Additional commands to run after running install
       but before verifying Cypress and saving cache.
     type: string
     default: ""
-  install-browsers:
+  install_browsers:
     description: |
       Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in.
-      This is only needed if you are passing the `--browser` flag in your `cypress-command`.
+      This is only needed if you are passing the `--browser` flag in your `cypress_command`.
       This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox.
       If you need additional browser support you can set this to false and use an executor with a docker image
       that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
     type: boolean
     default: false
-  cypress-cache-key:
+  cypress_cache_key:
     description: Cache key used to cache the Cypress binary.
     type: string
     default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
-  cypress-cache-path:
+  cypress_cache_path:
     description: |
       By default, this will cache the '~/.cache/Cypress' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
     default: "~/.cache/Cypress"
-  node-cache-version:
+  node_cache_version:
     type: string
     default: "v1"
     description: Change the default node cache version if you need to clear the cache for any reason.
-  include-branch-in-node-cache-key:
+  include_branch_in_node_cache_key:
     type: boolean
     default: false
     description: |
       If true, this cache will only apply to runs within the same branch. (Adds -{{ .Branch }}- to the node cache key)
-  working-directory:
+  working_directory:
     description: Directory containing package.json
     type: string
     default: ""
-  package-manager:
+  package_manager:
     type: enum
     enum: ["npm", "yarn", "yarn-berry"]
     default: "npm"
@@ -52,31 +52,31 @@ parameters:
 steps:
   - checkout
   - when:
-      condition: << parameters.install-browsers >>
+      condition: << parameters.install_browsers >>
       steps:
         - browser-tools/install-browser-tools
   - restore_cache:
       name: Restore Cypress cache
-      key: << parameters.cypress-cache-key >>
+      key: << parameters.cypress_cache_key >>
   - node/install-packages:
-      override-ci-command: << parameters.install-command >>
-      app-dir: << parameters.working-directory >>
-      pkg-manager: << parameters.package-manager >>
-      include-branch-in-cache-key: << parameters.include-branch-in-node-cache-key >>
-      cache-version: << parameters.node-cache-version >>
+      override-ci-command: << parameters.install_command >>
+      app-dir: << parameters.working_directory >>
+      pkg-manager: << parameters.package_manager >>
+      include-branch-in-cache-key: << parameters.include_branch_in_node_cache_key >>
+      cache-version: << parameters.node_cache_version >>
   - when:
-      condition: << parameters.post-install >>
+      condition: << parameters.post_install >>
       steps:
         - run:
             name: Post Install Script
-            command: << parameters.post-install >>
-            working_directory: << parameters.working-directory >>
+            command: << parameters.post_install >>
+            working_directory: << parameters.working_directory >>
   - run:
       name: Verify Cypress
       command: "npx cypress verify"
-      working_directory: << parameters.working-directory >>
+      working_directory: << parameters.working_directory >>
   - save_cache:
       name: Save Cypress Binary
-      key: << parameters.cypress-cache-key >>
+      key: << parameters.cypress_cache_key >>
       paths:
-        - << parameters.cypress-cache-path >>
+        - << parameters.cypress_cache_path >>
