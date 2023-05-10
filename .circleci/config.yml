@@ -17,6 +17,8 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
+          # skip requirement that paramaters use snake_case
+          exclude: RC010
       - shellcheck/check:
           filters: *filters
       - orb-tools/publish:
