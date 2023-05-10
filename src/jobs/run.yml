@@ -6,57 +6,57 @@ executor: default
 parallelism: << parameters.parallelism >>
 
 parameters:
-  install_command:
+  install-command:
     description: Overrides the default NPM command (npm ci)
     type: string
     default: ""
-  post_install:
+  post-install:
     description: >
       Additional commands to run after running install
       but before verifying Cypress and saving cache.
     type: string
     default: ""
-  install_browsers:
+  install-browsers:
     description: |
       Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in.
-      This is only needed if you are passing the `--browser` flag in your `cypress_command`.
+      This is only needed if you are passing the `--browser` flag in your `cypress-command`.
       This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox.
       If you need additional browser support you can set this to false and use an executor with a docker image
       that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
     type: boolean
     default: false
-  cypress_cache_key:
+  cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
     default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
-  cypress_cache_path:
+  cypress-cache-path:
     description: |
       By default, this will cache the '~/.cache/Cypress' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
     type: string
     default: "~/.cache/Cypress"
-  node_cache_version:
+  node-cache-version:
     type: string
     default: "v1"
     description: Change the default node cache version if you need to clear the cache for any reason.
-  include_branch_in_node_cache_key:
+  include-branch-in-node-cache-key:
     type: boolean
     default: false
     description: >
       If true, this cache will only apply to runs within the same branch. (Adds -{{ .Branch }}- to the node cache key)
-  working_directory:
+  working-directory:
     description: Directory containing package.json
     type: string
     default: ""
-  package_manager:
+  package-manager:
     type: enum
     enum: ["npm", "yarn", "yarn-berry"]
     default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
-  start_command:
+  start-command:
     description: Command used to start your local dev server for Cypress to tests against
     type: string
     default: ""
-  cypress_command:
+  cypress-command:
     description: Command used to run your Cypress tests
     type: string
     default: "npx cypress run"
@@ -65,20 +65,20 @@ parameters:
     default: 1
     description: |
       Number of Circle machines to use for load balancing, min 1
-      (requires `parallel` and `record` flags in your `cypress_command`)
+      (requires `parallel` and `record` flags in your `cypress-command`)
 
 steps:
   - install:
-      install_command: << parameters.install_command >>
-      post_install: << parameters.post_install >>
-      cypress_cache_key: << parameters.cypress_cache_key >>
-      cypress_cache_path: << parameters.cypress_cache_path >>
-      node_cache_version: << parameters.node_cache_version >>
-      working_directory: << parameters.working_directory >>
-      package_manager: << parameters.package_manager >>
-      include_branch_in_node_cache_key: << parameters.include_branch_in_node_cache_key >>
-      install_browsers: << parameters.install_browsers >>
-  - run_tests:
-      working_directory: << parameters.working_directory >>
-      start_command: << parameters.start_command >>
-      cypress_command: << parameters.cypress_command >>
+      install-command: << parameters.install-command >>
+      post-install: << parameters.post-install >>
+      cypress-cache-key: << parameters.cypress-cache-key >>
+      cypress-cache-path: << parameters.cypress-cache-path >>
+      node-cache-version: << parameters.node-cache-version >>
+      working-directory: << parameters.working-directory >>
+      package-manager: << parameters.package-manager >>
+      include-branch-in-node-cache-key: << parameters.include-branch-in-node-cache-key >>
+      install-browsers: << parameters.install-browsers >>
+  - run-tests:
+      working-directory: << parameters.working-directory >>
+      start-command: << parameters.start-command >>
+      cypress-command: << parameters.cypress-command >>

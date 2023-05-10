@@ -8,6 +8,6 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            working_directory: "libs/shared-ui"
-            cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "libs/shared-ui/package.json" }}
-            cypress_command: "npx cypress run --component"
+            working-directory: "libs/shared-ui"
+            cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "libs/shared-ui/package.json" }}
+            cypress-command: "npx cypress run --component"

@@ -9,6 +9,6 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            start_command: "npm run start:dev"
-            cypress_command: "npx cypress run --browser chrome"
-            install_browsers: true
+            start-command: "npm run start:dev"
+            cypress-command: "npx cypress run --browser chrome"
+            install-browsers: true

@@ -10,5 +10,5 @@ usage:
       jobs:
         - cypress/run:
             parallelism: 3
-            start_command: "npm run start"
-            cypress_command: "npx cypress run --parallel --record"
+            start-command: "npm run start"
+            cypress-command: "npx cypress run --parallel --record"

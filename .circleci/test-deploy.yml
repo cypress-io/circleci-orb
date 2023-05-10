@@ -1,17 +1,19 @@
 version: 2.1
 orbs:
+  cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
 filters: &filters
   tags:
     only: /.*/
+
 jobs:
   install-and-persist:
     executor: cypress/default
     steps:
       - cypress/install:
-          working_directory: examples/angular-app
-          cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          include_branch_in_node_cache_key: true
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          include-branch-in-node-cache-key: true
       - persist_to_workspace:
           root: ~/
           paths:
@@ -25,9 +27,9 @@ jobs:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
-      - cypress/run_tests:
-          working_directory: examples/angular-app
-          cypress_command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
   run-ct-tests-in-firefox:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
@@ -36,9 +38,9 @@ jobs:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
-      - cypress/run_tests:
-          working_directory: examples/angular-app
-          cypress_command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
     docker:
       - image: cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
@@ -47,9 +49,10 @@ jobs:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
-      - cypress/run_tests:
-          working_directory: examples/angular-app
-          cypress_command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+
 workflows:
   test-deploy:
     jobs:
@@ -57,36 +60,36 @@ workflows:
       - cypress/run:
           filters: *filters
           name: Standard Npm Example
-          working_directory: examples/npm-install
-          cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          post_install: "npm run say-hello && npm run say-goodbye"
+          working-directory: examples/npm-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
           name: Yarn Example
-          working_directory: examples/yarn-install
-          cypress_cache_key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
-          post_install: "npx cypress install"
-          package_manager: "yarn"
+          working-directory: examples/yarn-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          post-install: "npx cypress install"
+          package-manager: "yarn"
       - cypress/run:
           filters: *filters
           name: Custom Install Example
-          working_directory: examples/custom_install
-          install_command: npm run custom_install
-          cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "examples/custom_install/package.json" }}
+          working-directory: examples/custom-install
+          install-command: npm run custom-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
       - cypress/run:
           filters: *filters
           name: Angular Application
-          working_directory: examples/angular-app
-          cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          start_command: "npm run start"
-          cypress_command: "npx cypress run --browser chrome"
-          install_browsers: true
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          start-command: "npm run start"
+          cypress-command: "npx cypress run --browser chrome"
+          install-browsers: true
       - cypress/run:
           filters: *filters
           name: Run CT in Parallel
-          working_directory: examples/angular-app
-          cypress_cache_key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress_command: "npx cypress run --component --parallel --record"
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record"
           parallelism: 3
       - install-and-persist:
           filters: *filters

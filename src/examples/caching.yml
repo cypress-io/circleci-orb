@@ -8,7 +8,7 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            cypress_cache_key: custom-cypress-cache-v1-{{ arch }}-{{ checksum "package.json" }}
-            cypress_cache_path: "~/.cache/custom-dir/Cypress"
-            node_cache_version: "v2"
-            cypress_command: "npx cypress run --component"
+            cypress-cache-key: custom-cypress-cache-v1-{{ arch }}-{{ checksum "package.json" }}
+            cypress-cache-path: "~/.cache/custom-dir/Cypress"
+            node-cache-version: "v2"
+            cypress-command: "npx cypress run --component"

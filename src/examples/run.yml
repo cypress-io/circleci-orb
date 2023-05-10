@@ -9,4 +9,4 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            start_command: "npm run start"
+            start-command: "npm run start"

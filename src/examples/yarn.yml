@@ -9,5 +9,5 @@ usage:
     use-my-orb:
       jobs:
         - cypress/run:
-            package_manager: "yarn"
-            start_command: "yarn start"
+            package-manager: "yarn"
+            start-command: "yarn start"
