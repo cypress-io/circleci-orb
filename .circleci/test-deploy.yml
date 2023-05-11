@@ -84,7 +84,7 @@ workflows:
           start-command: npm start
           # wait-on will wait for the server to be ready before running the tests
           # -v only needed for demonstration purposes
-          cypress-command: npx wait-on http://localhost:8080 -v && npx cypress run
+          cypress-command: npx wait-on@latest http://localhost:8080 -v && npx cypress run
       - cypress/run:
           filters: *filters
           name: Angular Application

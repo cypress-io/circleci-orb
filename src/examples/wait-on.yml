@@ -9,4 +9,4 @@ usage:
       jobs:
         - cypress/run:
             start-command: "npm start"
-            cypress-command: "npx wait-on http://localhost:8080 && npx cypress run"
+            cypress-command: "npx wait-on@latest http://localhost:8080 && npx cypress run"
