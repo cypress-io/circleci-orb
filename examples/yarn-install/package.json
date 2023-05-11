@@ -6,7 +6,6 @@
     "test": "cypress run"
   },
   "author": "",
-  "license": "ISC",
   "private": true,
   "devDependencies": {
     "cypress": "^12.5.1"
