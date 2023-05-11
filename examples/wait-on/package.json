@@ -1,10 +1,10 @@
 {
-  "name": "wait-on-project",
+  "name": "wait-on",
   "version": "1.0.0",
   "description": "basic example showing how to wait for a local server to start and then run Cypress",
   "author": "",
   "private": true,
   "devDependencies": {
-    "cypress": "^12.5.1"
+    "cypress": "^12.12.0"
   }
 }
