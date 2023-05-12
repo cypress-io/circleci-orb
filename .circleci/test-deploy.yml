@@ -78,6 +78,15 @@ workflows:
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
       - cypress/run:
           filters: *filters
+          name: Wait On Example
+          working-directory: examples/wait-on
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/wait-on/package.json" }}
+          start-command: npm start
+          # wait-on will wait for the server to be ready before running the tests
+          # -v only needed for demonstration purposes
+          cypress-command: npx wait-on@latest http://localhost:8080 -v && npx cypress run
+      - cypress/run:
+          filters: *filters
           name: Angular Application
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
@@ -121,6 +130,7 @@ workflows:
             - Standard Npm Example
             - Yarn Example
             - Custom Install Example
+            - Wait On Example
             - Angular Application
             - Run CT in Parallel
             - Install & Persist
