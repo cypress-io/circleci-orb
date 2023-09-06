@@ -10,7 +10,7 @@ jobs:
   install-and-persist:
     executor:
       name: cypress/default
-      node-version: "18.18"
+      node-version: "20.6.0"
     steps:
       - cypress/install:
           working-directory: examples/angular-app
