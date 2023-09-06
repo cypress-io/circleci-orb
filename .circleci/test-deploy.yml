@@ -8,7 +8,9 @@ filters: &filters
 
 jobs:
   install-and-persist:
-    executor: cypress/default
+    executor:
+      name: cypress/default
+      node-version: "18.18"
     steps:
       - cypress/install:
           working-directory: examples/angular-app
