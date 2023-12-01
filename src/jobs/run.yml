@@ -49,7 +49,7 @@ parameters:
     default: ""
   package-manager:
     type: enum
-    enum: ["npm", "yarn", "yarn-berry"]
+    enum: ["npm", "yarn", "yarn-berry", "pnpm"]
     default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
   start-command:
