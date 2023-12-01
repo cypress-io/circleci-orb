@@ -5,7 +5,7 @@ description: |
 
 display:
   home_url: "https://cypress.io"
-  source_url: "https://github.com/fresh8gaming/cypress-orb"
+  source_url: "https://github.com/fresh8gaming/circle-orb"
 
 # if our orb requires other orbs, we can import them like this. Otherwise remove the "orbs" stanza.
 orbs:
