@@ -86,7 +86,7 @@ fix: a patch release
     ```shell
     git checkout master
     git pull origin master
-    git rev-parse HEA
+    git rev-parse HEAD
     # copy sha of the version bump commit
     git tag -s -a vX.Y.Z -m vX.Y.Z <sha>
     git push origin vX.Y.Z
