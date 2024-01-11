@@ -1,4 +1,4 @@
-escription: >
+description: >
   Runs Cypress tests using pnpm.
   Installs dependencies and caches NPM modules and the Cypress binary.
 usage:
