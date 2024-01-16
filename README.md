@@ -10,6 +10,7 @@ install, cache and run Cypress with very little effort.
 
 For the Orb Quick Start Guide and usage cases, view the CircleCI
 [Cypress orb documentation](https://circleci.com/developer/orbs/orb/cypress-io/cypress).
+
 ## How to enable
 
 **Note:** To use CircleCI Orbs in your projects, you need to enable some settings:
@@ -41,8 +42,8 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/run # "run" job comes from "Cypress" orb
-          start-command: 'npm run start'
+      - cypress/run: # "run" job comes from "Cypress" orb
+          start-command: "npm run start"
 ```
 
 By using the `run` job definitions that Cypress provides inside the orb, it
@@ -55,9 +56,10 @@ You can find more usage examples at
 #### Arguments
 
 You can pass arguments to the `cypress/run` job to override any default behaviors. See the [full list of arguments](https://circleci.com/developer/orbs/orb/cypress-io/cypress#jobs-run).
+
 ### Parallelization
 
-A more complex project that needs to install dependencies 
+A more complex project that needs to install dependencies
 and run tests across 4 CI machines [in parallel](https://docs.cypress.io/guides/guides/parallelization)
 may have:
 
@@ -71,23 +73,25 @@ workflows:
       - cypress/run:
           # split specs across machines
           # record results with Cypress Cloud
-          cypress-command: 'npx cypress run --parallel --record'
-          start-command: 'npm run start'
+          cypress-command: "npx cypress run --parallel --record"
+          start-command: "npm run start"
           parallelism: 4 # use 4 CircleCI machines to finish quickly
 ```
+
 **Note:** recording test results and spec parallelization requires [Cypress Cloud](https://on.cypress.io/dashboard-introduction) account. You should also set your [record key](https://on.cypress.io/projects#Record-key) as `CYPRESS_RECORD_KEY` environment variable in the CircleCI project.
 
 ### ⚠️ Usage and Consumption
 
 There are 2 key metrics to understand when running a CI job across multiple
 machines:
-- **Consumption time** on CircleCI 
+
+- **Consumption time** on CircleCI
 - **Actual time** it takes for tests to run
 
 **Consumption time** is essentially the amount of CircleCI resources that a job requires
 to execute. For example, you may have a job that runs on 5 machines and takes 1 minute
 for all to complete. In this example it would only take 1 minute of **actual time** to execute
-all the jobs but would **consume** 5 minutes of CircleCI resources. 
+all the jobs but would **consume** 5 minutes of CircleCI resources.
 
 The Cypress CircleCI Orb
 was designed to be as simple and fast as possible for the majority of use cases.
@@ -98,10 +102,10 @@ more CircleCI resources than are necessary.
 > **Parallelization Across 5+ Machines**
 >
 > To lower your consumption time when running in parallel on more than 5 machines,
-> see [this example](https://circleci.com/developer/orbs/orb/cypress-io/cypress#usage-commands). 
+> see [this example](https://circleci.com/developer/orbs/orb/cypress-io/cypress#usage-commands).
 >
 > Here we use the `cypress/install` and
-> `cypress/run-tests` commands separately to first install dependencies to a workspace and then run tests in parallel. 
+> `cypress/run-tests` commands separately to first install dependencies to a workspace and then run tests in parallel.
 
 ## Commands
 
@@ -177,8 +181,8 @@ jobs:
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
-          cypress-command: 'npx cypress run --parallel --record'
-          start-command: 'npm run start'
+          cypress-command: "npx cypress run --parallel --record"
+          start-command: "npm run start"
 ```
 
 ---
