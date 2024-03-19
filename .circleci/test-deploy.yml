@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.5
+  orb-tools: circleci/orb-tools@11.6.1
 filters: &filters
   tags:
     only: /.*/
