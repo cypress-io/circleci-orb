@@ -2,7 +2,7 @@ description: >
   A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
 
-executor: 
+executor:
   name: default
   node-version: << parameters.node-version >>
 
