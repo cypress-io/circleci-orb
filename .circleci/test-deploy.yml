@@ -67,6 +67,13 @@ workflows:
           post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
+          name: Custom Node Version Example
+          working-directory: examples/npm-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          node-version: current
+          post-install: "npm run say-hello && npm run say-goodbye"
+      - cypress/run:
+          filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}

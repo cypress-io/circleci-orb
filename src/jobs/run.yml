@@ -1,7 +1,10 @@
 description: >
   A single, complete job to run Cypress end-to-end tests in your application.
 # What will this job do?
-executor: default
+
+executor: 
+  name: default
+  node-version: << parameters.node-version >>
 
 parallelism: << parameters.parallelism >>
 
@@ -66,6 +69,11 @@ parameters:
     description: |
       Number of Circle machines to use for load balancing, min 1
       (requires `parallel` and `record` flags in your `cypress-command`)
+  node-version:
+    type: string
+    default: ""
+    description: >
+      The version of Node to run your tests with.
 
 steps:
   - install:
