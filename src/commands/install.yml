@@ -52,6 +52,14 @@ parameters:
     type: boolean
     default: false
     description: Allow skipping the `checkout` command
+  package-manager-version:
+    type: string
+    default: ""
+    description: |
+      If you need to specify a version of the package manager, you can do so here.
+      This is useful if you need to use a specific version of Yarn or PNPM.
+      If you are using Yarn Berry, you can specify the version here.
+      If you are using NPM, this parameter will be ignored.
 
 steps:
   - unless:
@@ -67,11 +75,24 @@ steps:
       key: << parameters.cypress-cache-key >>
   - when:
       condition:
-        and:
-          - equal: [ 'pnpm', << parameters.package-manager >> ]
+        - and:
+          - not:
+            - equal: [ '', << parameters.package-manager-version >> ]
+          - equal: [ 'yarn', << parameters.package-manager >> ]
+      steps:
+          - node/install:
+              install-yarn: true
+              yarn-version: << parameters.package-manager-version >>
+  - when:
+      condition:
+        - and:
+            - not:
+                - equal: [ '', << parameters.package-manager-version >> ]
+            - equal: [ 'pnpm', << parameters.package-manager >> ]
       steps:
         - node/install:
             install-pnpm: true
+            pnpm-version: << parameters.package-manager-version >>
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>

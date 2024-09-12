@@ -1,0 +1,15 @@
+description: >
+  Runs Cypress tests using pnpm.
+  Installs dependencies and caches NPM modules and the Cypress binary.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@3
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            package-manager: "pnpm"
+            package-manager-version: "9.7.1"
+            start-command: "pnpm start"
+            install-command: "pnpm install --frozen-lockfile"
