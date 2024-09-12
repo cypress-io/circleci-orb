@@ -1,0 +1,13 @@
+{
+  "name": "pnpm-install-project",
+  "version": "1.0.0",
+  "description": "basic example how to run Cypress tests with pnpm",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "author": "",
+  "private": true,
+  "devDependencies": {
+    "cypress": "^13.13.0"
+  }
+}

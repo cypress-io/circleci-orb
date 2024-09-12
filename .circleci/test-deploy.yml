@@ -74,6 +74,13 @@ workflows:
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
+          name: Pnpm Example
+          working-directory: examples/pnpm-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
+          post-install: "pnpm dlx cypress install"
+          package-manager: "pnpm"
+      - cypress/run:
+          filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
@@ -131,6 +138,7 @@ workflows:
             - orb-tools/pack
             - Standard Npm Example
             - Yarn Example
+            - Pnpm Example
             - Custom Install Example
             - Wait On Example
             - Angular Application
