@@ -11,7 +11,7 @@ jobs:
       node-version: "20.6"
     steps:
       - cypress/install:
-          package-manager: "yarn"
+          package-manager: "npm"
       - cypress/run-tests:
           start-command: "npm run start:dev"
           cypress-command: "npx cypress run"

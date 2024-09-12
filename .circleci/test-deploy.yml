@@ -70,7 +70,7 @@ workflows:
           name: Custom Node Version Example
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          node-version: current
+          node-version: "20.15.1"
           post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
@@ -137,6 +137,7 @@ workflows:
           requires:
             - orb-tools/pack
             - Standard Npm Example
+            - Custom Node Version Example
             - Yarn Example
             - Custom Install Example
             - Wait On Example
