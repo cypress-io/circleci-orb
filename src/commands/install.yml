@@ -75,9 +75,9 @@ steps:
       key: << parameters.cypress-cache-key >>
   - when:
       condition:
-        - and:
+        and:
           - not:
-            - equal: [ '', << parameters.package-manager-version >> ]
+              equal: [ '', << parameters.package-manager-version >> ]
           - equal: [ 'yarn', << parameters.package-manager >> ]
       steps:
           - node/install:
@@ -85,10 +85,10 @@ steps:
               yarn-version: << parameters.package-manager-version >>
   - when:
       condition:
-        - and:
-            - not:
-                - equal: [ '', << parameters.package-manager-version >> ]
-            - equal: [ 'pnpm', << parameters.package-manager >> ]
+        and:
+          - not:
+              equal: [ '', << parameters.package-manager-version >> ]
+          - equal: [ 'pnpm', << parameters.package-manager >> ]
       steps:
         - node/install:
             install-pnpm: true
