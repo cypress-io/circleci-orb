@@ -71,7 +71,11 @@ workflows:
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
           node-version: "20.15.1"
-          post-install: "npm run say-hello && npm run say-goodbye"
+          post-install: |
+            if ! node --version | grep -q "20.15.1"; then
+                echo "Node version 20.15.1 not found"
+                exit 1
+            fi
       - cypress/run:
           filters: *filters
           name: Yarn Example
