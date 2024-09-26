@@ -3,7 +3,7 @@ description: >
 parameters:
   node-version:
     type: string
-    default: "18.16.1"
+    default: "18.16.1" # keep in sync with jobs/run.yml
     description: >
       The version of Node to run your tests with.
 docker:

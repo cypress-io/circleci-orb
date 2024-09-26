@@ -67,6 +67,17 @@ workflows:
           post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
+          name: Custom Node Version Example
+          working-directory: examples/npm-install
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          node-version: "20.15.1"
+          post-install: |
+            if ! node --version | grep -q "20.15.1"; then
+                echo "Node version 20.15.1 not found"
+                exit 1
+            fi
+      - cypress/run:
+          filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
@@ -137,6 +148,7 @@ workflows:
           requires:
             - orb-tools/pack
             - Standard Npm Example
+            - Custom Node Version Example
             - Yarn Example
             - Pnpm Example
             - Custom Install Example
