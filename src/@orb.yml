@@ -9,5 +9,5 @@ display:
 
 # if our orb requires other orbs, we can import them like this. Otherwise remove the "orbs" stanza.
 orbs:
-  node: circleci/node@5
+  node: circleci/node@6
   browser-tools: circleci/browser-tools@1.4.8
