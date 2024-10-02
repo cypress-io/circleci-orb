@@ -85,6 +85,14 @@ workflows:
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
+          name: Yarn Version Example
+          working-directory: examples/yarn-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          post-install: "./check-yarn-version.sh 1.22.5 && npx cypress install"
+          package-manager: "yarn"
+          package-manager-version: "1.22.5"
+      - cypress/run:
+          filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
