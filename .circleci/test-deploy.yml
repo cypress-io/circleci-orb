@@ -113,6 +113,14 @@ workflows:
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
           parallelism: 3
+      - cypress/run:
+          filters: *filters
+          name: Verify skip-checkout
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record"
+          pre-steps:
+            - checkout
       - install-and-persist:
           filters: *filters
           name: Install & Persist
@@ -151,6 +159,7 @@ workflows:
             - Run CT Tests in Chrome
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
+            - Verify skip-checkout
           context: circleci-orb-publishing
           filters:
             branches:
