@@ -56,7 +56,7 @@ parameters:
 steps:
   - unless:
       condition: << parameters.skip-checkout >>
-      stepse:
+      steps:
         - checkout
   - when:
       condition: << parameters.install-browsers >>
