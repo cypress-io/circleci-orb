@@ -48,9 +48,16 @@ parameters:
     enum: ["npm", "yarn", "yarn-berry", "pnpm"]
     default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
+  skip-checkout:
+    type: boolean
+    default: false
+    description: Allow skipping the `checkout` command
 
 steps:
-  - checkout
+  - unless:
+      condition: << parameters.skip-checkout >>
+      steps:
+        - checkout
   - when:
       condition: << parameters.install-browsers >>
       steps:

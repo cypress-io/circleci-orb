@@ -73,6 +73,10 @@ parameters:
     default: "18.16.1" # keep in sync with executors/default.yml
     description: >
       The version of Node to run your tests with.
+  skip-checkout:
+    type: boolean
+    default: false
+    description: Whether to skip code checkout
 
 steps:
   - install:
@@ -85,6 +89,7 @@ steps:
       package-manager: << parameters.package-manager >>
       include-branch-in-node-cache-key: << parameters.include-branch-in-node-cache-key >>
       install-browsers: << parameters.install-browsers >>
+      skip-checkout: << parameters.skip-checkout >>
   - run-tests:
       working-directory: << parameters.working-directory >>
       start-command: << parameters.start-command >>
