@@ -12,4 +12,4 @@ usage:
             package-manager: "pnpm"
             package-manager-version: "9.7.1"
             start-command: "pnpm start"
-            install-command: "pnpm install --frozen-lockfile"
+            install-command: "pnpm install"

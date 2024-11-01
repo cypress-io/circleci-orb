@@ -11,4 +11,4 @@ usage:
         - cypress/run:
             package-manager: "pnpm"
             start-command: "pnpm start"
-            install-command: "pnpm install --frozen-lockfile"
+            install-command: "pnpm install"
