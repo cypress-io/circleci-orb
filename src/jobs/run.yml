@@ -54,6 +54,14 @@ parameters:
     enum: ["npm", "yarn", "yarn-berry", "pnpm"]
     default: "npm"
     description: Select the default node package manager to use. NPM v5+ Required.
+  package-manager-version:
+    type: string
+    default: ""
+    description: |
+      If you need to specify a version of the package manager, you can do so here.
+      This is useful if you need to use a specific version of Yarn or PNPM.
+      If you are using Yarn Berry, you can specify the version here.
+      If you are using NPM, this parameter will be ignored.
   start-command:
     description: Command used to start your local dev server for Cypress to tests against
     type: string
@@ -87,6 +95,7 @@ steps:
       node-cache-version: << parameters.node-cache-version >>
       working-directory: << parameters.working-directory >>
       package-manager: << parameters.package-manager >>
+      package-manager-version: << parameters.package-manager-version >>
       include-branch-in-node-cache-key: << parameters.include-branch-in-node-cache-key >>
       install-browsers: << parameters.install-browsers >>
       skip-checkout: << parameters.skip-checkout >>

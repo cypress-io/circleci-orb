@@ -10,5 +10,6 @@ usage:
       jobs:
         - cypress/run:
             package-manager: "pnpm"
+            package-manager-version: "9.7.1"
             start-command: "pnpm start"
             install-command: "pnpm install"
