@@ -67,7 +67,8 @@ steps:
       key: << parameters.cypress-cache-key >>
   - when:
       condition:
-        - equal: [ 'pnpm', << parameters.package-manager >> ]
+        and:
+          - equal: [ 'pnpm', << parameters.package-manager >> ]
       steps:
         - node/install:
             install-pnpm: true
