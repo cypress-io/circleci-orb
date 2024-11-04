@@ -65,6 +65,12 @@ steps:
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
+  - when:
+      condition:
+        - equal: [ 'pnpm', << parameters.package-manager >> ]
+      steps:
+        - node/install:
+            install-pnpm: true
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
