@@ -19,7 +19,7 @@ The repo provides a subset of the _orb-tools_ jobs and scripts that can be run l
 All CircleCI orbs are single YAML files, typically named `orb.yml`. However, for development, it is often easier to break the code up into more manageable chunks. The `circleci orb pack` command, a component of the [orb development kit](https://circleci.com/docs/orb-development-kit/), is used to "pack" or condense the seprate YAML files together into a single `orb.yml` file.
 
 ```bash
-circleci orb pack ./src
+circleci orb pack ./src > orb.yml
 ```
 
 ### Local Validating
