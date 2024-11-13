@@ -16,7 +16,7 @@ The repo provides a subset of the _orb-tools_ jobs and scripts that can be run l
 
 ### Local Packing
 
-All CircleCI orbs are single YAML files, typically named `orb.yml`. However, for development, it is often easier to break the code up into more manageable chunks. The `circleci orb pack` command, a component of the [orb development kit](https://circleci.com/docs/orb-development-kit/), is used to "pack" or condense the seprate YAML files together into a single `orb.yml` file.
+All CircleCI orbs are single YAML files, typically named `orb.yml`. However, for development, it is often easier to break the code up into more manageable chunks. The `circleci orb pack` command, a component of the [orb development kit](https://circleci.com/docs/orb-development-kit/), is used to "pack" or condense the separate YAML files together into a single `orb.yml` file.
 
 ```bash
 circleci orb pack ./src > orb.yml
@@ -24,7 +24,7 @@ circleci orb pack ./src > orb.yml
 
 ### Local Validating
 
-Once the `orb.yml` file has been generate via _packing_ you can now validate the configuration using the CircleCI CLI.
+Once the `orb.yml` file has been generated via _packing_ you can now validate the configuration using the CircleCI CLI.
 
 ```bash
 circleci orb validate orb.yml
@@ -82,7 +82,7 @@ fix: a patch release
 ### Releasing
 
 1. Merge changes into `master` and validate the CI passes all the necessary steps.
-2. Create a Github tag of the last commit which merged to `master` and passed in CI:
+2. Create a GitHub tag of the last commit which merged to `master` and passed in CI:
     ```shell
     git checkout master
     git pull origin master
