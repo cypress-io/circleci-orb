@@ -39,7 +39,7 @@ Assuming your `./circleci/config.yml` file appears similar to the one in this re
 #### CircleCI Local Linting
 
 ```bash
-circleci local execute --job orb-tools/lint
+circleci local execute orb-tools/lint
 ```
 
 #### YamlLint Local Linting
@@ -54,7 +54,7 @@ yamllint ./src
 #### CircleCI Local Shellcheck
 
 ```bash
-circleci local execute --job shellcheck/check
+circleci local execute shellcheck/check
 ```
 
 ### Local Review
@@ -64,10 +64,10 @@ The `review` job is a suite of Bash unit tests written using [bats-core](https:/
 #### CircleCI Local Review
 
 ```bash
-circleci local execute --job orb-tools/review
+circleci local execute orb-tools/review
 ```
 
-**Note**: You will _always_ see a failure at the end of this job when ran locally because the job contains a step to upload test results to CircleCI.com, which is _not_ supported in the local agent.
+**Note**: You will _always_ see a failure at the end of this job when run locally because the job contains a step to upload test results to CircleCI.com, which is _not_ supported in the local agent.
 
 ### Commits
 
