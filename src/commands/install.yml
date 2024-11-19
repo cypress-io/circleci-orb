@@ -80,9 +80,9 @@ steps:
               equal: [ '', << parameters.package-manager-version >> ]
           - equal: [ 'yarn', << parameters.package-manager >> ]
       steps:
-          - node/install:
-              install-yarn: true
-              yarn-version: << parameters.package-manager-version >>
+        - node/install:
+            install-yarn: true
+            yarn-version: << parameters.package-manager-version >>
   - when:
       condition:
         equal: [ 'pnpm', << parameters.package-manager >> ]
