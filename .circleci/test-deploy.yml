@@ -179,6 +179,7 @@ workflows:
             - Verify skip-checkout
           context: circleci-orb-publishing
       - orb-tools/publish:
+          name: publish_prod
           orb_name: cypress-io/cypress
           vcs_type: << pipeline.project.type >>
           pub_type: production
