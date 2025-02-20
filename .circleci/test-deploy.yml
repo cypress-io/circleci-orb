@@ -56,7 +56,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
 
 workflows:
-  test-deploy:
+  test_deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - cypress/run:
