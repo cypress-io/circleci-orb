@@ -24,7 +24,7 @@ workflows:
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           filters: *filters
-          orb_name: cypress-io/cypress
+          orb_name: cypress
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
           requires:
