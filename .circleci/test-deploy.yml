@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.6.1
+  orb-tools: circleci/orb-tools@12.3.0
 filters: &filters
   tags:
     only: /.*/
@@ -150,10 +150,10 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: cypress-io/cypress
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
-          enable-pr-comment: false
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
+          enable_pr_comment: false
           requires:
             - orb-tools/pack
             - Standard Npm Example
@@ -175,4 +175,3 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-# VS Code Extension Version: 1.5.1
