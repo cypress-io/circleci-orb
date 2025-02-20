@@ -91,7 +91,7 @@ fix: a patch release
     git tag -s -a vX.Y.Z -m vX.Y.Z <sha>
     git push origin vX.Y.Z
     ```
-3. Verify the `test-deploy` workflow passes in [CircleCi](https://app.circleci.com/pipelines/github/cypress-io/circleci-orb). This is triggered by pushing the tag to origin which handles releasing the orb changes to https://circleci.com/developer/orbs/orb/cypress-io/cypress.
+3. Verify the `test_deploy` workflow passes in [CircleCi](https://app.circleci.com/pipelines/github/cypress-io/circleci-orb). This is triggered by pushing the tag to origin which handles releasing the orb changes to https://circleci.com/developer/orbs/orb/cypress-io/cypress.
 4. Create a new [GitHub release](https://github.com/cypress-io/circleci-orb/releases).
     - Choose the tag you created previously.
     - Add the version number to the _Release Title_ and click the `Generate release notes` button.

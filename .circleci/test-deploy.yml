@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.6.1
+  orb-tools: circleci/orb-tools@12.3.0
+  # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
     only: /.*/
@@ -56,7 +56,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
 
 workflows:
-  test-deploy:
+  test_deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - cypress/run:
@@ -147,15 +147,48 @@ workflows:
           name: Run CT Tests in Edge
           requires:
             - Install & Persist
+      - orb-tools/lint:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
+      - orb-tools/review:
+          filters: *filters
+          exclude: RC010
       - orb-tools/publish:
-          orb-name: cypress-io/cypress
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
-          enable-pr-comment: false
+          name: publish_dev_test
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: dev
+          enable_pr_comment: false
           requires:
+            - orb-tools/lint
+            - orb-tools/review
             - orb-tools/pack
+            - Standard Npm Example
+            - Custom Node Version Example
+            - Yarn Example
+            # - Pnpm Example
+            - Custom Install Example
+            - Wait On Example
+            - Angular Application
+            - Run CT in Parallel
+            - Install & Persist
+            - Run CT Tests in Chrome
+            - Run CT Tests in Firefox
+            - Run CT Tests in Edge
+            - Verify skip-checkout
+          context: circleci-orb-publishing
+      - orb-tools/publish:
+          name: publish_prod
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
+          enable_pr_comment: false
+          requires:
+            - orb-tools/lint
+            - orb-tools/review
+            - orb-tools/pack
+            - publish_dev_test
             - Standard Npm Example
             - Custom Node Version Example
             - Yarn Example
@@ -175,4 +208,3 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-# VS Code Extension Version: 1.5.1
