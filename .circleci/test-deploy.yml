@@ -10,7 +10,7 @@ jobs:
   install-and-persist:
     executor:
       name: cypress/default
-      node-version: "20.15.1"
+      node-version: "22.14.0"
     steps:
       - cypress/install:
           working-directory: examples/angular-app
@@ -23,7 +23,7 @@ jobs:
             - project
   run-ct-tests-in-chrome:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -34,7 +34,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
   run-ct-tests-in-firefox:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -45,7 +45,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -86,7 +86,7 @@ workflows:
       # - cypress/run:
       #     filters: *filters
       #     name: Pnpm Example
-      #     node-version: "22.11.0"
+      #     node-version: "22.14.0"
       #     working-directory: examples/pnpm-install
       #     cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
       #     post-install: "pnpm dlx cypress install"
