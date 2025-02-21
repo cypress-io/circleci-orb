@@ -83,14 +83,14 @@ workflows:
           cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
           post-install: "npx cypress install"
           package-manager: "yarn"
-      # - cypress/run:
-      #     filters: *filters
-      #     name: Pnpm Example
-      #     node-version: "22.14.0"
-      #     working-directory: examples/pnpm-install
-      #     cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
-      #     post-install: "pnpm dlx cypress install"
-      #     package-manager: "pnpm"
+      - cypress/run:
+          filters: *filters
+          name: Pnpm Example
+          node-version: "22.14.0"
+          working-directory: examples/pnpm-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
+          post-install: "pnpm cypress install"
+          package-manager: "pnpm"
       - cypress/run:
           filters: *filters
           name: Custom Install Example
@@ -167,7 +167,7 @@ workflows:
             - Standard Npm Example
             - Custom Node Version Example
             - Yarn Example
-            # - Pnpm Example
+            - Pnpm Example
             - Custom Install Example
             - Wait On Example
             - Angular Application
@@ -192,7 +192,7 @@ workflows:
             - Standard Npm Example
             - Custom Node Version Example
             - Yarn Example
-            # - Pnpm Example
+            - Pnpm Example
             - Custom Install Example
             - Wait On Example
             - Angular Application
