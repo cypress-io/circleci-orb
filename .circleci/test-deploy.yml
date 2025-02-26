@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  orb-tools: circleci/orb-tools@12.3.0
+  orb-tools: circleci/orb-tools@12.3.1
   # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
