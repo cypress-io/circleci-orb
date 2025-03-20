@@ -129,6 +129,15 @@ workflows:
           cypress-command: "npx cypress run --component --parallel --record"
           pre-steps:
             - checkout
+      - cypress/run:
+          filters: *filters
+          name: Verify resource_class config works
+          working-directory: examples/angular-app
+          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-command: "npx cypress run --component --parallel --record"
+          resource_class: small
+          pre-steps:
+            - checkout
       - install-and-persist:
           filters: *filters
           name: Install & Persist
@@ -177,6 +186,7 @@ workflows:
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout
+            - Verify resource_class config works
           context: circleci-orb-publishing
       - orb-tools/publish:
           name: publish_prod
@@ -202,6 +212,7 @@ workflows:
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout
+            - Verify resource_class config works
           context: circleci-orb-publishing
           filters:
             branches:
