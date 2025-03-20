@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.6.1
+  orb-tools: circleci/orb-tools@12.3.1
+  # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
     only: /.*/
@@ -10,7 +10,7 @@ jobs:
   install-and-persist:
     executor:
       name: cypress/default
-      node-version: "20.15.1"
+      node-version: "22.14.0"
     steps:
       - cypress/install:
           working-directory: examples/angular-app
@@ -23,7 +23,7 @@ jobs:
             - project
   run-ct-tests-in-chrome:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -34,7 +34,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
   run-ct-tests-in-firefox:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -45,7 +45,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+      - image: cypress/browsers:22.14.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -56,7 +56,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
 
 workflows:
-  test-deploy:
+  test_deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - cypress/run:
@@ -94,10 +94,10 @@ workflows:
       - cypress/run:
           filters: *filters
           name: Pnpm Example
-          node-version: "22.11.0"
+          node-version: "22.14.0"
           working-directory: examples/pnpm-install
           cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
-          post-install: "pnpm dlx cypress install"
+          post-install: "pnpm cypress install"
           package-manager: "pnpm"
       - cypress/run:
           filters: *filters
@@ -163,14 +163,22 @@ workflows:
           name: Run CT Tests in Edge
           requires:
             - Install & Persist
+      - orb-tools/lint:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
+      - orb-tools/review:
+          filters: *filters
+          exclude: RC010
       - orb-tools/publish:
-          orb-name: cypress-io/cypress
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
-          enable-pr-comment: false
+          name: publish_dev_test
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: dev
+          enable_pr_comment: false
           requires:
+            - orb-tools/lint
+            - orb-tools/review
             - orb-tools/pack
             - Standard Npm Example
             - Custom Node Version Example
@@ -188,9 +196,33 @@ workflows:
             - Run CT Tests in Edge
             - Verify skip-checkout
           context: circleci-orb-publishing
+      - orb-tools/publish:
+          name: publish_prod
+          orb_name: cypress-io/cypress
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
+          enable_pr_comment: false
+          requires:
+            - orb-tools/lint
+            - orb-tools/review
+            - orb-tools/pack
+            - publish_dev_test
+            - Standard Npm Example
+            - Custom Node Version Example
+            - Yarn Example
+            - Pnpm Example
+            - Custom Install Example
+            - Wait On Example
+            - Angular Application
+            - Run CT in Parallel
+            - Install & Persist
+            - Run CT Tests in Chrome
+            - Run CT Tests in Firefox
+            - Run CT Tests in Edge
+            - Verify skip-checkout
+          context: circleci-orb-publishing
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-# VS Code Extension Version: 1.5.1
