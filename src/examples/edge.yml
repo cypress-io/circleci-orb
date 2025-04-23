@@ -7,7 +7,7 @@ usage:
   executors:
     cypress-browsers:
       docker:
-        - image: cypress/browsers:node-20.17.0-chrome-129.0.6668.70-1-ff-130.0.1-edge-129.0.2792.52-1
+        - image: cypress/browsers:22.15.0
   jobs:
     edge-test:
       executor: cypress-browsers
