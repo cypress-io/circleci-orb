@@ -1,0 +1,19 @@
+<div class="max-w-screen-sm p-12 mx-auto bg-gray-50 rounded-md shadow-lg">
+    <form class="flex flex-col" #form="ngForm" (ngSubmit)="handleFormSubmit()">
+        <fieldset>
+            <legend class="text-3xl text-gray-800 mb-4">Log In</legend>
+            <label class="flex flex-col text-lg text-gray-800 mb-2">
+                Username
+                <input name="username" [(ngModel)]="username" class="p-2 text-gray-500 focus:outline-none border-2" autocomplete="username" />
+                <span *ngIf="submitted && !username" class="text-red-500 mt-2">Username is required</span>
+            </label>
+            <label class="flex flex-col text-lg text-gray-800 mb-2">
+                Password
+                <input type="password" name="password" [(ngModel)]="password" class="p-2 text-gray-500 focus:outline-none border-2" autocomplete="current-password" />
+                <span *ngIf="submitted && !password" class="text-red-500 mt-2">Password is required</span>
+            </label>
+            <app-button type="submit">Login</app-button>
+            <div *ngIf="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</div>
+        </fieldset>
+    </form>
+</div>
