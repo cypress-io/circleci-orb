@@ -1,0 +1,9 @@
+<!-- app/components/test-component.component.html -->
+<p data-cy="test-component-title-display">{{ title() }}</p>
+<p data-cy="test-component-count-display">{{ count() }}</p>
+<button class="py-2 px-6 text-white bg-cy-blue duration-20 border-solid border-2 border-transparent mx-2" data-cy="test-component-count-incr" (click)="count.set(count() + 1)">
+  Increase
+</button>
+<button class="py-2 px-6 text-white bg-cy-blue duration-20 border-solid border-2 border-transparent mx-2" data-cy="test-component-count-decr" (click)="count.set(count() - 1)">
+  Decrease
+</button>
