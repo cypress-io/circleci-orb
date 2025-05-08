@@ -6,6 +6,7 @@ executor:
   node-version: << parameters.node-version >>
 
 parallelism: << parameters.parallelism >>
+resource_class: << parameters.resource_class >>
 
 parameters:
   install-command:
@@ -77,6 +78,21 @@ parameters:
     type: boolean
     default: false
     description: Whether to skip code checkout
+  resource_class:
+    type: string
+    default: medium
+    enum:
+      - small
+      - medium
+      - medium+
+      - large
+      - xlarge
+      - 2xlarge
+      - 2xlarge+
+      - arm.medium
+      - arm.large
+      - arm.xlarge
+      - arm.2xlarge
 
 steps:
   - install:
