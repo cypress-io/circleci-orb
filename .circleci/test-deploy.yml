@@ -16,14 +16,13 @@ jobs:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           include-branch-in-node-cache-key: true
+          install-browsers: true
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
   run-ct-tests-in-chrome:
-    docker:
-      - image: cypress/browsers:22.16.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -32,9 +31,16 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+  run-ct-tests-in-chrome-for-testing:
+    parallelism: 2
+    steps:
+      - run: echo "This step assumes dependencies were installed using the cypress/install job"
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          working-directory: examples/angular-app
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
   run-ct-tests-in-firefox:
-    docker:
-      - image: cypress/browsers:22.16.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -44,8 +50,6 @@ jobs:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
-    docker:
-      - image: cypress/browsers:22.16.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -183,6 +187,7 @@ workflows:
             - Run CT in Parallel
             - Install & Persist
             - Run CT Tests in Chrome
+            - Run CT Tests in Chrome for Testing
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout
@@ -209,6 +214,7 @@ workflows:
             - Run CT in Parallel
             - Install & Persist
             - Run CT Tests in Chrome
+            - Run CT Tests in Chrome for Testing
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout

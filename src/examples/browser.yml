@@ -1,5 +1,5 @@
 description: >
-  Run Cypress tests using specified browser. The CircleCI Browser Tools orb at https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install-browser-tools
+  Run Cypress tests using specified browser. The CircleCI Browser Tools orb at https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install_browser_tools
   currently supports Chrome, Chrome for Testing, Firefox, and Edge.
 usage:
   version: 2.1
