@@ -158,6 +158,11 @@ workflows:
           name: Run CT Tests in Chrome
           requires:
             - Install & Persist
+      - run-ct-tests-in-chrome-for-testing:
+          filters: *filters
+          name: Run CT Tests in Chrome for Testing
+          requires:
+            - Install & Persist
       - run-ct-tests-in-firefox:
           filters: *filters
           name: Run CT Tests in Firefox
