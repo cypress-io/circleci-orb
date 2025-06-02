@@ -158,11 +158,6 @@ workflows:
           name: Run CT Tests in Chrome
           requires:
             - Install & Persist
-      - run-ct-tests-in-chrome-for-testing:
-          filters: *filters
-          name: Run CT Tests in Chrome for Testing
-          requires:
-            - Install & Persist
       - run-ct-tests-in-firefox:
           filters: *filters
           name: Run CT Tests in Firefox
@@ -200,7 +195,6 @@ workflows:
             - Run CT in Parallel
             - Install & Persist
             - Run CT Tests in Chrome
-            - Run CT Tests in Chrome for Testing
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout
@@ -227,7 +221,6 @@ workflows:
             - Run CT in Parallel
             - Install & Persist
             - Run CT Tests in Chrome
-            - Run CT Tests in Chrome for Testing
             - Run CT Tests in Firefox
             - Run CT Tests in Edge
             - Verify skip-checkout
