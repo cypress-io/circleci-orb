@@ -1,6 +1,6 @@
 description: >
   Run Cypress tests using specified browser. The CircleCI Browser Tools orb at https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install-browser-tools
-  currently supports Chrome & Firefox. See https://circleci.com/developer/orbs/orb/cypress-io/cypress#usage-edge, for Microsoft Edge support.
+  currently supports Chrome, Chrome for Testing, Firefox, and Edge.
 usage:
   version: 2.1
   orbs:

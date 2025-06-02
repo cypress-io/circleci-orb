@@ -16,7 +16,7 @@ parameters:
     description: |
       Cypress runs by default in the Electron browser. Use this flag to install additional browsers to run your tests in.
       This is only needed if you are passing the `--browser` flag in your `cypress-command`.
-      This parameter leverages the `circleci/browser-tools` orb and includes Chrome and FireFox.
+      This parameter leverages the `circleci/browser-tools` orb and includes Chrome, Chrome for testing, FireFox, and Edge.
       If you need additional browser support you can set this to false and use an executor with a docker image
       that includes the browsers of your choosing. See https://hub.docker.com/r/cypress/browsers/tags
     type: boolean
