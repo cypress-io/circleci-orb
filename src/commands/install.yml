@@ -63,6 +63,7 @@ steps:
       steps:
         - browser-tools/install_browser_tools:
             install_chrome_for_testing: true
+            install_chrome_for_testing_driver: true
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
