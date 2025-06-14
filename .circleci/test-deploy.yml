@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   orb-tools: circleci/orb-tools@12.3.1
+  browser-tools: circleci/browser-tools@2.1.1
   # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
@@ -14,7 +15,6 @@ jobs:
     steps:
       - cypress/install:
           working-directory: examples/angular-app
-          install-browsers: true
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           include-branch-in-node-cache-key: true
       - persist_to_workspace:
@@ -52,6 +52,7 @@ jobs:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
+      - browser-tools/install-edge
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
