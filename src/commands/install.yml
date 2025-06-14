@@ -61,7 +61,8 @@ steps:
   - when:
       condition: << parameters.install-browsers >>
       steps:
-        - browser-tools/install-browser-tools
+        - browser-tools/install_browser_tools:
+            install_chromedriver: false
   - restore_cache:
       name: Restore Cypress cache
       key: << parameters.cypress-cache-key >>
