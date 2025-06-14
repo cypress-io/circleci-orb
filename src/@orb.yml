@@ -7,7 +7,6 @@ display:
   home_url: "https://cypress.io"
   source_url: "https://github.com/cypress-io/circleci-orb"
 
-# if our orb requires other orbs, we can import them like this. Otherwise remove the "orbs" stanza.
 orbs:
   node: circleci/node@7
-  browser-tools: circleci/browser-tools@1.5.3
+  browser-tools: circleci/browser-tools@2.1.1
