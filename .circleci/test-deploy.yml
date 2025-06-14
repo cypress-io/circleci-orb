@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   orb-tools: circleci/orb-tools@12.3.1
+  browser-tools: circleci/browser-tools@2.1.1
   # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
@@ -44,13 +45,14 @@ jobs:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
-    docker:
-      - image: cypress/browsers:22.16.0
+    executor:
+      name: cypress/default
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
+      - browser-tools/install_edge
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
