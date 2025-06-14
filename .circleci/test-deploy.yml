@@ -44,8 +44,8 @@ jobs:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
   run-ct-tests-in-edge:
-    docker:
-      - image: cypress/browsers:22.16.0
+    executor:
+      name: cypress/default
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
