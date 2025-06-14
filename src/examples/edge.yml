@@ -4,19 +4,10 @@ usage:
   version: 2.1
   orbs:
     cypress: cypress-io/cypress@4
-  executors:
-    cypress-browsers:
-      docker:
-        - image: cypress/browsers:22.15.0
-  jobs:
-    edge-test:
-      executor: cypress-browsers
-      steps:
-        - cypress/install
-        - cypress/run-tests:
-            start-command: "npm run start:dev"
-            cypress-command: 'npx cypress run --browser edge'
   workflows:
     use-my-orb:
       jobs:
-        - edge-test
+        - cypress/run:
+            start-command: "npm run start:dev"
+            cypress-command: "npx cypress run --browser edge"
+            install-browsers: true
