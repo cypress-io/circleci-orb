@@ -52,7 +52,7 @@ jobs:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
           at: ~/
-      - browser-tools/install-edge
+      - browser-tools/install_edge
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
