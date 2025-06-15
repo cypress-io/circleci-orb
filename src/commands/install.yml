@@ -63,7 +63,7 @@ steps:
       steps:
         - browser-tools/install_browser_tools:
             install_chromedriver: false
-            browser-tools/install_chrome_for_testing: true
+            install_chrome_for_testing: true
             install_edge: true
   - restore_cache:
       name: Restore Cypress cache
