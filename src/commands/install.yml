@@ -3,7 +3,7 @@ description: |
 
 parameters:
   install-command:
-    description: Overrides the default NPM command (npm ci)
+    description: Overrides the default npm command (npm ci)
     type: string
     default: ""
   post-install:
@@ -47,7 +47,7 @@ parameters:
     type: enum
     enum: ["npm", "yarn", "yarn-berry", "pnpm"]
     default: "npm"
-    description: Select the default node package manager to use. NPM v5+ Required.
+    description: Select the default node package manager to use. npm v5+ Required.
   skip-checkout:
     type: boolean
     default: false
