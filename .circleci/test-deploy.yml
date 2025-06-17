@@ -44,7 +44,7 @@ jobs:
       - browser-tools/install_chrome_for_testing
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser chrome-for-testing"
+          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
   run-ct-tests-in-firefox:
     docker:
       - image: cypress/browsers:22.16.0
