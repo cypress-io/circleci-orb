@@ -11,7 +11,6 @@ jobs:
   install-and-persist:
     executor:
       name: cypress/default
-      node-version: "22.14.0"
     steps:
       - cypress/install:
           working-directory: examples/angular-app
@@ -24,7 +23,7 @@ jobs:
             - project
   run-ct-tests-in-chrome:
     docker:
-      - image: cypress/browsers:22.16.0
+      - image: cypress/browsers:22.17.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -47,7 +46,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
   run-ct-tests-in-firefox:
     docker:
-      - image: cypress/browsers:22.16.0
+      - image: cypress/browsers:22.17.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -84,10 +83,10 @@ workflows:
           name: Custom Node Version Example
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          node-version: "20.15.1"
+          node-version: "22.17.0"
           post-install: |
-            if ! node --version | grep -q "20.15.1"; then
-                echo "Node version 20.15.1 not found"
+            if ! node --version | grep -q "22.17.0"; then
+                echo "Node version 22.17.0 not found"
                 exit 1
             fi
       - cypress/run:
@@ -100,7 +99,6 @@ workflows:
       - cypress/run:
           filters: *filters
           name: Pnpm Example
-          node-version: "22.14.0"
           working-directory: examples/pnpm-install
           cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
           post-install: "pnpm cypress install"

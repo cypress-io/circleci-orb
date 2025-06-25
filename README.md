@@ -34,11 +34,11 @@ A typical project can have:
 ```yaml
 version: 2.1
 orbs:
-  # "cypress-io/cypress@4" installs the latest published
+  # "cypress-io/cypress@5" installs the latest published
   # version "s.x.y" of the orb. We recommend you then use
-  # the strict explicit version "cypress-io/cypress@4.x.y"
+  # the strict explicit version "cypress-io/cypress@5.x.y"
   # to lock the version and prevent unexpected CI changes
-  cypress: cypress-io/cypress@4
+  cypress: cypress-io/cypress@5
 workflows:
   build:
     jobs:
@@ -66,7 +66,7 @@ may have:
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@4
+  cypress: cypress-io/cypress@5
 workflows:
   build:
     jobs:
@@ -135,7 +135,7 @@ A single Docker container used to run Cypress tests. This default executor exten
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@4
+  cypress: cypress-io/cypress@5
 executor: cypress/default
 jobs:
   - cypress/run:
@@ -146,10 +146,10 @@ You can also use your own executor by passing in your own Docker image. See the 
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@4
+  cypress: cypress-io/cypress@5
 executor:
   docker:
-    image: cypress/browsers:22.15.0 # your Docker image here
+    image: cypress/browsers:22.17.0 # your Docker image here
 jobs:
   - cypress/run:
 ```
@@ -161,7 +161,7 @@ jobs:
 ```yaml
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@4
+  cypress: cypress-io/cypress@5
 jobs:
   install:
     executor: cypress/default
@@ -199,7 +199,7 @@ Cypress orb is _versioned_ so you can be sure that the configuration will _not_ 
 
 You can find all changes and published orb versions for Cypress orb at [cypress-io/circleci-orb/releases](https://github.com/cypress-io/circleci-orb/releases).
 
-We are using `cypress-io/cypress@4` version in our examples, so you get the latest published orb version `4.x.x`. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
+We are using `cypress-io/cypress@5` version in our examples, so you get the latest published orb version `5.x.x`. But we recommend locking it down to an exact version to prevent unexpected changes from suddenly breaking your builds.
 
 ### License
 
