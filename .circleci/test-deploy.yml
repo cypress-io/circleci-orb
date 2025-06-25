@@ -24,7 +24,7 @@ jobs:
             - project
   run-ct-tests-in-chrome:
     docker:
-      - image: cypress/browsers:22.16.0
+      - image: cypress/browsers:22.17.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
@@ -47,7 +47,7 @@ jobs:
           cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
   run-ct-tests-in-firefox:
     docker:
-      - image: cypress/browsers:22.16.0
+      - image: cypress/browsers:22.17.0
     parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
