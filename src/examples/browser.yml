@@ -1,9 +1,12 @@
 description: >
-  Run Cypress tests using specified browser. `install_browsers: true` installs the default browsers Chrome and Firefox with the geckodriver, and the optional browsers Chrome for Testing and Edge from the CircleCI Browser Tools orb at https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install_browser_tools.
+  Run Cypress tests using specified browser.
+  `install_browsers: true` installs the default browsers Chrome and Firefox with the geckodriver,
+  and the optional browsers Chrome for Testing and Edge from the CircleCI Browser Tools orb at
+  https://circleci.com/developer/orbs/orb/circleci/browser-tools#commands-install_browser_tools.
 usage:
   version: 2.1
   orbs:
-    cypress: cypress-io/cypress@4
+    cypress: cypress-io/cypress@5
   workflows:
     use-my-orb:
       jobs:
