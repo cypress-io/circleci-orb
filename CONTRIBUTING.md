@@ -71,13 +71,20 @@ circleci local execute orb-tools/review
 
 ### Commits
 
-Use [simple semantic commit convention](https://github.com/bahmutov/simple-commit-message), just prefix your commits. For example:
+Refer to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and use this convention for the titles of Pull Requests and of commits. These are used when automatically generating a release note change log, shown in GitHub under [Releases](https://github.com/cypress-io/circleci-orb/releases).
 
-```text
-major: breaking change
-minor: new feature added
-fix: a patch release
-```
+Commit types often used in this repo are:
+
+- `feat:` A new feature
+- `fix:` A bug fix
+- `docs:` Documentation only changes
+- `chore:` Changes that have no user-facing impact
+- `test:` Add or change example tests
+- `ci:` Changes to CI configuration
+
+For a breaking change that needs to be released with a new major version number of the Orb, mark it with the following tag in the body of the commit:
+
+ - `BREAKING CHANGE:`
 
 ### Releasing
 
