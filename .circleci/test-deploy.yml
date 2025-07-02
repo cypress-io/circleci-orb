@@ -140,6 +140,7 @@ workflows:
           name: Verify skip-checkout
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          skip-checkout: true
           cypress-command: "npx cypress run --component --parallel --record"
           pre-steps:
             - checkout
