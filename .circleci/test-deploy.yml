@@ -150,7 +150,7 @@ workflows:
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           cypress-command: "npx cypress run --component --parallel --record"
-          resource_class: small
+          resource_class: medium+
       - install-and-persist:
           filters: *filters
           name: Install & Persist
