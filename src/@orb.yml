@@ -9,4 +9,4 @@ display:
 
 orbs:
   node: circleci/node@7
-  browser-tools: circleci/browser-tools@2.1.2
+  browser-tools: circleci/browser-tools@2.2.1
