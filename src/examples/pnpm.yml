@@ -1,6 +1,6 @@
 description: >
   Runs Cypress tests using pnpm.
-  Installs dependencies and caches npm modules and the Cypress binary.
+  Installs dependencies and caches npm modules together with the Cypress binary.
 usage:
   version: 2.1
   orbs:

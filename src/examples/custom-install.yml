@@ -1,5 +1,5 @@
 description: >
-  Runs Cypress tests and install dependencies using a custom install and post-install script.
+  Runs Cypress tests and installs dependencies using a custom install and post-install script.
 usage:
   version: 2.1
   orbs:

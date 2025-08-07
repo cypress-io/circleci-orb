@@ -1,5 +1,5 @@
 description: >
-  Run Cypress tests in Microsoft Edge.
+  Runs Cypress tests in Microsoft Edge.
 usage:
   version: 2.1
   orbs:
