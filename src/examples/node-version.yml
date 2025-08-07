@@ -1,5 +1,5 @@
 description: >
-  Run Cypress tests using the cypress/default executor with a specified node version.
+  Runs Cypress tests using the cypress/default executor with a specified node version.
 usage:
   version: 2.1
   orbs:
