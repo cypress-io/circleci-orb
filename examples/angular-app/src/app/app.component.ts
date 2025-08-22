@@ -11,7 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
   providers: [LoginService],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   isAuthed = false
