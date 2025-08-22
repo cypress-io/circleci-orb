@@ -8,6 +8,6 @@
   "author": "",
   "private": true,
   "devDependencies": {
-    "cypress": "^14.0.0"
+    "cypress": "^15.0.0"
   }
 }
