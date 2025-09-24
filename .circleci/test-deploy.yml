@@ -107,6 +107,14 @@ workflows:
           package-manager: "pnpm"
       - cypress/run:
           filters: *filters
+          name: Bun Example
+          working-directory: examples/bun-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/bun-install/package.json" }}
+          post-install: "bunx cypress install"
+          package-manager: "bun"
+          cypress-command: "bunx cypress run"
+      - cypress/run:
+          filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install

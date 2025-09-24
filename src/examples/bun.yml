@@ -1,0 +1,15 @@
+description: >
+  Run tests using Bun as the package manager.
+  Bun is an all-in-one JavaScript runtime & toolkit designed for speed,
+  complete with a bundler, test runner, and Node.js-compatible package manager.
+usage:
+  version: "2.1"
+  orbs:
+    cypress: cypress-io/cypress@x.y
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            package-manager: "bun"
+            start-command: "bun cypress start"
+            install-command: "bun install --frozen-lockfile"

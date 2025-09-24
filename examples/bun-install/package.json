@@ -1,0 +1,11 @@
+{
+  "name": "bun-install",
+  "version": "1.0.0",
+  "description": "Example Cypress project using Bun package manager",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^15.0.0"
+  }
+}
