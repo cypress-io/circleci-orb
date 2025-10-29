@@ -3,12 +3,12 @@ description: >
 usage:
   version: 2.1
   orbs:
-    cypress: cypress-io/cypress@5
+    cypress: cypress-io/cypress@6
   jobs:
     run-cypress-in-specified-node-version:
       executor:
         name: cypress/default
-        node-version: "22.17"
+        node-version: "24.11"
       steps:
         - cypress/install:
             package-manager: "npm"
@@ -19,4 +19,4 @@ usage:
     use-my-orb:
       jobs:
         - run-cypress-in-specified-node-version:
-            name: Run Cypress in Node 22.17
+            name: Run Cypress in Node 24.11

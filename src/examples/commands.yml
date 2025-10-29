@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    cypress: cypress-io/cypress@5
+    cypress: cypress-io/cypress@6
   jobs:
     install-and-persist:
       executor: cypress/default

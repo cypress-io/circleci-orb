@@ -6,7 +6,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    cypress: cypress-io/cypress@5
+    cypress: cypress-io/cypress@6
   workflows:
     use-my-orb:
       jobs:

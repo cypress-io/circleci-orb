@@ -85,10 +85,10 @@ workflows:
           name: Custom Node Version Example
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          node-version: "22.17.0"
+          node-version: "24.11.0"
           post-install: |
-            if ! node --version | grep -q "22.17.0"; then
-                echo "Node version 22.17.0 not found"
+            if ! node --version | grep -q "24.11.0"; then
+                echo "Node version 24.11.0 not found"
                 exit 1
             fi
       - cypress/run:
