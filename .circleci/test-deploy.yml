@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  orb-tools: circleci/orb-tools@12.3.1 # https://circleci.com/developer/orbs/orb/circleci/orb-tools
+  orb-tools: circleci/orb-tools@12.4.0 # https://circleci.com/developer/orbs/orb/circleci/orb-tools
   browser-tools: circleci/browser-tools@2.3.2 # https://circleci.com/developer/orbs/orb/circleci/browser-tools
   # The orb will be injected here by the "continue" job.
 filters: &filters
@@ -85,10 +85,10 @@ workflows:
           name: Custom Node Version Example
           working-directory: examples/npm-install
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
-          node-version: "24.11.0"
+          node-version: "24.13.0"
           post-install: |
-            if ! node --version | grep -q "24.11.0"; then
-                echo "Node version 24.11.0 not found"
+            if ! node --version | grep -q "24.13.0"; then
+                echo "Node.js version 24.13.0 not found"
                 exit 1
             fi
       - cypress/run:

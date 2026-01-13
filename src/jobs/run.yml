@@ -71,9 +71,9 @@ parameters:
       (requires `parallel` and `record` flags in your `cypress-command`)
   node-version:
     type: string
-    default: "24.11.0" # keep in sync with executors/default.yml
+    default: "24.13.0" # keep in sync with executors/default.yml
     description: >
-      The version of Node to run your tests with.
+      The version of Node.js to run your tests with.
   skip-checkout:
     type: boolean
     default: false
