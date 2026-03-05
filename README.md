@@ -149,7 +149,7 @@ orbs:
   cypress: cypress-io/cypress@6
 executor:
   docker:
-    image: cypress/browsers:24.13.1 # your Docker image here
+    image: cypress/browsers:24.14.0 # your Docker image here
 jobs:
   - cypress/run:
 ```
