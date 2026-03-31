@@ -1,7 +1,8 @@
 version: 2.1
 orbs:
   orb-tools: circleci/orb-tools@12.4.0 # https://circleci.com/developer/orbs/orb/circleci/orb-tools
-  browser-tools: circleci/browser-tools@2.4.0 # https://circleci.com/developer/orbs/orb/circleci/browser-tools
+    # keep browser-tools version in sync with src/@orb.yml
+  browser-tools: circleci/browser-tools@2.4.1 # https://circleci.com/developer/orbs/orb/circleci/browser-tools
   # The orb will be injected here by the "continue" job.
 filters: &filters
   tags:
