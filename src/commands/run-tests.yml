@@ -14,6 +14,21 @@ parameters:
     description: Command used to run your Cypress tests
     type: string
     default: "npx cypress run"
+  max-auto-reruns:
+    description: >
+      Number of additional times CircleCI should automatically rerun the
+      Cypress run step if it fails. 0 (default) disables auto-rerun. Useful
+      for known-flaky test suites where you want CircleCI's native
+      step-level retry rather than rerunning the whole workflow. See
+      https://circleci.com/docs/guides/orchestrate/automatic-reruns/
+    type: integer
+    default: 0
+  auto-rerun-delay:
+    description: >
+      Delay (e.g. "10s", "1m") between auto-rerun attempts of the Cypress
+      run step. Only applies when max-auto-reruns > 0.
+    type: string
+    default: "0s"
 
 steps:
   - when:
@@ -28,6 +43,8 @@ steps:
       name: Run Cypress
       command: << parameters.cypress-command >>
       working_directory: << parameters.working-directory >>
+      max_auto_reruns: << parameters.max-auto-reruns >>
+      auto_rerun_delay: << parameters.auto-rerun-delay >>
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:

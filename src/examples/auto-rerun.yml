@@ -1,0 +1,20 @@
+description: >
+  Auto-retry the Cypress run step up to 2 additional times on failure
+  using CircleCI's native step-level max_auto_reruns. Useful for known-flaky
+  test suites where you want the retry scoped to the Cypress invocation
+  itself rather than rerunning the whole workflow.
+
+  When max-auto-reruns is omitted (default 0), no auto-rerun is configured
+  and the step behaves exactly as before.
+
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@6
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            start-command: "npm run start"
+            max-auto-reruns: 2
+            auto-rerun-delay: "10s"
