@@ -39,11 +39,15 @@ steps:
             command: << parameters.start-command >>
             background: true
             working_directory: << parameters.working-directory >>
-  # Two variants of the Run Cypress step. Only one runs per job. The
-  # `max_auto_reruns` field is omitted entirely when max-auto-reruns is 0
-  # (the default) because the orb validator rejects `max_auto_reruns: 0`
-  # with "0 is not greater or equal to 1" — the field's value-schema
-  # requires >= 1, so the field can't be present unless retry is wanted.
+  # Two variants of the Run Cypress step. Only one runs per job.
+  # The `max_auto_reruns` field is omitted entirely when max-auto-reruns
+  # is 0 (the default) because the orb validator rejects
+  # `max_auto_reruns: 0` with "0 is not greater or equal to 1" — the
+  # field's value-schema requires >= 1, so the field can't be present
+  # unless retry is wanted. (The Mustache section-conditional syntax
+  # `<<#parameters.X>>...<</parameters.X>>` doesn't work here because
+  # the orb packer's parser can't handle a parameter substitution inside
+  # a section block of the same parameter.)
   - unless:
       condition: << parameters.max-auto-reruns >>
       steps:
