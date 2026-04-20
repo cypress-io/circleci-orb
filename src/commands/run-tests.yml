@@ -21,14 +21,14 @@ parameters:
       for known-flaky test suites where you want CircleCI's native
       step-level retry rather than rerunning the whole workflow. See
       https://circleci.com/docs/guides/orchestrate/automatic-reruns/
+
+      auto_rerun_delay is intentionally not exposed as a parameter — the
+      CircleCI orb validator pre-checks the delay value against a
+      time-format regex before substituting parameters, which fails on
+      any "<< parameters.x >>" expression. Reruns happen with the default
+      0s delay; if you need a delay, file an issue.
     type: integer
     default: 0
-  auto-rerun-delay:
-    description: >
-      Delay (e.g. "10s", "1m") between auto-rerun attempts of the Cypress
-      run step. Only applies when max-auto-reruns > 0.
-    type: string
-    default: "0s"
 
 steps:
   - when:
@@ -44,7 +44,6 @@ steps:
       command: << parameters.cypress-command >>
       working_directory: << parameters.working-directory >>
       max_auto_reruns: << parameters.max-auto-reruns >>
-      auto_rerun_delay: << parameters.auto-rerun-delay >>
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:

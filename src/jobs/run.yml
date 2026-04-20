@@ -72,12 +72,6 @@ parameters:
       See https://circleci.com/docs/guides/orchestrate/automatic-reruns/
     type: integer
     default: 0
-  auto-rerun-delay:
-    description: >
-      Delay (e.g. "10s", "1m") between auto-rerun attempts of the
-      Cypress run step. Only applies when max-auto-reruns > 0.
-    type: string
-    default: "0s"
   parallelism:
     type: integer
     default: 1
@@ -126,4 +120,3 @@ steps:
       start-command: << parameters.start-command >>
       cypress-command: << parameters.cypress-command >>
       max-auto-reruns: << parameters.max-auto-reruns >>
-      auto-rerun-delay: << parameters.auto-rerun-delay >>

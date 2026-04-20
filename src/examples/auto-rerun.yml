@@ -17,4 +17,3 @@ usage:
         - cypress/run:
             start-command: "npm run start"
             max-auto-reruns: 2
-            auto-rerun-delay: "10s"
