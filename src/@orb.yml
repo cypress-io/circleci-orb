@@ -8,5 +8,5 @@ display:
   source_url: "https://github.com/cypress-io/circleci-orb"
 
 orbs:
-  node: circleci/node@7
+  node: circleci/node@7.2.1
   browser-tools: circleci/browser-tools@2.4.2
