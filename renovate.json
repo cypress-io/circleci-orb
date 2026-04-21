@@ -2,5 +2,20 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "circleci": {
+    "managerFilePatterns": ["src/@orb.yml"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["circleci"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchManagers": ["circleci"],
+      "matchUpdateTypes": ["major"],
+      "semanticCommitType": "feat"
+    }
   ]
 }
