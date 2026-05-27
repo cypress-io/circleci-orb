@@ -9,10 +9,5 @@
   "private": true,
   "devDependencies": {
     "cypress": "^15.0.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "cypress"
-    ]
   }
 }
