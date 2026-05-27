@@ -3,6 +3,11 @@
   "extends": [
     "config:recommended"
   ],
+  "minimumReleaseAge": "7 days",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": "0 days"
+  },
   "labels": ["renovate"],
   "circleci": {
     "managerFilePatterns": ["src/@orb.yml"]
@@ -17,6 +22,10 @@
       "matchManagers": ["circleci"],
       "matchUpdateTypes": ["major"],
       "semanticCommitType": "feat"
+    },
+    {
+      "matchPackageNames": ["cypress"],
+      "minimumReleaseAge": "0 days"
     }
   ]
 }
