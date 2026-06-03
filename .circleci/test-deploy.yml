@@ -208,6 +208,11 @@ workflows:
             - Verify skip-checkout
             - Verify resource_class config works
           context: circleci-orb-publishing
+          filters:
+            branches:
+              only: master
+            tags:
+              ignore: /.*/
       - orb-tools/publish:
           name: publish_prod
           orb_name: cypress-io/cypress
