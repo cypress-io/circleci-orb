@@ -24,7 +24,7 @@ parameters:
   cypress-cache-key:
     description: Cache key used to cache the Cypress binary.
     type: string
-    default: 'cypress-cache-{{ arch }}-{{ checksum "package.json" }}'
+    default: 'v1-cypress-cache-{{ arch }}-{{ checksum "package-lock.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "pnpm-lock.yaml" }}'
   cypress-cache-path:
     description: |
       By default, this will cache the '~/.cache/Cypress' directory so that the Cypress binary is cached. You can override this by providing your own cache path.
