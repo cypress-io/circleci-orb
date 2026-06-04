@@ -22,6 +22,10 @@ jobs:
           paths:
             - .cache/Cypress
             - project
+
+  # These jobs use --record and --parallel when CYPRESS_RECORD_KEY is available
+  # (maintainer branches and master). Fork PR builds receive no key so they
+  # run without recording — the shell conditional handles this gracefully.
   run-ct-tests-in-chrome:
     executor:
       name: cypress/default
@@ -33,7 +37,10 @@ jobs:
       - browser-tools/install_chrome
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-chrome" || true)
+            --browser chrome
   run-ct-tests-in-chrome-for-testing:
     executor:
       name: cypress/default
@@ -45,7 +52,10 @@ jobs:
       - browser-tools/install_chrome_for_testing
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-chrome-for-testing" || true)
+            --browser chrome-for-testing
   run-ct-tests-in-firefox:
     executor:
       name: cypress/default
@@ -57,7 +67,10 @@ jobs:
       - browser-tools/install_firefox
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-firefox" || true)
+            --browser firefox
   run-ct-tests-in-edge:
     executor:
       name: cypress/default
@@ -69,7 +82,10 @@ jobs:
       - browser-tools/install_edge
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-edge" || true)
+            --browser edge
 
 workflows:
   test_deploy:
@@ -121,60 +137,82 @@ workflows:
           # wait-on will wait for the server to be ready before running the tests
           # -v only needed for demonstration purposes
           cypress-command: npx wait-on@latest http://localhost:8080 -v && npx cypress run
+
+      # Records when CYPRESS_RECORD_KEY is available (maintainer branches + master).
+      # Fork PR builds receive no key and run without --record automatically.
       - cypress/run:
           filters: *filters
           name: Angular Application
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           start-command: "npm run start"
-          cypress-command: "npx wait-on@latest http://localhost:4200 && npx cypress run --record --browser chrome"
+          cypress-command: >-
+            npx wait-on@latest http://localhost:4200 &&
+            npx cypress run --browser chrome
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           install-browsers: true
       - cypress/run:
           filters: *filters
           name: Run CT in Parallel
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
           parallelism: 3
       - cypress/run:
           filters: *filters
           name: Verify skip-checkout
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
           skip-checkout: true
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
           pre-steps:
             - checkout
       - cypress/run:
           filters: *filters
           name: Verify resource_class config works
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
           cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
           resource_class: medium+
+
       - install-and-persist:
           filters: *filters
           name: Install & Persist
       - run-ct-tests-in-chrome:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Chrome
           requires:
             - Install & Persist
       - run-ct-tests-in-chrome-for-testing:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Chrome for Testing
           requires:
             - Install & Persist
       - run-ct-tests-in-firefox:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Firefox
           requires:
             - Install & Persist
       - run-ct-tests-in-edge:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Edge
           requires:
             - Install & Persist
+
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:
