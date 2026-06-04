@@ -23,7 +23,6 @@ workflows:
           exclude: SC2148,SC2038,SC2086,SC2002,SC2016
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
-          filters: *filters
           orb_name: cypress
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
@@ -32,3 +31,8 @@ workflows:
             - orb-tools/review
             - orb-tools/pack
             - shellcheck/check
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
