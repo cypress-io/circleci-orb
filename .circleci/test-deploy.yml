@@ -250,7 +250,7 @@ workflows:
             branches:
               only: master
             tags:
-              ignore: /.*/
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
       - orb-tools/publish:
           name: publish_prod
           orb_name: cypress-io/cypress
