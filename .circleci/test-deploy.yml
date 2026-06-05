@@ -23,13 +23,13 @@ jobs:
             - .cache/Cypress
             - project
 
-  # These jobs use --record and --parallel when CYPRESS_RECORD_KEY is available
-  # (maintainer branches and master). Fork PR builds receive no key so they
-  # run without recording — the shell conditional handles this gracefully.
+  # Browser-specific CT jobs. Recording is conditional on CYPRESS_RECORD_KEY
+  # being available via the cypress-io-orb-recording context. Fork PR builds
+  # receive no key and run without recording. Maintainer branches and master
+  # receive the key and record to Cypress Cloud.
   run-ct-tests-in-chrome:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -38,13 +38,11 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: >-
-            npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-chrome" || true)
-            --browser chrome
+            npx cypress run --component --browser chrome
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group chrome" || true)
   run-ct-tests-in-chrome-for-testing:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -53,13 +51,11 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: >-
-            npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-chrome-for-testing" || true)
-            --browser chrome-for-testing
+            npx cypress run --component --browser chrome-for-testing
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group chrome-for-testing" || true)
   run-ct-tests-in-firefox:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -68,13 +64,11 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: >-
-            npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-firefox" || true)
-            --browser firefox
+            npx cypress run --component --browser firefox
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group firefox" || true)
   run-ct-tests-in-edge:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -83,9 +77,8 @@ jobs:
       - cypress/run-tests:
           working-directory: examples/angular-app
           cypress-command: >-
-            npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record --group 2x-edge" || true)
-            --browser edge
+            npx cypress run --component --browser edge
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group edge" || true)
 
 workflows:
   test_deploy:
@@ -160,8 +153,7 @@ workflows:
           cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
           cypress-command: >-
             npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
-          parallelism: 3
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
       - cypress/run:
           filters: *filters
           name: Verify skip-checkout
@@ -171,7 +163,7 @@ workflows:
           skip-checkout: true
           cypress-command: >-
             npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           pre-steps:
             - checkout
       - cypress/run:
@@ -182,7 +174,7 @@ workflows:
           cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
           cypress-command: >-
             npx cypress run --component
-            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--parallel --record" || true)
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           resource_class: medium+
 
       - install-and-persist:
