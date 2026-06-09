@@ -15,17 +15,21 @@ jobs:
     steps:
       - cypress/install:
           working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
           include-branch-in-node-cache-key: true
       - persist_to_workspace:
           root: ~/
           paths:
             - .cache/Cypress
             - project
+
+  # Browser-specific CT jobs. Recording is conditional on CYPRESS_RECORD_KEY
+  # being available via the cypress-io-orb-recording context. Fork PR builds
+  # receive no key and run without recording. Maintainer branches and master
+  # receive the key and record to Cypress Cloud.
   run-ct-tests-in-chrome:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -33,11 +37,12 @@ jobs:
       - browser-tools/install_chrome
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome --browser chrome"
+          cypress-command: >-
+            npx cypress run --component --browser chrome
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group chrome" || true)
   run-ct-tests-in-chrome-for-testing:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -45,11 +50,12 @@ jobs:
       - browser-tools/install_chrome_for_testing
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-chrome-for-testing --browser chrome-for-testing"
+          cypress-command: >-
+            npx cypress run --component --browser chrome-for-testing
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group chrome-for-testing" || true)
   run-ct-tests-in-firefox:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -57,11 +63,12 @@ jobs:
       - browser-tools/install_firefox
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-firefox --browser firefox"
+          cypress-command: >-
+            npx cypress run --component --browser firefox
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group firefox" || true)
   run-ct-tests-in-edge:
     executor:
       name: cypress/default
-    parallelism: 2
     steps:
       - run: echo "This step assumes dependencies were installed using the cypress/install job"
       - attach_workspace:
@@ -69,7 +76,9 @@ jobs:
       - browser-tools/install_edge
       - cypress/run-tests:
           working-directory: examples/angular-app
-          cypress-command: "npx cypress run --component --parallel --record --group 2x-edge --browser edge"
+          cypress-command: >-
+            npx cypress run --component --browser edge
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record --group edge" || true)
 
 workflows:
   test_deploy:
@@ -79,13 +88,13 @@ workflows:
           filters: *filters
           name: Standard Npm Example
           working-directory: examples/npm-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package-lock.json" }}
           post-install: "npm run say-hello && npm run say-goodbye"
       - cypress/run:
           filters: *filters
           name: Custom Node Version Example
           working-directory: examples/npm-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package-lock.json" }}
           node-version: "24.15.0"
           post-install: |
             if ! node --version | grep -q "24.15.0"; then
@@ -96,14 +105,14 @@ workflows:
           filters: *filters
           name: Yarn Example
           working-directory: examples/yarn-install
-          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/yarn-install/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/yarn.lock" }}
           post-install: "npx cypress install"
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
           name: Pnpm Example
           working-directory: examples/pnpm-install
-          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/pnpm-install/pnpm-lock.yaml" }}
           post-install: "pnpm cypress install"
           package-manager: "pnpm"
       - cypress/run:
@@ -111,70 +120,91 @@ workflows:
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/custom-install/package-lock.json" }}
       - cypress/run:
           filters: *filters
           name: Wait On Example
           working-directory: examples/wait-on
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/wait-on/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/wait-on/package-lock.json" }}
           start-command: npm start
           # wait-on will wait for the server to be ready before running the tests
           # -v only needed for demonstration purposes
           cypress-command: npx wait-on@latest http://localhost:8080 -v && npx cypress run
+
+      # Records when CYPRESS_RECORD_KEY is available (maintainer branches + master).
+      # Fork PR builds receive no key and run without --record automatically.
       - cypress/run:
           filters: *filters
           name: Angular Application
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
           start-command: "npm run start"
-          cypress-command: "npx wait-on@latest http://localhost:4200 && npx cypress run --record --browser chrome"
+          cypress-command: >-
+            npx wait-on@latest http://localhost:4200 &&
+            npx cypress run --browser chrome
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           install-browsers: true
       - cypress/run:
           filters: *filters
           name: Run CT in Parallel
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record"
-          parallelism: 3
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
       - cypress/run:
           filters: *filters
           name: Verify skip-checkout
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
           skip-checkout: true
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           pre-steps:
             - checkout
       - cypress/run:
           filters: *filters
           name: Verify resource_class config works
+          context: cypress-io-orb-recording
           working-directory: examples/angular-app
-          cypress-cache-key: cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package.json" }}
-          cypress-command: "npx cypress run --component --parallel --record"
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/angular-app/package-lock.json" }}
+          cypress-command: >-
+            npx cypress run --component
+            $([ -n "$CYPRESS_RECORD_KEY" ] && echo "--record" || true)
           resource_class: medium+
+
       - install-and-persist:
           filters: *filters
           name: Install & Persist
       - run-ct-tests-in-chrome:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Chrome
           requires:
             - Install & Persist
       - run-ct-tests-in-chrome-for-testing:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Chrome for Testing
           requires:
             - Install & Persist
       - run-ct-tests-in-firefox:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Firefox
           requires:
             - Install & Persist
       - run-ct-tests-in-edge:
           filters: *filters
+          context: cypress-io-orb-recording
           name: Run CT Tests in Edge
           requires:
             - Install & Persist
+
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:
@@ -208,6 +238,11 @@ workflows:
             - Verify skip-checkout
             - Verify resource_class config works
           context: circleci-orb-publishing
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
       - orb-tools/publish:
           name: publish_prod
           orb_name: cypress-io/cypress
