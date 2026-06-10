@@ -31,6 +31,7 @@ workflows:
       # Triggers the next workflow in the Orb Development Kit.
       # Maintainer branches and tags run immediately (no approval gate).
       - orb-tools/continue:
+          name: orb-tools/continue
           orb_name: cypress
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
@@ -46,6 +47,7 @@ workflows:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
       # Contributor fork PRs — same continuation but gated behind approval.
       - orb-tools/continue:
+          name: orb-tools/continue
           orb_name: cypress
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
