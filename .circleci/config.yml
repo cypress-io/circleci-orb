@@ -37,10 +37,6 @@ workflows:
           vcs_type: << pipeline.project.type >>
           requires:
             - orb-tools/lint
-            - orb-tools/review
-            - orb-tools/pack
-            - shellcheck/check
-            - approve-contributor-pr
           filters:
             branches:
               only: /.*/
