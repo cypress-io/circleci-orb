@@ -30,7 +30,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: /^pull\/[0-9]+/
+              ignore: /^pull\/[0-9]+/
       - orb-tools/continue:
           orb_name: cypress
           pipeline_number: << pipeline.number >>
