@@ -22,32 +22,16 @@ workflows:
           filters: *filters
           exclude: SC2148,SC2038,SC2086,SC2002,SC2016
       # Fork PRs (branch name matches pull/<number>) require manual approval
-      # before the downstream test-deploy pipeline runs.
+      # before the downstream test-deploy pipeline runs. CircleCI treats
+      # filtered-out jobs as auto-passing in requires, so on maintainer
+      # branches approve-contributor-pr never schedules and orb-tools/continue
+      # fires immediately — no impact on the existing maintainer workflow.
       - approve-contributor-pr:
           type: approval
           filters:
             branches:
               only: /^pull\/[0-9]+/
-      # Triggers the next workflow in the Orb Development Kit.
-      # Maintainer branches and tags run immediately (no approval gate).
       - orb-tools/continue:
-          name: orb-tools/continue
-          orb_name: cypress
-          pipeline_number: << pipeline.number >>
-          vcs_type: << pipeline.project.type >>
-          requires:
-            - orb-tools/lint
-            - orb-tools/review
-            - orb-tools/pack
-            - shellcheck/check
-          filters:
-            branches:
-              ignore: /^pull\/[0-9]+/
-            tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-      # Contributor fork PRs — same continuation but gated behind approval.
-      - orb-tools/continue:
-          name: orb-tools/continue
           orb_name: cypress
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
@@ -59,4 +43,6 @@ workflows:
             - approve-contributor-pr
           filters:
             branches:
-              only: /^pull\/[0-9]+/
+              only: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
