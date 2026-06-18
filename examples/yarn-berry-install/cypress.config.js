@@ -4,6 +4,5 @@ module.exports = defineConfig({
   fixturesFolder: false,
   e2e: {
     supportFile: false,
-    video: false
   },
 })
