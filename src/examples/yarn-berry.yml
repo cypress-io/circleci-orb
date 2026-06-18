@@ -1,0 +1,17 @@
+description: >
+  Runs Cypress tests using Yarn Berry (Yarn 2+).
+  Installs dependencies and caches npm modules together with the Cypress binary.
+  The orb runs an explicit `yarn cypress install` so the Cypress binary is
+  downloaded even though Yarn Berry does not run dependency install scripts by
+  default.
+usage:
+  version: 2.1
+  orbs:
+    cypress: cypress-io/cypress@6
+  workflows:
+    use-my-orb:
+      jobs:
+        - cypress/run:
+            package-manager: "yarn-berry"
+            cypress-cache-key: 'v1-cypress-cache-{{ arch }}-{{ checksum "yarn.lock" }}'
+            start-command: "yarn start"

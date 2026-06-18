@@ -4,6 +4,15 @@ orb.yml
 
 node_modules
 
+# Yarn Berry local cache/state artifacts (node-modules linker; not zero-install)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 **/cypress/downloads/
 **/cypress/screenshots/
 **/cypress/videos/

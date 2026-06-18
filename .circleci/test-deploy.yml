@@ -115,6 +115,12 @@ workflows:
           package-manager: "pnpm"
       - cypress/run:
           filters: *filters
+          name: Yarn Berry Example
+          working-directory: examples/yarn-berry-install
+          cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/yarn-berry-install/yarn.lock" }}
+          package-manager: "yarn-berry"
+      - cypress/run:
+          filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
