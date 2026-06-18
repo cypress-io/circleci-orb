@@ -93,6 +93,37 @@ steps:
             name: Post Install Script
             command: << parameters.post-install >>
             working_directory: << parameters.working-directory >>
+  # Explicitly download the Cypress binary. Package managers no longer run a
+  # dependency's `postinstall` script by default (npm 12 via RFC #868, pnpm,
+  # and Yarn Berry >= 4.14), so the binary is not downloaded implicitly during
+  # the package install. Running `cypress install` is a no-op when the binary is
+  # already cached and downloads it when it is not.
+  - when:
+      condition:
+        equal: [ 'npm', << parameters.package-manager >> ]
+      steps:
+        - run:
+            name: Install Cypress binary
+            command: "npx cypress install"
+            working_directory: << parameters.working-directory >>
+  - when:
+      condition:
+        or:
+          - equal: [ 'yarn', << parameters.package-manager >> ]
+          - equal: [ 'yarn-berry', << parameters.package-manager >> ]
+      steps:
+        - run:
+            name: Install Cypress binary
+            command: "yarn cypress install"
+            working_directory: << parameters.working-directory >>
+  - when:
+      condition:
+        equal: [ 'pnpm', << parameters.package-manager >> ]
+      steps:
+        - run:
+            name: Install Cypress binary
+            command: "pnpm cypress install"
+            working_directory: << parameters.working-directory >>
   - run:
       name: Verify Cypress
       command: "npx cypress verify"

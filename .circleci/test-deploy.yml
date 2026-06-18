@@ -106,14 +106,12 @@ workflows:
           name: Yarn Example
           working-directory: examples/yarn-install
           cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/yarn-install/yarn.lock" }}
-          post-install: "npx cypress install"
           package-manager: "yarn"
       - cypress/run:
           filters: *filters
           name: Pnpm Example
           working-directory: examples/pnpm-install
           cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/pnpm-install/pnpm-lock.yaml" }}
-          post-install: "pnpm cypress install"
           package-manager: "pnpm"
       - cypress/run:
           filters: *filters
