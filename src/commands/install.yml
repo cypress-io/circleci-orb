@@ -98,6 +98,9 @@ steps:
   # downloaded implicitly during the package install. Running `cypress install`
   # is essentially a no-op when the binary is already cached and downloads it
   # when it is not.
+  #
+  # Like `cypress verify`, this is invoked via npx for all package managers so
+  # the Cypress binary is resolved consistently.
   - run:
       name: Install Cypress binary
       command: "npx cypress install"
