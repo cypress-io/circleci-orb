@@ -98,32 +98,16 @@ steps:
   # downloaded implicitly during the package install. Running `cypress install`
   # is essentially a no-op when the binary is already cached and downloads it
   # when it is not.
-  - when:
-      condition:
-        equal: [ 'npm', << parameters.package-manager >> ]
-      steps:
-        - run:
-            name: Install Cypress binary
-            command: "npx cypress install"
-            working_directory: << parameters.working-directory >>
-  - when:
-      condition:
-        or:
-          - equal: [ 'yarn', << parameters.package-manager >> ]
-          - equal: [ 'yarn-berry', << parameters.package-manager >> ]
-      steps:
-        - run:
-            name: Install Cypress binary
-            command: "yarn cypress install"
-            working_directory: << parameters.working-directory >>
-  - when:
-      condition:
-        equal: [ 'pnpm', << parameters.package-manager >> ]
-      steps:
-        - run:
-            name: Install Cypress binary
-            command: "pnpm cypress install"
-            working_directory: << parameters.working-directory >>
+  #
+  # Use `npx` regardless of the package manager: it resolves the project's
+  # pinned Cypress from the node_modules tree the same way the verify step
+  # below does. The package-manager-specific equivalents (`pnpm cypress`,
+  # `yarn cypress`) resolve relative to the current package and fail in a
+  # workspace root that doesn't itself declare Cypress as a dependency.
+  - run:
+      name: Install Cypress binary
+      command: "npx cypress install"
+      working_directory: << parameters.working-directory >>
   - run:
       name: Verify Cypress
       command: "npx cypress verify"
