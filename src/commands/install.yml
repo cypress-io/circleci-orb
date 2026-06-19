@@ -98,12 +98,6 @@ steps:
   # downloaded implicitly during the package install. Running `cypress install`
   # is essentially a no-op when the binary is already cached and downloads it
   # when it is not.
-  #
-  # Use `npx` regardless of the package manager: it resolves the project's
-  # pinned Cypress from the node_modules tree the same way the verify step
-  # below does. The package-manager-specific equivalents (`pnpm cypress`,
-  # `yarn cypress`) resolve relative to the current package and fail in a
-  # workspace root that doesn't itself declare Cypress as a dependency.
   - run:
       name: Install Cypress binary
       command: "npx cypress install"
