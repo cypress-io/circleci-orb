@@ -9,5 +9,8 @@
   "private": true,
   "devDependencies": {
     "cypress": "^15.0.0"
+  },
+  "allowScripts": {
+    "cypress": true
   }
 }

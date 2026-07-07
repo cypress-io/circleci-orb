@@ -45,5 +45,14 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "allowScripts": {
+    "@parcel/watcher": true,
+    "@tailwindcss/oxide": true,
+    "cypress": true,
+    "esbuild": true,
+    "lmdb": true,
+    "msgpackr-extract": true,
+    "msw": true
   }
 }
