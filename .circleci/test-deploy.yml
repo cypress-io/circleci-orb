@@ -108,6 +108,19 @@ workflows:
           package-manager: "pnpm"
       - cypress/run:
           filters: *filters
+          name: Custom Pnpm Version Example
+          working-directory: examples/pnpm-install
+          cypress-cache-key: cypress-cache{{ arch }}-{{ checksum "examples/pnpm-install/package.json" }}
+          package-manager: "pnpm"
+          pnpm-version: "11.10.0"
+          post-install: |
+            if ! pnpm --version | grep -q "11.10.0"; then
+                echo "pnpm version 11.10.0 not found"
+                exit 1
+            fi
+            pnpm cypress install
+      - cypress/run:
+          filters: *filters
           name: Custom Install Example
           working-directory: examples/custom-install
           install-command: npm run custom-install
@@ -196,6 +209,7 @@ workflows:
             - Custom Node Version Example
             - Yarn Example
             - Pnpm Example
+            - Custom Pnpm Version Example
             - Custom Install Example
             - Wait On Example
             - Angular Application
@@ -223,6 +237,7 @@ workflows:
             - Custom Node Version Example
             - Yarn Example
             - Pnpm Example
+            - Custom Pnpm Version Example
             - Custom Install Example
             - Wait On Example
             - Angular Application
