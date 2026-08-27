@@ -14,8 +14,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // `cypress/angular` mounts with zoneless change detection, which does not
-  // re-render on plain field mutations made from an async subscribe callback
+  // zoneless change detection does not re-render on plain field mutations made
+  // from an async subscribe callback, so this state has to be signals
   isAuthed = signal(false)
   errorMessage = signal('');
   username = signal('')
