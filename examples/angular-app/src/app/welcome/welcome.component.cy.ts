@@ -1,3 +1,4 @@
+import { createOutputSpy } from 'cypress/angular';
 import { WelcomeComponent } from './welcome.component';
 
 describe('WelcomeComponent', () => {
@@ -12,9 +13,11 @@ describe('WelcomeComponent', () => {
     cy.contains('Welcome Test User');
   });
 
-  it('when the log out button is clicked, onLogout should be called using autoSpyOutputs', () => {
+  it('when the log out button is clicked, onLogout should be called using createOutputSpy', () => {
     cy.mount(WelcomeComponent, {
-      autoSpyOutputs: true,
+      componentProperties: {
+        onLogout: createOutputSpy('onLogoutSpy'),
+      },
     });
     cy.get('button').contains('Log Out').click();
     cy.get('@onLogoutSpy').should('have.been.called');

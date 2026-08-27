@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { createOutputSpy } from 'cypress/angular';
 import { ButtonComponent } from './button.component';
 
 @Component({
@@ -30,9 +31,11 @@ describe('ButtonComponent', () => {
     });
   });
 
-  it('when button is clicked, should call onClick using autoSpyOutputs', () => {
+  it('when button is clicked, should call onClick using createOutputSpy', () => {
     cy.mount(ButtonComponent, {
-      autoSpyOutputs: true,
+      componentProperties: {
+        onClick: createOutputSpy('onClickSpy'),
+      },
     });
     cy.get('button').click();
     cy.get('@onClickSpy').should('have.been.called');
