@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { LoginService } from './login.service';
@@ -14,29 +14,31 @@ import { WelcomeComponent } from './welcome/welcome.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isAuthed = false
-  errorMessage = '';
-  username = ''
+  // zoneless change detection does not re-render on plain field mutations made
+  // from an async subscribe callback, so this state has to be signals
+  isAuthed = signal(false)
+  errorMessage = signal('');
+  username = signal('')
 
   constructor(private readonly loginService: LoginService) {}
 
   handleLogin(username: string, password: string): void {
-    this.errorMessage = '';
+    this.errorMessage.set('');
 
     this.loginService.login(username, password).pipe(
       take(1),
     ).subscribe((response) => {
       if (response.status === 200) {
-        this.isAuthed = true
-        this.username = username
+        this.isAuthed.set(true)
+        this.username.set(username)
       } else {
-        this.errorMessage = response.message
+        this.errorMessage.set(response.message)
       }
     })
   }
 
   logout(): void {
     console.log('logout');
-    this.isAuthed = false;
+    this.isAuthed.set(false);
   }
 }

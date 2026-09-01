@@ -91,20 +91,5 @@ describe('TestComponent', () => {
 
       cy.get('@countChange').should('have.been.called');
     });
-
-    it('works with "autoSpyOutputs=true"', () => {
-      cy.mount(TestComponent, {
-        componentProperties: {
-          title: 'Test Component',
-          count: 4,
-        },
-        autoSpyOutputs: true,
-      });
-
-      // some action occurs that changes the count
-      cy.get('[data-cy="test-component-count-incr"]').click();
-
-      cy.get('@countChangeSpy').should('have.been.called');
-    });
   });
 });

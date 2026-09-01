@@ -1,4 +1,4 @@
 <div class="lg:container lg mx-auto m-10">
-  <app-welcome *ngIf="isAuthed" [username]="username" (onLogout)="logout()"></app-welcome>
-  <app-login-form *ngIf="!isAuthed" (onLogin)="handleLogin($event.username, $event.password)" [errorMessage]="errorMessage"></app-login-form>
+  <app-welcome *ngIf="isAuthed()" [username]="username()" (onLogout)="logout()"></app-welcome>
+  <app-login-form *ngIf="!isAuthed()" (onLogin)="handleLogin($event.username, $event.password)" [errorMessage]="errorMessage()"></app-login-form>
 </div>
