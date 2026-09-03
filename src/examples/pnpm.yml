@@ -10,5 +10,7 @@ usage:
       jobs:
         - cypress/run:
             package-manager: "pnpm"
+            # Optionally pin the pnpm version to install (defaults to latest stable)
+            pnpm-version: "11.10.0"
             start-command: "pnpm start"
             install-command: "pnpm install --frozen-lockfile"
