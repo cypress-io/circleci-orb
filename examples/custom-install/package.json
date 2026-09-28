@@ -9,7 +9,7 @@
   "author": "",
   "private": true,
   "devDependencies": {
-    "cypress": "^15.0.0"
+    "cypress": "^16.1.0"
   },
   "allowScripts": {
     "cypress": true
