@@ -97,10 +97,10 @@ workflows:
           working-directory: examples/npm-install
           install-browsers: true
           cypress-cache-key: v1-cypress-cache-{{ arch }}-{{ checksum "examples/npm-install/package-lock.json" }}
-          node-version: "24.15.0"
+          node-version: "26.13.0"
           post-install: |
-            if ! node --version | grep -q "24.15.0"; then
-                echo "Node.js version 24.15.0 not found"
+            if ! node --version | grep -q "26.13.0"; then
+                echo "Node.js version 26.13.0 not found"
                 exit 1
             fi
       - cypress/run:
