@@ -71,9 +71,10 @@ parameters:
   max-auto-reruns:
     description: >
       Number of additional times CircleCI should automatically rerun the
-      Cypress run step if it fails. 0 (default) disables auto-rerun.
-      Useful for known-flaky test suites where you want CircleCI's
-      native step-level retry rather than rerunning the whole workflow.
+      Cypress run step if it fails. Must be between 0 and 5. 0 (default)
+      disables auto-rerun. Useful for known-flaky test suites where you
+      want CircleCI's native step-level retry rather than rerunning the
+      whole workflow.
       See https://circleci.com/docs/guides/orchestrate/automatic-reruns/
     type: integer
     default: 0
