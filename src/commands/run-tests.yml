@@ -17,7 +17,8 @@ parameters:
   max-auto-reruns:
     description: >
       Number of additional times CircleCI should automatically rerun the
-      Cypress run step if it fails. 0 (default) disables auto-rerun. Useful
+      Cypress run step if it fails. Accepts 0 to 5; 0 (default) disables
+      auto-rerun. Values above 5 are not supported by CircleCI. Useful
       for known-flaky test suites where you want CircleCI's native
       step-level retry rather than rerunning the whole workflow. See
       https://circleci.com/docs/guides/orchestrate/automatic-reruns/
@@ -39,15 +40,14 @@ steps:
             command: << parameters.start-command >>
             background: true
             working_directory: << parameters.working-directory >>
-  # Two variants of the Run Cypress step. Only one runs per job.
-  # The `max_auto_reruns` field is omitted entirely when max-auto-reruns
-  # is 0 (the default) because the orb validator rejects
-  # `max_auto_reruns: 0` with "0 is not greater or equal to 1" — the
-  # field's value-schema requires >= 1, so the field can't be present
-  # unless retry is wanted. (The Mustache section-conditional syntax
-  # `<<#parameters.X>>...<</parameters.X>>` doesn't work here because
-  # the orb packer's parser can't handle a parameter substitution inside
-  # a section block of the same parameter.)
+  # Run Cypress step variants. Exactly one runs per job.
+  # `max_auto_reruns` only accepts an integer from 1 to 5, and CircleCI's
+  # config validator checks every when/unless branch, including branches
+  # whose condition is false. Substituting `<< parameters.max-auto-reruns >>`
+  # into the field would put the default `0` into the unused branch and
+  # fail validation ("max_auto_reruns must be an integer between 1 and 5").
+  # So each allowed value gets its own branch with a literal number, and
+  # the field is omitted entirely when max-auto-reruns is 0 (the default).
   - unless:
       condition: << parameters.max-auto-reruns >>
       steps:
@@ -56,13 +56,50 @@ steps:
             command: << parameters.cypress-command >>
             working_directory: << parameters.working-directory >>
   - when:
-      condition: << parameters.max-auto-reruns >>
+      condition:
+        equal: [ 1, << parameters.max-auto-reruns >> ]
       steps:
         - run:
             name: Run Cypress
             command: << parameters.cypress-command >>
             working_directory: << parameters.working-directory >>
-            max_auto_reruns: << parameters.max-auto-reruns >>
+            max_auto_reruns: 1
+  - when:
+      condition:
+        equal: [ 2, << parameters.max-auto-reruns >> ]
+      steps:
+        - run:
+            name: Run Cypress
+            command: << parameters.cypress-command >>
+            working_directory: << parameters.working-directory >>
+            max_auto_reruns: 2
+  - when:
+      condition:
+        equal: [ 3, << parameters.max-auto-reruns >> ]
+      steps:
+        - run:
+            name: Run Cypress
+            command: << parameters.cypress-command >>
+            working_directory: << parameters.working-directory >>
+            max_auto_reruns: 3
+  - when:
+      condition:
+        equal: [ 4, << parameters.max-auto-reruns >> ]
+      steps:
+        - run:
+            name: Run Cypress
+            command: << parameters.cypress-command >>
+            working_directory: << parameters.working-directory >>
+            max_auto_reruns: 4
+  - when:
+      condition:
+        equal: [ 5, << parameters.max-auto-reruns >> ]
+      steps:
+        - run:
+            name: Run Cypress
+            command: << parameters.cypress-command >>
+            working_directory: << parameters.working-directory >>
+            max_auto_reruns: 5
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:
