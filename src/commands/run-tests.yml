@@ -112,9 +112,7 @@ steps:
       steps:
         - run:
             name: Validate max-auto-reruns
-            command: |
-              echo "max-auto-reruns must be an integer between 0 and 5, got: << parameters.max-auto-reruns >>"
-              exit 1
+            command: echo "max-auto-reruns must be between 0 and 5"; exit 1
   - store_artifacts:
       path: << parameters.working-directory >>/cypress/videos
   - store_artifacts:
