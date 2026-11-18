@@ -53,6 +53,12 @@ parameters:
     enum: ["npm", "yarn", "yarn-berry", "pnpm"]
     default: "npm"
     description: Select the default node package manager to use. npm v5+ Required.
+  pnpm-version:
+    type: string
+    default: ""
+    description: |
+      Pick a specific version of pnpm to install (if no version is specified, the latest stable version will be installed): https://github.com/pnpm/pnpm/releases
+      Only used when `package-manager` is set to `pnpm`. Pinning a version is recommended when installs go through a registry proxy or firewall that may not resolve the latest release.
   skip-checkout:
     type: boolean
     default: false
@@ -80,6 +86,7 @@ steps:
       steps:
         - node/install:
             install-pnpm: true
+            pnpm-version: << parameters.pnpm-version >>
   - node/install-packages:
       override-ci-command: << parameters.install-command >>
       app-dir: << parameters.working-directory >>
